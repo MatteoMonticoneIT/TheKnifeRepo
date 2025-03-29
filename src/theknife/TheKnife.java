@@ -1,10 +1,10 @@
 package theknife;
 
 /**
- * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
+ * @author Matteo Monticone     761701 (CO)sf
+ * @author Damiano De Mutiis    ------ (CO)dvs
  * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       ------ (CO)vds
  */
 
 public class TheKnife extends javax.swing.JFrame {
