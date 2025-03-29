@@ -4,9 +4,9 @@ import java.util.Date;
 
 /**
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)f
+ * @author Damiano De Mutiis    ------ (CO)
  * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)f
+ * @author Mattia Tamburo       ------ (CO)
  */
 
 public class User {
