@@ -1,6 +1,7 @@
-package theknife.obj;
+package theknife.obj.lists;
 
-import java.util.ArrayList;
+import java.util.List;
+import theknife.obj.restaurant.Restaurant;
 
 /**
  * @author Matteo Monticone     761701 (CO)
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  */
 
 public class ListRestaurant {
-    private ArrayList<Restaurant> list;
+    private List<Restaurant> list;
 
     public ListRestaurant() {
     }
