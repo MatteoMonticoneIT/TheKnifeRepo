@@ -1,5 +1,7 @@
 package theknife.obj.restaurant;
 
+import theknife.obj.lists.ListReview;
+
 /**
  * @author Matteo Monticone     761701 (CO)
  * @author Damiano De Mutiis    ------ (CO)
@@ -17,6 +19,7 @@ public class Restaurant extends Location {
     private boolean greenStar;
     private String servicesAvailable;
     private String description;
+    private ListReview listReview;
 
     public Restaurant() {
     }
@@ -105,6 +108,14 @@ public class Restaurant extends Location {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ListReview getListReview() {
+        return listReview;
+    }
+
+    public void setListReview(ListReview listReview) {
+        this.listReview = listReview;
     }
     
 }
