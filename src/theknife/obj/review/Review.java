@@ -1,5 +1,7 @@
 package theknife.obj.review;
 
+import theknife.obj.lists.ListResponse;
+
 /**
  * @author Matteo Monticone     761701 (CO)
  * @author Damiano De Mutiis    ------ (CO)
@@ -10,7 +12,7 @@ package theknife.obj.review;
 public class Review {
     private String content;
     private int grade;
-    private Response response;
+    private ListResponse listResponse;
 
     public Review() {
     }
@@ -36,11 +38,12 @@ public class Review {
         this.grade = grade;
     }
 
-    public Response getResponse() {
-        return response;
+    public ListResponse getListResponse() {
+        return listResponse;
     }
 
-    public void setResponse(Response response) {
-        this.response = response;
+    public void setListResponse(ListResponse listResponse) {
+        this.listResponse = listResponse;
     }
+    
 }
