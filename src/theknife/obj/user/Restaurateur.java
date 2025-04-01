@@ -1,6 +1,6 @@
 package theknife.obj.user;
 
-import java.util.Date;
+import java.time.LocalDate;
 import theknife.obj.lists.ListRestaurant;
 
 /**
@@ -16,8 +16,9 @@ public class Restaurateur extends User {
     public Restaurateur() {
     }
 
-    public Restaurateur(ListRestaurant listRestaurant, String name, String surname, String username, String password, Date birthday, String domicile, String role) {
-        super(name, surname, username, password, birthday, domicile, role);
+    public Restaurateur(ListRestaurant listRestaurant, String name, String surname, String username, String password, LocalDate birthday, String domicile) {
+        super(name, surname, username, password, birthday, domicile);
+        this.setRole("restaurateur");
         setListRestaurant(listRestaurant);
     }
 

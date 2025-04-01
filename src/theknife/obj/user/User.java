@@ -1,6 +1,6 @@
 package theknife.obj.user;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * @author Matteo Monticone     761701 (CO)
@@ -14,21 +14,20 @@ public class User {
     private String surname;
     private String username;
     private String password;
-    private Date birthday;
+    private LocalDate birthday;
     private String domicile;
     private String role;
 
     public User() {
     }
 
-    public User(String name, String surname, String username, String password, Date birthday, String domicile, String role) {
-        setName(name);
-        setSurname(surname);
-        setUsername(username);
-        setPassword(password);
-        setBirthday(birthday);
-        setDomicile(domicile);
-        setRole(role);
+    public User(String name, String surname, String username, String password, LocalDate birthday, String domicile) {
+        this.name = name;
+        this.surname = surname;
+        this.username = username;
+        this.password = password;
+        this.birthday = birthday;
+        this.domicile = domicile;
     }
 
     public String getName() {
@@ -63,11 +62,11 @@ public class User {
         this.password = password;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 

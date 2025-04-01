@@ -10,6 +10,7 @@ package theknife.obj.review;
 public class Review {
     private String content;
     private int grade;
+    private Response response;
 
     public Review() {
     }
@@ -33,5 +34,13 @@ public class Review {
 
     public void setGrade(int grade) {
         this.grade = grade;
+    }
+
+    public Response getResponse() {
+        return response;
+    }
+
+    public void setResponse(Response response) {
+        this.response = response;
     }
 }

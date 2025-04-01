@@ -1,5 +1,10 @@
 package theknife;
 
+import java.time.LocalDate;
+import java.util.Date;
+import theknife.obj.lists.ListRestaurant;
+import theknife.obj.user.Restaurateur;
+
 /**
  * @author Matteo Monticone     761701 (CO)
  * @author Damiano De Mutiis    ------ (CO)
@@ -73,7 +78,6 @@ public class TheKnife extends javax.swing.JFrame {
             }
         });
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
