@@ -2,7 +2,7 @@ package theknife.obj.lists;
 
 import java.util.LinkedList;
 import java.util.List;
-import theknife.obj.restaurant.Restaurant;
+import theknife.obj.user.Client;
 
 /**
  * @author Matteo Monticone     761701 (CO)
@@ -11,18 +11,18 @@ import theknife.obj.restaurant.Restaurant;
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public class ListFavorite {
-    private List<Restaurant> list;
+public class ListClient {
+    private List<Client> list;
 
-    public ListFavorite() {
+    public ListClient() {
         this.setList(new LinkedList<>());
     }
 
-    public List<Restaurant> getList() {
+    public List<Client> getList() {
         return list;
     }
 
-    public void setList(List<Restaurant> list) {
+    public void setList(List<Client> list) {
         this.list = list;
     }
     

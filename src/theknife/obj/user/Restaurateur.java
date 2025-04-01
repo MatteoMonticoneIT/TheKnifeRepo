@@ -13,6 +13,9 @@ import theknife.obj.lists.ListRestaurant;
 public class Restaurateur extends User {
     private ListRestaurant listRestaurant;
 
+    public Restaurateur() {
+    }
+
     public Restaurateur(ListRestaurant listRestaurant, String name, String surname, String username, String password, Date birthday, String domicile, String role) {
         super(name, surname, username, password, birthday, domicile, role);
         setListRestaurant(listRestaurant);

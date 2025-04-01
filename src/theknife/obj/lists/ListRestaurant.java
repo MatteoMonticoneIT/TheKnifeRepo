@@ -1,5 +1,6 @@
 package theknife.obj.lists;
 
+import java.util.ArrayList;
 import java.util.List;
 import theknife.obj.restaurant.Restaurant;
 
@@ -14,6 +15,15 @@ public class ListRestaurant {
     private List<Restaurant> list;
 
     public ListRestaurant() {
+        this.setList(new ArrayList<>());
+    }
+
+    public List<Restaurant> getList() {
+        return list;
+    }
+
+    public void setList(List<Restaurant> list) {
+        this.list = list;
     }
     
     
