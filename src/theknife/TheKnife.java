@@ -1,7 +1,12 @@
 package theknife;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.time.LocalDate;
 import java.util.Date;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.user.Restaurateur;
 
@@ -16,6 +21,28 @@ public class TheKnife extends javax.swing.JFrame {
 
     public TheKnife() {
         initComponents();
+        initMainPanel();
+    }
+    
+    private void initMainPanel() {
+        pnl_main.setLayout(new BorderLayout());
+        pnl_upperBar.setLayout(new BorderLayout());
+        pnl_upperBar.setPreferredSize(new Dimension(this.getWidth(), 60));
+        JPanel pnl1 = new JPanel();
+        JPanel pnl2 = new JPanel();
+        JPanel pnl3 = new JPanel();
+        JPanel pnl4 = new JPanel();
+        pnl2.setPreferredSize(new Dimension(100, pnl_upperBar.getHeight()));
+        pnl4.setPreferredSize(new Dimension(100, pnl_upperBar.getHeight()));
+        pnl1.setBackground(Color.BLUE);
+        pnl2.setBackground(Color.ORANGE);
+        pnl3.setBackground(Color.RED);
+        pnl4.setBackground(Color.CYAN);
+        pnl_upperBar.add(pnl2, BorderLayout.WEST);
+        pnl_upperBar.add(pnl3, BorderLayout.CENTER);
+        pnl_upperBar.add(pnl4, BorderLayout.EAST);
+        pnl_main.add(pnl_upperBar, BorderLayout.NORTH);
+        pnl_main.add(pnl1, BorderLayout.CENTER);
     }
     
     /**
@@ -27,17 +54,44 @@ public class TheKnife extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnl_main = new javax.swing.JPanel();
+        pnl_upperBar = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout pnl_upperBarLayout = new javax.swing.GroupLayout(pnl_upperBar);
+        pnl_upperBar.setLayout(pnl_upperBarLayout);
+        pnl_upperBarLayout.setHorizontalGroup(
+            pnl_upperBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 854, Short.MAX_VALUE)
+        );
+        pnl_upperBarLayout.setVerticalGroup(
+            pnl_upperBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout pnl_mainLayout = new javax.swing.GroupLayout(pnl_main);
+        pnl_main.setLayout(pnl_mainLayout);
+        pnl_mainLayout.setHorizontalGroup(
+            pnl_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnl_upperBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnl_mainLayout.setVerticalGroup(
+            pnl_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_mainLayout.createSequentialGroup()
+                .addComponent(pnl_upperBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 420, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(pnl_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(pnl_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -80,5 +134,7 @@ public class TheKnife extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel pnl_main;
+    private javax.swing.JPanel pnl_upperBar;
     // End of variables declaration//GEN-END:variables
 }
