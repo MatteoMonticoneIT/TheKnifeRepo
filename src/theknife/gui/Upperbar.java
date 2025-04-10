@@ -4,8 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 /**
  * @author Matteo Monticone     761701 (CO)
@@ -24,32 +28,67 @@ public class Upperbar extends javax.swing.JPanel {
         initGUI();
     }
     
+    //<editor-fold defaultstate="collapsed" desc="Initialization">
+    
+    /**
+     * Initializes the Grafic User Interface (GUI)
+     */
     private void initGUI() {
         initFields();
         initUpperbar();
+        initEvents();
     }
     
+    /**
+     * Initializes all fields
+     */
     private void initFields() {
-        pnls_upperbar = new JPanel[3]; //0 = west; 1 = center; 2 = east;
         this.setLayout(new BorderLayout());
-        txt_searchbar = new JTextField();
-    }
-    
-    private void initUpperbar() {
+        pnls_upperbar      = new JPanel[3]; //0 = west; 1 = center; 2 = east;
+        pnl_searchbar      = new JPanel(new BorderLayout());
+        txt_searchbar      = new JTextField();
+        btn_advancedSearch = new JLabel();
+        btn_advancedSearch.setPreferredSize(new Dimension(ADVANCED_SEARCH_WIDTH, pnl_searchbar.getPreferredSize().height));
         for (int i = 0; i < pnls_upperbar.length; i++) {
             pnls_upperbar[i] = new JPanel(new BorderLayout());
             pnls_upperbar[i].setPreferredSize(new Dimension(SIDEBUTTONS_WIDTH, this.getPreferredSize().height));
+            pnls_upperbar[i].setBackground   (Color.GREEN);
+            pnls_upperbar[i].setBorder       (new LineBorder(Color.BLACK, 10));
         }
-        pnls_upperbar[0].setBackground(Color.BLUE);
-        pnls_upperbar[1].setBackground(Color.CYAN);
-        pnls_upperbar[1].setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
-        pnls_upperbar[1].add(txt_searchbar, BorderLayout.CENTER);
-        pnls_upperbar[2].setBackground(Color.GRAY);
+    }
+    
+    /**
+     * Initializes the upperbar GUI
+     */
+    private void initUpperbar() {
+        txt_searchbar.setBorder(null);
+        btn_advancedSearch.setBorder(null);
+        btn_advancedSearch.setForeground(Color.ORANGE);
+        btn_advancedSearch.setOpaque(true);
+        JLayer<JComponent> txt_searchbarRounded          = new JLayer<>(txt_searchbar,          new RoundedComponentUI(ARC));
+        JLayer<JComponent> btn_advancedSearchRounded = new JLayer<>(btn_advancedSearch, new RoundedComponentUI(ARC));
+        pnls_upperbar[1].setBorder(BorderFactory.createEmptyBorder(PADDING_UPPERBAR[0], PADDING_UPPERBAR[1], PADDING_UPPERBAR[0], PADDING_UPPERBAR[1]));
+        pnl_searchbar.setBackground(pnls_upperbar[0].getBackground());
+        pnl_searchbar   .add(txt_searchbarRounded,      BorderLayout.CENTER);
+        pnl_searchbar   .add(btn_advancedSearchRounded, BorderLayout.EAST);
+        pnls_upperbar[1].add(pnl_searchbar);
         this.add(pnls_upperbar[0], BorderLayout.WEST);
         this.add(pnls_upperbar[1], BorderLayout.CENTER);
         this.add(pnls_upperbar[2], BorderLayout.EAST);
     }
     
+    private void initEvents() {
+        btn_advancedSearch.addMouseListener(new java.awt.event.MouseAdapter(){
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_advancedSearch_MouseClicked(evt);
+            }
+        });
+    }
+    //</editor-fold>
+    private void btn_advancedSearch_MouseClicked(java.awt.event.MouseEvent evt) {
+        System.out.println("click");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,8 +99,8 @@ public class Upperbar extends javax.swing.JPanel {
     private void initComponents() {
 
         setBackground(new java.awt.Color(0, 255, 51));
-        setMinimumSize(new java.awt.Dimension(854, 80));
-        setPreferredSize(new java.awt.Dimension(854, 80));
+        setMinimumSize(new java.awt.Dimension(854, 100));
+        setPreferredSize(new java.awt.Dimension(854, 100));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -75,11 +114,16 @@ public class Upperbar extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private final int SIDEBUTTONS_WIDTH = 100;
+    private final int   SIDEBUTTONS_WIDTH     = 100;
+    private final int[] PADDING_UPPERBAR      = {20, 50}; //0 = height; 1 = width
+    private final int   ADVANCED_SEARCH_WIDTH = 60;
+    private final int   ARC                   = 50;
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
-    private JPanel[] pnls_upperbar;
+    private JPanel[]   pnls_upperbar;
+    private JPanel     pnl_searchbar;
     private JTextField txt_searchbar;
+    private JLabel     btn_advancedSearch;
     //</editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

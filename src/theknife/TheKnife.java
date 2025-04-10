@@ -23,9 +23,9 @@ public class TheKnife extends javax.swing.JFrame {
     private void initMainPanel() {
         this.setLayout(new BorderLayout());
         Container c = this.getContentPane();
-        JPanel pnl = new JPanel();
+        JPanel pnl  = new JPanel();
         pnl.setBackground(Color.RED);
-        c.add(pnl, BorderLayout.CENTER);
+        c.add(pnl,            BorderLayout.CENTER);
         c.add(new Upperbar(), BorderLayout.NORTH);
     }
     
@@ -73,17 +73,11 @@ public class TheKnife extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TheKnife.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TheKnife.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TheKnife.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TheKnife.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | javax.swing.UnsupportedLookAndFeelException e) {
+            java.util.logging.Logger.getLogger(TheKnife.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
