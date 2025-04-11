@@ -3,6 +3,7 @@ package theknife.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -22,10 +23,12 @@ public class Upperbar extends javax.swing.JPanel {
 
     /**
      * Creates new form Upperbar
+     * @param main
      */
-    public Upperbar() {
+    public Upperbar(PanelMain main) {
         initComponents();
         initGUI();
+        pnl_main = main;
     }
     
     //<editor-fold defaultstate="collapsed" desc="Initialization">
@@ -35,7 +38,7 @@ public class Upperbar extends javax.swing.JPanel {
      */
     private void initGUI() {
         initFields();
-        initUpperbar();
+        initUpperbarGUI();
         initEvents();
     }
     
@@ -48,10 +51,13 @@ public class Upperbar extends javax.swing.JPanel {
         pnl_searchbar      = new JPanel(new BorderLayout());
         txt_searchbar      = new JTextField();
         btn_advancedSearch = new JLabel();
-        btn_advancedSearch.setPreferredSize(new Dimension(ADVANCED_SEARCH_WIDTH, pnl_searchbar.getPreferredSize().height));
+        btn_login          = new JLabel("Accedi");
+        btn_advancedSearch.setPreferredSize(new Dimension(WIDTH_ADVANCED_SEARCH, pnl_searchbar.getPreferredSize().height));
+        btn_login.setHorizontalAlignment(JLabel.CENTER);
+        btn_login.setVerticalAlignment  (JLabel.CENTER);
         for (int i = 0; i < pnls_upperbar.length; i++) {
             pnls_upperbar[i] = new JPanel(new BorderLayout());
-            pnls_upperbar[i].setPreferredSize(new Dimension(SIDEBUTTONS_WIDTH, this.getPreferredSize().height));
+            pnls_upperbar[i].setPreferredSize(new Dimension(WIDTH_SIDEBUTTONS, this.getPreferredSize().height));
             pnls_upperbar[i].setBackground   (Color.GREEN);
             pnls_upperbar[i].setBorder       (new LineBorder(Color.BLACK, 10));
         }
@@ -60,18 +66,22 @@ public class Upperbar extends javax.swing.JPanel {
     /**
      * Initializes the upperbar GUI
      */
-    private void initUpperbar() {
-        txt_searchbar.setBorder(null);
+    private void initUpperbarGUI() {
+        txt_searchbar.setBorder(BorderFactory.createEmptyBorder(0, PADDING_SEARCHBAR, 0, PADDING_SEARCHBAR));
+        txt_searchbar.setFont(new Font("Consolas", Font.PLAIN, 32));
         btn_advancedSearch.setBorder(null);
-        btn_advancedSearch.setForeground(Color.ORANGE);
         btn_advancedSearch.setOpaque(true);
-        JLayer<JComponent> txt_searchbarRounded          = new JLayer<>(txt_searchbar,          new RoundedComponentUI(ARC));
+        btn_login.setBorder(null);
+        btn_login.setOpaque(true);
+        JLayer<JComponent> txt_searchbarRounded      = new JLayer<>(txt_searchbar,      new RoundedComponentUI(ARC));
         JLayer<JComponent> btn_advancedSearchRounded = new JLayer<>(btn_advancedSearch, new RoundedComponentUI(ARC));
+        JLayer<JComponent> pnl_searchbarRounded      = new JLayer<>(pnl_searchbar,      new RoundedComponentUI(ARC));
         pnls_upperbar[1].setBorder(BorderFactory.createEmptyBorder(PADDING_UPPERBAR[0], PADDING_UPPERBAR[1], PADDING_UPPERBAR[0], PADDING_UPPERBAR[1]));
-        pnl_searchbar.setBackground(pnls_upperbar[0].getBackground());
+        pnl_searchbar.setBackground(Color.WHITE);
         pnl_searchbar   .add(txt_searchbarRounded,      BorderLayout.CENTER);
         pnl_searchbar   .add(btn_advancedSearchRounded, BorderLayout.EAST);
-        pnls_upperbar[1].add(pnl_searchbar);
+        pnls_upperbar[1].add(pnl_searchbarRounded);
+        pnls_upperbar[2].add(btn_login);
         this.add(pnls_upperbar[0], BorderLayout.WEST);
         this.add(pnls_upperbar[1], BorderLayout.CENTER);
         this.add(pnls_upperbar[2], BorderLayout.EAST);
@@ -84,10 +94,33 @@ public class Upperbar extends javax.swing.JPanel {
                 btn_advancedSearch_MouseClicked(evt);
             }
         });
+        
+        btn_login.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_login_MouseClicked(evt);
+            }
+        });
+        
+        txt_searchbar.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_searchbar_KeyTyped(evt);
+            }
+        });
     }
     //</editor-fold>
     private void btn_advancedSearch_MouseClicked(java.awt.event.MouseEvent evt) {
         System.out.println("click");
+    }
+    
+    private void btn_login_MouseClicked(java.awt.event.MouseEvent evt) {
+        pnl_main.showCard("login");
+    }
+    
+    private void txt_searchbar_KeyTyped(java.awt.event.KeyEvent evt) {
+        if (txt_searchbar.getText().length() >= MAX_SEARCHBAR_LENGTH)
+            evt.consume();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -114,16 +147,20 @@ public class Upperbar extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private final int   SIDEBUTTONS_WIDTH     = 100;
+    private final int   WIDTH_SIDEBUTTONS     = 100;
+    private final int   WIDTH_ADVANCED_SEARCH = 60;
     private final int[] PADDING_UPPERBAR      = {20, 50}; //0 = height; 1 = width
-    private final int   ADVANCED_SEARCH_WIDTH = 60;
+    private final int   PADDING_SEARCHBAR     = 15;
     private final int   ARC                   = 50;
+    private final int   MAX_SEARCHBAR_LENGTH  = 64;
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    private PanelMain  pnl_main;
     private JPanel[]   pnls_upperbar;
     private JPanel     pnl_searchbar;
     private JTextField txt_searchbar;
     private JLabel     btn_advancedSearch;
+    private JLabel     btn_login;
     //</editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

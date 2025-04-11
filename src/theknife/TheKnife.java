@@ -1,9 +1,11 @@
 package theknife;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Container;
 import javax.swing.JPanel;
+import theknife.gui.Login;
+import theknife.gui.PanelMain;
 import theknife.gui.Upperbar;
 
 /**
@@ -17,16 +19,28 @@ public class TheKnife extends javax.swing.JFrame {
 
     public TheKnife() {
         initComponents();
-        initMainPanel();
+        initGUI();
     }
     
-    private void initMainPanel() {
-        this.setLayout(new BorderLayout());
-        Container c = this.getContentPane();
-        JPanel pnl  = new JPanel();
-        pnl.setBackground(Color.RED);
-        c.add(pnl,            BorderLayout.CENTER);
-        c.add(new Upperbar(), BorderLayout.NORTH);
+    private void initGUI() {
+        pnl_main = new PanelMain(pnl_card, cardLayout);
+        
+        //Home page
+        JPanel home = new JPanel(new BorderLayout());
+        home.add(new Upperbar(pnl_main), BorderLayout.NORTH);
+        JPanel center = new JPanel();
+        center.setBackground(Color.RED);
+        home.add(center, BorderLayout.CENTER);
+        
+        //Login page
+        JPanel login = new JPanel(new BorderLayout());
+        login.add(new Login(pnl_main), BorderLayout.CENTER);
+        
+        pnl_main.getPanel().add(home,  "home");
+        pnl_main.getPanel().add(login, "login");
+        
+        this.setContentPane(pnl_main.getPanel());
+        pnl_main.showCard("home");
     }
     
     /**
@@ -85,6 +99,10 @@ public class TheKnife extends javax.swing.JFrame {
             }
         });
     }
+    
+    private PanelMain  pnl_main;
+    private JPanel     pnl_card;
+    private CardLayout cardLayout;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
