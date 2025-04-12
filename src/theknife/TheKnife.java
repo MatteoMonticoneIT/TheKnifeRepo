@@ -1,47 +1,63 @@
 package theknife;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
 import javax.swing.JPanel;
+import theknife.gui.Home;
 import theknife.gui.Login;
+import theknife.gui.Page;
 import theknife.gui.PanelMain;
-import theknife.gui.Upperbar;
 
 /**
+ * The main frame of the application "The Knife". This class represents the main window
+ * of the application, containing the layout and navigation structure.
+ * It handles the initialization and switching between different panels.
+ * 
  * @author Matteo Monticone     761701 (CO)
  * @author Damiano De Mutiis    ------ (CO)
  * @author Matteo Porto Bonacci ------ (CO)
  * @author Mattia Tamburo       ------ (CO)
  */
-
 public class TheKnife extends javax.swing.JFrame {
 
+    //<editor-fold defaultstate="collapsed" desc="Initialization">
+    /**
+     * Creates a new instance of {@code TheKnife} frame and initializes its components.
+     * The constructor sets up the GUI, including the main panel and the home and login pages.
+     */
     public TheKnife() {
         initComponents();
         initGUI();
     }
     
+    /**
+     * Initializes the Graphic User Interface (GUI) of TheKnife application.
+     * This method creates the main panel, home page, and login page, and adds them to the main panel.
+     * It also sets up the content pane and displays the home page initially.
+     */
     private void initGUI() {
-        pnl_main = new PanelMain(pnl_card, cardLayout);
-        
-        //Home page
-        JPanel home = new JPanel(new BorderLayout());
-        home.add(new Upperbar(pnl_main), BorderLayout.NORTH);
-        JPanel center = new JPanel();
-        center.setBackground(Color.RED);
-        home.add(center, BorderLayout.CENTER);
-        
-        //Login page
-        JPanel login = new JPanel(new BorderLayout());
-        login.add(new Login(pnl_main), BorderLayout.CENTER);
-        
-        pnl_main.getPanel().add(home,  "home");
-        pnl_main.getPanel().add(login, "login");
+        initFields();
+        initTheKnife();
+    }
+    
+    /**
+     * Initializes all the fields in the knife.
+     */
+    private void initFields() {
+        pnl_main   = new PanelMain();
+        home       = new Home (pnl_main);
+        login      = new Login(pnl_main);
+    }
+    
+    /**
+     * Initializes the layout and appearance of the main page.
+     */
+    private void initTheKnife() {        
+        pnl_main.getPanel().add(home,  Page.HOME);
+        pnl_main.getPanel().add(login, Page.LOGIN);
         
         this.setContentPane(pnl_main.getPanel());
         pnl_main.showCard("home");
     }
+    //</editor-fold>
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,10 +116,11 @@ public class TheKnife extends javax.swing.JFrame {
         });
     }
     
+    //<editor-fold defaultstate="collapsed" desc="Components">
     private PanelMain  pnl_main;
-    private JPanel     pnl_card;
-    private CardLayout cardLayout;
-    
+    private JPanel     home;
+    private JPanel     login;
+    //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
