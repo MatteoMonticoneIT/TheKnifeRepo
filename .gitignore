@@ -8,3 +8,5 @@ nbproject/private/
 data/*.bin
 data/*.json
 data/*.ser
+data/*.txt
+data/*.jks
