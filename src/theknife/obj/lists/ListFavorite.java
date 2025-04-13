@@ -11,18 +11,18 @@ import theknife.obj.restaurant.Restaurant;
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public class ListFavorite {
+public final class ListFavorite {
     private List<Restaurant> list;
 
     public ListFavorite() {
         this.setList(new LinkedList<>());
     }
 
-    public List<Restaurant> getList() {
+    public final List<Restaurant> getList() {
         return list;
     }
 
-    public void setList(List<Restaurant> list) {
+    public final void setList(List<Restaurant> list) {
         this.list = list;
     }
     

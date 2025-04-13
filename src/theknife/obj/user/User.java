@@ -10,8 +10,8 @@ import java.time.LocalDate;
  */
 
 public class User {
-    private String name;
-    private String surname;
+    private String firstName;
+    private String lastName;
     private String username;
     private String password;
     private LocalDate birthday;
@@ -21,36 +21,36 @@ public class User {
     public User() {
     }
 
-    public User(String name, String surname, String username, String password, LocalDate birthday, String domicile) {
-        this.name = name;
-        this.surname = surname;
-        this.username = username;
-        this.password = password;
-        this.birthday = birthday;
-        this.domicile = domicile;
+    public User(String firstName, String lastName, String username, String password, LocalDate birthday, String domicile) {
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setBirthday(birthday);
+        this.setDomicile(domicile);
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public final void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public final void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public final void setUsername(String username) {
         this.username = username;
     }
 
@@ -58,7 +58,7 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
+    public final void setPassword(String password) {
         this.password = password;
     }
 
@@ -66,7 +66,7 @@ public class User {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public final void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
@@ -74,7 +74,7 @@ public class User {
         return domicile;
     }
 
-    public void setDomicile(String domicile) {
+    public final void setDomicile(String domicile) {
         this.domicile = domicile;
     }
 

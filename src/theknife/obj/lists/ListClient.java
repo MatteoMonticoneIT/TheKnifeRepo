@@ -11,18 +11,18 @@ import theknife.obj.user.Client;
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public class ListClient {
+public final class ListClient {
     private List<Client> list;
 
     public ListClient() {
         this.setList(new LinkedList<>());
     }
 
-    public List<Client> getList() {
+    public final List<Client> getList() {
         return list;
     }
 
-    public void setList(List<Client> list) {
+    public final void setList(List<Client> list) {
         this.list = list;
     }
     

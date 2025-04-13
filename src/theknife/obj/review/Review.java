@@ -9,7 +9,7 @@ import theknife.obj.lists.ListResponse;
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public class Review {
+public final class Review {
     private String content;
     private int grade;
     private ListResponse listResponse;
@@ -22,27 +22,27 @@ public class Review {
         setGrade(grade);
     }
 
-    public String getContent() {
+    public final String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public final void setContent(String content) {
         this.content = content;
     }
 
-    public int getGrade() {
+    public final int getGrade() {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public final void setGrade(int grade) {
         this.grade = grade;
     }
 
-    public ListResponse getListResponse() {
+    public final ListResponse getListResponse() {
         return listResponse;
     }
 
-    public void setListResponse(ListResponse listResponse) {
+    public final void setListResponse(ListResponse listResponse) {
         this.listResponse = listResponse;
     }
     

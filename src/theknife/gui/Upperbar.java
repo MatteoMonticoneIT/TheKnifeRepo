@@ -26,7 +26,7 @@ import javax.swing.border.LineBorder;
  * @author Matteo Porto Bonacci ------ (CO)
  * @author Mattia Tamburo       ------ (CO)
  */
-public class Upperbar extends javax.swing.JPanel {
+public final class Upperbar extends javax.swing.JPanel {
 
     /**
      * Creates a new {@code Upperbar} panel and initializes its components.
@@ -232,12 +232,12 @@ public class Upperbar extends javax.swing.JPanel {
     private final int   MAX_SEARCHBAR_LENGTH  = 64;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private PanelMain  pnl_main;
-    private JPanel[]   pnls_upperbar;
-    private JPanel     pnl_searchbar;
-    private JTextField txt_searchbar;
-    private JLabel     btn_advancedSearch;
-    private JLabel     btn_login;
+    private final PanelMain  pnl_main;
+    private       JPanel[]   pnls_upperbar;
+    private       JPanel     pnl_searchbar;
+    private       JTextField txt_searchbar;
+    private       JLabel     btn_advancedSearch;
+    private       JLabel     btn_login;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private boolean ctrlA_Pressed;

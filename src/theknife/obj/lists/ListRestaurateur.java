@@ -11,18 +11,18 @@ import theknife.obj.user.Restaurateur;
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public class ListRestaurateur {
+public final class ListRestaurateur {
     private List<Restaurateur> list;
 
     public ListRestaurateur() {
         this.setList(new LinkedList<>());
     }
 
-    public List<Restaurateur> getList() {
+    public final List<Restaurateur> getList() {
         return list;
     }
 
-    public void setList(List<Restaurateur> list) {
+    public final void setList(List<Restaurateur> list) {
         this.list = list;
     }
     

@@ -16,9 +16,8 @@ import theknife.gui.PanelMain;
  * @author Matteo Porto Bonacci ------ (CO)
  * @author Mattia Tamburo       ------ (CO)
  */
-public class TheKnife extends javax.swing.JFrame {
+public final class TheKnife extends javax.swing.JFrame {
 
-    //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Creates a new instance of {@code TheKnife} frame and initializes its components.
      * The constructor sets up the GUI, including the main panel and the home and login pages.
@@ -28,6 +27,7 @@ public class TheKnife extends javax.swing.JFrame {
         initGUI();
     }
     
+    //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Initializes the Graphic User Interface (GUI) of TheKnife application.
      * This method creates the main panel, home page, and login page, and adds them to the main panel.

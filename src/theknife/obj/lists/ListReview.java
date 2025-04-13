@@ -11,18 +11,18 @@ import theknife.obj.review.Review;
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public class ListReview {
+public final class ListReview {
     private List<Review> list;
 
     public ListReview() {
         this.setList(new LinkedList<>());
     }
 
-    public List<Review> getList() {
+    public final List<Review> getList() {
         return list;
     }
 
-    public void setList(List<Review> list) {
+    public final void setList(List<Review> list) {
         this.list = list;
     }
     

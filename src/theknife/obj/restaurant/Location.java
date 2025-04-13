@@ -22,27 +22,27 @@ public class Location extends Coordinate {
         setAddress(address);
     }
 
-    public String getCountry() {
+    public final String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public final void setCountry(String country) {
         this.country = country;
     }
 
-    public String getCity() {
+    public final String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public final void setCity(String city) {
         this.city = city;
     }
 
-    public String getAddress() {
+    public final String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public final void setAddress(String address) {
         this.address = address;
     }
     

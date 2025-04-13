@@ -10,7 +10,7 @@ import theknife.obj.lists.ListRestaurant;
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public class Restaurateur extends User {
+public final class Restaurateur extends User {
     private ListRestaurant listRestaurant;
 
     public Restaurateur() {
@@ -18,15 +18,15 @@ public class Restaurateur extends User {
 
     public Restaurateur(ListRestaurant listRestaurant, String name, String surname, String username, String password, LocalDate birthday, String domicile) {
         super(name, surname, username, password, birthday, domicile);
-        this.setRole("restaurateur");
-        setListRestaurant(listRestaurant);
+        super.setRole("restaurateur");
+        this.setListRestaurant(listRestaurant);
     }
 
-    public ListRestaurant getListRestaurant() {
+    public final ListRestaurant getListRestaurant() {
         return listRestaurant;
     }
 
-    public void setListRestaurant(ListRestaurant listRestaurant) {
+    public final void setListRestaurant(ListRestaurant listRestaurant) {
         this.listRestaurant = listRestaurant;
     }
     

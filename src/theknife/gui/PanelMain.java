@@ -41,7 +41,7 @@ public final class PanelMain {
      *
      * @return the panel managed by this class
      */
-    public JPanel getPanel() {
+    public final JPanel getPanel() {
         return panel;
     }
 
@@ -50,7 +50,7 @@ public final class PanelMain {
      *
      * @return the card layout manager
      */
-    public CardLayout getCard() {
+    public final CardLayout getCard() {
         return card;
     }
     
@@ -59,7 +59,7 @@ public final class PanelMain {
      *
      * @param name the name of the component to be shown
      */
-    public void showCard(String name) {
+    public final void showCard(String name) {
         this.getCard().show(this.getPanel(), name);
     }
     

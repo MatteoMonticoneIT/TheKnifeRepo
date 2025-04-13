@@ -23,7 +23,7 @@ import javax.swing.plaf.LayerUI;
  * @author Matteo Porto Bonacci ------ (CO)
  * @author Mattia Tamburo       ------ (CO)
  */
-final class RoundedComponentUI extends LayerUI<JComponent> {
+public final class RoundedComponentUI extends LayerUI<JComponent> {
     private int arc;
 
     /**
@@ -32,7 +32,7 @@ final class RoundedComponentUI extends LayerUI<JComponent> {
      * @param arc the corner arc radius in pixels
      */
     public RoundedComponentUI(int arc) {
-        setArc(arc);
+        this.setArc(arc);
     }
 
     /**
@@ -40,7 +40,7 @@ final class RoundedComponentUI extends LayerUI<JComponent> {
      *
      * @return the arc radius in pixels
      */
-    public int getArc() {
+    public final int getArc() {
         return arc;
     }
 
@@ -49,7 +49,7 @@ final class RoundedComponentUI extends LayerUI<JComponent> {
      *
      * @param arc the arc radius in pixels
      */
-    public void setArc(int arc) {
+    public final void setArc(int arc) {
         this.arc = arc;
     }
     
@@ -65,7 +65,7 @@ final class RoundedComponentUI extends LayerUI<JComponent> {
      * @param c the component being painted (expected to be a {@code JLayer})
      */
     @Override
-    public void paint(Graphics g, JComponent c) {
+    public final void paint(Graphics g, JComponent c) {
         Graphics2D g2D = (Graphics2D) g.create();
         g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         

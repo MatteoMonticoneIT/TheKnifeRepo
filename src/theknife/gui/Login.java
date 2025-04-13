@@ -20,7 +20,7 @@ import javax.swing.JTextField;
  * @author Matteo Porto Bonacci ------ (CO)
  * @author Mattia Tamburo       ------ (CO)
  */
-public class Login extends javax.swing.JPanel {
+public final class Login extends javax.swing.JPanel {
 
     /**
      * Creates a new {@code Login} panel and initializes its components.
@@ -52,6 +52,8 @@ public class Login extends javax.swing.JPanel {
      */
     private void initFields() {
         btn_home = new JLabel("Example");
+        txt_emailUsername = new JTextField(PLACEHOLDER[0]);
+        txt_password      = new JTextField(PLACEHOLDER[1]);
     }
     
     /**
@@ -60,14 +62,13 @@ public class Login extends javax.swing.JPanel {
     private void initLogin() {
         this.setLayout(new GridLayout(6, 1, 0, 10));
         
-        txt_emailUsername = new JTextField(PLACEHOLDER[0]);
         txt_emailUsername.setForeground(Color.GRAY);
-        
-        txt_password      = new JTextField(PLACEHOLDER[1]);
         txt_password     .setForeground(Color.GRAY);
         
         btn_home.setPreferredSize(new Dimension(this.getWidth(), 100));
         btn_home.setBackground(Color.GREEN);
+        btn_home.setHorizontalAlignment(JLabel.CENTER);
+        btn_home.setVerticalAlignment  (JLabel.CENTER);
         btn_home.setOpaque(true);
         
         this.add(txt_emailUsername);
@@ -220,10 +221,10 @@ public class Login extends javax.swing.JPanel {
     };
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private PanelMain  pnl_main;
-    private JLabel     btn_home;
-    private JTextField txt_emailUsername;
-    private JTextField txt_password;
+    private final PanelMain  pnl_main;
+    private       JLabel     btn_home;
+    private       JTextField txt_emailUsername;
+    private       JTextField txt_password;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

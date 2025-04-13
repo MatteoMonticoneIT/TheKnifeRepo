@@ -9,7 +9,7 @@ import theknife.obj.lists.ListReview;
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public class Restaurant extends Location {
+public final class Restaurant extends Location {
     private String name;
     private int price;
     private String phoneNumber;
@@ -38,83 +38,83 @@ public class Restaurant extends Location {
         setDescription(description);
     }
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name = name;
     }
 
-    public int getPrice() {
+    public final int getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public final void setPrice(int price) {
         this.price = price;
     }
 
-    public String getPhoneNumber() {
+    public final String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public final void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getUrl() {
+    public final String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public final void setUrl(String url) {
         this.url = url;
     }
 
-    public String getWebsiteUrl() {
+    public final String getWebsiteUrl() {
         return websiteUrl;
     }
 
-    public void setWebsiteUrl(String websiteUrl) {
+    public final void setWebsiteUrl(String websiteUrl) {
         this.websiteUrl = websiteUrl;
     }
 
-    public String getAward() {
+    public final String getAward() {
         return award;
     }
 
-    public void setAward(String award) {
+    public final void setAward(String award) {
         this.award = award;
     }
 
-    public boolean isGreenStar() {
+    public final boolean isGreenStar() {
         return greenStar;
     }
 
-    public void setGreenStar(boolean greenStar) {
+    public final void setGreenStar(boolean greenStar) {
         this.greenStar = greenStar;
     }
 
-    public String getServicesAvailable() {
+    public final String getServicesAvailable() {
         return servicesAvailable;
     }
 
-    public void setServicesAvailable(String servicesAvailable) {
+    public final void setServicesAvailable(String servicesAvailable) {
         this.servicesAvailable = servicesAvailable;
     }
 
-    public String getDescription() {
+    public final String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public final void setDescription(String description) {
         this.description = description;
     }
 
-    public ListReview getListReview() {
+    public final ListReview getListReview() {
         return listReview;
     }
 
-    public void setListReview(ListReview listReview) {
+    public final void setListReview(ListReview listReview) {
         this.listReview = listReview;
     }
     

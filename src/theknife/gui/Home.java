@@ -8,7 +8,7 @@ import java.awt.BorderLayout;
  * @author Matteo Porto Bonacci ------ (CO)
  * @author Mattia Tamburo       ------ (CO)
  */
-public class Home extends javax.swing.JPanel {
+public final class Home extends javax.swing.JPanel {
 
     /**
      * Creates a new {@code Home} panel and initializes its components.
@@ -72,7 +72,7 @@ public class Home extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private PanelMain pnl_main;
+    private final PanelMain pnl_main;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

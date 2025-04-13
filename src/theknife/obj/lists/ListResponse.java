@@ -11,18 +11,18 @@ import theknife.obj.review.Response;
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public class ListResponse {
+public final class ListResponse {
     private List<Response> list;
 
     public ListResponse() {
         this.setList(new LinkedList<>());
     }
 
-    public List<Response> getList() {
+    public final List<Response> getList() {
         return list;
     }
 
-    public void setList(List<Response> list) {
+    public final void setList(List<Response> list) {
         this.list = list;
     }
     

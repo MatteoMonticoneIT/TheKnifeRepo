@@ -10,7 +10,7 @@ import theknife.obj.lists.ListFavorite;
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public class Client extends User {
+public final class Client extends User {
     private ListFavorite listFavorite;
 
     public Client() {
@@ -19,14 +19,14 @@ public class Client extends User {
     public Client(ListFavorite listFavorite, String name, String surname, String username, String password, LocalDate birthday, String domicile) {
         super(name, surname, username, password, birthday, domicile);
         this.setRole("client");
-        setListFavorite(listFavorite);
+        this.setListFavorite(listFavorite);
     }
 
-    public ListFavorite getListFavorite() {
+    public final ListFavorite getListFavorite() {
         return listFavorite;
     }
 
-    public void setListFavorite(ListFavorite listFavorite) {
+    public final void setListFavorite(ListFavorite listFavorite) {
         this.listFavorite = listFavorite;
     }
     

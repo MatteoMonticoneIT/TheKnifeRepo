@@ -7,7 +7,7 @@ package theknife.obj.review;
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public class Response {
+public final class Response {
     private String content;
     private Review review;
 
@@ -19,19 +19,19 @@ public class Response {
         setReview(review);
     }
 
-    public String getContent() {
+    public final String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public final void setContent(String content) {
         this.content = content;
     }
 
-    public Review getReview() {
+    public final Review getReview() {
         return review;
     }
 
-    public void setReview(Review review) {
+    public final void setReview(Review review) {
         this.review = review;
     }
     
