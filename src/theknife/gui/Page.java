@@ -14,9 +14,9 @@ package theknife.gui;
  * @author Mattia Tamburo       ------ (CO)
  */
 public final class Page {
-    public static final String HOME               = "home";
-    public static final String LOGIN              = "login";
-    public static final String LOGIN_RESTAURATEUR = "login_restaurateur";
-    public static final String REGISTER           = "register";
-    public static final String ADVANCED_SEARCH    = "advanced_search";
+    public static final String HOME               = "Home";
+    public static final String LOGIN              = "Login";
+    public static final String LOGIN_RESTAURATEUR = "Login as a restaurateur";
+    public static final String REGISTER           = "Register";
+    public static final String ADVANCED_SEARCH    = "Advanced search";
 }

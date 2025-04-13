@@ -1,10 +1,13 @@
 package theknife.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
@@ -51,7 +54,10 @@ public final class Login extends javax.swing.JPanel {
      * Initializes the basic fields of the login panel.
      */
     private void initFields() {
-        btn_home = new JLabel("Example");
+        pnl_grid          = new JPanel(new GridLayout(6, 1, 0, 10));
+        pnl_title         = new JPanel(new BorderLayout());
+        lbl_title         = new JLabel(Page.LOGIN);
+        btn_home          = new JLabel("Example");
         txt_emailUsername = new JTextField(PLACEHOLDER[0]);
         txt_password      = new JTextField(PLACEHOLDER[1]);
     }
@@ -60,7 +66,9 @@ public final class Login extends javax.swing.JPanel {
      * Initializes the layout and appearance of the login page.
      */
     private void initLogin() {
-        this.setLayout(new GridLayout(6, 1, 0, 10));
+        this.setLayout(new BorderLayout());
+        pnl_grid .setBackground(this.getBackground());
+        pnl_title.setBackground(this.getBackground());
         
         txt_emailUsername.setForeground(Color.GRAY);
         txt_password     .setForeground(Color.GRAY);
@@ -71,12 +79,24 @@ public final class Login extends javax.swing.JPanel {
         btn_home.setVerticalAlignment  (JLabel.CENTER);
         btn_home.setOpaque(true);
         
-        this.add(txt_emailUsername);
-        this.add(txt_password);
-        this.add(new JLabel());
-        this.add(new JLabel());
-        this.add(btn_home);
-        this.add(new JLabel());
+        lbl_title.setBackground(this.getBackground());
+        lbl_title.setFont(new Font("Consolas", Font.BOLD, 48));
+        lbl_title.setHorizontalAlignment(JLabel.CENTER);
+        lbl_title.setVerticalAlignment  (JLabel.CENTER);
+        lbl_title.setOpaque(true);
+        
+        pnl_title.setPreferredSize(new Dimension(this.getPreferredSize().width, 100));
+        pnl_title.add(lbl_title, BorderLayout.CENTER);
+        
+        pnl_grid.add(txt_emailUsername);
+        pnl_grid.add(txt_password);
+        pnl_grid.add(new JLabel());
+        pnl_grid.add(new JLabel());
+        pnl_grid.add(btn_home);
+        pnl_grid.add(new JLabel());
+        
+        this.add(pnl_title, BorderLayout.NORTH);
+        this.add(pnl_grid,  BorderLayout.CENTER);
     }
     
     /**
@@ -128,7 +148,7 @@ public final class Login extends javax.swing.JPanel {
      * When resized, resizes the padding of the components.
      */
     private void login_ComponentResized(java.awt.event.ComponentEvent e) {
-        int[] padding = {(int) (this.getWidth() * 0.2), (int) (this.getHeight() * 0.2)}; //0 = width; 1 = height;
+        int[] padding = {(int) (this.getWidth() * 0.1), (int) (this.getHeight() * 0.1)}; //0 = width; 1 = height;
         this.setBorder(BorderFactory.createEmptyBorder(padding[1], padding[0], padding[1], padding[0]));
     }
     
@@ -222,6 +242,9 @@ public final class Login extends javax.swing.JPanel {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private final PanelMain  pnl_main;
+    private       JPanel     pnl_grid;
+    private       JPanel     pnl_title;
+    private       JLabel     lbl_title;
     private       JLabel     btn_home;
     private       JTextField txt_emailUsername;
     private       JTextField txt_password;

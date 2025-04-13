@@ -174,7 +174,7 @@ public final class Upperbar extends javax.swing.JPanel {
      * When clicked, it switches to the "login" screen.
      */
     private void btn_login_MouseClicked(java.awt.event.MouseEvent e) {
-        pnl_main.showCard("login");
+        pnl_main.showCard(Page.LOGIN);
     }
     
     /**
