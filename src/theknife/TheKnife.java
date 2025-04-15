@@ -115,7 +115,6 @@ public final class TheKnife extends javax.swing.JFrame {
             }
         });
     }
-    
     //<editor-fold defaultstate="collapsed" desc="Components">
     private PanelMain  pnl_main;
     private JPanel     home;

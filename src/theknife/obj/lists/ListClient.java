@@ -26,4 +26,12 @@ public final class ListClient {
         this.list = list;
     }
     
+    public boolean checkUser(String username, String password){
+        //controllo se utente é gia registrato
+        for(Client user : list){
+            if(user.getUsername().equals(username) && user.getPassword().equals(password))
+                return true;
+        }
+        return false;
+    }
 }

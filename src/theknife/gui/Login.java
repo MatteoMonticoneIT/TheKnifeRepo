@@ -15,6 +15,7 @@ import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import theknife.obj.lists.ListClient;
 
 /**
  * A panel that represents the login screen in the application.
@@ -27,7 +28,7 @@ import javax.swing.border.Border;
  * @author Matteo Monticone     761701 (CO)
  * @author Damiano De Mutiis    ------ (CO)
  * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 public final class Login extends javax.swing.JPanel {
 
@@ -246,7 +247,16 @@ public final class Login extends javax.swing.JPanel {
      * @param e the mouse event triggered by clicking the button
      */
     private void btn_login_MouseClicked(java.awt.event.MouseEvent e) {
-        pnl_main.showCard(Page.HOME);
+        
+        // funzione di lettura user e password
+        // controlli su presenza di login e password
+        String username = txt_emailUsername.getText();
+        String password = txt_password.getText();
+        if(!username.equals("") && !password.equals("")){
+            if(list.checkUser(username, password)){
+                pnl_main.showCard(Page.HOME);
+            }
+        }
     }
     //</editor-fold>
 
@@ -274,7 +284,7 @@ public final class Login extends javax.swing.JPanel {
             .addGap(0, 480, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
     //<editor-fold defaultstate="collapsed" desc="Consts">
     private final String[] PLACEHOLDER = {
         "Your email or username",
@@ -293,6 +303,8 @@ public final class Login extends javax.swing.JPanel {
     private       RoundedComponentUI layerUI;
     private       JLayer<JComponent> txt_emailUsernameRounded;
     private       JLayer<JComponent> txt_passwordRounded;
+    
+    private       ListClient         list;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -1,0 +1,56 @@
+
+package theknife;
+import java.util.List;
+import theknife.obj.lists.ListClient;
+import theknife.obj.lists.ListRestaurant;
+import theknife.obj.lists.ListRestaurateur;
+import theknife.obj.restaurant.Restaurant;
+import theknife.obj.user.Client;
+import theknife.obj.user.Restaurateur;
+public class Controller {
+    ListClient          clients;
+    ListRestaurant      restaurants;
+    ListRestaurateur    restaurateur;
+    
+    /*
+        Funzioni da implementare:
+            - generazione delle liste dal Json (nel costruttore)
+                - richiamo della funzione setList
+            - login cliente/ristoratore
+            - registrazione
+            - 
+    */
+    
+    public Controller(){
+        //generazione delle liste
+        
+    }
+    
+    public void LoginClient(){
+        
+    }
+    
+    public void LoginRestaurateur(){
+        
+    }
+    
+    public void RegisterClient(){
+        
+    }
+    
+    public void RegisterRestaurateur(){
+        
+    }
+    
+    public void addRestaurant(){
+        
+    }
+    
+    public void searchRestaurant(){
+        
+    }
+    
+    public void advancedSearch(){
+        
+    }
+}
