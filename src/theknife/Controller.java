@@ -43,7 +43,7 @@ public class Controller {
     }
     
     public void addRestaurant(){
-        
+        //funzione di aggiunta ristorante
     }
     
     public void searchRestaurant(){
