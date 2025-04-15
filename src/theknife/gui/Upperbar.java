@@ -57,11 +57,11 @@ public final class Upperbar extends javax.swing.JPanel {
      * Initializes all the fields in the upper bar.
      */
     private void initFields() {
-        pnls_upperbar      = new JPanel[3]; //0 = west; 1 = center; 2 = east;
+        pnls_upperbar      = new JPanel[3];
         pnl_searchbar      = new JPanel(new BorderLayout());
         txt_searchbar      = new JTextField();
         btn_advancedSearch = new JLabel();
-        btn_login          = new JLabel("Accedi");
+        btn_login          = new JLabel("Login");
     }
     
     /**
@@ -76,16 +76,16 @@ public final class Upperbar extends javax.swing.JPanel {
         btn_advancedSearch.setBorder(null);
         btn_advancedSearch.setOpaque(true);
         
+        btn_login.setBackground(Color.GREEN);
+        btn_login.setHorizontalAlignment(JLabel.CENTER);
+        btn_login.setVerticalAlignment(JLabel.CENTER);
         btn_login.setBorder(null);
         btn_login.setOpaque(true);
-        btn_login.setHorizontalAlignment(JLabel.CENTER);
-        btn_login.setVerticalAlignment  (JLabel.CENTER);
         
         for (int i = 0; i < pnls_upperbar.length; i++) {
             pnls_upperbar[i] = new JPanel(new BorderLayout());
             pnls_upperbar[i].setPreferredSize(new Dimension(WIDTH_SIDEBUTTONS, this.getPreferredSize().height));
             pnls_upperbar[i].setBackground   (this.getBackground());
-            pnls_upperbar[i].setBorder       (new LineBorder(Color.BLACK, 10));
         }
         
         RoundedComponentUI layerUI = new RoundedComponentUI(ARC);
@@ -154,7 +154,7 @@ public final class Upperbar extends javax.swing.JPanel {
      * When resized, resizes the padding of the components.
      */
     private void upperbar_ComponentResized(java.awt.event.ComponentEvent e) {
-        int[] padding = {(int) (pnls_upperbar[1].getWidth() * 0.1), (int) (pnls_upperbar[1].getHeight() * 0.2)}; //0 = width; 1 = height;
+        int[] padding = {(int) (pnls_upperbar[1].getWidth() * 0.1), (int) (pnls_upperbar[1].getHeight() * 0.2)};
         pnls_upperbar[1].setBorder(BorderFactory.createEmptyBorder(padding[1], padding[0], padding[1], padding[0]));
         
         padding[0] = (int) (txt_searchbar.getWidth() * 0.03);
@@ -226,7 +226,7 @@ public final class Upperbar extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Consts">
     private final int   WIDTH_SIDEBUTTONS     = 100;
     private final int   WIDTH_ADVANCED_SEARCH = 60;
-    private final int[] PADDING_UPPERBAR      = {65, 20}; //0 = width; 1 = height
+    private final int[] PADDING_UPPERBAR      = {65, 20};
     private final int   PADDING_SEARCHBAR     = 14;
     private final int   ARC                   = 50;
     private final int   MAX_SEARCHBAR_LENGTH  = 64;
