@@ -5,6 +5,7 @@ import theknife.gui.Home;
 import theknife.gui.Login;
 import theknife.gui.Page;
 import theknife.gui.PanelMain;
+import theknife.gui.Register;
 
 /**
  * The main frame of the application "The Knife". This class represents the main window
@@ -45,14 +46,16 @@ public final class TheKnife extends javax.swing.JFrame {
         pnl_main   = new PanelMain();
         home       = new Home (pnl_main);
         login      = new Login(pnl_main);
+        register   = new Register(pnl_main);
     }
     
     /**
      * Initializes the layout and appearance of the main page.
      */
     private void initTheKnife() {        
-        pnl_main.getPanel().add(home,  Page.HOME);
-        pnl_main.getPanel().add(login, Page.LOGIN);
+        pnl_main.getPanel().add(home,     Page.HOME);
+        pnl_main.getPanel().add(login,    Page.LOGIN);
+        pnl_main.getPanel().add(register, Page.REGISTER);
         
         this.setContentPane(pnl_main.getPanel());
         pnl_main.showCard("home");
@@ -119,6 +122,7 @@ public final class TheKnife extends javax.swing.JFrame {
     private PanelMain  pnl_main;
     private JPanel     home;
     private JPanel     login;
+    private JPanel     register;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

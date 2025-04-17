@@ -2,8 +2,10 @@ package theknife.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -63,13 +65,20 @@ public final class Login extends javax.swing.JPanel {
     private void initFields() {
         pnl_grid                 = new JPanel    (new GridBagLayout());
         pnl_btn_login            = new JPanel    (new BorderLayout());
+        pnl_btn_cancel           = new JPanel    (new BorderLayout());
+        pnl_btn_register         = new JPanel    (new BorderLayout());
         lbl_title                = new JLabel    (Page.LOGIN);
-        btn_login                = new JLabel    ("Login");
+        btn_login                = new JLabel    (Page.LOGIN);
+        btn_cancel               = new JLabel    (CANCEL);
+        btn_register             = new JLabel    (REGISTER);
         txt_emailUsername        = new JTextField(PLACEHOLDER[0]);
         txt_password             = new JTextField(PLACEHOLDER[1]);
-        layerUI                  = new RoundedComponentUI(ARC);
-        txt_emailUsernameRounded = new JLayer<>(txt_emailUsername, layerUI);
-        txt_passwordRounded      = new JLayer<>(txt_password,      layerUI);
+        txt_layerUI              = new RoundedComponentUI(ARC_TEXTFIELD);
+        btn_layerUI              = new RoundedComponentUI(ARC_BUTTON);
+        txt_emailUsernameRounded = new JLayer<>(txt_emailUsername, txt_layerUI);
+        txt_passwordRounded      = new JLayer<>(txt_password,      txt_layerUI);
+        btn_loginRounded         = new JLayer<>(btn_login,         btn_layerUI);
+        btn_cancelRounded        = new JLayer<>(btn_cancel,        btn_layerUI);
     }
     
     /**
@@ -77,34 +86,53 @@ public final class Login extends javax.swing.JPanel {
      */
     private void initLogin() {
         final Color  BG_TEXTFIELD      = new Color(255, 255, 255, 192);
-        final Color  FG_TEXTFIELD      = Color.GRAY;
         final Border PADDING_TEXTFIELD = BorderFactory.createEmptyBorder(0, 10, 0, 10);
         
         this.setLayout(new BorderLayout());
         pnl_grid.setBackground(this.getBackground());
         
-        txt_emailUsername.setForeground(FG_TEXTFIELD);
+        txt_emailUsername.setForeground(FG_PLACEHOLDER);
         txt_emailUsername.setBackground(BG_TEXTFIELD);
         txt_emailUsername.setBorder    (PADDING_TEXTFIELD);
-        txt_password     .setForeground(FG_TEXTFIELD);
+        txt_password     .setForeground(FG_PLACEHOLDER);
         txt_password     .setBackground(BG_TEXTFIELD);
         txt_password     .setBorder    (PADDING_TEXTFIELD);
         
-        pnl_btn_login.setBackground(this.getBackground());
+        pnl_btn_login   .setBackground(this.getBackground());
+        pnl_btn_cancel  .setBackground(this.getBackground());
+        pnl_btn_register.setBackground(this.getBackground());
         
-        btn_login.setBackground(Color.GREEN);
+        btn_login.setBackground(BG_LOGIN_BTN);
+        btn_login.setForeground(FG_DEFAULT);
         btn_login.setHorizontalAlignment(JLabel.CENTER);
         btn_login.setVerticalAlignment  (JLabel.CENTER);
-        btn_login.setFont(new Font("Consolas", Font.PLAIN, 24));
+        btn_login.setFont(this.getFont());
         btn_login.setOpaque(true);
         
+        btn_cancel.setBackground(BG_CANCEL_BTN);
+        btn_cancel.setForeground(FG_DEFAULT);
+        btn_cancel.setHorizontalAlignment(JLabel.CENTER);
+        btn_cancel.setVerticalAlignment  (JLabel.CENTER);
+        btn_cancel.setFont(this.getFont());
+        btn_cancel.setOpaque(true);
+        
+        btn_register.setBackground(this.getBackground());
+        btn_register.setForeground(FG_DEFAULT);
+        btn_register.setVerticalAlignment  (JLabel.CENTER);
+        btn_register.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 18));
+        btn_register.setOpaque(true);
+        resizeLabelToFitText(btn_register);
+        
         lbl_title.setBackground(this.getBackground());
+        lbl_title.setForeground(FG_DEFAULT);
         lbl_title.setHorizontalAlignment(JLabel.CENTER);
         lbl_title.setVerticalAlignment  (JLabel.CENTER);
-        lbl_title.setFont(new Font("Consolas", Font.BOLD, 48));
+        lbl_title.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 48));
         lbl_title.setOpaque(true);
         
-        pnl_btn_login.add(btn_login, BorderLayout.CENTER);
+        pnl_btn_login   .add(btn_loginRounded,  BorderLayout.CENTER);
+        pnl_btn_cancel  .add(btn_cancelRounded, BorderLayout.CENTER);
+        pnl_btn_register.add(btn_register,      BorderLayout.CENTER);
         
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx   = 0;
@@ -124,8 +152,13 @@ public final class Login extends javax.swing.JPanel {
         
         gbc.ipady = 5;
         gbc.gridy++;
-        pnl_grid.add(Box.createVerticalStrut(20), gbc);
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        pnl_grid.add(pnl_btn_register, gbc);
         
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1;
         gbc.gridy++;
         pnl_grid.add(Box.createVerticalStrut(20), gbc);
         
@@ -133,7 +166,7 @@ public final class Login extends javax.swing.JPanel {
         pnl_grid.add(pnl_btn_login, gbc);
         
         gbc.gridy++;
-        pnl_grid.add(Box.createVerticalStrut(20), gbc);
+        pnl_grid.add(pnl_btn_cancel, gbc);
         
         this.add(pnl_grid,  BorderLayout.CENTER);
     }
@@ -178,76 +211,134 @@ public final class Login extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 btn_login_MouseClicked(e);
             }
+            
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                btn_login_MouseEntered(e);
+            }
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                btn_login_MouseExited(e);
+            }
+        });
+        
+        btn_cancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                btn_cancel_MouseClicked(e);
+            }
+            
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                btn_cancel_MouseEntered(e);
+            }
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                btn_cancel_MouseExited(e);
+            }
+        });
+        
+        btn_register.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                btn_register_MouseClicked(e);
+            }
+            
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                btn_register_MouseEntered(e);
+            }
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                btn_register_MouseExited(e);
+            }
         });
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
     /**
      * Handles the resize event for the login {@link JPanel}.
+     * <p>
      * When resized, resizes the padding of the components.
+     * </p>
      */
     private void login_ComponentResized(java.awt.event.ComponentEvent e) {
-        int[] padding = {(int) (this.getWidth() * 0.1), (int) (this.getHeight() * 0.1)}; //0 = width; 1 = height;
+        int[] padding = {(int) (this.getWidth() * 0.2), (int) (this.getHeight() * 0.1)}; //0 = width; 1 = height;
         this.setBorder(BorderFactory.createEmptyBorder(padding[1], padding[0], padding[1], padding[0]));
         
-        final int PADDING_BTN_LOGIN = (int) (this.getWidth() * 0.3);
-        pnl_btn_login.setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN_LOGIN, 0, PADDING_BTN_LOGIN));
+        final int PADDING_BTN_LOGIN    = (int) (this.getWidth() * 0.15);
+        pnl_btn_login   .setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN_LOGIN, 0, PADDING_BTN_LOGIN));
+        
+        final int PADDING_BTN_CANCEL   = (int) (this.getWidth() * 0.09);
+        pnl_btn_cancel  .setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN_CANCEL, 0, PADDING_BTN_CANCEL));
+        
+//        resizeLabelToFitText(btn_register);
     }
     
     /**
-     * Handles the gaining focus event on the email or username {@link JTextField}
+     * Handles the gaining focus event on the email or username {@link JTextField}.
+     * 
      * @param e the mouse event triggered by gaining focus
      */
     private void txt_emailUsername_FocusGained(java.awt.event.FocusEvent e) {
         if (txt_emailUsername.getText().equals(PLACEHOLDER[0])) {
             txt_emailUsername.setText("");
-            txt_emailUsername.setForeground(Color.BLACK);
+            txt_emailUsername.setForeground(FG_DEFAULT);
         }
     }
     
     /**
-     * Handles the losing focus event on the email or username {@link JTextField}
+     * Handles the losing focus event on the email or username {@link JTextField}.
+     * 
      * @param e the mouse event triggered by gaining focus
      */
     private void txt_emailUsername_FocusLost(java.awt.event.FocusEvent e) {
         if (txt_emailUsername.getText().isEmpty()) {
             txt_emailUsername.setText(PLACEHOLDER[0]);
-            txt_emailUsername.setForeground(Color.GRAY);
+            txt_emailUsername.setForeground(FG_PLACEHOLDER);
         }
     }
     
     /**
-     * Handles the gaining focus event on the password {@link JTextField}
+     * Handles the gaining focus event on the password {@link JTextField}.
+     * 
      * @param e the mouse event triggered by gaining focus
      */
     private void txt_password_FocusGained(java.awt.event.FocusEvent e) {
         if (txt_password.getText().equals(PLACEHOLDER[1])) {
             txt_password.setText("");
-            txt_password.setForeground(Color.BLACK);
+            txt_password.setForeground(FG_DEFAULT);
         }
     }
     
     /**
-     * Handles the losing focus event on the password {@link JTextField}
+     * Handles the losing focus event on the password {@link JTextField}.
+     * 
      * @param e the mouse event triggered by gaining focus
      */
     private void txt_password_FocusLost(java.awt.event.FocusEvent e) {
         if (txt_password.getText().isEmpty()) {
             txt_password.setText(PLACEHOLDER[1]);
-            txt_password.setForeground(Color.GRAY);
+            txt_password.setForeground(FG_PLACEHOLDER);
         }
     }
     
     /**
-     * Handles the click event on the home {@link JLabel}.
+     * Handles the click event on the login button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view transitions to the {@code Home} screen.
+     * When the button is clicked, the parameters added to the textfields will be handled
+     * and checked if the account exists: <br>
+     * If so then the account is logged in and the view switches to the {@code Home} screen. <br>
+     * Otherwise it will generate an error referring to the parameters.
      * </p>
      *
      * @param e the mouse event triggered by clicking the button
      */
     private void btn_login_MouseClicked(java.awt.event.MouseEvent e) {
-        
+        btn_login.setCursor(new Cursor(Cursor.HAND_CURSOR));
         // funzione di lettura user e password
         // controlli su presenza di login e password
         String username = txt_emailUsername.getText();
@@ -258,8 +349,99 @@ public final class Login extends javax.swing.JPanel {
             }
         }
     }
+    
+    /**
+     * Handles the hover event on the login button {@link JLabel}.
+     * @param e the mouse event triggered by hovering to the button
+     */
+    private void btn_login_MouseEntered(java.awt.event.MouseEvent e) {
+        btn_login.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn_login.setBackground(btn_login.getBackground().darker());
+    }
+    
+    /**
+     * Handles the exit hover event on the login button {@link JLabel}.
+     * @param e the mouse event triggered by leaving the cursor from the button
+     */
+    private void btn_login_MouseExited(java.awt.event.MouseEvent e) {
+        btn_login.setBackground(BG_LOGIN_BTN);
+    }
+    
+    /**
+     * Handles the click event on the cancel button {@link JLabel}.
+     * <p>
+     * When the button is clicked, the view switches to the {@code Home} screen
+     * canceling the login procedure.
+     * </p>
+     * 
+     * @param e the mouse event triggered by clicking the button 
+     */
+    private void btn_cancel_MouseClicked(java.awt.event.MouseEvent e) {
+        txt_emailUsername.setText(PLACEHOLDER[0]);
+        txt_password     .setText(PLACEHOLDER[1]);
+        txt_emailUsername.setForeground(FG_PLACEHOLDER);
+        txt_password     .setForeground(FG_PLACEHOLDER);
+        pnl_main.showCard(Page.HOME);
+    }
+    
+    /**
+     * Handles the hover event on the cancel button {@link JLabel}.
+     * @param e the mouse event triggered by hovering to the button
+     */
+    private void btn_cancel_MouseEntered(java.awt.event.MouseEvent e) {
+        btn_cancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn_cancel.setBackground(btn_cancel.getBackground().darker());
+    }
+    
+    /**
+     * Handles the exit hover event on the cancel button {@link JLabel}.
+     * @param e the mouse event triggered by leaving the cursor from the button
+     */
+    private void btn_cancel_MouseExited(java.awt.event.MouseEvent e) {
+        btn_cancel.setBackground(BG_CANCEL_BTN);
+    }
+    
+    /**
+     * Handles the click event on the register button {@link JLabel}.
+     * <p>
+     * When the button is clicked the view switches to the {@code Register} screen
+     * canceling the login procedure.
+     * </p>
+     * @param e the mouse event triggered by clicking the button
+     */
+    private void btn_register_MouseClicked(java.awt.event.MouseEvent e) {
+        txt_emailUsername.setText(PLACEHOLDER[0]);
+        txt_password     .setText(PLACEHOLDER[1]);
+        txt_emailUsername.setForeground(FG_PLACEHOLDER);
+        txt_password     .setForeground(FG_PLACEHOLDER);
+        pnl_main.showCard(Page.REGISTER);
+    }
+    
+    /**
+     * Handles the hover event on the register button {@link JLabel}.
+     * @param e the mouse event triggered by hovering to the button
+     */
+    private void btn_register_MouseEntered(java.awt.event.MouseEvent e) {
+        btn_register.setForeground(Color.BLUE);
+        btn_register.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }
+    
+    /**
+     * Handles the exit hover event on the register button {@link JLabel}.
+     * @param e the mouse event triggered by leaving the cursor from the button
+     */
+    private void btn_register_MouseExited(java.awt.event.MouseEvent e) {
+        btn_register.setForeground(FG_DEFAULT);
+    }
     //</editor-fold>
-
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    private void resizeLabelToFitText(JLabel label) {
+        FontMetrics metrics = label.getFontMetrics(label.getFont());
+        int width = metrics.stringWidth(label.getText());
+        int height = metrics.getHeight();
+        label.setPreferredSize(new Dimension(width, height));
+    }
+    //</editor-fold>
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -270,6 +452,7 @@ public final class Login extends javax.swing.JPanel {
     private void initComponents() {
 
         setBackground(new java.awt.Color(153, 255, 102));
+        setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         setMinimumSize(new java.awt.Dimension(854, 480));
         setPreferredSize(new java.awt.Dimension(854, 480));
 
@@ -286,26 +469,42 @@ public final class Login extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     //<editor-fold defaultstate="collapsed" desc="Consts">
+    private final Color    FG_DEFAULT     = Color.BLACK;
+    private final Color    FG_PLACEHOLDER = Color.GRAY;
+    private final Color    BG_LOGIN_BTN   = new Color(0, 255, 0, 192);
+    private final Color    BG_CANCEL_BTN  = new Color(255, 64, 0, 192);
     private final String[] PLACEHOLDER = {
         "Your email or username",
         "Your password"
     };
-    private final int ARC = 30;
+    private final String CANCEL     = "Cancel";
+    private final String REGISTER   = "Still not our customer yet? Sign up here!";
+    private final int ARC_TEXTFIELD = 30;
+    private final int ARC_BUTTON    = 20;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private final PanelMain          pnl_main;
     private       JPanel             pnl_grid;
     private       JPanel             pnl_btn_login;
+    private       JPanel             pnl_btn_cancel;
+    private       JPanel             pnl_btn_register;
     private       JLabel             lbl_title;
     private       JLabel             btn_login;
+    private       JLabel             btn_cancel;
+    private       JLabel             btn_register;
     private       JTextField         txt_emailUsername;
     private       JTextField         txt_password;
-    private       RoundedComponentUI layerUI;
+    private       RoundedComponentUI txt_layerUI;
+    private       RoundedComponentUI btn_layerUI;
     private       JLayer<JComponent> txt_emailUsernameRounded;
     private       JLayer<JComponent> txt_passwordRounded;
-    
-    private       ListClient         list;
+    private       JLayer<JComponent> btn_loginRounded;
+    private       JLayer<JComponent> btn_cancelRounded;
     //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Fields">
+    private ListClient list;
+    //</editor-fold>
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

@@ -1,13 +1,11 @@
 package theknife.gui;
 
-import java.awt.BorderLayout;
-
 /**
- * The Home class represents the home screen of the application.
+ * A panel that represents the register screen in the application.
  * <p>
- * It contains a list of restaurants found by typing on the {@code Upperbar} {@link JTextField}. 
- * The components are arranged in a {@link BorderLayout} and properly styled. This class
- * handles events such as button clicks and text input to interact with the rest of the application.
+ * This class contains the graphical elements for the register interface, including a 
+ * button that switches the view to the login screen when clicked. It is managed 
+ * by the {@link PanelMain} class using a {@link CardLayout}.
  * </p>
  * 
  * @author Matteo Monticone     761701 (CO)
@@ -15,44 +13,15 @@ import java.awt.BorderLayout;
  * @author Matteo Porto Bonacci ------ (CO)
  * @author Mattia Tamburo       ------ (CO)
  */
-public final class Home extends javax.swing.JPanel {
+public class Register extends javax.swing.JPanel {
 
     /**
-     * Creates a new {@code Home} panel and initializes its components.
-     * <p>
-     * This constructor also sets the main panel to control the screen transitions
-     * using {@link PanelMain#showCard}.
-     * </p>
-     * 
+     * Creates new form Register
      * @param main the main panel that manages the screen layout
      */
-    public Home(PanelMain main) {
+    public Register(PanelMain main) {
         initComponents();
         pnl_main = main;
-        initGUI();
-    }
-    
-    /**
-     * Initializes the graphical user interface (GUI) for the home page.
-     */
-    private void initGUI() {
-        initFields();
-        initHome();
-    }
-    
-    /**
-     * Initializes all the fields in the home.
-     */
-    private void initFields() {
-        
-    }
-    
-    /**
-     * Initializes the layout and appearance of the home page.
-     */
-    private void initHome() {
-        this.setLayout(new BorderLayout());
-        this.add(new Upperbar(pnl_main), BorderLayout.NORTH);
     }
 
     /**
@@ -64,17 +33,18 @@ public final class Home extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(204, 255, 204));
+        setBackground(new java.awt.Color(153, 255, 102));
+        setMinimumSize(new java.awt.Dimension(854, 480));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 854, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 480, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

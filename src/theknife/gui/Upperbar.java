@@ -2,8 +2,8 @@ package theknife.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 
 /**
  * The Upperbar class represents the upper navigation bar of the application.
@@ -57,11 +56,15 @@ public final class Upperbar extends javax.swing.JPanel {
      * Initializes all the fields in the upper bar.
      */
     private void initFields() {
-        pnls_upperbar      = new JPanel[3];
-        pnl_searchbar      = new JPanel(new BorderLayout());
-        txt_searchbar      = new JTextField();
-        btn_advancedSearch = new JLabel();
-        btn_login          = new JLabel("Login");
+        pnls_upperbar             = new JPanel[3];
+        pnl_searchbar             = new JPanel(new BorderLayout());
+        txt_searchbar             = new JTextField();
+        btn_advancedSearch        = new JLabel();
+        btn_login                 = new JLabel(Page.LOGIN);
+        layerUI                   = new RoundedComponentUI(ARC);
+        txt_searchbarRounded      = new JLayer<>(txt_searchbar,      layerUI);
+        btn_advancedSearchRounded = new JLayer<>(btn_advancedSearch, layerUI);
+        pnl_searchbarRounded      = new JLayer<>(pnl_searchbar,      layerUI);
     }
     
     /**
@@ -70,15 +73,16 @@ public final class Upperbar extends javax.swing.JPanel {
      */
     private void initUpperbar() {
         txt_searchbar.setBorder(BorderFactory.createEmptyBorder(0, PADDING_SEARCHBAR, 0, PADDING_SEARCHBAR));
-        txt_searchbar.setFont(new Font("Consolas", Font.PLAIN, 32));
+        txt_searchbar.setFont(this.getFont());
         
+        btn_advancedSearch.setBackground(BG_ADVANCED_SEARCH_BTN);
         btn_advancedSearch.setPreferredSize(new Dimension(WIDTH_ADVANCED_SEARCH, pnl_searchbar.getPreferredSize().height));
         btn_advancedSearch.setBorder(null);
         btn_advancedSearch.setOpaque(true);
         
-        btn_login.setBackground(Color.GREEN);
+        btn_login.setBackground(BG_LOGIN_BTN);
         btn_login.setHorizontalAlignment(JLabel.CENTER);
-        btn_login.setVerticalAlignment(JLabel.CENTER);
+        btn_login.setVerticalAlignment  (JLabel.CENTER);
         btn_login.setBorder(null);
         btn_login.setOpaque(true);
         
@@ -87,12 +91,6 @@ public final class Upperbar extends javax.swing.JPanel {
             pnls_upperbar[i].setPreferredSize(new Dimension(WIDTH_SIDEBUTTONS, this.getPreferredSize().height));
             pnls_upperbar[i].setBackground   (this.getBackground());
         }
-        
-        RoundedComponentUI layerUI = new RoundedComponentUI(ARC);
-        
-        JLayer<JComponent> txt_searchbarRounded      = new JLayer<>(txt_searchbar,      layerUI);
-        JLayer<JComponent> btn_advancedSearchRounded = new JLayer<>(btn_advancedSearch, layerUI);
-        JLayer<JComponent> pnl_searchbarRounded      = new JLayer<>(pnl_searchbar,      layerUI);
         
         pnls_upperbar[1].setBorder(BorderFactory.createEmptyBorder(PADDING_UPPERBAR[1], PADDING_UPPERBAR[0], PADDING_UPPERBAR[1], PADDING_UPPERBAR[0]));
         pnl_searchbar   .setBackground(Color.WHITE);
@@ -126,12 +124,32 @@ public final class Upperbar extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 btn_advancedSearch_MouseClicked(e);
             }
+            
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                btn_advancedSearch_MouseEntered(e);
+            } 
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                btn_advancedSearch_MouseExited(e);
+            }
         });
         
         btn_login.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 btn_login_MouseClicked(e);
+            }
+            
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                btn_login_MouseEntered(e);
+            } 
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                btn_login_MouseExited(e);
             }
         });
         
@@ -164,22 +182,63 @@ public final class Upperbar extends javax.swing.JPanel {
     /**
      * Handles the click event for the advanced search button.
      * When clicked, it switches to the "advancedSearch" screen.
+     * 
+     * @param e the mouse event triggered by clicking the button 
      */
     private void btn_advancedSearch_MouseClicked(java.awt.event.MouseEvent e) {
         System.out.println("click");
     }
     
     /**
+     * Handles the hover event on the advanced search button {@link JLabel}.
+     * @param e the mouse event triggered by hovering to the button.
+     */
+    private void btn_advancedSearch_MouseEntered(java.awt.event.MouseEvent e) {
+        btn_advancedSearch.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn_advancedSearch.setBackground(btn_advancedSearch.getBackground().darker());
+    }
+    
+    /**
+     * Handles the exit hover event on the advanced search button {@link JLabel}.
+     * @param e the mouse event triggered by leaving the cursor from the button
+     */
+    private void btn_advancedSearch_MouseExited(java.awt.event.MouseEvent e) {
+        btn_advancedSearch.setBackground(BG_ADVANCED_SEARCH_BTN);
+    }
+    
+    /**
      * Handles the click event for the login button.
      * When clicked, it switches to the "login" screen.
+     * 
+     * @param e the mouse event triggered by clicking the button 
      */
     private void btn_login_MouseClicked(java.awt.event.MouseEvent e) {
+        txt_searchbar.setText("");
         pnl_main.showCard(Page.LOGIN);
     }
     
     /**
-     * Handles the key typed event for the search bar.
+     * Handles the hover event on the login button {@link JLabel}.
+     * @param e the mouse event triggered by hovering to the button.
+     */
+    private void btn_login_MouseEntered(java.awt.event.MouseEvent e) {
+        btn_login.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn_login.setBackground(btn_login.getBackground().darker());
+    }
+    
+    /**
+     * Handles the exit hover event on the login button {@link JLabel}.
+     * @param e the mouse event triggered by leaving the cursor from the button
+     */
+    private void btn_login_MouseExited(java.awt.event.MouseEvent e) {
+        btn_login.setBackground(BG_LOGIN_BTN);
+    }
+    
+    /**
+     * Handles the key typed event for the search bar {@link JTextField}.
      * Prevents the user from typing more than the maximum allowed characters in the search bar.
+     * 
+     * @param e the key event triggered by typing on the {@link JTextField}
      */
     private void txt_searchbar_KeyTyped(java.awt.event.KeyEvent e) {
         if (txt_searchbar.getText().length() >= MAX_SEARCHBAR_LENGTH)
@@ -191,6 +250,10 @@ public final class Upperbar extends javax.swing.JPanel {
         }
     }
     
+    /**
+     * Handles the CTRL + A key pressed and the flag itself.
+     * @param e the key event triggered by pressing some keys  
+     */
     private void txt_searchbar_KeyPressed(java.awt.event.KeyEvent e) {
         if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A) {
             txt_searchbar.selectAll();
@@ -208,6 +271,7 @@ public final class Upperbar extends javax.swing.JPanel {
     private void initComponents() {
 
         setBackground(new java.awt.Color(153, 255, 153));
+        setFont(new java.awt.Font("Consolas", 0, 32)); // NOI18N
         setMinimumSize(new java.awt.Dimension(854, 100));
         setPreferredSize(new java.awt.Dimension(854, 100));
 
@@ -224,20 +288,26 @@ public final class Upperbar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final int   WIDTH_SIDEBUTTONS     = 100;
-    private final int   WIDTH_ADVANCED_SEARCH = 60;
-    private final int[] PADDING_UPPERBAR      = {65, 20};
-    private final int   PADDING_SEARCHBAR     = 14;
-    private final int   ARC                   = 50;
-    private final int   MAX_SEARCHBAR_LENGTH  = 64;
+    private final Color BG_ADVANCED_SEARCH_BTN = new Color(0xababab);
+    private final Color BG_LOGIN_BTN           = new Color(102, 255, 154);
+    private final int   WIDTH_SIDEBUTTONS      = 100;
+    private final int   WIDTH_ADVANCED_SEARCH  = 60;
+    private final int[] PADDING_UPPERBAR       = {65, 20};
+    private final int   PADDING_SEARCHBAR      = 14;
+    private final int   ARC                    = 50;
+    private final int   MAX_SEARCHBAR_LENGTH   = 64;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private final PanelMain  pnl_main;
-    private       JPanel[]   pnls_upperbar;
+    private final PanelMain          pnl_main;
+    private       JPanel[]           pnls_upperbar;
     private       JPanel     pnl_searchbar;
     private       JTextField txt_searchbar;
     private       JLabel     btn_advancedSearch;
     private       JLabel     btn_login;
+    private       RoundedComponentUI layerUI;
+    private       JLayer<JComponent> txt_searchbarRounded;
+    private       JLayer<JComponent> btn_advancedSearchRounded;
+    private       JLayer<JComponent> pnl_searchbarRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private boolean ctrlA_Pressed;
