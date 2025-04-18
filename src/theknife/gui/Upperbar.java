@@ -186,7 +186,8 @@ public final class Upperbar extends javax.swing.JPanel {
      * @param e the mouse event triggered by clicking the button 
      */
     private void btn_advancedSearch_MouseClicked(java.awt.event.MouseEvent e) {
-        System.out.println("click");
+        txt_searchbar.setText("");
+        pnl_main.showCard(Page.ADVANCED_SEARCH);
     }
     
     /**

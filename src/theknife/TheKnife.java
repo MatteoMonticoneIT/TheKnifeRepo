@@ -1,6 +1,7 @@
 package theknife;
 
 import javax.swing.JPanel;
+import theknife.gui.AdvancedSearch;
 import theknife.gui.Home;
 import theknife.gui.Login;
 import theknife.gui.Page;
@@ -20,7 +21,7 @@ import theknife.gui.Register;
 public final class TheKnife extends javax.swing.JFrame {
 
     /**
-     * Creates a new instance of {@code TheKnife} frame and initializes its components.
+     * Creates a new instance of {@code TheKnife} {@link JFrame} and initializes its components.
      * The constructor sets up the GUI, including the main panel and the home and login pages.
      */
     public TheKnife() {
@@ -43,22 +44,24 @@ public final class TheKnife extends javax.swing.JFrame {
      * Initializes all the fields in the knife.
      */
     private void initFields() {
-        pnl_main   = new PanelMain();
-        home       = new Home (pnl_main);
-        login      = new Login(pnl_main);
-        register   = new Register(pnl_main);
+        pnl_main       = new PanelMain();
+        home           = new Home (pnl_main);
+        login          = new Login(pnl_main);
+        register       = new Register(pnl_main);
+        advancedSearch = new AdvancedSearch(pnl_main);
     }
     
     /**
      * Initializes the layout and appearance of the main page.
      */
     private void initTheKnife() {        
-        pnl_main.getPanel().add(home,     Page.HOME);
-        pnl_main.getPanel().add(login,    Page.LOGIN);
-        pnl_main.getPanel().add(register, Page.REGISTER);
+        pnl_main.getPanel().add(home,           Page.HOME);
+        pnl_main.getPanel().add(login,          Page.LOGIN);
+        pnl_main.getPanel().add(register,       Page.REGISTER);
+        pnl_main.getPanel().add(advancedSearch, Page.ADVANCED_SEARCH);
         
         this.setContentPane(pnl_main.getPanel());
-        pnl_main.showCard("home");
+        pnl_main.showCard(Page.HOME);
     }
     //</editor-fold>
     
@@ -112,10 +115,8 @@ public final class TheKnife extends javax.swing.JFrame {
         //</editor-fold>
         
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TheKnife().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new TheKnife().setVisible(true);
         });
     }
     //<editor-fold defaultstate="collapsed" desc="Components">
@@ -123,6 +124,7 @@ public final class TheKnife extends javax.swing.JFrame {
     private JPanel     home;
     private JPanel     login;
     private JPanel     register;
+    private JPanel     advancedSearch;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
