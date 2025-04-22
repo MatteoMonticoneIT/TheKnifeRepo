@@ -1,5 +1,5 @@
-
 package theknife;
+
 import java.util.List;
 import theknife.obj.lists.ListClient;
 import theknife.obj.lists.ListRestaurant;
@@ -7,6 +7,7 @@ import theknife.obj.lists.ListRestaurateur;
 import theknife.obj.restaurant.Restaurant;
 import theknife.obj.user.Client;
 import theknife.obj.user.Restaurateur;
+
 public class Controller {
     ListClient          clients;
     ListRestaurant      restaurants;

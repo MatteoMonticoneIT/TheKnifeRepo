@@ -3,9 +3,8 @@ package theknife.gui;
 /**
  * A panel that represents the advanced search screen in the application.
  * <p>
- * This class contains the graphical elements for the advanced search interface, including a 
- * button that switches the view to the home screen when clicked. It is managed 
- * by the {@link PanelMain} class using a {@link CardLayout}.
+ * This class contains the graphical elements for the advanced search interface, including a button that switches the view to the home screen when clicked.<br>
+ * It is managed by the {@link PanelMain} class using a {@link CardLayout}.
  * </p>
  * 
  * @author Matteo Monticone     761701 (CO)
@@ -18,8 +17,7 @@ public class AdvancedSearch extends javax.swing.JPanel {
     /**
      * Creates a new {@code AdvancedSearch} {@link JPanel} and initializes its components.
      * <p>
-     * This constructor also sets the main panel to control the screen transitions
-     * using {@link PanelMain#showCard}.
+     * This constructor also sets the main panel to control the screen transitions using {@link PanelMain#showCard}.
      * </p>
      * 
      * @param main the main panel that manages the screen layout

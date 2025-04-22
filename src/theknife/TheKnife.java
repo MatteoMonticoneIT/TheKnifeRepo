@@ -9,8 +9,8 @@ import theknife.gui.PanelMain;
 import theknife.gui.Register;
 
 /**
- * The main frame of the application "The Knife". This class represents the main window
- * of the application, containing the layout and navigation structure.
+ * The main frame of the application "The Knife".<br>
+ * This class represents the main window of the application, containing the layout and navigation structure.<br>
  * It handles the initialization and switching between different panels.
  * 
  * @author Matteo Monticone     761701 (CO)
@@ -21,7 +21,7 @@ import theknife.gui.Register;
 public final class TheKnife extends javax.swing.JFrame {
 
     /**
-     * Creates a new instance of {@code TheKnife} {@link JFrame} and initializes its components.
+     * Creates a new instance of {@code TheKnife} {@link JFrame} and initializes its components.<br>
      * The constructor sets up the GUI, including the main panel and the home and login pages.
      */
     public TheKnife() {
@@ -31,8 +31,8 @@ public final class TheKnife extends javax.swing.JFrame {
     
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
-     * Initializes the Graphic User Interface (GUI) of TheKnife application.
-     * This method creates the main panel, home page, and login page, and adds them to the main panel.
+     * Initializes the Graphic User Interface (GUI) of TheKnife application.<br>
+     * This method creates the main panel, home page, and login page, and adds them to the main panel.<br>
      * It also sets up the content pane and displays the home page initially.
      */
     private void initGUI() {
@@ -119,6 +119,7 @@ public final class TheKnife extends javax.swing.JFrame {
             new TheKnife().setVisible(true);
         });
     }
+    
     //<editor-fold defaultstate="collapsed" desc="Components">
     private PanelMain  pnl_main;
     private JPanel     home;

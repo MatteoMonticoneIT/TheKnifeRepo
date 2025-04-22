@@ -4,11 +4,9 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
- * A utility class that wraps a {@link JPanel} managed by a {@link CardLayout},
- * allowing for dynamic switching between different views (cards) in a GUI.
+ * A utility class that wraps a {@link JPanel} managed by a {@link CardLayout}, allowing for dynamic switching between different views (cards) in a GUI.
  * <p>
- * This class simplifies the management of multiple components displayed one at a time
- * within the same container, by providing convenient access to the panel and layout.
+ * This class simplifies the management of multiple components displayed one at a time within the same container, by providing convenient access to the panel and layout.
  * </p>
  * 
  * <p><b>Usage example:</b></p>

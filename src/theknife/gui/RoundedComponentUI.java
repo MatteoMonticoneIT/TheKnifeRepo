@@ -11,11 +11,9 @@ import javax.swing.plaf.LayerUI;
 
 
 /**
- * A custom {@link LayerUI} implementation that applies a rounded clipping mask
- * to the wrapped {@link JComponent}, allowing for smooth rounded corners.
+ * A custom {@link LayerUI} implementation that applies a rounded clipping mask to the wrapped {@link JComponent}, allowing for smooth rounded corners.
  * <p>
- * This UI delegate can be used with a {@code JLayer} to visually enhance components
- * without modifying their internal rendering logic.
+ * This UI delegate can be used with a {@code JLayer} to visually enhance components without modifying their internal rendering logic.
  * </p>
  * 
  * @author Matteo Monticone     761701 (CO)
@@ -56,8 +54,7 @@ public final class RoundedComponentUI extends LayerUI<JComponent> {
     /**
      * Overrides the {@code paint} method from {@link javax.swing.plaf.LayerUI LayerUI}{@code <JComponent>}.
      * <p>
-     * Applies a rounded clipping shape to the wrapped component before painting,
-     * allowing for custom rendering effects.
+     * Applies a rounded clipping shape to the wrapped component before painting, allowing for custom rendering effects.<br>
      * </p>
      * For more information on customizing the layer behavior, see {@link javax.swing.plaf.LayerUI LayerUI}{@code <JComponent>}.
      * 

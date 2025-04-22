@@ -5,25 +5,40 @@ import java.util.List;
 import theknife.obj.user.Restaurateur;
 
 /**
+ * A final class that represents a collection of {@link Restaurateur} objects.
+ * <p>
+ * Provides methods to access and modify the list of restaurateurs.<br>
+ * The list can be initialized either as empty or with an existing list.
+ * </p>
+ * <p>
+ * This class extends {@link AbstractListWrapper}, inheriting its methods to manage the list of {@link Restaurateur} objects.
+ * </p>
+ * 
  * @author Matteo Monticone     761701 (CO)
  * @author Damiano De Mutiis    ------ (CO)
  * @author Matteo Porto Bonacci ------ (CO)
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public final class ListRestaurateur {
-    private List<Restaurateur> list;
-
+public final class ListRestaurateur extends AbstractListWrapper<Restaurateur> {
+    
+    /**
+     * Default constructor.
+     * <p>
+     * Initializes the list as a new empty {@link LinkedList}.
+     * </p>
+     */
     public ListRestaurateur() {
-        this.setList(new LinkedList<>());
+        super(new LinkedList<Restaurateur>());
     }
-
-    public final List<Restaurateur> getList() {
-        return list;
-    }
-
-    public final void setList(List<Restaurateur> list) {
-        this.list = list;
+    
+    /**
+     * Constructor that initializes the list with an existing list of {@link Restaurateur} objects.
+     *
+     * @param list the list of restaurateurs to be used
+     */
+    public ListRestaurateur(List<Restaurateur> list) {
+        super(list);
     }
     
 }

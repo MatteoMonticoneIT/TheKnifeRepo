@@ -5,25 +5,40 @@ import java.util.List;
 import theknife.obj.review.Review;
 
 /**
+ * A final class that represents a collection of {@link Review} objects.
+ * <p>
+ * Provides methods to access and modify the list of reviews.<br>
+ * The list can be initialized either as empty or with an existing list.
+ * </p>
+ * <p>
+ * This class extends {@link AbstractListWrapper}, inheriting its methods to manage the list of {@link Review} objects.
+ * </p>
+ * 
  * @author Matteo Monticone     761701 (CO)
  * @author Damiano De Mutiis    ------ (CO)
  * @author Matteo Porto Bonacci ------ (CO)
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public final class ListReview {
-    private List<Review> list;
+public final class ListReview extends AbstractListWrapper<Review> {
 
+    /**
+     * Default constructor
+     * <p>
+     * Initializes the list as a new empty {@link LinkedList}.
+     * </p>
+     */
     public ListReview() {
-        this.setList(new LinkedList<>());
+        super(new LinkedList<Review>());
     }
-
-    public final List<Review> getList() {
-        return list;
-    }
-
-    public final void setList(List<Review> list) {
-        this.list = list;
+    
+    /**
+     * Constructor that initializes the list with an existing list of {@link Review} objects.
+     *
+     * @param list the list of reviews to be used
+     */
+    public ListReview(List<Review> list) {
+        super(list);
     }
     
 }

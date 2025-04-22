@@ -15,9 +15,9 @@ import javax.swing.JTextField;
 /**
  * The Upperbar class represents the upper navigation bar of the application.
  * <p>
- * It contains a search bar, an advanced search button, and a login button. The components
- * are arranged in a {@link BorderLayout} and styled with custom UI elements. This class
- * handles events such as button clicks and text input to interact with the rest of the application.
+ * It contains a search bar, an advanced search button, and a login button.<br>
+ * The components are arranged in a {@link BorderLayout} and styled with custom UI elements.<br>
+ * This class handles events such as button clicks and text input to interact with the rest of the application.
  * </p>
  * 
  * @author Matteo Monticone     761701 (CO)
@@ -30,8 +30,7 @@ public final class Upperbar extends javax.swing.JPanel {
     /**
      * Creates a new {@code Upperbar} panel and initializes its components.
      * <p>
-     * This constructor also sets the main panel to control the screen transitions
-     * using {@link PanelMain#showCard}.
+     * This constructor also sets the main panel to control the screen transitions using {@link PanelMain#showCard}.
      * </p>
      * 
      * @param main the main panel that manages the screen layout
@@ -169,7 +168,11 @@ public final class Upperbar extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
     /**
      * Handles the resize event for the upper bar {@link JPanel}.
+     * <p>
      * When resized, resizes the padding of the components.
+     * </p>
+     * 
+     * @param e the component event triggered by resizing the GUI application
      */
     private void upperbar_ComponentResized(java.awt.event.ComponentEvent e) {
         int[] padding = {(int) (pnls_upperbar[1].getWidth() * 0.1), (int) (pnls_upperbar[1].getHeight() * 0.2)};
@@ -181,7 +184,9 @@ public final class Upperbar extends javax.swing.JPanel {
     
     /**
      * Handles the click event for the advanced search button.
+     * <p>
      * When clicked, it switches to the "advancedSearch" screen.
+     * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
      */
@@ -192,6 +197,7 @@ public final class Upperbar extends javax.swing.JPanel {
     
     /**
      * Handles the hover event on the advanced search button {@link JLabel}.
+     * 
      * @param e the mouse event triggered by hovering to the button.
      */
     private void btn_advancedSearch_MouseEntered(java.awt.event.MouseEvent e) {
@@ -201,6 +207,7 @@ public final class Upperbar extends javax.swing.JPanel {
     
     /**
      * Handles the exit hover event on the advanced search button {@link JLabel}.
+     * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
     private void btn_advancedSearch_MouseExited(java.awt.event.MouseEvent e) {
@@ -209,7 +216,9 @@ public final class Upperbar extends javax.swing.JPanel {
     
     /**
      * Handles the click event for the login button.
+     * <p>
      * When clicked, it switches to the "login" screen.
+     * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
      */
@@ -220,6 +229,7 @@ public final class Upperbar extends javax.swing.JPanel {
     
     /**
      * Handles the hover event on the login button {@link JLabel}.
+     * 
      * @param e the mouse event triggered by hovering to the button.
      */
     private void btn_login_MouseEntered(java.awt.event.MouseEvent e) {
@@ -229,6 +239,7 @@ public final class Upperbar extends javax.swing.JPanel {
     
     /**
      * Handles the exit hover event on the login button {@link JLabel}.
+     * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
     private void btn_login_MouseExited(java.awt.event.MouseEvent e) {
@@ -237,7 +248,9 @@ public final class Upperbar extends javax.swing.JPanel {
     
     /**
      * Handles the key typed event for the search bar {@link JTextField}.
+     * <p>
      * Prevents the user from typing more than the maximum allowed characters in the search bar.
+     * </p>
      * 
      * @param e the key event triggered by typing on the {@link JTextField}
      */
@@ -253,6 +266,7 @@ public final class Upperbar extends javax.swing.JPanel {
     
     /**
      * Handles the CTRL + A key pressed and the flag itself.
+     * 
      * @param e the key event triggered by pressing some keys  
      */
     private void txt_searchbar_KeyPressed(java.awt.event.KeyEvent e) {

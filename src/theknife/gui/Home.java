@@ -5,9 +5,9 @@ import java.awt.BorderLayout;
 /**
  * The Home class represents the home screen of the application.
  * <p>
- * It contains a list of restaurants found by typing on the {@code Upperbar} {@link JTextField}. 
- * The components are arranged in a {@link BorderLayout} and properly styled. This class
- * handles events such as button clicks and text input to interact with the rest of the application.
+ * It contains a list of restaurants found by typing on the {@code Upperbar} {@link JTextField}.<br>
+ * The components are arranged in a {@link BorderLayout} and properly styled.<br>
+ * This class handles events such as button clicks and text input to interact with the rest of the application.
  * </p>
  * 
  * @author Matteo Monticone     761701 (CO)
@@ -20,8 +20,7 @@ public final class Home extends javax.swing.JPanel {
     /**
      * Creates a new {@code Home} panel and initializes its components.
      * <p>
-     * This constructor also sets the main panel to control the screen transitions
-     * using {@link PanelMain#showCard}.
+     * This constructor also sets the main panel to control the screen transitions using {@link PanelMain#showCard}.
      * </p>
      * 
      * @param main the main panel that manages the screen layout

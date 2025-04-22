@@ -19,9 +19,8 @@ import theknife.obj.lists.ListClient;
 /**
  * A panel that represents the login screen in the application.
  * <p>
- * This class contains the graphical elements for the login interface, including a 
- * button that switches the view to the home screen when clicked. It is managed 
- * by the {@link PanelMain} class using a {@link CardLayout}.
+ * This class contains the graphical elements for the login interface, including a button that switches the view to the home screen when clicked.<br>
+ * It is managed by the {@link PanelMain} class using a {@link CardLayout}.
  * </p>
  * 
  * @author Matteo Monticone     761701 (CO)
@@ -34,8 +33,7 @@ public final class Login extends javax.swing.JPanel {
     /**
      * Creates a new {@code Login} {@link JPanel} and initializes its components.
      * <p>
-     * This constructor also sets the main panel to control the screen transitions
-     * using {@link PanelMain#showCard}.
+     * This constructor also sets the main panel to control the screen transitions using {@link PanelMain#showCard}.
      * </p>
      * 
      * @param main the main panel that manages the screen layout
@@ -285,6 +283,8 @@ public final class Login extends javax.swing.JPanel {
      * <p>
      * When resized, resizes the padding of the components.
      * </p>
+     * 
+     * @param e the component event triggered by resizing the GUI application
      */
     private void login_ComponentResized(java.awt.event.ComponentEvent e) {
         int[] padding = {(int) (this.getWidth() * 0.2), (int) (this.getHeight() * 0.1)}; //0 = width; 1 = height;
@@ -348,8 +348,7 @@ public final class Login extends javax.swing.JPanel {
     /**
      * Handles the click event on the login button {@link JLabel}.
      * <p>
-     * When the button is clicked, the parameters added to the textfields will be handled
-     * and checked if the account exists: <br>
+     * When the button is clicked, the parameters added to the textfields will be handled and checked if the account exists: <br>
      * If so then the account is logged in and the view switches to the {@code Home} screen. <br>
      * Otherwise it will generate an error referring to the parameters.
      * </p>
@@ -358,8 +357,6 @@ public final class Login extends javax.swing.JPanel {
      */
     private void btn_login_MouseClicked(java.awt.event.MouseEvent e) {
         btn_login.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        // funzione di lettura user e password
-        // controlli su presenza di login e password
         String username = txt_emailUsername.getText();
         String password = txt_password.getText();
         if(!username.equals("") && !password.equals("")){
@@ -371,6 +368,7 @@ public final class Login extends javax.swing.JPanel {
     
     /**
      * Handles the hover event on the login button {@link JLabel}.
+     * 
      * @param e the mouse event triggered by hovering to the button
      */
     private void btn_login_MouseEntered(java.awt.event.MouseEvent e) {
@@ -380,6 +378,7 @@ public final class Login extends javax.swing.JPanel {
     
     /**
      * Handles the exit hover event on the login button {@link JLabel}.
+     * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
     private void btn_login_MouseExited(java.awt.event.MouseEvent e) {
@@ -389,8 +388,7 @@ public final class Login extends javax.swing.JPanel {
     /**
      * Handles the click event on the cancel button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@code Home} screen
-     * canceling the login procedure.
+     * When the button is clicked, the view switches to the {@code Home} screen canceling the login procedure.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
@@ -407,6 +405,7 @@ public final class Login extends javax.swing.JPanel {
     
     /**
      * Handles the hover event on the cancel button {@link JLabel}.
+     * 
      * @param e the mouse event triggered by hovering to the button
      */
     private void btn_cancel_MouseEntered(java.awt.event.MouseEvent e) {
@@ -416,6 +415,7 @@ public final class Login extends javax.swing.JPanel {
     
     /**
      * Handles the exit hover event on the cancel button {@link JLabel}.
+     * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
     private void btn_cancel_MouseExited(java.awt.event.MouseEvent e) {
@@ -425,9 +425,9 @@ public final class Login extends javax.swing.JPanel {
     /**
      * Handles the click event on the register button {@link JLabel}.
      * <p>
-     * When the button is clicked the view switches to the {@code Register} screen
-     * canceling the login procedure.
+     * When the button is clicked the view switches to the {@code Register} screen canceling the login procedure.
      * </p>
+     * 
      * @param e the mouse event triggered by clicking the button
      */
     private void btn_register_MouseClicked(java.awt.event.MouseEvent e) {
@@ -442,6 +442,7 @@ public final class Login extends javax.swing.JPanel {
     
     /**
      * Handles the hover event on the register button {@link JLabel}.
+     * 
      * @param e the mouse event triggered by hovering to the button
      */
     private void btn_register_MouseEntered(java.awt.event.MouseEvent e) {
@@ -451,6 +452,7 @@ public final class Login extends javax.swing.JPanel {
     
     /**
      * Handles the exit hover event on the register button {@link JLabel}.
+     * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
     private void btn_register_MouseExited(java.awt.event.MouseEvent e) {
@@ -461,9 +463,9 @@ public final class Login extends javax.swing.JPanel {
     /**
      * Handles the click event on the login as restaurateur button {@link JLabel}.
      * <p>
-     * When the button is clicked the view switches to the {@code LoginAsRestaurateur} screen
-     * canceling the login procedure.
+     * When the button is clicked the view switches to the {@code LoginAsRestaurateur} screen canceling the login procedure.
      * </p>
+     * 
      * @param e the mouse event triggered by clicking the button
      */
     private void btn_loginAsRestaurateur_MouseClicked(java.awt.event.MouseEvent e) {
@@ -476,6 +478,7 @@ public final class Login extends javax.swing.JPanel {
     
     /**
      * Handles the hover event on the register button {@link JLabel}.
+     * 
      * @param e the mouse event triggered by hovering to the button
      */
     private void btn_loginAsRestaurateur_MouseEntered(java.awt.event.MouseEvent e) {
@@ -485,6 +488,7 @@ public final class Login extends javax.swing.JPanel {
     
     /**
      * Handles the exit hover event on the register button {@link JLabel}.
+     * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
     private void btn_loginAsRestaurateur_MouseExited(java.awt.event.MouseEvent e) {

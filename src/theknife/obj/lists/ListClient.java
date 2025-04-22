@@ -5,30 +5,56 @@ import java.util.List;
 import theknife.obj.user.Client;
 
 /**
+ * A final class that represents a collection of {@link Client} objects.
+ * <p>
+ * Provides methods to access and modify the list of clients.<br> 
+ * The list can be initialized either as empty or with an existing list.
+ * </p>
+ * <p>
+ * This class extends {@link AbstractListWrapper}, inheriting its methods to manage the list of {@link Client} objects.<br>
+ * Additionally, it provides a method to check whether a client exists in the list by matching the username and password.
+ * </p>
+ * 
  * @author Matteo Monticone     761701 (CO)
  * @author Damiano De Mutiis    ------ (CO)
  * @author Matteo Porto Bonacci ------ (CO)
  * @author Mattia Tamburo       ------ (CO)
  */
 
-public final class ListClient {
-    private List<Client> list;
+public final class ListClient extends AbstractListWrapper<Client> {
 
+    /**
+     * Default constructor.
+     * <p>
+     * Initializes the list as a new empty {@link LinkedList}.
+     * </p>
+     */
     public ListClient() {
-        this.setList(new LinkedList<>());
+        super(new LinkedList<Client>());
     }
 
-    public final List<Client> getList() {
-        return list;
+    /**
+     * Constructor that initializes the list with an existing list of {@link Client} objects.
+     *
+     * @param list the list of clients to be used
+     */
+    public ListClient(List<Client> list) {
+        super(list);
     }
 
-    public final void setList(List<Client> list) {
-        this.list = list;
-    }
-    
+    /**
+     * Checks if a client exists in the list by comparing the username and password.
+     * <p>
+     * This method iterates through the list of clients and checks if there is a client with the specified username and password.
+     * </p>
+     * 
+     * @param username the username of the client to check
+     * @param password the password of the client to check
+     * @return {@code true} if a client with the given username and password is found,
+     *         {@code false} otherwise
+     */
     public boolean checkUser(String username, String password){
-        //controllo se utente é gia registrato
-        for(Client user : list){
+        for(Client user : super.getList()){
             if(user.getUsername().equals(username) && user.getPassword().equals(password))
                 return true;
         }
