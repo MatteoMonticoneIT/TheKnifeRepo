@@ -287,7 +287,7 @@ public final class Upperbar extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(153, 255, 153));
         setFont(new java.awt.Font("Consolas", 0, 32)); // NOI18N
-        setMinimumSize(new java.awt.Dimension(854, 100));
+        setMinimumSize(new java.awt.Dimension(0, 0));
         setPreferredSize(new java.awt.Dimension(854, 100));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

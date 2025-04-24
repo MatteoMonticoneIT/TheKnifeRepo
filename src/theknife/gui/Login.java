@@ -83,8 +83,8 @@ public final class Login extends javax.swing.JPanel {
      */
     private void initLogin() {
         this.setLayout(new BorderLayout());
-        pnl_grid.setBackground(this.getBackground());
         
+        pnl_grid                   .setBackground(this.getBackground());
         pnl_btn_login              .setBackground(this.getBackground());
         pnl_btn_cancel             .setBackground(this.getBackground());
         pnl_btn_register           .setBackground(this.getBackground());
@@ -290,11 +290,9 @@ public final class Login extends javax.swing.JPanel {
         int[] padding = {(int) (this.getWidth() * 0.2), (int) (this.getHeight() * 0.1)}; //0 = width; 1 = height;
         this.setBorder(BorderFactory.createEmptyBorder(padding[1], padding[0], padding[1], padding[0]));
         
-        final int PADDING_BTN_LOGIN    = (int) (this.getWidth() * 0.15);
-        pnl_btn_login .setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN_LOGIN, 0, PADDING_BTN_LOGIN));
-        
-        final int PADDING_BTN_CANCEL   = (int) (this.getWidth() * 0.09);
-        pnl_btn_cancel.setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN_CANCEL, 0, PADDING_BTN_CANCEL));
+        final int PADDING_BTN = (int) (this.getWidth() * 0.1);
+        pnl_btn_login .setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN, 0, PADDING_BTN));
+        pnl_btn_cancel.setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN, 0, PADDING_BTN));
     }
     
     /**
@@ -506,7 +504,7 @@ public final class Login extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(153, 255, 102));
         setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        setMinimumSize(new java.awt.Dimension(854, 480));
+        setMinimumSize(new java.awt.Dimension(0, 0));
         setPreferredSize(new java.awt.Dimension(854, 480));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

@@ -76,7 +76,7 @@ public final class TheKnife extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("The Knife");
-        setMinimumSize(new java.awt.Dimension(854, 480));
+        setMinimumSize(new java.awt.Dimension(872, 527));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

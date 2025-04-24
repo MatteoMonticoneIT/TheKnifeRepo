@@ -88,8 +88,8 @@ public class Register extends javax.swing.JPanel {
      */
     private void initRegister() {
         this.setLayout(new BorderLayout());
-        pnl_grid.setBackground(this.getBackground());
         
+        pnl_grid        .setBackground(this.getBackground());
         pnl_btn_register.setBackground(this.getBackground());
         pnl_btn_cancel  .setBackground(this.getBackground());
         
@@ -132,7 +132,7 @@ public class Register extends javax.swing.JPanel {
         btn_register.setForeground(FG_DEFAULT);
         btn_register.setHorizontalAlignment(JLabel.CENTER);
         btn_register.setVerticalAlignment  (JLabel.CENTER);
-        btn_register.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 18));
+        btn_register.setFont(this.getFont());
         btn_register.setOpaque(true);
         
         btn_cancel.setBackground(BG_CANCEL_BTN);
@@ -333,11 +333,9 @@ public class Register extends javax.swing.JPanel {
         int[] padding = {(int) (this.getWidth() * 0.2), (int) (this.getHeight() * 0.0375)}; //0 = width; 1 = height;
         this.setBorder(BorderFactory.createEmptyBorder(padding[1], padding[0], padding[1], padding[0]));
         
-        final int PADDING_BTN_REGISTER    = (int) (this.getWidth() * 0.15);
-        pnl_btn_register.setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN_REGISTER, 0, PADDING_BTN_REGISTER));
-        
-        final int PADDING_BTN_CANCEL   = (int) (this.getWidth() * 0.09);
-        pnl_btn_cancel  .setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN_CANCEL, 0, PADDING_BTN_CANCEL));
+        final int PADDING_BTN = (int) (this.getWidth() * 0.1);
+        pnl_btn_register.setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN, 0, PADDING_BTN));
+        pnl_btn_cancel  .setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN, 0, PADDING_BTN));
     }
     
     /**
@@ -603,7 +601,7 @@ public class Register extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(153, 255, 102));
         setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        setMinimumSize(new java.awt.Dimension(854, 480));
+        setMinimumSize(new java.awt.Dimension(0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -618,7 +616,7 @@ public class Register extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final Color    FG_DEFAULT       = Color.BLACK;
+    private final Color    FG_DEFAULT        = Color.BLACK;
     private final Color    FG_PLACEHOLDER    = Color.GRAY;
     private final Color    BG_REGISTER_BTN   = new Color(0, 255, 0, 192);
     private final Color    BG_CANCEL_BTN     = new Color(255, 64, 0, 192);

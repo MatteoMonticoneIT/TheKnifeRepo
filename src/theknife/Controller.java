@@ -1,5 +1,6 @@
 package theknife;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import theknife.obj.lists.ListClient;
 import theknife.obj.lists.ListRestaurant;

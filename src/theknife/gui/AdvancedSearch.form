@@ -6,7 +6,7 @@
       <Color blue="66" green="ff" red="99" type="rgb"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[854, 480]"/>
+      <Dimension value="[0, 0]"/>
     </Property>
   </Properties>
   <AuxValues>
