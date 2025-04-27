@@ -116,7 +116,7 @@ public final class TheKnife extends javax.swing.JFrame {
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new TheKnife().setVisible(true);
+             new TheKnife().setVisible(true);
         });
     }
     
