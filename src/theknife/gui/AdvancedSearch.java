@@ -330,18 +330,7 @@ public class AdvancedSearch extends javax.swing.JPanel {
     private final String[] CHKBX_CUISINE_TXT = {
         "1", 
         "2", 
-        "3", 
-        "4",
-        "5", 
-        "6", 
-        "7", 
-        "8",
-        "9", 
-        "10", 
-        "11", 
-        "12",
-        "13", 
-        "14"
+        "3"
     };
     private final String[] CHKBX_SERVICE_TXT = {
         "Air conditioning", 
