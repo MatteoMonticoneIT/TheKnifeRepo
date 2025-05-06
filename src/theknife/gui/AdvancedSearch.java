@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -20,6 +21,7 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
+import simple.file.CSV;
 
 /**
  * A panel that represents the advanced search screen in the application.
@@ -63,30 +65,30 @@ public class AdvancedSearch extends javax.swing.JPanel {
      * Initializes the basic fields of the {@code AdvancedSearch} panel.
      */
     private void initFields() {
-        pnl_filters         = new JPanel(new GridBagLayout());
-        pnl_btn_apply       = new JPanel(new BorderLayout());
-        pnl_btn_cancel      = new JPanel(new BorderLayout());
-        pnl_ratingBar       = new JPanel(new GridLayout(1, RATINGS));
-        pnl_btns            = new JPanel(new GridLayout(1, 2, 10, 10));
-        pnl_cuisines        = new JPanel(new GridLayout((int) Math.ceil(CHKBX_CUISINE_TXT.length / 2), 2, 10, 10));
-        pnl_services        = new JPanel(new GridLayout((int) Math.ceil(CHKBX_SERVICE_TXT.length / 2), 2, 10, 10));
-        scrlPnl_filters     = new JScrollPane(pnl_filters);
-        lbl_title           = new JLabel(TITLE);
-        lbl_star            = new JLabel[RATINGS];
-        btn_apply           = new JLabel(APPLY_FILTERS);
-        btn_cancel          = new JLabel(CANCEL);
-        txt_location        = new JTextField();
-        sld_price           = new JSlider(MIN_PRICE, MAX_PRICE);
-        chkbx_cuisines      = new JCheckBox[CHKBX_CUISINE_TXT.length];
-        chkbx_services      = new JCheckBox[CHKBX_SERVICE_TXT.length];
-        txt_layerUI         = new RoundedComponentUI(ARC_TEXTFIELD);
-        btn_layerUI         = new RoundedComponentUI(ARC_BUTTON);
-        pnl_layerUI         = new RoundedComponentUI(ARC_PANEL);
-        txt_locationRounded = new JLayer<>(txt_location, txt_layerUI);
-        pnl_cuisinesRounded = new JLayer<>(pnl_cuisines, pnl_layerUI);
-        pnl_servicesRounded = new JLayer<>(pnl_services, pnl_layerUI);
-        btn_applyRounded    = new JLayer<>(btn_apply,    btn_layerUI);
-        btn_cancelRounded   = new JLayer<>(btn_cancel,   btn_layerUI);
+        pnl_filters            = new JPanel(new GridBagLayout());
+        pnl_btn_apply          = new JPanel(new BorderLayout());
+        pnl_btn_cancel         = new JPanel(new BorderLayout());
+        pnl_ratingBar          = new JPanel(new GridLayout(1, RATINGS));
+        pnl_btns               = new JPanel(new GridLayout(1, 2, 10, 10));
+        pnl_cuisines           = new JPanel(new GridLayout((int) Math.ceil(CHKBX_CUISINE_TXT.length / 2), 2, 10, 10));
+        pnl_services           = new JPanel(new GridLayout((int) Math.ceil(CHKBX_SERVICE_TXT.length / 2), 2, 10, 10));
+        scrlPnl_filters        = new JScrollPane(pnl_filters);
+        scrlPnl_cuisines       = new JScrollPane(pnl_cuisines);
+        lbl_title              = new JLabel(TITLE);
+        lbl_star               = new JLabel[RATINGS];
+        btn_apply              = new JLabel(APPLY_FILTERS);
+        btn_cancel             = new JLabel(CANCEL);
+        txt_location           = new JTextField();
+        sld_price              = new JSlider(MIN_PRICE, MAX_PRICE);
+        chkbx_cuisines         = new JCheckBox[CHKBX_CUISINE_TXT.length];
+        chkbx_services         = new JCheckBox[CHKBX_SERVICE_TXT.length];
+        txt_layerUI            = new RoundedComponentUI(ARC_TEXTFIELD);
+        btn_layerUI            = new RoundedComponentUI(ARC_BUTTON);
+        pnl_layerUI            = new RoundedComponentUI(ARC_PANEL);
+        scrlPnl_filtersRounded = new JLayer<>(scrlPnl_filters, pnl_layerUI);
+        txt_locationRounded    = new JLayer<>(txt_location, txt_layerUI);
+        btn_applyRounded       = new JLayer<>(btn_apply,    btn_layerUI);
+        btn_cancelRounded      = new JLayer<>(btn_cancel,   btn_layerUI);
     }
     
     /**
@@ -117,8 +119,11 @@ public class AdvancedSearch extends javax.swing.JPanel {
             pnl_services.add(chkbx_services[i]);
         }
         
-        scrlPnl_filters.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrlPnl_filters.setVerticalScrollBarPolicy  (ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrlPnl_filters .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrlPnl_filters .setVerticalScrollBarPolicy  (ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrlPnl_cuisines.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrlPnl_cuisines.setVerticalScrollBarPolicy  (ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrlPnl_cuisines.setPreferredSize(new Dimension(0, SCRLPNL_CUISINES_HEIGHT));
         
         lbl_title.setBackground(this.getBackground());
         lbl_title.setForeground(FG_DEFAULT);
@@ -213,20 +218,20 @@ public class AdvancedSearch extends javax.swing.JPanel {
         pnl_filters.add(lbl_guides[3], gbc);
         
         gbc.gridy++;
-        pnl_filters.add(pnl_cuisinesRounded, gbc);
+        pnl_filters.add(scrlPnl_cuisines, gbc);
         
         gbc.gridy++;
         pnl_filters.add(lbl_guides[4], gbc);
         
         gbc.gridy++;
-        pnl_filters.add(pnl_servicesRounded, gbc);
+        pnl_filters.add(pnl_services, gbc);
         
         pnl_btns.setPreferredSize(new Dimension(this.getWidth(), 80));
         pnl_btns.add(pnl_btn_apply,  BorderLayout.CENTER);
         pnl_btns.add(pnl_btn_cancel, BorderLayout.EAST);
         
         this.add(lbl_title, BorderLayout.NORTH);
-        this.add(scrlPnl_filters, BorderLayout.CENTER);
+        this.add(scrlPnl_filtersRounded, BorderLayout.CENTER);
         this.add(pnl_btns,  BorderLayout.SOUTH);
         
     }
@@ -244,6 +249,10 @@ public class AdvancedSearch extends javax.swing.JPanel {
         
         scrlPnl_filters.addMouseWheelListener((java.awt.event.MouseWheelEvent e) -> {
             scrlPnl_filters_MouseWheelMoved(e);
+        });
+        
+        scrlPnl_cuisines.addMouseWheelListener((java.awt.event.MouseWheelEvent e) -> {
+            scrlPnl_cuisines_MouseWheelMoved(e);
         });
         
         sld_price.addChangeListener((javax.swing.event.ChangeEvent e) -> {
@@ -284,6 +293,19 @@ public class AdvancedSearch extends javax.swing.JPanel {
     }
     
     /**
+     * Handles the {@link JScrollPane} {@link JScrollBar}.
+     * 
+     * @param e the component event triggered by wheel-scrolling using the mouse.
+     */
+    private void scrlPnl_cuisines_MouseWheelMoved(java.awt.event.MouseWheelEvent e) {
+        int notches = e.getWheelRotation();
+        int fasterScroll = notches * 40;
+
+        JScrollBar vertical = scrlPnl_cuisines.getVerticalScrollBar();
+        vertical.setValue(vertical.getValue() + fasterScroll);
+    }
+    
+    /**
      * Handles the {@link JSlider} scroll
      * 
      * @param e the component event triggered by sliding the slider
@@ -318,81 +340,52 @@ public class AdvancedSearch extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final int ARC_PANEL              = 50;
-    private final int ARC_TEXTFIELD          = 30;
-    private final int ARC_BUTTON             = 20;
-    private final String TITLE               = "Filters";
-    private final String APPLY_FILTERS       = "Apply filters";
-    private final String CANCEL              = "Cancel";
-    private final int MIN_PRICE              = 1;
-    private final int MAX_PRICE              = 4;
-    private final int RATINGS                = 5;
-    private final String[] CHKBX_CUISINE_TXT = {
-        "1", 
-        "2", 
-        "3"
-    };
-    private final String[] CHKBX_SERVICE_TXT = {
-        "Air conditioning", 
-        "Booking essential", 
-        "Booking essential - dinner", 
-        "Brunch",
-        "Bring your own bottle", 
-        "Car park", 
-        "Cash only", 
-        "Cash only - lunch",
-        "Counter dining", 
-        "Credit cards not accepted", 
-        "Foreign credit cards not accepted", 
-        "Garden or park",
-        "Great view", 
-        "Interesting wine list", 
-        "Notable sake list", 
-        "Restaurant offering vegetarian menus",
-        "Shoes must be removed", 
-        "Terrace", 
-        "parking", 
-        "Wheelchair access"
-    };
-    private final String[] LBL_GUIDE_TXT = {
-        "Rating",
-        "Location",
-        "Price",
-        "Cuisine",
-        "Services"
-    };
-    private final Color FG_DEFAULT              = Color.BLACK;
-    private final Color FG_PLACEHOLDER          = Color.GRAY;
-    private final Color BG_TEXTFIELD            = new Color(255, 255, 255, 192);
-    private final Color BG_APPLY_BTN            = new Color(0, 255, 0, 192);
-    private final Color BG_CANCEL_BTN           = new Color(255, 64, 0, 192);
-    private final Border PADDING_TEXTFIELD      = BorderFactory.createEmptyBorder(0, 10, 0, 10);
-    private final Border PADDING_PANEL_CHKBXS = BorderFactory.createEmptyBorder(20, 20, 20, 20);
+    private final File     programDataset          = new File("./data/program/program_dataset.csv");
+    private final int      ARC_PANEL               = 50;
+    private final int      ARC_TEXTFIELD           = 30;
+    private final int      ARC_BUTTON              = 20;
+    private final String   TITLE                   = "Filters";
+    private final String   APPLY_FILTERS           = "Apply filters";
+    private final String   CANCEL                  = "Cancel";
+    private final int      MIN_PRICE               = 1;
+    private final int      MAX_PRICE               = 4;
+    private final int      RATINGS                 = 5;
+    private final int      SCRLPNL_CUISINES_HEIGHT = 600;
+    private final String[] CHKBX_CUISINE_TXT       = CSV.read(programDataset, "CUISINES").toArray(new String[0]);
+    private final String[] CHKBX_SERVICE_TXT       = CSV.read(programDataset, "SERVICES").toArray(new String[0]);
+    private final String[] LBL_GUIDE_TXT           = CSV.read(programDataset, "GUIDES"  ).toArray(new String[0]);
+    private final Color    FG_DEFAULT              = Color.BLACK;
+    private final Color    FG_PLACEHOLDER          = Color.GRAY;
+    private final Color    BG_TEXTFIELD            = new Color(255, 255, 255, 192);
+    private final Color    BG_APPLY_BTN            = new Color(0, 255, 0, 192);
+    private final Color    BG_CANCEL_BTN           = new Color(255, 64, 0, 192);
+    private final Border   PADDING_TEXTFIELD       = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+    private final Border   PADDING_PANEL_CHKBXS    = BorderFactory.createEmptyBorder(20, 20, 20, 20);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private final PanelMain   pnl_main;
-    private       JPanel      pnl_filters;
-    private       JPanel      pnl_btn_apply;
-    private       JPanel      pnl_btn_cancel;
-    private       JPanel      pnl_ratingBar;
-    private       JPanel      pnl_btns;
-    private       JPanel      pnl_cuisines;
-    private       JPanel      pnl_services;
-    private       JScrollPane scrlPnl_filters;
-    private       JLabel      lbl_title;
-    private       JLabel[]    lbl_star;
-    private       JLabel      btn_apply;
-    private       JLabel      btn_cancel;
-    private       JTextField  txt_location;
-    private       JSlider     sld_price;
-    private       JCheckBox[] chkbx_cuisines; 
-    private       JCheckBox[] chkbx_services; 
+    private final PanelMain          pnl_main;
+    private       JPanel             pnl_filters;
+    private       JPanel             pnl_btn_apply;
+    private       JPanel             pnl_btn_cancel;
+    private       JPanel             pnl_ratingBar;
+    private       JPanel             pnl_btns;
+    private       JPanel             pnl_cuisines;
+    private       JPanel             pnl_services;
+    private       JScrollPane        scrlPnl_filters;
+    private       JScrollPane        scrlPnl_cuisines;
+    private       JLabel             lbl_title;
+    private       JLabel[]           lbl_star;
+    private       JLabel             btn_apply;
+    private       JLabel             btn_cancel;
+    private       JTextField         txt_location;
+    private       JSlider            sld_price;
+    private       JCheckBox[]        chkbx_cuisines; 
+    private       JCheckBox[]        chkbx_services; 
     private       RoundedComponentUI txt_layerUI;
     private       RoundedComponentUI btn_layerUI;
     private       RoundedComponentUI pnl_layerUI;
+    private       JLayer<JComponent> scrlPnl_filtersRounded;
     private       JLayer<JComponent> txt_locationRounded;
-    private       JLayer<JComponent> pnl_cuisinesRounded;
-    private       JLayer<JComponent> pnl_servicesRounded;
     private       JLayer<JComponent> btn_applyRounded;
     private       JLayer<JComponent> btn_cancelRounded;
     //</editor-fold>
