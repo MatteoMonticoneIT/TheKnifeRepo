@@ -13,10 +13,10 @@ import theknife.gui.Register;
  * This class represents the main window of the application, containing the layout and navigation structure.<br>
  * It handles the initialization and switching between different panels.
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 public final class TheKnife extends javax.swing.JFrame {
 

@@ -30,11 +30,11 @@ import simple.file.CSV;
  * It is managed by the {@link PanelMain} class using a {@link CardLayout}.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
- */
+ * @author Mattia Tamburo       761743 (CO)
+*/
 public class AdvancedSearch extends javax.swing.JPanel {
 
     /**
@@ -119,11 +119,16 @@ public class AdvancedSearch extends javax.swing.JPanel {
             pnl_services.add(chkbx_services[i]);
         }
         
+        scrlPnl_filters .getVerticalScrollBar()      .setUI(new CustomScrollBar());
+        scrlPnl_filters .getHorizontalScrollBar()    .setUI(new CustomScrollBar());
         scrlPnl_filters .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrlPnl_filters .setVerticalScrollBarPolicy  (ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        
+        scrlPnl_cuisines.getVerticalScrollBar()      .setUI(new CustomScrollBar());
+        scrlPnl_cuisines.getHorizontalScrollBar()    .setUI(new CustomScrollBar());
         scrlPnl_cuisines.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrlPnl_cuisines.setVerticalScrollBarPolicy  (ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrlPnl_cuisines.setPreferredSize(new Dimension(0, SCRLPNL_CUISINES_HEIGHT));
+        scrlPnl_cuisines.setPreferredSize            (new Dimension(0, SCRLPNL_CUISINES_HEIGHT));
         
         lbl_title.setBackground(this.getBackground());
         lbl_title.setForeground(FG_DEFAULT);

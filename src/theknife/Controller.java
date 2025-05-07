@@ -9,6 +9,13 @@ import theknife.obj.restaurant.Restaurant;
 import theknife.obj.user.Client;
 import theknife.obj.user.Restaurateur;
 
+/**
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
+ * @author Matteo Monticone     761701 (CO)
+ * @author Mattia Tamburo       761743 (CO)
+ */
+
 public class Controller {
     ListClient          clients;
     ListRestaurant      restaurants;
