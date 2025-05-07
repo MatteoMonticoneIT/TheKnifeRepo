@@ -9,10 +9,10 @@ import java.time.LocalDate;
  * A user has personal information including name, username, password, birthday, domicile, and a role.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 public class User {
     
@@ -54,16 +54,16 @@ public class User {
     /**
      * Default constructor.
      * <p>
-     * Initializes a new user without any attributes set.
+     * Initializes a new {@code User} object without any attributes set.
      * </p>
      */
     public User() {
     }
 
     /**
-     * Constructor that initializes a user with the specified attributes.
+     * Constructor that initializes a {@code User} object with the specified attributes.
      * <p>
-     * This constructor initializes the user's name, username, password, birthday, and domicile.
+     * This constructor initializes the {@code User} object's name, username, password, birthday, and domicile.
      * </p>
      *
      * @param firstName the user's first name

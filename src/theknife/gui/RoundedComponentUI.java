@@ -16,10 +16,10 @@ import javax.swing.plaf.LayerUI;
  * This UI delegate can be used with a {@code JLayer} to visually enhance components without modifying their internal rendering logic.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 public final class RoundedComponentUI extends LayerUI<JComponent> {
     private int arc;

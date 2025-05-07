@@ -14,10 +14,10 @@ import java.util.List;
  * 
  * @param <T> the type of elements in the list
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 public abstract class AbstractListWrapper<T> {
     

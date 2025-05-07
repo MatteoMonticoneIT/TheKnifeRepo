@@ -7,10 +7,10 @@ package theknife.obj.restaurant;
  * It can be used to represent the coordinates of a restaurant or any other geographic entity.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 
 public class Coordinate {
@@ -28,14 +28,14 @@ public class Coordinate {
     /**
      * Default constructor.
      * <p>
-     * Initializes the coordinates with default values (latitude = 0, longitude = 0).
+     * Initializes the {@code Coordinate} object with default values (latitude = 0, longitude = 0).
      * </p>
      */
     public Coordinate() {
     }
 
     /**
-     * Constructor that initializes the coordinates with the specified latitude and longitude.
+     * Constructor that initializes the {@code Coordinate} object with the specified latitude and longitude.
      * 
      * @param latitude the latitude of the geographic location
      * @param longitude the longitude of the geographic location

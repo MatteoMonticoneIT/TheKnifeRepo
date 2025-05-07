@@ -9,10 +9,10 @@ import theknife.obj.lists.ListFavorite;
  * This class extends the {@link User} class and adds a list of favorite restaurants, allowing the client to store and manage their preferences.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 
 public final class Client extends User {
@@ -25,16 +25,16 @@ public final class Client extends User {
     /**
      * Default constructor.
      * <p>
-     * Initializes a new client with no list of favorites, using default values for other user attributes.
+     * Initializes a new {@code Client} object without any attributes set.
      * </p>
      */
     public Client() {
     }
 
     /**
-     * Constructor that initializes a client with the specified attributes.
+     * Constructor that initializes a {@code Client} object with the specified attributes.
      * <p>
-     * This constructor initializes the client's name, surname, username, password, birthday, domicile and favorite restaurants list.
+     * This constructor initializes the {@code Client} object's name, surname, username, password, birthday, domicile and favorite restaurants list.
      * </p>
      *
      * @param listFavorite the list of favorite restaurants for the client

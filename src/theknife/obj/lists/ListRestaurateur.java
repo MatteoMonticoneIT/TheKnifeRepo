@@ -14,10 +14,10 @@ import theknife.obj.user.Restaurateur;
  * This class extends {@link AbstractListWrapper}, inheriting its methods to manage the list of {@link Restaurateur} objects.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 
 public final class ListRestaurateur extends AbstractListWrapper<Restaurateur> {

@@ -22,14 +22,14 @@ public class CustomScrollBar extends BasicScrollBarUI
   @Override
   protected void    paintThumb          (Graphics g, JComponent c, Rectangle thumbBounds) 
   {
-    g.setColor(Color.GREEN);
+    g.setColor(new Color(135, 255, 135));
     g.fillRoundRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height, 10, 10);
   }
 
   @Override
   protected void    paintTrack          (Graphics g, JComponent c, Rectangle trackBounds) 
   {
-    g.setColor(Color.LIGHT_GRAY);
+    g.setColor(new Color(39, 142, 39));
     g.fillRect(trackBounds.x, trackBounds.y, trackBounds.width, trackBounds.height);
   }
 

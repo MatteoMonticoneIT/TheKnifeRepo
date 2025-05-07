@@ -15,10 +15,10 @@ import theknife.obj.user.Client;
  * Additionally, it provides a method to check whether a client exists in the list by matching the username and password.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 
 public final class ListClient extends AbstractListWrapper<Client> {

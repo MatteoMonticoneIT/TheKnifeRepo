@@ -121,11 +121,11 @@ public final class TheKnife extends javax.swing.JFrame {
     }
     
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private PanelMain  pnl_main;
-    private JPanel     home;
-    private JPanel     login;
-    private JPanel     register;
-    private JPanel     advancedSearch;
+    private PanelMain      pnl_main;
+    private Home           home;
+    private Login          login;
+    private Register       register;
+    private AdvancedSearch advancedSearch;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

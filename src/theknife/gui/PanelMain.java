@@ -9,18 +9,10 @@ import javax.swing.JPanel;
  * This class simplifies the management of multiple components displayed one at a time within the same container, by providing convenient access to the panel and layout.
  * </p>
  * 
- * <p><b>Usage example:</b></p>
- * <pre>{@code
- * PanelMain panelMain = new PanelMain();
- * panelMain.getPanel().add(new LoginPanel(), "login");
- * panelMain.getPanel().add(new DashboardPanel(), "dashboard");
- * panelMain.showCard("login");
- * }</pre>
- * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 public final class PanelMain {
     private final JPanel panel;

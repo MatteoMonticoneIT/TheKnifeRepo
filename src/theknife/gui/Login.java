@@ -23,9 +23,9 @@ import theknife.obj.lists.ListClient;
  * It is managed by the {@link PanelMain} class using a {@link CardLayout}.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
 public final class Login extends javax.swing.JPanel {

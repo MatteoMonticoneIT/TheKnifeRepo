@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -20,10 +21,10 @@ import javax.swing.JTextField;
  * This class handles events such as button clicks and text input to interact with the rest of the application.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 public final class Upperbar extends javax.swing.JPanel {
 
@@ -315,10 +316,10 @@ public final class Upperbar extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Components">
     private final PanelMain          pnl_main;
     private       JPanel[]           pnls_upperbar;
-    private       JPanel     pnl_searchbar;
-    private       JTextField txt_searchbar;
-    private       JLabel     btn_advancedSearch;
-    private       JLabel     btn_login;
+    private       JPanel             pnl_searchbar;
+    private       JTextField         txt_searchbar;
+    private       JLabel             btn_advancedSearch;
+    private       JLabel             btn_login;
     private       RoundedComponentUI layerUI;
     private       JLayer<JComponent> txt_searchbarRounded;
     private       JLayer<JComponent> btn_advancedSearchRounded;

@@ -6,10 +6,10 @@ package theknife.obj.review;
  * A response contains the content of the response and the associated review it pertains to.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 
 public final class Response {
@@ -27,14 +27,14 @@ public final class Response {
     /**
      * Default constructor.
      * <p>
-     * Initializes a new empty response without content or associated review.
+     * Initializes a new {@code Response} object without any attributes set.
      * </p>
      */
     public Response() {
     }
 
     /**
-     * Constructor that initializes the response with specific content and associated review.
+     * Constructor that initializes the {@code Response} object with specific content and associated review.
      *
      * @param content the content of the response
      * @param review the review that this response is related to

@@ -9,10 +9,10 @@ import theknife.obj.lists.ListRestaurant;
  * This class extends the {@link User} class and adds a list of restaurants, allowing the restaurateur to manage their owned restaurants.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 public final class Restaurateur extends User {
 
@@ -24,16 +24,16 @@ public final class Restaurateur extends User {
     /**
      * Default constructor.
      * <p>
-     * Initializes a new restaurateur with no list of restaurants, using default values for other user attributes.
+     * Initializes a new {@code Restaurateur} object without any attributes set.
      * </p>
      */
     public Restaurateur() {
     }
 
     /**
-     * Constructor that initializes a restaurateur with the specified attributes.
+     * Constructor that initializes a {@code Restaurateur} object with the specified attributes.
      * <p>
-     * This constructor initializes the restaurateur's name, surname, username, password, birthday, domicile and the list of restaurants they manage.
+     * This constructor initializes the {@code Restaurateur} object's name, surname, username, password, birthday, domicile and the list of restaurants they manage.
      * </p>
      *
      * @param listRestaurant the list of restaurants managed by the restaurateur

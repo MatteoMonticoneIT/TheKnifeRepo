@@ -7,10 +7,10 @@ package theknife.obj.restaurant;
  * It can be used to represent the location of a restaurant or other geographic entities.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 
 public class Location extends Coordinate {
@@ -33,14 +33,14 @@ public class Location extends Coordinate {
     /**
      * Default constructor.
      * <p>
-     * Initializes a location with no country, city, or address and default coordinates.
+     * Initializes a {@code Location} with no country, city or address.
      * </p>
      */
     public Location() {
     }
 
     /**
-     * Constructor that initializes the location with the specified country, city, address, and geographic coordinates (latitude and longitude).
+     * Constructor that initializes the {@code Location} object with the specified country, city, address, and geographic coordinates (latitude and longitude).
      *
      * @param country the country of the location
      * @param city the city of the location

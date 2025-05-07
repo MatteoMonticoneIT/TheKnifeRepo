@@ -8,10 +8,10 @@ import theknife.obj.lists.ListReview;
  * This class includes details about a restaurant such as its name, price, phone number, URL, awards, green star, services available, description, and associated reviews.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 
 public final class Restaurant extends Location {
@@ -69,14 +69,14 @@ public final class Restaurant extends Location {
     /**
      * Default constructor.
      * <p>
-     * Initializes the restaurant with no specific values for its attributes.
+     * Initializes the {@code Restaurant} object with no name, price, phoneNumber and other parameters.
      * </p>
      */
     public Restaurant() {
     }
 
     /**
-     * Constructor that initializes the restaurant with the provided details.
+     * Constructor that initializes the {@code Restaurant} object with the provided details.
      *
      * @param name the name of the restaurant
      * @param price the price category of the restaurant

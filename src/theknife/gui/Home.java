@@ -10,10 +10,10 @@ import java.awt.BorderLayout;
  * This class handles events such as button clicks and text input to interact with the rest of the application.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 public final class Home extends javax.swing.JPanel {
 
@@ -35,15 +35,7 @@ public final class Home extends javax.swing.JPanel {
      * Initializes the graphical user interface (GUI) for the home page.
      */
     private void initGUI() {
-        initFields();
         initHome();
-    }
-    
-    /**
-     * Initializes all the fields in the home.
-     */
-    private void initFields() {
-        
     }
     
     /**
@@ -64,6 +56,7 @@ public final class Home extends javax.swing.JPanel {
     private void initComponents() {
 
         setBackground(new java.awt.Color(204, 255, 204));
+        setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

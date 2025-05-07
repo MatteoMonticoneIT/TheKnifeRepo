@@ -7,10 +7,10 @@ package theknife.obj.review;
  * It also stores a {@link Response} to the review.
  * </p>
  * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Damiano De Mutiis    ------ (CO)
- * @author Matteo Porto Bonacci ------ (CO)
- * @author Mattia Tamburo       ------ (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 
 public final class Review {
@@ -33,14 +33,14 @@ public final class Review {
     /**
      * Default constructor.
      * <p>
-     * Initializes a new review with no content and no grade.
+     * Initializes a new {@code Review} object without any attributes set.
      * </p>
      */
     public Review() {
     }
 
     /**
-     * Constructor that initializes a review with specific content and grade.
+     * Constructor that initializes a {@code Review} object with specific content and grade.
      *
      * @param content the content of the review
      * @param grade the grade given in the review
