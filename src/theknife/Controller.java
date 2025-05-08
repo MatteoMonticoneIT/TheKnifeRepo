@@ -2,11 +2,11 @@ package theknife;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
-import theknife.obj.lists.ListClient;
+import theknife.obj.lists.ListCustomer;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.lists.ListRestaurateur;
 import theknife.obj.restaurant.Restaurant;
-import theknife.obj.user.Client;
+import theknife.obj.user.Customer;
 import theknife.obj.user.Restaurateur;
 
 /**
@@ -17,7 +17,7 @@ import theknife.obj.user.Restaurateur;
  */
 
 public class Controller {
-    ListClient          clients;
+    ListCustomer        customers;
     ListRestaurant      restaurants;
     ListRestaurateur    restaurateur;
     

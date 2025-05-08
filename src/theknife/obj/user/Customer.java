@@ -15,7 +15,7 @@ import theknife.obj.lists.ListFavorite;
  * @author Mattia Tamburo       761743 (CO)
  */
 
-public final class Client extends User {
+public final class Customer extends User {
     
     /**
      * The list of favorite restaurants for the client.
@@ -28,25 +28,25 @@ public final class Client extends User {
      * Initializes a new {@code Client} object without any attributes set.
      * </p>
      */
-    public Client() {
+    public Customer() {
     }
 
     /**
      * Constructor that initializes a {@code Client} object with the specified attributes.
      * <p>
-     * This constructor initializes the {@code Client} object's name, surname, username, password, birthday, domicile and favorite restaurants list.
+     * This constructor initializes the {@code Client} object's firstName, lastName, username, password, birthday, address and favorite restaurants list.
      * </p>
      *
      * @param listFavorite the list of favorite restaurants for the client
-     * @param name the client's name
-     * @param surname the client's surname
+     * @param firstName the client's firstName
+     * @param lastName the client's lastName
      * @param username the client's username
      * @param password the client's password
      * @param birthday the client's birthday
-     * @param domicile the client's domicile
+     * @param address the client's address
      */
-    public Client(ListFavorite listFavorite, String name, String surname, String username, String password, LocalDate birthday, String domicile) {
-        super(name, surname, username, password, birthday, domicile);
+    public Customer(ListFavorite listFavorite, String firstName, String lastName, String username, String password, LocalDate birthday, String address) {
+        super(firstName, lastName, username, password, birthday, address);
         this.setRole("client");
         this.setListFavorite(listFavorite);
     }

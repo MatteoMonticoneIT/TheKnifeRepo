@@ -2,16 +2,16 @@ package theknife.obj.lists;
 
 import java.util.LinkedList;
 import java.util.List;
-import theknife.obj.user.Client;
+import theknife.obj.user.Customer;
 
 /**
- * A final class that represents a collection of {@link Client} objects.
+ * A final class that represents a collection of {@link Customer} objects.
  * <p>
  * Provides methods to access and modify the list of clients.<br> 
  * The list can be initialized either as empty or with an existing list.
  * </p>
  * <p>
- * This class extends {@link AbstractListWrapper}, inheriting its methods to manage the list of {@link Client} objects.<br>
+ * This class extends {@link AbstractListWrapper}, inheriting its methods to manage the list of {@link Customer} objects.<br>
  * Additionally, it provides a method to check whether a client exists in the list by matching the username and password.
  * </p>
  * 
@@ -21,7 +21,7 @@ import theknife.obj.user.Client;
  * @author Mattia Tamburo       761743 (CO)
  */
 
-public final class ListClient extends AbstractListWrapper<Client> {
+public final class ListCustomer extends AbstractListWrapper<Customer> {
 
     /**
      * Default constructor.
@@ -29,16 +29,16 @@ public final class ListClient extends AbstractListWrapper<Client> {
      * Initializes the list as a new empty {@link LinkedList}.
      * </p>
      */
-    public ListClient() {
-        super(new LinkedList<Client>());
+    public ListCustomer() {
+        super(new LinkedList<Customer>());
     }
 
     /**
-     * Constructor that initializes the list with an existing list of {@link Client} objects.
+     * Constructor that initializes the list with an existing list of {@link Customer} objects.
      *
      * @param list the list of clients to be used
      */
-    public ListClient(List<Client> list) {
+    public ListCustomer(List<Customer> list) {
         super(list);
     }
 
@@ -54,7 +54,7 @@ public final class ListClient extends AbstractListWrapper<Client> {
      *         {@code false} otherwise
      */
     public boolean checkUser(String username, String password){
-        for(Client user : super.getList()){
+        for(Customer user : super.getList()){
             if(user.getUsername().equals(username) && user.getPassword().equals(password))
                 return true;
         }

@@ -1,12 +1,13 @@
 package theknife;
 
-import javax.swing.JPanel;
 import theknife.gui.AdvancedSearch;
 import theknife.gui.Home;
 import theknife.gui.Login;
+import theknife.gui.LoginRestaurateur;
 import theknife.gui.Page;
 import theknife.gui.PanelMain;
 import theknife.gui.Register;
+import theknife.gui.RegisterRestaurateur;
 
 /**
  * The main frame of the application "The Knife".<br>
@@ -44,21 +45,25 @@ public final class TheKnife extends javax.swing.JFrame {
      * Initializes all the fields in the knife.
      */
     private void initFields() {
-        pnl_main       = new PanelMain();
-        home           = new Home (pnl_main);
-        login          = new Login(pnl_main);
-        register       = new Register(pnl_main);
-        advancedSearch = new AdvancedSearch(pnl_main);
+        pnl_main             = new PanelMain           ();
+        home                 = new Home                (pnl_main);
+        login                = new Login               (pnl_main);
+        loginRestaurateur    = new LoginRestaurateur   (pnl_main);
+        register             = new Register            (pnl_main);
+        registerRestaurateur = new RegisterRestaurateur(pnl_main);
+        advancedSearch       = new AdvancedSearch      (pnl_main);
     }
     
     /**
      * Initializes the layout and appearance of the main page.
      */
     private void initTheKnife() {        
-        pnl_main.getPanel().add(home,           Page.HOME);
-        pnl_main.getPanel().add(login,          Page.LOGIN);
-        pnl_main.getPanel().add(register,       Page.REGISTER);
-        pnl_main.getPanel().add(advancedSearch, Page.ADVANCED_SEARCH);
+        pnl_main.getPanel().add(home,                 Page.HOME);
+        pnl_main.getPanel().add(login,                Page.LOGIN);
+        pnl_main.getPanel().add(loginRestaurateur,    Page.LOGIN_RESTAURATEUR);
+        pnl_main.getPanel().add(register,             Page.REGISTER);
+        pnl_main.getPanel().add(registerRestaurateur, Page.REGISTER_RESTAURATEUR);
+        pnl_main.getPanel().add(advancedSearch,       Page.ADVANCED_SEARCH);
         
         this.setContentPane(pnl_main.getPanel());
         pnl_main.showCard(Page.HOME);
@@ -121,11 +126,13 @@ public final class TheKnife extends javax.swing.JFrame {
     }
     
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private PanelMain      pnl_main;
-    private Home           home;
-    private Login          login;
-    private Register       register;
-    private AdvancedSearch advancedSearch;
+    private PanelMain            pnl_main;
+    private Home                 home;
+    private Login                login;
+    private LoginRestaurateur    loginRestaurateur;
+    private Register             register;
+    private RegisterRestaurateur registerRestaurateur;
+    private AdvancedSearch       advancedSearch;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

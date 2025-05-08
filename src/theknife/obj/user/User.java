@@ -6,7 +6,7 @@ import java.time.LocalDate;
  * Represents a generic user in the system.
  * <p>
  * This class contains common attributes and behaviors for all types of users, such as clients and restaurateurs.<br>
- * A user has personal information including name, username, password, birthday, domicile, and a role.
+ * A user has personal information including name, username, password, birthday, address, and a role.
  * </p>
  * 
  * @author Damiano De Mutiis    761348 (CO)
@@ -42,9 +42,9 @@ public class User {
     private LocalDate birthday;
     
     /**
-     * The user's domicile (address).
+     * The user's address.
      */
-    private String domicile;
+    private String address;
     
     /**
      * The role of the user (e.g., "client", "restaurateur").
@@ -63,7 +63,7 @@ public class User {
     /**
      * Constructor that initializes a {@code User} object with the specified attributes.
      * <p>
-     * This constructor initializes the {@code User} object's name, username, password, birthday, and domicile.
+     * This constructor initializes the {@code User} object's name, username, password, birthday, and address.
      * </p>
      *
      * @param firstName the user's first name
@@ -71,15 +71,15 @@ public class User {
      * @param username the user's username
      * @param password the user's password
      * @param birthday the user's birthday
-     * @param domicile the user's domicile (address)
+     * @param address the user's address
      */
-    public User(String firstName, String lastName, String username, String password, LocalDate birthday, String domicile) {
+    public User(String firstName, String lastName, String username, String password, LocalDate birthday, String address) {
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setUsername(username);
         this.setPassword(password);
         this.setBirthday(birthday);
-        this.setDomicile(domicile);
+        this.setAddress(address);
     }
 
     /**
@@ -173,21 +173,21 @@ public class User {
     }
 
     /**
-     * Returns the user's domicile (address).
+     * Returns the user's address.
      *
-     * @return the user's domicile
+     * @return the user's address
      */
-    public String getDomicile() {
-        return domicile;
+    public String getAddress() {
+        return address;
     }
 
     /**
-     * Sets the user's domicile (address).
+     * Sets the user's address.
      *
-     * @param domicile the new domicile to set
+     * @param address the new address to set
      */
-    public final void setDomicile(String domicile) {
-        this.domicile = domicile;
+    public final void setAddress(String address) {
+        this.address = address;
     }
 
     /**

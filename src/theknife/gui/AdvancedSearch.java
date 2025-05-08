@@ -9,8 +9,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -19,7 +19,6 @@ import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
@@ -343,6 +342,15 @@ public final class AdvancedSearch extends javax.swing.JPanel {
                 }
             });
         }
+        
+        for (JLabel lbl : lbl_prices) {
+            lbl.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    btn_price_MouseClicked(e);
+                }
+            });
+        }
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
@@ -387,6 +395,39 @@ public final class AdvancedSearch extends javax.swing.JPanel {
 
         JScrollBar vertical = scrlPnl_cuisines.getVerticalScrollBar();
         vertical.setValue(vertical.getValue() + fasterScroll);
+    }
+    
+    /**
+     * Handles the item state when clicking the {@link JCheckBox}.
+     * 
+     * @param e the item event triggered by clicking the checkbox
+     */
+    private void chkbx_ItemStateChanged(java.awt.event.ItemEvent e) {
+        System.out.println(e.getStateChange() % 2 != 0);
+    }
+    
+    /**
+     * Handles the gaining focus event on the location {@link JTextField}.
+     * 
+     * @param e the mouse event triggered by gaining focus
+     */
+    private void txt_location_FocusGained(java.awt.event.FocusEvent e) {
+        if (txt_location.getText().equals(PLACEHOLDER[0])) {
+            txt_location.setText("");
+            txt_location.setForeground(FG_DEFAULT);
+        }
+    }
+    
+    /**
+     * Handles the losing focus event on the location {@link JTextField}.
+     * 
+     * @param e the mouse event triggered by gaining focus
+     */
+    private void txt_location_FocusLost(java.awt.event.FocusEvent e) {
+        if (txt_location.getText().isEmpty()) {
+            txt_location.setText(PLACEHOLDER[0]);
+            txt_location.setForeground(FG_PLACEHOLDER);
+        }
     }
     
     /**
@@ -456,39 +497,6 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the item state when clicking the {@link JCheckBox}.
-     * 
-     * @param e the item event triggered by clicking the checkbox
-     */
-    private void chkbx_ItemStateChanged(java.awt.event.ItemEvent e) {
-        System.out.println(e.getStateChange() % 2 != 0);
-    }
-    
-    /**
-     * Handles the gaining focus event on the location {@link JTextField}.
-     * 
-     * @param e the mouse event triggered by gaining focus
-     */
-    private void txt_location_FocusGained(java.awt.event.FocusEvent e) {
-        if (txt_location.getText().equals(PLACEHOLDER[0])) {
-            txt_location.setText("");
-            txt_location.setForeground(FG_DEFAULT);
-        }
-    }
-    
-    /**
-     * Handles the losing focus event on the location {@link JTextField}.
-     * 
-     * @param e the mouse event triggered by gaining focus
-     */
-    private void txt_location_FocusLost(java.awt.event.FocusEvent e) {
-        if (txt_location.getText().isEmpty()) {
-            txt_location.setText(PLACEHOLDER[0]);
-            txt_location.setForeground(FG_PLACEHOLDER);
-        }
-    }
-    
-    /**
      * Handles the click event on the star {@link JLabel}.
      * <p>
      * When the label is clicked, it checks if the rating given has a half star or not.
@@ -501,6 +509,35 @@ public final class AdvancedSearch extends javax.swing.JPanel {
             if (lbl_stars[i].equals(e.getSource())) {
                 System.out.println(e.getPoint().x <= lbl_stars[0].getWidth() / 2 ? i + 0.5 : i + 1);
                 break;
+            }
+        }
+    }
+    
+    /**
+     * Handles the click event on the price {@link JLabel}.
+     * <p>
+     * When the label is clicked, it process the price interval.
+     * </p>
+     * 
+     * @param e the mouse event triggered by clicking the button 
+     */
+    private void btn_price_MouseClicked(MouseEvent e) {
+        for (int i = 0; i < lbl_prices.length; i++) {
+            if (lbl_prices[i].equals(e.getSource())) {
+                switch (i) {
+                    case 0:
+                        System.out.println("0 - 100");
+                        break;
+                    case 1:
+                        System.out.println("101 - 200");
+                        break;
+                    case 2:
+                        System.out.println("201 - 300");
+                        break;
+                    case 3:
+                        System.out.println("301 - 400");
+                        break;
+                }
             }
         }
     }
@@ -518,16 +555,17 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         setBackground(new java.awt.Color(153, 255, 102));
         setFont(new java.awt.Font("Consolas", 0, 16)); // NOI18N
         setMinimumSize(new java.awt.Dimension(0, 0));
+        setPreferredSize(new java.awt.Dimension(400, 300));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 854, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -536,9 +574,6 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     private final int      ARC_PANEL               = 50;
     private final int      ARC_TEXTFIELD           = 30;
     private final int      ARC_BUTTON              = 20;
-    private final String   TITLE                   = "Filters";
-    private final String   APPLY_FILTERS           = "Apply filters";
-    private final String   CANCEL                  = "Cancel";
     private final int      PRICES                  = 4;
     private final int      RATINGS                 = 5;
     private final int      SCRLPNL_CUISINES_HEIGHT = 600;
@@ -546,6 +581,9 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     private final String[] CHKBX_SERVICE_TXT       = CSV.read(programDataset, "SERVICES").toArray(new String[0]);
     private final String[] LBL_GUIDE_TXT           = CSV.read(programDataset, "GUIDES"  ).toArray(new String[0]);
     private final String[] PLACEHOLDER             = new String[]{"Your location"};
+    private final String   TITLE                   = "Filters";
+    private final String   APPLY_FILTERS           = "Apply filters";
+    private final String   CANCEL                  = "Cancel";
     private final Color    FG_DEFAULT              = Color.BLACK;
     private final Color    FG_PLACEHOLDER          = Color.GRAY;
     private final Color    BG_TEXTFIELD            = new Color(255, 255, 255, 192);
