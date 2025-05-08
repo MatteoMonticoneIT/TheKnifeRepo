@@ -7,11 +7,13 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayer;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import theknife.obj.lists.ListClient;
@@ -69,7 +71,7 @@ public final class Login extends javax.swing.JPanel {
         btn_register                = new JLabel(REGISTER);
         btn_loginAsRestaurateur     = new JLabel(LOGIN_AS_RESTAURATEUR);
         txt_emailUsername           = new JTextField(PLACEHOLDER[0]);
-        txt_password                = new JTextField(PLACEHOLDER[1]);
+        txt_password                = new JPasswordField(PLACEHOLDER[1]);
         txt_layerUI                 = new RoundedComponentUI(ARC_TEXTFIELD);
         btn_layerUI                 = new RoundedComponentUI(ARC_BUTTON);
         txt_emailUsernameRounded    = new JLayer<>(txt_emailUsername, txt_layerUI);
@@ -104,6 +106,7 @@ public final class Login extends javax.swing.JPanel {
         txt_password     .setBackground(BG_TEXTFIELD);
         txt_password     .setForeground(FG_PLACEHOLDER);
         txt_password     .setBorder    (PADDING_TEXTFIELD);
+        txt_password     .setEchoChar((char) 0);
         
         btn_login.setBackground(BG_LOGIN_BTN);
         btn_login.setForeground(FG_DEFAULT);
@@ -205,6 +208,23 @@ public final class Login extends javax.swing.JPanel {
             @Override
             public void focusLost(java.awt.event.FocusEvent e) {
                 txt_password_FocusLost(e);
+            }
+        });
+        
+        txt_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent e) {
+                txt_password_KeyTyped(e);
+            }
+            
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent e) {
+                txt_password_KeyPressed(e);
+            }
+            
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                txt_password_KeyReleased(e);
             }
         });
         
@@ -325,8 +345,9 @@ public final class Login extends javax.swing.JPanel {
      * @param e the mouse event triggered by gaining focus
      */
     private void txt_password_FocusGained(java.awt.event.FocusEvent e) {
-        if (txt_password.getText().equals(PLACEHOLDER[1])) {
+        if (String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1])) {
             txt_password.setText("");
+            txt_password.setEchoChar(DEFAULT_PASSWORD_ECHOCHAR);
             txt_password.setForeground(FG_DEFAULT);
         }
     }
@@ -337,10 +358,54 @@ public final class Login extends javax.swing.JPanel {
      * @param e the mouse event triggered by gaining focus
      */
     private void txt_password_FocusLost(java.awt.event.FocusEvent e) {
-        if (txt_password.getText().isEmpty()) {
+        if (txt_password.getPassword().length == 0) {
             txt_password.setText(PLACEHOLDER[1]);
+            txt_password.setEchoChar((char) 0);
             txt_password.setForeground(FG_PLACEHOLDER);
         }
+    }
+    
+    /**
+     * Handles the key typed event for the search bar {@link JTextField}.
+     * <p>
+     * Prevents the user from typing more than the maximum allowed characters in the search bar.
+     * </p>
+     * 
+     * @param e the key event triggered by typing on the {@link JTextField}
+     */
+    private void txt_password_KeyTyped(java.awt.event.KeyEvent e) {
+        if (txt_password.getPassword().length >= MAX_PASSWORD_LENGTH) {
+            password = String.valueOf(txt_password.getPassword());
+            e.consume();
+        } 
+    }
+    
+    /**
+     * Handles the keys pressed in order to not get the special characters.
+     * 
+     * @param e the key event triggered by pressing some keys  
+     */
+    private void txt_password_KeyPressed(java.awt.event.KeyEvent e) {
+        if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A) {
+            txt_password.selectAll();
+            ctrlA_pressed = true;
+        }
+    }
+    
+    /**
+     * Handles the password field text.
+     * 
+     * @param e the key event triggered by releasing a key  
+     */
+    private void txt_password_KeyReleased(java.awt.event.KeyEvent e) {
+        if (ctrlA_pressed && (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+            txt_password.setText("");
+            ctrlA_pressed = false;
+        } else if (ctrlA_pressed && Character.isLetterOrDigit(e.getKeyChar())) {
+            txt_password.setText(String.valueOf(e.getKeyChar()));
+            ctrlA_pressed = false;
+        }
+        System.out.println(String.valueOf(txt_password.getPassword()));
     }
     
     /**
@@ -397,6 +462,7 @@ public final class Login extends javax.swing.JPanel {
         
         txt_password     .setText(PLACEHOLDER[1]);
         txt_password     .setForeground(FG_PLACEHOLDER);
+        txt_password     .setEchoChar((char) 0);
         
         pnl_main.showCard(Page.HOME);
     }
@@ -530,11 +596,15 @@ public final class Login extends javax.swing.JPanel {
         "Your email or username",
         "Your password"
     };
-    private final String CANCEL                = "Cancel";
-    private final String REGISTER              = "Still not our customer yet? Sign up here!";
-    private final String LOGIN_AS_RESTAURATEUR = "Are you a restaurateur? Log in here!";
-    private final int ARC_TEXTFIELD            = 30;
-    private final int ARC_BUTTON               = 20;
+    private final String CANCEL                    = "Cancel";
+    private final String REGISTER                  = "Still not our customer yet? Sign up here!";
+    private final String LOGIN_AS_RESTAURATEUR     = "Are you a restaurateur? Log in here!";
+    private final char DEFAULT_PASSWORD_ECHOCHAR   = '*';
+    private final int ARC_TEXTFIELD                = 30;
+    private final int ARC_BUTTON                   = 20;
+    private final int MAX_EMAIL_LENGTH             = 256;
+    private final int MAX_USERNAME_LENGTH          = 64;
+    private final int MAX_PASSWORD_LENGTH          = 64;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private final PanelMain          pnl_main;
@@ -549,7 +619,7 @@ public final class Login extends javax.swing.JPanel {
     private       JLabel             btn_register;
     private       JLabel             btn_loginAsRestaurateur;
     private       JTextField         txt_emailUsername;
-    private       JTextField         txt_password;
+    private       JPasswordField     txt_password;
     private       RoundedComponentUI txt_layerUI;
     private       RoundedComponentUI btn_layerUI;
     private       JLayer<JComponent> txt_emailUsernameRounded;
@@ -559,8 +629,9 @@ public final class Login extends javax.swing.JPanel {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private ListClient list;
+    private boolean ctrlA_pressed;
+    private String password;
     //</editor-fold>
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

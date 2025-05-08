@@ -127,12 +127,14 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         scrlPnl_filters .getHorizontalScrollBar()    .setUI(new CustomScrollBar());
         scrlPnl_filters .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrlPnl_filters .setVerticalScrollBarPolicy  (ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrlPnl_filters .setBorder                   (BorderFactory.createEmptyBorder());
         
         scrlPnl_cuisines.getVerticalScrollBar()      .setUI(new CustomScrollBar());
         scrlPnl_cuisines.getHorizontalScrollBar()    .setUI(new CustomScrollBar());
         scrlPnl_cuisines.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrlPnl_cuisines.setVerticalScrollBarPolicy  (ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrlPnl_cuisines.setPreferredSize            (new Dimension(0, SCRLPNL_CUISINES_HEIGHT));
+        scrlPnl_cuisines.setBorder                   (BorderFactory.createEmptyBorder());
         
         lbl_title.setBackground(this.getBackground());
         lbl_title.setForeground(FG_DEFAULT);

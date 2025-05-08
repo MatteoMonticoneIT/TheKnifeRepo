@@ -163,6 +163,11 @@ public final class Upperbar extends javax.swing.JPanel {
             public void keyPressed(java.awt.event.KeyEvent e) {
                 txt_searchbar_KeyPressed(e);
             }
+            
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                txt_searchbar_KeyReleased(e);
+            }
         });
     }
     //</editor-fold>
@@ -258,11 +263,6 @@ public final class Upperbar extends javax.swing.JPanel {
     private void txt_searchbar_KeyTyped(java.awt.event.KeyEvent e) {
         if (txt_searchbar.getText().length() >= MAX_SEARCHBAR_LENGTH)
             e.consume();
-        
-        if (ctrlA_Pressed && Character.isLetterOrDigit(e.getKeyChar())) {
-            txt_searchbar.setText(String.valueOf(e.getKeyChar()));
-            ctrlA_Pressed = false;
-        }
     }
     
     /**
@@ -273,7 +273,25 @@ public final class Upperbar extends javax.swing.JPanel {
     private void txt_searchbar_KeyPressed(java.awt.event.KeyEvent e) {
         if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A) {
             txt_searchbar.selectAll();
-            ctrlA_Pressed = true;
+            ctrlA_pressed = true;
+        }
+    }
+    
+    /**
+     * Handles the key released event for the search bar {@link JTextField}.
+     * <p>
+     * Prevents a bug caused by using CTRL + A + backspace then typing a {@code Character}
+     * </p>
+     * 
+     * @param e the key event triggered by releasing the key on the {@link JTextField}
+     */
+    private void txt_searchbar_KeyReleased(java.awt.event.KeyEvent e) {        
+        if (ctrlA_pressed && (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+            txt_searchbar.setText("");
+            ctrlA_pressed = false;
+        } else if (ctrlA_pressed && Character.isLetterOrDigit(e.getKeyChar())) {
+            txt_searchbar.setText(String.valueOf(e.getKeyChar()));
+            ctrlA_pressed = false;
         }
     }
     //</editor-fold>
@@ -326,7 +344,7 @@ public final class Upperbar extends javax.swing.JPanel {
     private       JLayer<JComponent> pnl_searchbarRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
-    private boolean ctrlA_Pressed;
+    private boolean ctrlA_pressed;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

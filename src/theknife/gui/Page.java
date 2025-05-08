@@ -13,25 +13,30 @@ public final class Page {
     /**
      * The home page
      */
-    public static final String HOME               = "Home";
+    public static final String HOME                  = "Home";
     
     /**
      * The login page
      */
-    public static final String LOGIN              = "Login";
+    public static final String LOGIN                 = "Login";
     
     /**
      * The login as restaurateur page
      */
-    public static final String LOGIN_RESTAURATEUR = "Login as a restaurateur";
+    public static final String LOGIN_RESTAURATEUR    = "Login as a restaurateur";
     
     /**
      * The register page
      */
-    public static final String REGISTER           = "Register";
+    public static final String REGISTER              = "Register";
+    
+    /**
+     * The register as restaurateur page
+     */
+    public static final String REGISTER_RESTAURATEUR = "Register as a restaurateur";
     
     /**
      * The advanced search page
      */
-    public static final String ADVANCED_SEARCH    = "Advanced search";
+    public static final String ADVANCED_SEARCH       = "Advanced search";
 }
