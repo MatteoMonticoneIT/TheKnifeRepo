@@ -15,7 +15,14 @@ import javax.swing.JPanel;
  * @author Mattia Tamburo       761743 (CO)
  */
 public final class PanelMain {
+    /**
+     * The {@code PanelMain} {@link JPanel}
+     */
     private final JPanel panel;
+    
+    /**
+     * The {@code PanelMain} {@link CardLayout}
+     */
     private final CardLayout card;
     
     /**

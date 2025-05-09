@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayer;
@@ -60,6 +62,7 @@ public final class Login extends javax.swing.JPanel {
      */
     private void initFields() {
         pnl_grid                    = new JPanel(new GridBagLayout());
+        pnl_password                = new JPanel(new GridBagLayout());
         pnl_btn_login               = new JPanel(new BorderLayout());
         pnl_btn_cancel              = new JPanel(new BorderLayout());
         pnl_btn_register            = new JPanel(new BorderLayout());
@@ -71,6 +74,7 @@ public final class Login extends javax.swing.JPanel {
         btn_loginAsRestaurateur     = new JLabel(LOGIN_AS_RESTAURATEUR);
         txt_emailUsername           = new JTextField(PLACEHOLDER[0]);
         txt_password                = new JPasswordField(PLACEHOLDER[1]);
+        chkbx_seePassword           = new JCheckBox();
         txt_layerUI                 = new RoundedComponentUI(ARC_TEXTFIELD);
         btn_layerUI                 = new RoundedComponentUI(ARC_BUTTON);
         txt_emailUsernameRounded    = new JLayer<>(txt_emailUsername, txt_layerUI);
@@ -86,6 +90,7 @@ public final class Login extends javax.swing.JPanel {
         this.setLayout(new BorderLayout());
         
         pnl_grid                   .setBackground(this.getBackground());
+        pnl_password               .setBackground(this.getBackground());
         pnl_btn_login              .setBackground(this.getBackground());
         pnl_btn_cancel             .setBackground(this.getBackground());
         pnl_btn_register           .setBackground(this.getBackground());
@@ -105,7 +110,7 @@ public final class Login extends javax.swing.JPanel {
         txt_password     .setBackground(BG_TEXTFIELD);
         txt_password     .setForeground(FG_PLACEHOLDER);
         txt_password     .setBorder    (PADDING_TEXTFIELD);
-        txt_password     .setEchoChar((char) 0);
+        txt_password     .setEchoChar  ((char) 0);
         
         btn_login.setBackground(BG_LOGIN_BTN);
         btn_login.setForeground(FG_DEFAULT);
@@ -139,10 +144,10 @@ public final class Login extends javax.swing.JPanel {
         pnl_btn_loginAsRestaurateur.add(btn_loginAsRestaurateur, BorderLayout.CENTER);
         
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx   = 0;
-        gbc.gridy   = 0;
-        gbc.weightx = 1;
-        gbc.fill    = GridBagConstraints.HORIZONTAL;
+        gbc.gridx     = 0;
+        gbc.gridy     = 0;
+        gbc.weightx   = 1;
+        gbc.fill      = GridBagConstraints.HORIZONTAL;
         pnl_grid.add(lbl_title, gbc);
         
         gbc.gridy++;
@@ -150,18 +155,29 @@ public final class Login extends javax.swing.JPanel {
         gbc.insets = new Insets(8, 0, 8, 0);
         pnl_grid.add(txt_emailUsernameRounded, gbc);
         
-        gbc.gridy++;
-        pnl_grid.add(txt_passwordRounded, gbc);
+        GridBagConstraints gbc1 = new GridBagConstraints();
+        gbc1.gridx     = 0;
+        gbc1.gridy     = 0;
+        gbc1.weightx   = 0.95;
+        gbc1.weighty   = 1;
+        gbc1.fill      = GridBagConstraints.BOTH;
+        pnl_password.add(txt_passwordRounded, gbc1);
+        
+        gbc1.gridx++;
+        gbc1.weightx = 0.05;
+        pnl_password.add(chkbx_seePassword, gbc1);
         
         gbc.gridy++;
+        pnl_grid.add(pnl_password, gbc);
+        
+        gbc.gridy++;
+        gbc.gridx--;
         gbc.ipady = 0;
         gbc.fill = GridBagConstraints.NONE;
-        gbc.weightx = 0;
         gbc.anchor = GridBagConstraints.WEST;
         pnl_grid.add(pnl_btn_register, gbc);
         
         gbc.gridy++;
-        gbc.weightx = 1;
         pnl_grid.add(pnl_btn_loginAsRestaurateur, gbc);
         
         gbc.gridy++;
@@ -580,6 +596,7 @@ public final class Login extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Components">
     private final PanelMain          pnl_main;
     private       JPanel             pnl_grid;
+    private       JPanel             pnl_password;
     private       JPanel             pnl_btn_login;
     private       JPanel             pnl_btn_cancel;
     private       JPanel             pnl_btn_register;
@@ -591,6 +608,7 @@ public final class Login extends javax.swing.JPanel {
     private       JLabel             btn_loginAsRestaurateur;
     private       JTextField         txt_emailUsername;
     private       JPasswordField     txt_password;
+    private       JCheckBox          chkbx_seePassword;
     private       RoundedComponentUI txt_layerUI;
     private       RoundedComponentUI btn_layerUI;
     private       JLayer<JComponent> txt_emailUsernameRounded;

@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayer;
@@ -58,6 +59,7 @@ public class Register extends javax.swing.JPanel {
      */
     private void initFields() {
         pnl_grid             = new JPanel(new GridBagLayout());
+        pnl_password         = new JPanel(new GridBagLayout());
         pnl_btn_register     = new JPanel(new BorderLayout());
         pnl_btn_cancel       = new JPanel(new BorderLayout());
         lbl_title            = new JLabel(Page.REGISTER);
@@ -70,6 +72,7 @@ public class Register extends javax.swing.JPanel {
         txt_email            = new JTextField(PLACEHOLDER[4]);
         txt_username         = new JTextField(PLACEHOLDER[5]);
         txt_password         = new JPasswordField(PLACEHOLDER[6]);
+        chkbx_seePassword    = new JCheckBox();
         txt_layerUI          = new RoundedComponentUI(ARC_TEXTFIELD);
         btn_layerUI          = new RoundedComponentUI(ARC_BUTTON);
         txt_firstNameRounded = new JLayer<>(txt_firstName, txt_layerUI);
@@ -81,7 +84,6 @@ public class Register extends javax.swing.JPanel {
         txt_passwordRounded  = new JLayer<>(txt_password,  txt_layerUI);
         btn_registerRounded  = new JLayer<>(btn_register,  btn_layerUI);
         btn_cancelRounded    = new JLayer<>(btn_cancel,    btn_layerUI);
-        
     }
     
     /**
@@ -91,6 +93,7 @@ public class Register extends javax.swing.JPanel {
         this.setLayout(new BorderLayout());
         
         pnl_grid        .setBackground(this.getBackground());
+        pnl_password    .setBackground(this.getBackground());
         pnl_btn_register.setBackground(this.getBackground());
         pnl_btn_cancel  .setBackground(this.getBackground());
         
@@ -128,7 +131,7 @@ public class Register extends javax.swing.JPanel {
         txt_password.setBackground(BG_TEXTFIELD);
         txt_password.setForeground(FG_PLACEHOLDER);
         txt_password.setBorder    (PADDING_TEXTFIELD);
-        txt_password.setEchoChar((char) 0);
+        txt_password.setEchoChar  ((char) 0);
         
         btn_register.setBackground(BG_REGISTER_BTN);
         btn_register.setForeground(FG_DEFAULT);
@@ -179,11 +182,26 @@ public class Register extends javax.swing.JPanel {
         gbc.gridy++;
         pnl_grid.add(txt_usernameRounded, gbc);
         
-        gbc.gridy++;
-        pnl_grid.add(txt_passwordRounded, gbc);
+        GridBagConstraints gbc1 = new GridBagConstraints();
+        gbc1.gridx     = 0;
+        gbc1.gridy     = 0;
+        gbc1.weightx   = 0.95;
+        gbc1.weighty   = 1;
+        gbc1.fill      = GridBagConstraints.BOTH;
+        pnl_password.add(txt_passwordRounded, gbc1);
+        
+        gbc1.gridx++;
+        gbc1.weightx = 0.05;
+        pnl_password.add(chkbx_seePassword, gbc1);
         
         gbc.gridy++;
-        gbc.ipady = 5;
+        pnl_grid.add(pnl_password, gbc);
+        
+        gbc.gridy++;
+        gbc.gridx--;
+        gbc.weightx = 1;
+        gbc.gridwidth++;
+        gbc.ipady = 5; 
         pnl_grid.add(pnl_btn_register, gbc);
         
         gbc.gridy++;
@@ -590,7 +608,6 @@ public class Register extends javax.swing.JPanel {
         btn_cancel.setBackground(BG_CANCEL_BTN);
     }
     //</editor-fold>
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -641,6 +658,7 @@ public class Register extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Components">
     private final PanelMain          pnl_main;
     private       JPanel             pnl_grid;
+    private       JPanel             pnl_password;
     private       JPanel             pnl_btn_register;
     private       JPanel             pnl_btn_cancel;
     private       JLabel             lbl_title;
@@ -653,6 +671,7 @@ public class Register extends javax.swing.JPanel {
     private       JTextField         txt_email;
     private       JTextField         txt_username;
     private       JPasswordField     txt_password;
+    private       JCheckBox          chkbx_seePassword;
     private       RoundedComponentUI txt_layerUI;
     private       RoundedComponentUI btn_layerUI;
     private       JLayer<JComponent> txt_firstNameRounded;

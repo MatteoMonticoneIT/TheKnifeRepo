@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
  * <p>
  * This class stores all input patterns used to validate all input required using regular expression also known as regex.
  * </p>
+ * 
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
@@ -44,7 +45,13 @@ public final class InputPattern {
      */
     public static final Pattern PASSWORD   = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[a-zA-Z\\d@$!%*?&]{8,64}$");
     
-    
+    /**
+     * Matches a pattern with an input.
+     * 
+     * @param pattern the pattern to use
+     * @param input the input to validate
+     * @return true if the validation is ok, false otherwise
+     */
     public static final boolean match(Pattern pattern, String input) {
         return pattern.matcher(input).matches();
     }
