@@ -6,7 +6,7 @@ import java.time.LocalDate;
  * Represents a generic user in the system.
  * <p>
  * This class contains common attributes and behaviors for all types of users, such as clients and restaurateurs.<br>
- * A user has personal information including name, username, password, birthday, address, and a role.
+ * A user has personal information including name, username, password, birthDate, address, and a role.
  * </p>
  * 
  * @author Damiano De Mutiis    761348 (CO)
@@ -37,9 +37,9 @@ public class User {
     private String password;
     
     /**
-     * The user's birthday.
+     * The user's birthDate.
      */
-    private LocalDate birthday;
+    private LocalDate birthDate;
     
     /**
      * The user's address.
@@ -63,22 +63,22 @@ public class User {
     /**
      * Constructor that initializes a {@code User} object with the specified attributes.
      * <p>
-     * This constructor initializes the {@code User} object's name, username, password, birthday, and address.
+     * This constructor initializes the {@code User} object's name, username, password, birthDate, and address.
      * </p>
      *
      * @param firstName the user's first name
      * @param lastName the user's last name
      * @param username the user's username
      * @param password the user's password
-     * @param birthday the user's birthday
+     * @param birthDate the user's birthDate
      * @param address the user's address
      */
-    public User(String firstName, String lastName, String username, String password, LocalDate birthday, String address) {
+    public User(String firstName, String lastName, String username, String password, LocalDate birthDate, String address) {
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setUsername(username);
         this.setPassword(password);
-        this.setBirthday(birthday);
+        this.setBirthDate(birthDate);
         this.setAddress(address);
     }
 
@@ -155,21 +155,21 @@ public class User {
     }
 
     /**
-     * Returns the user's birthday.
+     * Returns the user's birthDate.
      *
-     * @return the user's birthday
+     * @return the user's birthDate
      */
-    public LocalDate getBirthday() {
-        return birthday;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
     /**
-     * Sets the user's birthday.
+     * Sets the user's birthDate.
      *
-     * @param birthday the new birthday to set
+     * @param birthDate the new birthDate to set
      */
-    public final void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
+    public final void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     /**

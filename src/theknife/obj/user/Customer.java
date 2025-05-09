@@ -34,7 +34,7 @@ public final class Customer extends User {
     /**
      * Constructor that initializes a {@code Client} object with the specified attributes.
      * <p>
-     * This constructor initializes the {@code Client} object's firstName, lastName, username, password, birthday, address and favorite restaurants list.
+     * This constructor initializes the {@code Client} object's firstName, lastName, username, password, birthDate, address and favorite restaurants list.
      * </p>
      *
      * @param listFavorite the list of favorite restaurants for the client
@@ -42,11 +42,11 @@ public final class Customer extends User {
      * @param lastName the client's lastName
      * @param username the client's username
      * @param password the client's password
-     * @param birthday the client's birthday
+     * @param birthDate the client's birthDate
      * @param address the client's address
      */
-    public Customer(ListFavorite listFavorite, String firstName, String lastName, String username, String password, LocalDate birthday, String address) {
-        super(firstName, lastName, username, password, birthday, address);
+    public Customer(ListFavorite listFavorite, String firstName, String lastName, String username, String password, LocalDate birthDate, String address) {
+        super(firstName, lastName, username, password, birthDate, address);
         this.setRole("client");
         this.setListFavorite(listFavorite);
     }

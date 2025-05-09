@@ -59,33 +59,33 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
      * Initializes the basic fields of the {@code Register} panel.
      */
     private void initFields() {
-        pnl_grid             = new JPanel(new GridBagLayout());
-        pnl_password         = new JPanel(new GridBagLayout());
-        pnl_birthdayLocation = new JPanel(new GridBagLayout());
-        pnl_btn_register     = new JPanel(new BorderLayout());
-        pnl_btn_cancel       = new JPanel(new BorderLayout());
-        lbl_title            = new JLabel(Page.REGISTER_RESTAURATEUR);
-        btn_register         = new JLabel(Page.REGISTER);
-        btn_cancel           = new JLabel(CANCEL);
-        txt_firstName        = new JTextField(PLACEHOLDER[0]);
-        txt_lastName         = new JTextField(PLACEHOLDER[1]);
-        txt_birthday         = new JTextField(PLACEHOLDER[2]);
-        txt_location         = new JTextField(PLACEHOLDER[3]);
-        txt_email            = new JTextField(PLACEHOLDER[4]);
-        txt_username         = new JTextField(PLACEHOLDER[5]);
-        txt_password         = new JPasswordField(PLACEHOLDER[6]);
-        chkbx_seePassword    = new JCheckBox();
-        txt_layerUI          = new RoundedComponentUI(ARC_TEXTFIELD);
-        btn_layerUI          = new RoundedComponentUI(ARC_BUTTON);
-        txt_firstNameRounded = new JLayer<>(txt_firstName, txt_layerUI);
-        txt_lastNameRounded  = new JLayer<>(txt_lastName,  txt_layerUI);
-        txt_birthdayRounded  = new JLayer<>(txt_birthday,  txt_layerUI);
-        txt_locationRounded  = new JLayer<>(txt_location,  txt_layerUI);
-        txt_emailRounded     = new JLayer<>(txt_email,     txt_layerUI);
-        txt_usernameRounded  = new JLayer<>(txt_username,  txt_layerUI);
-        txt_passwordRounded  = new JLayer<>(txt_password,  txt_layerUI);
-        btn_registerRounded  = new JLayer<>(btn_register,  btn_layerUI);
-        btn_cancelRounded    = new JLayer<>(btn_cancel,    btn_layerUI);
+        pnl_grid              = new JPanel(new GridBagLayout());
+        pnl_password          = new JPanel(new GridBagLayout());
+        pnl_birthDateLocation = new JPanel(new GridBagLayout());
+        pnl_btn_register      = new JPanel(new BorderLayout());
+        pnl_btn_cancel        = new JPanel(new BorderLayout());
+        lbl_title             = new JLabel(Page.REGISTER_RESTAURATEUR);
+        btn_register          = new JLabel(Page.REGISTER);
+        btn_cancel            = new JLabel(CANCEL);
+        txt_firstName         = new JTextField(PLACEHOLDER[0]);
+        txt_lastName          = new JTextField(PLACEHOLDER[1]);
+        txt_birthDate         = new JTextField(PLACEHOLDER[2]);
+        txt_location          = new JTextField(PLACEHOLDER[3]);
+        txt_email             = new JTextField(PLACEHOLDER[4]);
+        txt_username          = new JTextField(PLACEHOLDER[5]);
+        txt_password          = new JPasswordField(PLACEHOLDER[6]);
+        chkbx_seePassword     = new JCheckBox();
+        txt_layerUI           = new RoundedComponentUI(ARC_TEXTFIELD);
+        btn_layerUI           = new RoundedComponentUI(ARC_BUTTON);
+        txt_firstNameRounded  = new JLayer<>(txt_firstName, txt_layerUI);
+        txt_lastNameRounded   = new JLayer<>(txt_lastName,  txt_layerUI);
+        txt_birthDateRounded  = new JLayer<>(txt_birthDate,  txt_layerUI);
+        txt_locationRounded   = new JLayer<>(txt_location,  txt_layerUI);
+        txt_emailRounded      = new JLayer<>(txt_email,     txt_layerUI);
+        txt_usernameRounded   = new JLayer<>(txt_username,  txt_layerUI);
+        txt_passwordRounded   = new JLayer<>(txt_password,  txt_layerUI);
+        btn_registerRounded   = new JLayer<>(btn_register,  btn_layerUI);
+        btn_cancelRounded     = new JLayer<>(btn_cancel,    btn_layerUI);
         
     }
     
@@ -95,11 +95,11 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     private void initRegister() {
         this.setLayout(new BorderLayout());
         
-        pnl_grid            .setBackground(this.getBackground());
-        pnl_password        .setBackground(this.getBackground());
-        pnl_birthdayLocation.setBackground(this.getBackground());
-        pnl_btn_register    .setBackground(this.getBackground());
-        pnl_btn_cancel      .setBackground(this.getBackground());
+        pnl_grid             .setBackground(this.getBackground());
+        pnl_password         .setBackground(this.getBackground());
+        pnl_birthDateLocation.setBackground(this.getBackground());
+        pnl_btn_register     .setBackground(this.getBackground());
+        pnl_btn_cancel       .setBackground(this.getBackground());
         
         lbl_title.setBackground(this.getBackground());
         lbl_title.setForeground(FG_DEFAULT);
@@ -116,9 +116,9 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         txt_lastName.setForeground(FG_PLACEHOLDER);
         txt_lastName.setBorder    (PADDING_TEXTFIELD);
         
-        txt_birthday.setBackground(BG_TEXTFIELD);
-        txt_birthday.setForeground(FG_PLACEHOLDER);
-        txt_birthday.setBorder    (PADDING_TEXTFIELD);
+        txt_birthDate.setBackground(BG_TEXTFIELD);
+        txt_birthDate.setForeground(FG_PLACEHOLDER);
+        txt_birthDate.setBorder    (PADDING_TEXTFIELD);
         
         txt_location.setBackground(BG_TEXTFIELD);
         txt_location.setForeground(FG_PLACEHOLDER);
@@ -179,16 +179,16 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         gbc1.weightx   = 0.1;
         gbc1.weighty   = 1;
         gbc1.fill      = GridBagConstraints.BOTH;
-        pnl_birthdayLocation.add(txt_birthdayRounded, gbc1);
+        pnl_birthDateLocation.add(txt_birthDateRounded, gbc1);
         
         gbc1.gridx++;
         gbc1.weightx = 0.9;
-        pnl_birthdayLocation.add(txt_locationRounded, gbc1);
+        pnl_birthDateLocation.add(txt_locationRounded, gbc1);
         
         gbc.gridy++;
         gbc.gridx--;
         gbc.gridwidth++;
-        pnl_grid.add(pnl_birthdayLocation, gbc);
+        pnl_grid.add(pnl_birthDateLocation, gbc);
         
         gbc.gridy++;
         gbc.gridx--;
@@ -257,15 +257,15 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
             }
         });
         
-        txt_birthday.addFocusListener(new java.awt.event.FocusAdapter() {
+        txt_birthDate.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusGained(java.awt.event.FocusEvent e) {
-                txt_birthday_FocusGained(e);
+                txt_birthDate_FocusGained(e);
             }
             
             @Override
             public void focusLost(java.awt.event.FocusEvent e) {
-                txt_birthday_FocusLost(e);
+                txt_birthDate_FocusLost(e);
             }
         });
         
@@ -440,26 +440,26 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the gaining focus event on the birthday {@link JTextField}.
+     * Handles the gaining focus event on the birthDate {@link JTextField}.
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_birthday_FocusGained(java.awt.event.FocusEvent e) {
-        if (txt_birthday.getText().equals(PLACEHOLDER[2])) {
-            txt_birthday.setText("");
-            txt_birthday.setForeground(FG_DEFAULT);
+    private void txt_birthDate_FocusGained(java.awt.event.FocusEvent e) {
+        if (txt_birthDate.getText().equals(PLACEHOLDER[2])) {
+            txt_birthDate.setText("");
+            txt_birthDate.setForeground(FG_DEFAULT);
         }
     }
     
     /**
-     * Handles the losing focus event on the birthday {@link JTextField}.
+     * Handles the losing focus event on the birthDate {@link JTextField}.
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_birthday_FocusLost(java.awt.event.FocusEvent e) {
-        if (txt_birthday.getText().isEmpty()) {
-            txt_birthday.setText(PLACEHOLDER[2]);
-            txt_birthday.setForeground(FG_PLACEHOLDER);
+    private void txt_birthDate_FocusLost(java.awt.event.FocusEvent e) {
+        if (txt_birthDate.getText().isEmpty()) {
+            txt_birthDate.setText(PLACEHOLDER[2]);
+            txt_birthDate.setForeground(FG_PLACEHOLDER);
         }
     }
     
@@ -652,7 +652,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         JTextField[] fields = {
             txt_firstName,
             txt_lastName,
-            txt_birthday,
+            txt_birthDate,
             txt_location,
             txt_email,
             txt_username
@@ -737,7 +737,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     private final PanelMain          pnl_main;
     private       JPanel             pnl_grid;
     private       JPanel             pnl_password;
-    private       JPanel             pnl_birthdayLocation;
+    private       JPanel             pnl_birthDateLocation;
     private       JPanel             pnl_btn_register;
     private       JPanel             pnl_btn_cancel;
     private       JLabel             lbl_title;
@@ -745,7 +745,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     private       JLabel             btn_cancel;
     private       JTextField         txt_firstName;
     private       JTextField         txt_lastName;
-    private       JTextField         txt_birthday;
+    private       JTextField         txt_birthDate;
     private       JTextField         txt_location;
     private       JTextField         txt_email;
     private       JTextField         txt_username;
@@ -755,7 +755,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     private       RoundedComponentUI btn_layerUI;
     private       JLayer<JComponent> txt_firstNameRounded;
     private       JLayer<JComponent> txt_lastNameRounded;
-    private       JLayer<JComponent> txt_birthdayRounded;
+    private       JLayer<JComponent> txt_birthDateRounded;
     private       JLayer<JComponent> txt_locationRounded;
     private       JLayer<JComponent> txt_emailRounded;
     private       JLayer<JComponent> txt_usernameRounded;

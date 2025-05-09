@@ -33,7 +33,7 @@ public final class Restaurateur extends User {
     /**
      * Constructor that initializes a {@code Restaurateur} object with the specified attributes.
      * <p>
-     * This constructor initializes the {@code Restaurateur} object's firstName, lastName, username, password, birthday, address and the list of restaurants they manage.
+     * This constructor initializes the {@code Restaurateur} object's firstName, lastName, username, password, birthDate, address and the list of restaurants they manage.
      * </p>
      *
      * @param listRestaurant the list of restaurants managed by the restaurateur
@@ -41,11 +41,11 @@ public final class Restaurateur extends User {
      * @param lastName the restaurateur's lastName
      * @param username the restaurateur's username
      * @param password the restaurateur's password
-     * @param birthday the restaurateur's birthday
+     * @param birthDate the restaurateur's birthDate
      * @param address the restaurateur's address
      */
-    public Restaurateur(ListRestaurant listRestaurant, String firstName, String lastName, String username, String password, LocalDate birthday, String address) {
-        super(firstName, lastName, username, password, birthday, address);
+    public Restaurateur(ListRestaurant listRestaurant, String firstName, String lastName, String username, String password, LocalDate birthDate, String address) {
+        super(firstName, lastName, username, password, birthDate, address);
         super.setRole("restaurateur");
         this.setListRestaurant(listRestaurant);
     }
