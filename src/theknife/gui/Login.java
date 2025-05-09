@@ -112,6 +112,8 @@ public final class Login extends javax.swing.JPanel {
         txt_password     .setBorder    (PADDING_TEXTFIELD);
         txt_password     .setEchoChar  ((char) 0);
         
+        chkbx_seePassword.setSelected(true);
+        
         btn_login.setBackground(BG_LOGIN_BTN);
         btn_login.setForeground(FG_DEFAULT);
         btn_login.setHorizontalAlignment(JLabel.CENTER);
@@ -228,6 +230,11 @@ public final class Login extends javax.swing.JPanel {
         
         txt_password.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
+            public void keyTyped(java.awt.event.KeyEvent e) {
+                txt_password_KeyTyped(e);
+            }
+            
+            @Override
             public void keyPressed(java.awt.event.KeyEvent e) {
                 txt_password_KeyPressed(e);
             }
@@ -236,6 +243,10 @@ public final class Login extends javax.swing.JPanel {
             public void keyReleased(java.awt.event.KeyEvent e) {
                 txt_password_KeyReleased(e);
             }
+        });
+        
+        chkbx_seePassword.addItemListener((java.awt.event.ItemEvent e) -> {
+            chkbx_seePassword_ItemStateChanged(e);
         });
         
         btn_login.addMouseListener(new java.awt.event.MouseAdapter(){
@@ -376,11 +387,28 @@ public final class Login extends javax.swing.JPanel {
     }
     
     /**
+     * Handles the key pressed for the {@link JPasswordField} password
+     * 
+     * @param e the key event triggered by typing on it
+     */
+    private void txt_password_KeyTyped(java.awt.event.KeyEvent e) {
+        if (ctrlA_pressed && (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+            txt_password.setText("");
+            ctrlA_pressed = false;
+        } else if (ctrlA_pressed && Character.isLetterOrDigit(e.getKeyChar())) {
+            txt_password.setText(String.valueOf(e.getKeyChar()));
+            ctrlA_pressed = false;
+        }
+    }
+    
+    /**
      * Handles the keys pressed in order to not get the special characters.
      * 
      * @param e the key event triggered by pressing some keys  
      */
     private void txt_password_KeyPressed(java.awt.event.KeyEvent e) {
+        if (txt_password.getEchoChar() == DEFAULT_PASSWORD_ECHOCHAR && !chkbx_seePassword.isSelected())
+            txt_password.setEchoChar((char) 0);
         if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A) {
             txt_password.selectAll();
             ctrlA_pressed = true;
@@ -393,14 +421,17 @@ public final class Login extends javax.swing.JPanel {
      * @param e the key event triggered by releasing a key  
      */
     private void txt_password_KeyReleased(java.awt.event.KeyEvent e) {
-        if (ctrlA_pressed && (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
-            txt_password.setText("");
-            ctrlA_pressed = false;
-        } else if (ctrlA_pressed && Character.isLetterOrDigit(e.getKeyChar())) {
-            txt_password.setText(String.valueOf(e.getKeyChar()));
-            ctrlA_pressed = false;
-        }
         System.out.println(String.valueOf(txt_password.getPassword()));
+    }
+    
+    /**
+     * Handles the item state when clicking the {@link JCheckBox}.
+     * 
+     * @param e the item event triggered by clicking the checkbox
+     */
+    private void chkbx_seePassword_ItemStateChanged(java.awt.event.ItemEvent e) {
+        if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1]))
+            txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
     }
     
     /**
@@ -414,7 +445,6 @@ public final class Login extends javax.swing.JPanel {
      * @param e the mouse event triggered by clicking the button
      */
     private void btn_login_MouseClicked(java.awt.event.MouseEvent e) {
-        btn_login.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
     }
     
@@ -449,6 +479,7 @@ public final class Login extends javax.swing.JPanel {
         txt_emailUsername.setText(PLACEHOLDER[0]);
         txt_emailUsername.setForeground(FG_PLACEHOLDER);
         
+        chkbx_seePassword.setSelected(true);
         txt_password     .setText(PLACEHOLDER[1]);
         txt_password     .setForeground(FG_PLACEHOLDER);
         txt_password     .setEchoChar((char) 0);
@@ -484,11 +515,13 @@ public final class Login extends javax.swing.JPanel {
      * @param e the mouse event triggered by clicking the button
      */
     private void btn_register_MouseClicked(java.awt.event.MouseEvent e) {
+        chkbx_seePassword.setSelected(true);
         txt_emailUsername.setText(PLACEHOLDER[0]);
-        txt_password     .setText(PLACEHOLDER[1]);
-        
         txt_emailUsername.setForeground(FG_PLACEHOLDER);
+        
+        txt_password     .setText(PLACEHOLDER[1]);
         txt_password     .setForeground(FG_PLACEHOLDER);
+        txt_password     .setEchoChar((char) 0);
         
         pnl_main.showCard(Page.REGISTER);
     }
@@ -526,6 +559,7 @@ public final class Login extends javax.swing.JPanel {
         
         txt_password.setText(PLACEHOLDER[1]);
         txt_password.setForeground(FG_PLACEHOLDER);
+        txt_password.setEchoChar((char) 0);
         
         pnl_main.showCard(Page.LOGIN_RESTAURATEUR);
     }

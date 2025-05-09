@@ -276,6 +276,18 @@ public final class AdvancedSearch extends javax.swing.JPanel {
             scrlPnl_cuisines_MouseWheelMoved(e);
         });
         
+        for (JCheckBox chkbx : chkbx_cuisines) {
+            chkbx.addItemListener((java.awt.event.ItemEvent e) -> {
+                chkbx_ItemStateChanged(e);
+            });
+        }
+        
+        for (JCheckBox chkbx : chkbx_services) {
+            chkbx.addItemListener((java.awt.event.ItemEvent e) -> {
+                chkbx_ItemStateChanged(e);
+            });
+        }
+        
         btn_cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -309,18 +321,6 @@ public final class AdvancedSearch extends javax.swing.JPanel {
                 btn_apply_MouseExited(e);
             }
         });
-        
-        for (JCheckBox chkbx : chkbx_cuisines) {
-            chkbx.addItemListener((java.awt.event.ItemEvent e) -> {
-                chkbx_ItemStateChanged(e);
-            });
-        }
-        
-        for (JCheckBox chkbx : chkbx_services) {
-            chkbx.addItemListener((java.awt.event.ItemEvent e) -> {
-                chkbx_ItemStateChanged(e);
-            });
-        }
         
         txt_location.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
@@ -542,7 +542,6 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         }
     }
     //</editor-fold>
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

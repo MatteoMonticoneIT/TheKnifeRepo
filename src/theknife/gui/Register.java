@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -60,6 +61,7 @@ public class Register extends javax.swing.JPanel {
     private void initFields() {
         pnl_grid             = new JPanel(new GridBagLayout());
         pnl_password         = new JPanel(new GridBagLayout());
+        pnl_birthdayLocation = new JPanel(new GridBagLayout());
         pnl_btn_register     = new JPanel(new BorderLayout());
         pnl_btn_cancel       = new JPanel(new BorderLayout());
         lbl_title            = new JLabel(Page.REGISTER);
@@ -92,10 +94,11 @@ public class Register extends javax.swing.JPanel {
     private void initRegister() {
         this.setLayout(new BorderLayout());
         
-        pnl_grid        .setBackground(this.getBackground());
-        pnl_password    .setBackground(this.getBackground());
-        pnl_btn_register.setBackground(this.getBackground());
-        pnl_btn_cancel  .setBackground(this.getBackground());
+        pnl_grid            .setBackground(this.getBackground());
+        pnl_password        .setBackground(this.getBackground());
+        pnl_birthdayLocation.setBackground(this.getBackground());
+        pnl_btn_register    .setBackground(this.getBackground());
+        pnl_btn_cancel      .setBackground(this.getBackground());
         
         lbl_title.setBackground(this.getBackground());
         lbl_title.setForeground(FG_DEFAULT);
@@ -133,6 +136,8 @@ public class Register extends javax.swing.JPanel {
         txt_password.setBorder    (PADDING_TEXTFIELD);
         txt_password.setEchoChar  ((char) 0);
         
+        chkbx_seePassword.setSelected(true);
+        
         btn_register.setBackground(BG_REGISTER_BTN);
         btn_register.setForeground(FG_DEFAULT);
         btn_register.setHorizontalAlignment(JLabel.CENTER);
@@ -167,32 +172,40 @@ public class Register extends javax.swing.JPanel {
         gbc.gridx++;
         pnl_grid.add(txt_lastNameRounded, gbc);
         
-        gbc.gridy++;
-        gbc.gridx--;
-        pnl_grid.add(txt_birthdayRounded, gbc);
+        GridBagConstraints gbc1 = new GridBagConstraints();
+        gbc1.gridx     = 0;
+        gbc1.gridy     = 0;
+        gbc1.weightx   = 0.1;
+        gbc1.weighty   = 1;
+        gbc1.fill      = GridBagConstraints.BOTH;
+        pnl_birthdayLocation.add(txt_birthdayRounded, gbc1);
         
-        gbc.gridx++;
-        pnl_grid.add(txt_locationRounded, gbc);
+        gbc1.gridx++;
+        gbc1.weightx = 0.9;
+        pnl_birthdayLocation.add(txt_locationRounded, gbc1);
         
         gbc.gridy++;
         gbc.gridx--;
         gbc.gridwidth++;
+        pnl_grid.add(pnl_birthdayLocation, gbc);
+        
+        gbc.gridy++;
         pnl_grid.add(txt_emailRounded, gbc);
         
         gbc.gridy++;
         pnl_grid.add(txt_usernameRounded, gbc);
         
-        GridBagConstraints gbc1 = new GridBagConstraints();
-        gbc1.gridx     = 0;
-        gbc1.gridy     = 0;
-        gbc1.weightx   = 0.95;
-        gbc1.weighty   = 1;
-        gbc1.fill      = GridBagConstraints.BOTH;
-        pnl_password.add(txt_passwordRounded, gbc1);
+        GridBagConstraints gbc2 = new GridBagConstraints();
+        gbc2.gridx     = 0;
+        gbc2.gridy     = 0;
+        gbc2.weightx   = 0.95;
+        gbc2.weighty   = 1;
+        gbc2.fill      = GridBagConstraints.BOTH;
+        pnl_password.add(txt_passwordRounded, gbc2);
         
-        gbc1.gridx++;
-        gbc1.weightx = 0.05;
-        pnl_password.add(chkbx_seePassword, gbc1);
+        gbc2.gridx++;
+        gbc2.weightx = 0.05;
+        pnl_password.add(chkbx_seePassword, gbc2);
         
         gbc.gridy++;
         pnl_grid.add(pnl_password, gbc);
@@ -303,6 +316,27 @@ public class Register extends javax.swing.JPanel {
             public void focusLost(java.awt.event.FocusEvent e) {
                 txt_password_FocusLost(e);
             }
+        });
+        
+        txt_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent e) {
+                txt_password_KeyTyped(e);
+            }
+            
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent e) {
+                txt_password_KeyPressed(e);
+            }
+            
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                txt_password_KeyReleased(e);
+            }
+        });
+        
+        chkbx_seePassword.addItemListener((java.awt.event.ItemEvent e) -> {
+            chkbx_seePassword_ItemStateChanged(e);
         });
         
         btn_register.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -516,6 +550,16 @@ public class Register extends javax.swing.JPanel {
     }
     
     /**
+     * Handles the item state when clicking the {@link JCheckBox}.
+     * 
+     * @param e the item event triggered by clicking the checkbox
+     */
+    private void chkbx_seePassword_ItemStateChanged(java.awt.event.ItemEvent e) {
+        if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[6]))
+            txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
+    }
+    
+    /**
      * Handles the losing focus event on the password {@link JTextField}.
      * 
      * @param e the mouse event triggered by gaining focus
@@ -526,6 +570,44 @@ public class Register extends javax.swing.JPanel {
             txt_password.setEchoChar((char) 0);
             txt_password.setForeground(FG_PLACEHOLDER);
         }
+    }
+    
+    /**
+     * Handles the key pressed for the {@link JPasswordField} password
+     * 
+     * @param e the key event triggered by typing on it
+     */
+    private void txt_password_KeyTyped(java.awt.event.KeyEvent e) {
+        if (ctrlA_pressed && (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+            txt_password.setText("");
+            ctrlA_pressed = false;
+        } else if (ctrlA_pressed && Character.isLetterOrDigit(e.getKeyChar())) {
+            txt_password.setText(String.valueOf(e.getKeyChar()));
+            ctrlA_pressed = false;
+        }
+    }
+    
+    /**
+     * Handles the keys pressed in order to not get the special characters.
+     * 
+     * @param e the key event triggered by pressing some keys  
+     */
+    private void txt_password_KeyPressed(java.awt.event.KeyEvent e) {
+        if (txt_password.getEchoChar() == DEFAULT_PASSWORD_ECHOCHAR && !chkbx_seePassword.isSelected())
+            txt_password.setEchoChar((char) 0);
+        if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A) {
+            txt_password.selectAll();
+            ctrlA_pressed = true;
+        }
+    }
+    
+    /**
+     * Handles the password field text.
+     * 
+     * @param e the key event triggered by releasing a key  
+     */
+    private void txt_password_KeyReleased(java.awt.event.KeyEvent e) {
+        System.out.println(String.valueOf(txt_password.getPassword()));
     }
     
     /**
@@ -582,9 +664,10 @@ public class Register extends javax.swing.JPanel {
             fields[i].setForeground(FG_PLACEHOLDER);
         }
         
-        txt_password.setText(PLACEHOLDER[PLACEHOLDER.length - 1]);
-        txt_password.setEchoChar((char) 0);
-        txt_password.setForeground(FG_PLACEHOLDER);
+        chkbx_seePassword.setSelected(true);
+        txt_password     .setText(PLACEHOLDER[PLACEHOLDER.length - 1]);
+        txt_password     .setForeground(FG_PLACEHOLDER);
+        txt_password     .setEchoChar((char) 0);
         
         pnl_main.showCard(Page.LOGIN);
     }
@@ -659,6 +742,7 @@ public class Register extends javax.swing.JPanel {
     private final PanelMain          pnl_main;
     private       JPanel             pnl_grid;
     private       JPanel             pnl_password;
+    private       JPanel             pnl_birthdayLocation;
     private       JPanel             pnl_btn_register;
     private       JPanel             pnl_btn_cancel;
     private       JLabel             lbl_title;
@@ -683,6 +767,9 @@ public class Register extends javax.swing.JPanel {
     private       JLayer<JComponent> txt_passwordRounded;
     private       JLayer<JComponent> btn_registerRounded;
     private       JLayer<JComponent> btn_cancelRounded;
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Fields">
+    private boolean ctrlA_pressed;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
