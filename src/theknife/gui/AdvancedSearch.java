@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import simple.file.CSV;
+import theknife.Controller;
 
 /**
  * A panel that represents the advanced search screen in the application.
@@ -46,9 +47,9 @@ public final class AdvancedSearch extends javax.swing.JPanel {
      * 
      * @param main the main panel that manages the screen layout
      */
-    public AdvancedSearch(PanelMain main) {
+    public AdvancedSearch(Controller controller) {
         initComponents();
-        pnl_main = main;
+        pnl_main = controller.getPanelMain();
         initGUI();
     }
     

@@ -1,6 +1,7 @@
 package theknife.gui;
 
 import java.awt.BorderLayout;
+import theknife.Controller;
 
 /**
  * The Home class represents the home screen of the application.
@@ -25,9 +26,9 @@ public final class Home extends javax.swing.JPanel {
      * 
      * @param main the main panel that manages the screen layout
      */
-    public Home(PanelMain main) {
+    public Home(Controller controller) {
         initComponents();
-        pnl_main = main;
+        pnl_main = controller.getPanelMain();
         initGUI();
     }
     

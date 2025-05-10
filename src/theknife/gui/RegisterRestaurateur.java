@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import theknife.Controller;
 
 /**
  * A panel that represents the register screen in the application.
@@ -40,9 +41,9 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
      * 
      * @param main the main panel that manages the screen layout
      */
-    public RegisterRestaurateur(PanelMain main) {
+    public RegisterRestaurateur(Controller controller) {
         initComponents();
-        pnl_main = main;
+        pnl_main = controller.getPanelMain();
         initGUI();
     }
     //<editor-fold defaultstate="collapsed" desc="Initialization">
