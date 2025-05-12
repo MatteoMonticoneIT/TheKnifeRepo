@@ -1,13 +1,7 @@
 package theknife;
 
-import theknife.gui.AdvancedSearch;
-import theknife.gui.Home;
-import theknife.gui.Login;
-import theknife.gui.LoginRestaurateur;
 import theknife.gui.Page;
 import theknife.gui.PanelMain;
-import theknife.gui.Register;
-import theknife.gui.RegisterRestaurateur;
 
 /**
  * The main frame of the application "The Knife".<br>
@@ -19,15 +13,17 @@ import theknife.gui.RegisterRestaurateur;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class TheKnife extends javax.swing.JFrame {
 
+public final class TheKnife extends javax.swing.JFrame 
+{
     /**
      * Creates a new instance of {@code TheKnife} {@link JFrame} and initializes its components.<br>
      * The constructor sets up the GUI, including the main panel and the home and login pages.
      */
-    public TheKnife() {
-        initComponents();
-        initGUI();
+    public TheKnife() 
+    {
+      initComponents();
+      initGUI();
     }
     
     //<editor-fold defaultstate="collapsed" desc="Initialization">
@@ -36,23 +32,17 @@ public final class TheKnife extends javax.swing.JFrame {
      * This method creates the main panel, home page, and login page, and adds them to the main panel.<br>
      * It also sets up the content pane and displays the home page initially.
      */
-    private void initGUI() {
-        pnl_main             = new PanelMain ();
-        controller = new Controller(pnl_main);
-        initTheKnife();
-        
+    private void initGUI     () 
+    {
+      pnl_main   = new PanelMain ();
+      controller = new Controller(pnl_main);
+      initTheKnife();
     }
     
-    /**
-     * Initializes all the fields in the knife.
-     */
-    
-    /**
-     * Initializes the layout and appearance of the main page.
-     */
-    private void initTheKnife() {     
-        this.setContentPane(pnl_main.getPanel());
-        pnl_main.showCard(Page.HOME);
+    private void initTheKnife() 
+    {     
+      this.setContentPane(pnl_main.getPanel());
+      pnl_main.showCard  (Page.HOME);
     }
     //</editor-fold>
     
@@ -87,7 +77,8 @@ public final class TheKnife extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) 
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -112,8 +103,8 @@ public final class TheKnife extends javax.swing.JFrame {
     }
     
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private PanelMain            pnl_main;
-    private Controller             controller;
+    private PanelMain   pnl_main;
+    private Controller  controller;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -24,7 +24,8 @@ import theknife.obj.user.Restaurateur;
  * @author Mattia Tamburo       761743 (CO)
  */
 
-public class Controller {
+public class Controller 
+{
     ListCustomer        customers;
     ListRestaurant      restaurants;
     ListRestaurateur    restaurateur;
@@ -38,7 +39,8 @@ public class Controller {
             - 
     */
     
-    public Controller(PanelMain pnl_main){
+    public              Controller          (PanelMain pnl_main)
+    {
         //generazione delle liste
         initGUI(pnl_main);
     }
@@ -49,72 +51,83 @@ public class Controller {
      * This method creates the main panel, home page, and login page, and adds them to the main panel.<br>
      * It also sets up the content pane and displays the home page initially.
      */
-    private void initGUI(PanelMain pnl_main) {
-        this.pnl_main = pnl_main;
-        initFields();
-        initTheKnife();
+    private void        initGUI             (PanelMain pnl_main) 
+    {
+      this.pnl_main = pnl_main;
+      initFields    ();
+      initTheKnife  ();
     }
     
     /**
      * Initializes all the fields in the knife.
      */
-    private void initFields() {
-        home                 = new Home                (this);
-        login                = new Login               (this);
-        loginRestaurateur    = new LoginRestaurateur   (this);
-        register             = new Register            (this);
-        registerRestaurateur = new RegisterRestaurateur(this);
-        advancedSearch       = new AdvancedSearch      (this);
+    private void        initFields          () 
+    {
+      home                 = new Home                (this);
+      login                = new Login               (this);
+      loginRestaurateur    = new LoginRestaurateur   (this);
+      register             = new Register            (this);
+      registerRestaurateur = new RegisterRestaurateur(this);
+      advancedSearch       = new AdvancedSearch      (this);
     }
     
     /**
      * Initializes the layout and appearance of the main page.
      */
-    private void initTheKnife() {        
-        pnl_main.getPanel().add(home,                 Page.HOME);
-        pnl_main.getPanel().add(login,                Page.LOGIN);
-        pnl_main.getPanel().add(loginRestaurateur,    Page.LOGIN_RESTAURATEUR);
-        pnl_main.getPanel().add(register,             Page.REGISTER);
-        pnl_main.getPanel().add(registerRestaurateur, Page.REGISTER_RESTAURATEUR);
-        pnl_main.getPanel().add(advancedSearch,       Page.ADVANCED_SEARCH);
+    private void        initTheKnife        () 
+    {        
+      pnl_main.getPanel().add(home,                 Page.HOME);
+      pnl_main.getPanel().add(login,                Page.LOGIN);
+      pnl_main.getPanel().add(loginRestaurateur,    Page.LOGIN_RESTAURATEUR);
+      pnl_main.getPanel().add(register,             Page.REGISTER);
+      pnl_main.getPanel().add(registerRestaurateur, Page.REGISTER_RESTAURATEUR);
+      pnl_main.getPanel().add(advancedSearch,       Page.ADVANCED_SEARCH);
     }
     //</editor-fold>
     
     
-    public void LoginClient(String user, String password){
-        //controllo user e password
+    public  void        LoginClient         (String user, String password)
+    {
+      //controllo user e password
         
     }
     
-    public void LoginRestaurateur(){
+    public  void        LoginRestaurateur   ()
+    {
         
     }
     
-    public void RegisterClient(){
+    public  void        RegisterClient      ()
+    {
         
     }
     
-    public void RegisterRestaurateur(){
+    public  void        RegisterRestaurateur()
+    {
         
     }
     
-    public void addRestaurant(){
-        //funzione di aggiunta ristorante
+    public  void        addRestaurant       ()
+    {
+      //funzione di aggiunta ristorante
     }
     
-    public void searchRestaurant(){
+    public  void        searchRestaurant    ()
+    {
         
     }
     
-    public void advancedSearch(){
+    public  void        advancedSearch      ()
+    {
         
     }
     
-    public PanelMain getPanelMain(){
-        return this.pnl_main;
+    public  PanelMain   getPanelMain        ()
+    {
+      return this.pnl_main;
     }
     
-       //<editor-fold defaultstate="collapsed" desc="Components">
+    //<editor-fold defaultstate="collapsed" desc="Components">
     private PanelMain            pnl_main;
     private Home                 home;
     private Login                login;

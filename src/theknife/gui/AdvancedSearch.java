@@ -207,8 +207,8 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         gbc.weightx   = 0.3;
         gbc.weighty   = 1;
         gbc.gridwidth = 1;
-        gbc.fill    = GridBagConstraints.BOTH;
-        gbc.insets  = new Insets(20, 10, 20, 10);
+        gbc.fill      = GridBagConstraints.BOTH;
+        gbc.insets    = new Insets(20, 10, 20, 10);
         pnl_filters.add(lbl_guides[0], gbc);
         
         gbc.gridx++;
