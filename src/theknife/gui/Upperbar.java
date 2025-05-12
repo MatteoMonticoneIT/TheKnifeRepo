@@ -324,9 +324,9 @@ public final class Upperbar extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Consts">
     private final Color BG_ADVANCED_SEARCH_BTN = new Color(0xababab);
     private final Color BG_LOGIN_BTN           = new Color(102, 255, 154);
+    private final int[] PADDING_UPPERBAR       = {65, 20};
     private final int   WIDTH_SIDEBUTTONS      = 100;
     private final int   WIDTH_ADVANCED_SEARCH  = 60;
-    private final int[] PADDING_UPPERBAR       = {65, 20};
     private final int   PADDING_SEARCHBAR      = 14;
     private final int   ARC                    = 50;
     private final int   MAX_SEARCHBAR_LENGTH   = 64;

@@ -1,5 +1,7 @@
 package theknife.obj.restaurant;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import theknife.obj.lists.ListReview;
 
 /**
@@ -13,57 +15,97 @@ import theknife.obj.lists.ListReview;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-
+@JsonPropertyOrder({
+    "id", 
+    "name", 
+    "normName", 
+    "price", 
+    "phoneNo", 
+    "country", 
+    "city", 
+    "address", 
+    "latitude", 
+    "longitude", 
+    "url", 
+    "webUrl", 
+    "award", 
+    "greenStar", 
+    "services", 
+    "description", 
+    "reviews"
+})
 public final class Restaurant extends Location {
+    
+    /**
+     * The restaurant id.
+     */
+    @JsonProperty("id") 
+    private int id;
     
     /**
      * The name of the restaurant.
      */
+    @JsonProperty("name") 
     private String name;
+    
+    /**
+     * The normalized name of the restaurant (no accents and other characters that may interfere)
+     */
+    @JsonProperty("normName") 
+    private String normalizedName;
     
     /**
      * The price category of the restaurant.
      */
+    @JsonProperty("price") 
     private int price;
     
     /**
      * The phone number of the restaurant.
      */
+    @JsonProperty("phoneNo") 
     private String phoneNumber;
     
     /**
      * The URL for the restaurant.
      */
+    @JsonProperty("url") 
     private String url;
     
     /**
      * The website URL of the restaurant.
      */
+    @JsonProperty("webUrl") 
     private String websiteUrl;
     
     /**
      * The award received by the restaurant.
      */
+    @JsonProperty("award") 
     private String award;
     
     /**
      * Indicates if the restaurant has a green star (sustainability recognition).
      */
+    @JsonProperty("greenStar") 
     private boolean greenStar;
     
     /**
      * A description of the services available at the restaurant.
      */
+    @JsonProperty("services") 
     private String servicesAvailable;
     
     /**
      * A brief description of the restaurant.
      */
+    @JsonProperty("description") 
     private String description;
     
     /**
      * The list of reviews associated with the restaurant.
      */
+    @JsonProperty("reviews")
     private ListReview listReview;
 
     /**
@@ -78,7 +120,9 @@ public final class Restaurant extends Location {
     /**
      * Constructor that initializes the {@code Restaurant} object with the provided details.
      *
+     * @param id the restaurant id
      * @param name the name of the restaurant
+     * @param normalizedName the normalizedName of the name of the restaurant
      * @param price the price category of the restaurant
      * @param phoneNumber the phone number of the restaurant
      * @param url the URL for the restaurant
@@ -93,18 +137,38 @@ public final class Restaurant extends Location {
      * @param latitude the latitude of the restaurant's location
      * @param longitude the longitude of the restaurant's location
      */
-    public Restaurant(String name, int price, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String servicesAvailable, String description, 
+    public Restaurant(int id, String name, String normalizedName, int price, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String servicesAvailable, String description, 
                       String country, String city, String address, double latitude, double longitude) {
         super(country, city, address, latitude, longitude);
-        setName(name);
-        setPrice(price);
-        setPhoneNumber(phoneNumber);
-        setUrl(url);
-        setWebsiteUrl(websiteUrl);
-        setAward(award);
-        setGreenStar(greenStar);
-        setServicesAvailable(servicesAvailable);
-        setDescription(description);
+        this.setId(id);
+        this.setName(name);
+        this.setNormalizedName(normalizedName);
+        this.setPrice(price);
+        this.setPhoneNumber(phoneNumber);
+        this.setUrl(url);
+        this.setWebsiteUrl(websiteUrl);
+        this.setAward(award);
+        this.setGreenStar(greenStar);
+        this.setServicesAvailable(servicesAvailable);
+        this.setDescription(description);
+    }
+    
+    /**
+     * Return the id of the restaurant.
+     * 
+     * @return the id of the restaurant
+     */
+    public final int getId() {
+        return id;
+    }
+
+    /**
+     * Sets the id of the restaurant.
+     *
+     * @param id the id to set for the restaurant
+     */
+    public final void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -123,6 +187,24 @@ public final class Restaurant extends Location {
      */
     public final void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Returns the normalized name of the name of the restaurant.
+     * 
+     * @return the normalized name of the name of the restaurant
+     */
+    public final String getNormalizedName() {
+        return normalizedName;
+    }
+
+    /**
+     * Sets the name normalized removing accents to prevent search issues
+     * 
+     * @param normalizedName the normalized name to set
+     */
+    public final void setNormalizedName(String normalizedName) {
+        this.normalizedName = normalizedName;
     }
 
     /**

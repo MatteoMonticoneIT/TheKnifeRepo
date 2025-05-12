@@ -1,5 +1,8 @@
 package theknife.obj.review;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 /**
  * A class representing a response to a {@link Review}.
  * <p>
@@ -11,17 +14,19 @@ package theknife.obj.review;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-
+@JsonPropertyOrder({"review", "content"})
 public final class Response {
     
     /**
      * The content of the response.
      */
+    @JsonProperty("content")
     private String content;
     
     /**
      * The {@link Review} object that this response is related to.
      */
+    @JsonProperty("review")
     private Review review;
 
     /**

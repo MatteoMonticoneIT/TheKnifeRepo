@@ -1,5 +1,7 @@
 package theknife.obj.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 
 /**
@@ -17,38 +19,57 @@ import java.time.LocalDate;
 public class User {
     
     /**
+     * The user's id.
+     */
+    @JsonProperty("id")
+    private int id;
+    
+    /**
      * The user's first name.
      */
+    @JsonProperty("firstName")
     private String firstName;
     
     /**
      * The user's last name.
      */
+    @JsonProperty("lastName")
     private String lastName;
     
     /**
      * The user's username.
      */
+    @JsonProperty("username")
     private String username;
+    
+    /**
+     * The user's username.
+     */
+    @JsonProperty("email")
+    private String email;
     
     /**
      * The user's password.
      */
+    @JsonProperty("password")
     private String password;
     
     /**
      * The user's birthDate.
      */
+    @JsonProperty("birthDate")
     private LocalDate birthDate;
     
     /**
      * The user's address.
      */
+    @JsonProperty("address")
     private String address;
     
     /**
      * The role of the user (e.g., "client", "restaurateur").
      */
+    @JsonIgnore
     private String role;
 
     /**
@@ -66,14 +87,17 @@ public class User {
      * This constructor initializes the {@code User} object's name, username, password, birthDate, and address.
      * </p>
      *
+     * @param id the user's id
      * @param firstName the user's first name
      * @param lastName the user's last name
-     * @param username the user's username
-     * @param password the user's password
      * @param birthDate the user's birthDate
      * @param address the user's address
+     * @param username the user's username
+     * @param email the user's email
+     * @param password the user's password
      */
-    public User(String firstName, String lastName, String username, String password, LocalDate birthDate, String address) {
+    public User(int id, String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password) {
+        this.setId(id);
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setUsername(username);
@@ -83,11 +107,29 @@ public class User {
     }
 
     /**
+     * Returns the user's id.
+     * 
+     * @return the user's id
+     */
+    public final int getId() {
+        return id;
+    }
+
+    /**
+     * Sets the user's id.
+     * 
+     * @param id the new id to set
+     */
+    public final void setId(int id) {
+        this.id = id;
+    }
+
+    /**
      * Returns the user's first name.
      *
      * @return the user's first name
      */
-    public String getFirstName() {
+    public final String getFirstName() {
         return firstName;
     }
 
@@ -105,7 +147,7 @@ public class User {
      *
      * @return the user's last name
      */
-    public String getLastName() {
+    public final String getLastName() {
         return lastName;
     }
 
@@ -119,11 +161,65 @@ public class User {
     }
 
     /**
+     * Returns the user's birthDate.
+     *
+     * @return the user's birthDate
+     */
+    public final LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    /**
+     * Sets the user's birthDate.
+     *
+     * @param birthDate the new birthDate to set
+     */
+    public final void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+    
+    /**
+     * Returns the user's email.
+     * 
+     * @return the user's email
+     */
+    public final String getEmail() {
+        return email;
+    }
+
+    /**
+     * Sets the user's email
+     * 
+     * @param email the new email to set
+     */
+    public final void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Returns the user's address.
+     *
+     * @return the user's address
+     */
+    public final String getAddress() {
+        return address;
+    }
+
+    /**
+     * Sets the user's address.
+     *
+     * @param address the new address to set
+     */
+    public final void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
      * Returns the user's username.
      *
      * @return the user's username
      */
-    public String getUsername() {
+    public final String getUsername() {
         return username;
     }
 
@@ -141,7 +237,7 @@ public class User {
      *
      * @return the user's password
      */
-    public String getPassword() {
+    public final String getPassword() {
         return password;
     }
 
@@ -155,42 +251,6 @@ public class User {
     }
 
     /**
-     * Returns the user's birthDate.
-     *
-     * @return the user's birthDate
-     */
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    /**
-     * Sets the user's birthDate.
-     *
-     * @param birthDate the new birthDate to set
-     */
-    public final void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    /**
-     * Returns the user's address.
-     *
-     * @return the user's address
-     */
-    public String getAddress() {
-        return address;
-    }
-
-    /**
-     * Sets the user's address.
-     *
-     * @param address the new address to set
-     */
-    public final void setAddress(String address) {
-        this.address = address;
-    }
-
-    /**
      * Returns the user's role.
      * <p>
      * The role determines the type of user, e.g., "client", "restaurateur".
@@ -198,7 +258,7 @@ public class User {
      *
      * @return the user's role
      */
-    public String getRole() {
+    public final String getRole() {
         return role;
     }
 
@@ -207,7 +267,7 @@ public class User {
      *
      * @param role the new role to set
      */
-    public void setRole(String role) {
+    public final void setRole(String role) {
         this.role = role;
     }
 }

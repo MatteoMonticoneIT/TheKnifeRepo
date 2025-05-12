@@ -39,7 +39,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
      * This constructor also sets the main panel to control the screen transitions using {@link PanelMain#showCard}.
      * </p>
      * 
-     * @param main the main panel that manages the screen layout
+     * @param controller the {@link Controller} class that manages the screen layout
      */
     public RegisterRestaurateur(Controller controller) {
         initComponents();

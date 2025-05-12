@@ -1,5 +1,9 @@
 package theknife.obj.review;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import theknife.obj.lists.ListResponse;
+
 /**
  * A class representing a review with content, grade, and an associated response.
  * <p>
@@ -12,23 +16,26 @@ package theknife.obj.review;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-
+@JsonPropertyOrder({"content", "grade", "responses"})
 public final class Review {
     
     /**
      * The content of the review, usually a textual description or feedback.
      */
+    @JsonProperty("content")
     private String content;
     
     /**
      * The grade given in the review, typically an integer score.
      */
+    @JsonProperty("grade")
     private int grade;
     
     /**
-     * The response to the review, typically an instance of {@link Response}.
+     * The responses to the review, typically an instance of {@link ListResponse}.
      */
-    private Response response;
+    @JsonProperty("responses")
+    private ListResponse responses;
 
     /**
      * Default constructor.
@@ -91,17 +98,17 @@ public final class Review {
      *
      * @return the response to the review
      */
-    public final Response getResponse() {
-        return response;
+    public final ListResponse getResponses() {
+        return responses;
     }
 
     /**
      * Sets the response to the review.
      *
-     * @param response the response to assign to the review
+     * @param responses the {@code ListResponse} to assign to the review
      */
-    public final void setResponse(Response response) {
-        this.response = response;
+    public final void setResponses(ListResponse responses) {
+        this.responses = responses;
     }
     
 }

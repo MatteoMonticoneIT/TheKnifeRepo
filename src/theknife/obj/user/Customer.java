@@ -1,12 +1,14 @@
 package theknife.obj.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.time.LocalDate;
 import theknife.obj.lists.ListFavorite;
 
 /**
- * Represents a client user in the system. A client is a type of {@link User} that has a list of favorite restaurants.
+ * Represents a customer user in the system. A customer is a type of {@link User} that has a list of favorite restaurants.
  * <p>
- * This class extends the {@link User} class and adds a list of favorite restaurants, allowing the client to store and manage their preferences.
+ * This class extends the {@link User} class and adds a list of favorite restaurants, allowing the customer to store and manage their preferences.
  * </p>
  * 
  * @author Damiano De Mutiis    761348 (CO)
@@ -14,12 +16,23 @@ import theknife.obj.lists.ListFavorite;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-
+@JsonPropertyOrder({
+    "id", 
+    "firstName", 
+    "lastName", 
+    "birthDate", 
+    "address", 
+    "username", 
+    "email", 
+    "password", 
+    "favorites"
+})
 public final class Customer extends User {
     
     /**
-     * The list of favorite restaurants for the client.
+     * The list of favorite restaurants for the customer.
      */
+    @JsonProperty("favorites")
     private ListFavorite listFavorite;
 
     /**
@@ -37,22 +50,24 @@ public final class Customer extends User {
      * This constructor initializes the {@code Client} object's firstName, lastName, username, password, birthDate, address and favorite restaurants list.
      * </p>
      *
-     * @param listFavorite the list of favorite restaurants for the client
-     * @param firstName the client's firstName
-     * @param lastName the client's lastName
-     * @param username the client's username
-     * @param password the client's password
-     * @param birthDate the client's birthDate
-     * @param address the client's address
+     * @param id the customer's id
+     * @param firstName the customer's firstName
+     * @param lastName the customer's lastName
+     * @param birthDate the customer's birthDate
+     * @param address the customer's address
+     * @param username the customer's username
+     * @param email the customer's email
+     * @param password the customer's password
+     * @param listFavorite the list of favorite restaurants for the customer
      */
-    public Customer(ListFavorite listFavorite, String firstName, String lastName, String username, String password, LocalDate birthDate, String address) {
-        super(firstName, lastName, username, password, birthDate, address);
-        this.setRole("client");
+    public Customer(int id, ListFavorite listFavorite, String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password) {
+        super(id, firstName, lastName, birthDate, address, username, email, password);
+        this.setRole("customer");
         this.setListFavorite(listFavorite);
     }
 
     /**
-     * Returns the list of favorite restaurants for the client.
+     * Returns the list of favorite restaurants for the customer.
      *
      * @return the list of favorite restaurants
      */
@@ -61,7 +76,7 @@ public final class Customer extends User {
     }
 
     /**
-     * Sets the list of favorite restaurants for the client.
+     * Sets the list of favorite restaurants for the customer.
      *
      * @param listFavorite the new list of favorite restaurants
      */

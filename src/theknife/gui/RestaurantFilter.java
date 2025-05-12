@@ -10,7 +10,7 @@ import java.util.List;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public class RestaurantFilter {
+public final class RestaurantFilter {
     
     /**
      * Rating in stars from 0.5 to 5.0.
@@ -70,7 +70,7 @@ public class RestaurantFilter {
      * Returns the overall rating filter.
      * @return the restaurant's rating that must be
      */
-    public double getRating() {
+    public final double getRating() {
         return rating;
     }
 
@@ -78,7 +78,7 @@ public class RestaurantFilter {
      * Returns the location filter.
      * @return the restaurant's location that has to be
      */
-    public String getLocation() {
+    public final String getLocation() {
         return location;
     }
 
@@ -86,7 +86,7 @@ public class RestaurantFilter {
      * Return the price interval filter (1 to 4)
      * @return the price interval (1 - 4).
      */
-    public int getPrice() {
+    public final int getPrice() {
         return price;
     }
 
@@ -94,7 +94,7 @@ public class RestaurantFilter {
      * Return the cuisine list filter
      * @return the list of cuisines selected from {@link AdvancedSearch} {@code JPanel}
      */
-    public List<String> getCuisines() {
+    public final List<String> getCuisines() {
         return cuisines;
     }
 
@@ -102,7 +102,7 @@ public class RestaurantFilter {
      * Return the services list filter.
      * @return the list of services selected from {@link AdvancedSearch} {@code JPanel}
      */
-    public List<String> getServices() {
+    public final List<String> getServices() {
         return services;
     }
     

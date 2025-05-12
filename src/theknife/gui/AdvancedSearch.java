@@ -45,7 +45,7 @@ public final class AdvancedSearch extends javax.swing.JPanel {
      * This constructor also sets the main panel to control the screen transitions using {@link PanelMain#showCard}.
      * </p>
      * 
-     * @param main the main panel that manages the screen layout
+     * @param controller the {@link Controller} class that manages the screen layout
      */
     public AdvancedSearch(Controller controller) {
         initComponents();
@@ -571,19 +571,6 @@ public final class AdvancedSearch extends javax.swing.JPanel {
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
     private final File     programDataset          = new File("./data/program/program_dataset.csv");
-    private final int      ARC_PANEL               = 50;
-    private final int      ARC_TEXTFIELD           = 30;
-    private final int      ARC_BUTTON              = 20;
-    private final int      PRICES                  = 4;
-    private final int      RATINGS                 = 5;
-    private final int      SCRLPNL_CUISINES_HEIGHT = 600;
-    private final String[] CHKBX_CUISINE_TXT       = CSV.read(programDataset, "CUISINES").toArray(new String[0]);
-    private final String[] CHKBX_SERVICE_TXT       = CSV.read(programDataset, "SERVICES").toArray(new String[0]);
-    private final String[] LBL_GUIDE_TXT           = CSV.read(programDataset, "GUIDES"  ).toArray(new String[0]);
-    private final String[] PLACEHOLDER             = new String[]{"Your location"};
-    private final String   TITLE                   = "Filters";
-    private final String   APPLY_FILTERS           = "Apply filters";
-    private final String   CANCEL                  = "Cancel";
     private final Color    FG_DEFAULT              = Color.BLACK;
     private final Color    FG_PLACEHOLDER          = Color.GRAY;
     private final Color    BG_TEXTFIELD            = new Color(255, 255, 255, 192);
@@ -593,6 +580,19 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     private final Color    BG_PNL_CHKBXS           = new Color(61, 166, 5);
     private final Border   PADDING_TEXTFIELD       = BorderFactory.createEmptyBorder(0, 10, 0, 10);
     private final Border   PADDING_PANEL_CHKBXS    = BorderFactory.createEmptyBorder(20, 20, 20, 20);
+    private final String[] CHKBX_CUISINE_TXT       = CSV.read(programDataset, "CUISINES").toArray(new String[0]);
+    private final String[] CHKBX_SERVICE_TXT       = CSV.read(programDataset, "SERVICES").toArray(new String[0]);
+    private final String[] LBL_GUIDE_TXT           = CSV.read(programDataset, "GUIDES"  ).toArray(new String[0]);
+    private final String[] PLACEHOLDER             = new String[]{"Your location"};
+    private final String   TITLE                   = "Filters";
+    private final String   APPLY_FILTERS           = "Apply filters";
+    private final String   CANCEL                  = "Cancel";
+    private final int      ARC_PANEL               = 50;
+    private final int      ARC_TEXTFIELD           = 30;
+    private final int      ARC_BUTTON              = 20;
+    private final int      PRICES                  = 4;
+    private final int      RATINGS                 = 5;
+    private final int      SCRLPNL_CUISINES_HEIGHT = 600;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private final PanelMain          pnl_main;

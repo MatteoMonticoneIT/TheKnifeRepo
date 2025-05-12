@@ -1,6 +1,7 @@
 package theknife;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.List;
 import theknife.gui.AdvancedSearch;
 import theknife.gui.Home;
@@ -23,11 +24,40 @@ import theknife.obj.user.Restaurateur;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-
-public class Controller {
-    ListCustomer        customers;
-    ListRestaurant      restaurants;
-    ListRestaurateur    restaurateur;
+@JsonPropertyOrder({
+    "restaurants",
+    "customers",
+    "restaurateurs"
+})
+public final class Controller {
+    //<editor-fold defaultstate="collapsed" desc="Fields">
+    /**
+     * The list of {@link Restaurant}.
+     */
+    @JsonProperty("restaurants")
+    private ListRestaurant   restaurants;
+    
+    /**
+     * The list of {@link Customer}.
+     */
+    @JsonProperty("customers")
+    private ListCustomer     customers;
+    
+    /**
+     * The list of {@link Restaurateur}.
+     */
+    @JsonProperty("restaurateurs")
+    private ListRestaurateur restaurateurs;
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Components">
+    private PanelMain            pnl_main;
+    private Home                 home;
+    private Login                login;
+    private LoginRestaurateur    loginRestaurateur;
+    private Register             register;
+    private RegisterRestaurateur registerRestaurateur;
+    private AdvancedSearch       advancedSearch;
+    //</editor-fold>
     
     /*
         Funzioni da implementare:
@@ -37,12 +67,26 @@ public class Controller {
             - registrazione
             - 
     */
+    /**
+     * Default constructior.
+     * <p>
+     * Initializes the {@code Controller} without any attributes set.
+     * </p>
+     */
+    public Controller() {
+    }
     
+    /**
+     * Creates a new {@code Controller}.
+     * <p>
+     * This constructor initializes the {@code Controller} object's {@link PanelMain}. 
+     * </p>
+     * @param pnl_main 
+     */
     public Controller(PanelMain pnl_main){
         //generazione delle liste
         initGUI(pnl_main);
     }
-    
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Initializes the Graphic User Interface (GUI) of TheKnife application.<br>
@@ -51,8 +95,8 @@ public class Controller {
      */
     private void initGUI(PanelMain pnl_main) {
         this.pnl_main = pnl_main;
-        initFields();
-        initTheKnife();
+        this.initFields();
+        this.initTheKnife();
     }
     
     /**
@@ -79,8 +123,17 @@ public class Controller {
         pnl_main.getPanel().add(advancedSearch,       Page.ADVANCED_SEARCH);
     }
     //</editor-fold>
-    
-    
+    //<editor-fold defaultstate="collapsed" desc="Getter and Setters">
+    /**
+     * Returns the {@link PanelMain}.
+     * 
+     * @return the main panel
+     */
+    public final PanelMain getPanelMain(){
+        return this.pnl_main;
+    }
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Methods">
     public void LoginClient(String user, String password){
         //controllo user e password
         
@@ -109,18 +162,5 @@ public class Controller {
     public void advancedSearch(){
         
     }
-    
-    public PanelMain getPanelMain(){
-        return this.pnl_main;
-    }
-    
-       //<editor-fold defaultstate="collapsed" desc="Components">
-    private PanelMain            pnl_main;
-    private Home                 home;
-    private Login                login;
-    private LoginRestaurateur    loginRestaurateur;
-    private Register             register;
-    private RegisterRestaurateur registerRestaurateur;
-    private AdvancedSearch       advancedSearch;
     //</editor-fold>
 }

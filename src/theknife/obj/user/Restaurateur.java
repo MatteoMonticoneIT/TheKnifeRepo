@@ -1,5 +1,7 @@
 package theknife.obj.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.time.LocalDate;
 import theknife.obj.lists.ListRestaurant;
 
@@ -14,11 +16,23 @@ import theknife.obj.lists.ListRestaurant;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
+@JsonPropertyOrder({
+    "id", 
+    "firstName", 
+    "lastName", 
+    "birthDate", 
+    "address", 
+    "username", 
+    "email", 
+    "password", 
+    "restaurants"
+})
 public final class Restaurateur extends User {
-
+    
     /**
      * The list of restaurants managed by the restaurateur.
      */
+    @JsonProperty("restaurants")
     private ListRestaurant listRestaurant;
 
     /**
@@ -36,16 +50,18 @@ public final class Restaurateur extends User {
      * This constructor initializes the {@code Restaurateur} object's firstName, lastName, username, password, birthDate, address and the list of restaurants they manage.
      * </p>
      *
-     * @param listRestaurant the list of restaurants managed by the restaurateur
+     * @param id the restaurateur's id
      * @param firstName the restaurateur's firstName
      * @param lastName the restaurateur's lastName
-     * @param username the restaurateur's username
-     * @param password the restaurateur's password
      * @param birthDate the restaurateur's birthDate
      * @param address the restaurateur's address
+     * @param username the restaurateur's username
+     * @param email the restaurateur's email
+     * @param password the restaurateur's password
+     * @param listRestaurant the list of restaurants managed by the restaurateur
      */
-    public Restaurateur(ListRestaurant listRestaurant, String firstName, String lastName, String username, String password, LocalDate birthDate, String address) {
-        super(firstName, lastName, username, password, birthDate, address);
+    public Restaurateur(int id, String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password, ListRestaurant listRestaurant) {
+        super(id, firstName, lastName, birthDate, address, username, email, password);
         super.setRole("restaurateur");
         this.setListRestaurant(listRestaurant);
     }

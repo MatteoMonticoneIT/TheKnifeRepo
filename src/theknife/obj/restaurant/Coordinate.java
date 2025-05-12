@@ -1,5 +1,7 @@
 package theknife.obj.restaurant;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * A class that represents geographic coordinates using latitude and longitude.
  * <p>
@@ -18,11 +20,13 @@ public class Coordinate {
     /**
      * The latitude of the geographic location.
      */
+    @JsonProperty("latitude")
     private double latitude;
     
     /**
      * The longitude of the geographic location.
      */
+    @JsonProperty("longitude")
     private double longitude;
 
     /**

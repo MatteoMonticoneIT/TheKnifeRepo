@@ -1,5 +1,7 @@
 package theknife.obj.restaurant;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * A class that represents a geographic location, extending {@link Coordinate}.
  * <p>
@@ -18,16 +20,19 @@ public class Location extends Coordinate {
     /**
      * The country of the location.
      */
+    @JsonProperty("country")
     private String country;
     
     /**
      * The city of the location.
      */
+    @JsonProperty("city")
     private String city;
     
     /**
      * The address of the location.
      */
+    @JsonProperty("address")
     private String address;
 
     /**

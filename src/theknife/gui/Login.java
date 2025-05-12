@@ -43,7 +43,7 @@ public final class Login extends javax.swing.JPanel {
      * transitions using {@link PanelMain#showCard}.
      * </p>
      *
-     * @param main the main panel that manages the screen layout
+     * @param controller the {@link Controller} class that manages the screen layout
      */
     public Login(Controller controller) {
         initComponents();
