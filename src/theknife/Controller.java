@@ -73,8 +73,7 @@ public final class Controller {
      * Initializes the {@code Controller} without any attributes set.
      * </p>
      */
-    public Controller() {
-    }
+    public              Controller          (){}
     
     /**
      * Creates a new {@code Controller}.
@@ -83,7 +82,8 @@ public final class Controller {
      * </p>
      * @param pnl_main 
      */
-    public Controller(PanelMain pnl_main){
+    public              Controller          (PanelMain pnl_main)
+    {
         //generazione delle liste
         initGUI(pnl_main);
     }
@@ -93,34 +93,37 @@ public final class Controller {
      * This method creates the main panel, home page, and login page, and adds them to the main panel.<br>
      * It also sets up the content pane and displays the home page initially.
      */
-    private void initGUI(PanelMain pnl_main) {
-        this.pnl_main = pnl_main;
-        this.initFields();
-        this.initTheKnife();
+    private void        initGUI             (PanelMain pnl_main) 
+    {
+      this.pnl_main = pnl_main;
+      initFields    ();
+      initTheKnife  ();
     }
     
     /**
      * Initializes all the fields in the knife.
      */
-    private void initFields() {
-        home                 = new Home                (this);
-        login                = new Login               (this);
-        loginRestaurateur    = new LoginRestaurateur   (this);
-        register             = new Register            (this);
-        registerRestaurateur = new RegisterRestaurateur(this);
-        advancedSearch       = new AdvancedSearch      (this);
+    private void        initFields          () 
+    {
+      home                 = new Home                (this);
+      login                = new Login               (this);
+      loginRestaurateur    = new LoginRestaurateur   (this);
+      register             = new Register            (this);
+      registerRestaurateur = new RegisterRestaurateur(this);
+      advancedSearch       = new AdvancedSearch      (this);
     }
     
     /**
      * Initializes the layout and appearance of the main page.
      */
-    private void initTheKnife() {        
-        pnl_main.getPanel().add(home,                 Page.HOME);
-        pnl_main.getPanel().add(login,                Page.LOGIN);
-        pnl_main.getPanel().add(loginRestaurateur,    Page.LOGIN_RESTAURATEUR);
-        pnl_main.getPanel().add(register,             Page.REGISTER);
-        pnl_main.getPanel().add(registerRestaurateur, Page.REGISTER_RESTAURATEUR);
-        pnl_main.getPanel().add(advancedSearch,       Page.ADVANCED_SEARCH);
+    private void        initTheKnife        () 
+    {        
+      pnl_main.getPanel().add(home,                 Page.HOME);
+      pnl_main.getPanel().add(login,                Page.LOGIN);
+      pnl_main.getPanel().add(loginRestaurateur,    Page.LOGIN_RESTAURATEUR);
+      pnl_main.getPanel().add(register,             Page.REGISTER);
+      pnl_main.getPanel().add(registerRestaurateur, Page.REGISTER_RESTAURATEUR);
+      pnl_main.getPanel().add(advancedSearch,       Page.ADVANCED_SEARCH);
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getter and Setters">
@@ -134,33 +137,39 @@ public final class Controller {
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
-    public void LoginClient(String user, String password){
+    public void         LoginClient         (String user, String password) 
+    {
         //controllo user e password
+    }
+    
+    public  void        LoginRestaurateur   ()
+    {
         
     }
     
-    public void LoginRestaurateur(){
+    public  void        RegisterClient      ()
+    {
         
     }
     
-    public void RegisterClient(){
+    public  void        RegisterRestaurateur()
+    {
         
     }
     
-    public void RegisterRestaurateur(){
+    public  void        addRestaurant       ()
+    {
+      //funzione di aggiunta ristorante
+    }
+    
+    public  void        searchRestaurant    ()
+    {
         
     }
     
-    public void addRestaurant(){
-        //funzione di aggiunta ristorante
-    }
-    
-    public void searchRestaurant(){
+    public  void        advancedSearch      ()
+    {
         
     }
-    
-    public void advancedSearch(){
-        
-    }
-    //</editor-fold>
+
 }
