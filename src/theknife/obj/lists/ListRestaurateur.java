@@ -22,6 +22,7 @@ import theknife.obj.user.Restaurateur;
 
 public final class ListRestaurateur extends AbstractListWrapper<Restaurateur> {
     
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
      * <p>
@@ -40,5 +41,5 @@ public final class ListRestaurateur extends AbstractListWrapper<Restaurateur> {
     public ListRestaurateur(List<Restaurateur> list) {
         super(list);
     }
-    
+    //</editor-fold>
 }

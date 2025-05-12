@@ -12,6 +12,7 @@ import java.util.List;
  */
 public final class RestaurantFilter {
     
+    //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * Rating in stars from 0.5 to 5.0.
      */
@@ -36,7 +37,8 @@ public final class RestaurantFilter {
      * List of services that a restaraunt must have.
      */
     private List<String> services;
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructior.
      * <p>
@@ -45,15 +47,15 @@ public final class RestaurantFilter {
      */
     public RestaurantFilter() {
     }
-
+    
     /**
      * Constructor that initializes a {@code RestaurantFilter} object with the specified attributes.
      * <p>
      * This constructor initializes the {@code RestaurantFilter} object's rating, location, price, cuisines and services.
      * </p>
-     * 
+     *
      * @param rating how good is the restaurant overall
-     * @param location restaurant location 
+     * @param location restaurant location
      * @param price how expensive is the restaurant
      * @param cuisines type of cuisine that the restaurant must provide
      * @param services all services that a restaurant must have
@@ -65,7 +67,8 @@ public final class RestaurantFilter {
         this.cuisines = cuisines;
         this.services = services;
     }
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getters">
     /**
      * Returns the overall rating filter.
      * @return the restaurant's rating that must be
@@ -73,7 +76,7 @@ public final class RestaurantFilter {
     public final double getRating() {
         return rating;
     }
-
+    
     /**
      * Returns the location filter.
      * @return the restaurant's location that has to be
@@ -81,7 +84,7 @@ public final class RestaurantFilter {
     public final String getLocation() {
         return location;
     }
-
+    
     /**
      * Return the price interval filter (1 to 4)
      * @return the price interval (1 - 4).
@@ -89,7 +92,7 @@ public final class RestaurantFilter {
     public final int getPrice() {
         return price;
     }
-
+    
     /**
      * Return the cuisine list filter
      * @return the list of cuisines selected from {@link AdvancedSearch} {@code JPanel}
@@ -97,7 +100,7 @@ public final class RestaurantFilter {
     public final List<String> getCuisines() {
         return cuisines;
     }
-
+    
     /**
      * Return the services list filter.
      * @return the list of services selected from {@link AdvancedSearch} {@code JPanel}
@@ -105,5 +108,5 @@ public final class RestaurantFilter {
     public final List<String> getServices() {
         return services;
     }
-    
+    //</editor-fold>
 }

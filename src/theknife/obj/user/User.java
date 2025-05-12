@@ -18,6 +18,7 @@ import java.time.LocalDate;
  */
 public class User {
     
+    //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The user's id.
      */
@@ -71,7 +72,8 @@ public class User {
      */
     @JsonIgnore
     private String role;
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
      * <p>
@@ -80,7 +82,7 @@ public class User {
      */
     public User() {
     }
-
+    
     /**
      * Constructor that initializes a {@code User} object with the specified attributes.
      * <p>
@@ -105,25 +107,26 @@ public class User {
         this.setBirthDate(birthDate);
         this.setAddress(address);
     }
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
      * Returns the user's id.
-     * 
+     *
      * @return the user's id
      */
     public final int getId() {
         return id;
     }
-
+    
     /**
      * Sets the user's id.
-     * 
+     *
      * @param id the new id to set
      */
     public final void setId(int id) {
         this.id = id;
     }
-
+    
     /**
      * Returns the user's first name.
      *
@@ -132,7 +135,7 @@ public class User {
     public final String getFirstName() {
         return firstName;
     }
-
+    
     /**
      * Sets the user's first name.
      *
@@ -141,7 +144,7 @@ public class User {
     public final void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
+    
     /**
      * Returns the user's last name.
      *
@@ -150,7 +153,7 @@ public class User {
     public final String getLastName() {
         return lastName;
     }
-
+    
     /**
      * Sets the user's last name.
      *
@@ -159,7 +162,7 @@ public class User {
     public final void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
+    
     /**
      * Returns the user's birthDate.
      *
@@ -168,7 +171,7 @@ public class User {
     public final LocalDate getBirthDate() {
         return birthDate;
     }
-
+    
     /**
      * Sets the user's birthDate.
      *
@@ -180,22 +183,22 @@ public class User {
     
     /**
      * Returns the user's email.
-     * 
+     *
      * @return the user's email
      */
     public final String getEmail() {
         return email;
     }
-
+    
     /**
      * Sets the user's email
-     * 
+     *
      * @param email the new email to set
      */
     public final void setEmail(String email) {
         this.email = email;
     }
-
+    
     /**
      * Returns the user's address.
      *
@@ -204,7 +207,7 @@ public class User {
     public final String getAddress() {
         return address;
     }
-
+    
     /**
      * Sets the user's address.
      *
@@ -213,7 +216,7 @@ public class User {
     public final void setAddress(String address) {
         this.address = address;
     }
-
+    
     /**
      * Returns the user's username.
      *
@@ -222,7 +225,7 @@ public class User {
     public final String getUsername() {
         return username;
     }
-
+    
     /**
      * Sets the user's username.
      *
@@ -231,7 +234,7 @@ public class User {
     public final void setUsername(String username) {
         this.username = username;
     }
-
+    
     /**
      * Returns the user's password.
      *
@@ -240,7 +243,7 @@ public class User {
     public final String getPassword() {
         return password;
     }
-
+    
     /**
      * Sets the user's password.
      *
@@ -249,7 +252,7 @@ public class User {
     public final void setPassword(String password) {
         this.password = password;
     }
-
+    
     /**
      * Returns the user's role.
      * <p>
@@ -258,10 +261,11 @@ public class User {
      *
      * @return the user's role
      */
+    @JsonIgnore
     public final String getRole() {
         return role;
     }
-
+    
     /**
      * Sets the user's role.
      *
@@ -270,4 +274,5 @@ public class User {
     public final void setRole(String role) {
         this.role = role;
     }
+    //</editor-fold>
 }

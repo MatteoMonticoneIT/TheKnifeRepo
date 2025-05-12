@@ -39,12 +39,13 @@ import theknife.Controller;
 */
 public final class AdvancedSearch extends javax.swing.JPanel {
 
+    //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Creates a new {@code AdvancedSearch} {@link JPanel} and initializes it's components.
      * <p>
      * This constructor also sets the main panel to control the screen transitions using {@link PanelMain#showCard}.
      * </p>
-     * 
+     *
      * @param controller the {@link Controller} class that manages the screen layout
      */
     public AdvancedSearch(Controller controller) {
@@ -52,7 +53,7 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         pnl_main = controller.getPanelMain();
         initGUI();
     }
-    
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Initializes the graphical user interface (GUI) for the {@code AdvancedSearch} page.
@@ -543,6 +544,7 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         }
     }
     //</editor-fold>
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

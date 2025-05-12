@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({"review", "content"})
 public final class Response {
     
+    //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The content of the response.
      */
@@ -28,7 +29,8 @@ public final class Response {
      */
     @JsonProperty("review")
     private Review review;
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
      * <p>
@@ -37,7 +39,7 @@ public final class Response {
      */
     public Response() {
     }
-
+    
     /**
      * Constructor that initializes the {@code Response} object with specific content and associated review.
      *
@@ -48,7 +50,8 @@ public final class Response {
         setContent(content);
         setReview(review);
     }
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
      * Returns the content of the response.
      *
@@ -57,7 +60,7 @@ public final class Response {
     public final String getContent() {
         return content;
     }
-
+    
     /**
      * Sets the content of the response.
      *
@@ -66,7 +69,7 @@ public final class Response {
     public final void setContent(String content) {
         this.content = content;
     }
-
+    
     /**
      * Returns the review that this response is associated with.
      *
@@ -75,7 +78,7 @@ public final class Response {
     public final Review getReview() {
         return review;
     }
-
+    
     /**
      * Sets the review that this response is associated with.
      *
@@ -84,5 +87,5 @@ public final class Response {
     public final void setReview(Review review) {
         this.review = review;
     }
-    
+    //</editor-fold>
 }

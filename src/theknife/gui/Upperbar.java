@@ -28,12 +28,13 @@ import javax.swing.JTextField;
  */
 public final class Upperbar extends javax.swing.JPanel {
 
+    //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Creates a new {@code Upperbar} panel and initializes its components.
      * <p>
      * This constructor also sets the main panel to control the screen transitions using {@link PanelMain#showCard}.
      * </p>
-     * 
+     *
      * @param main the main panel that manages the screen layout
      */
     public Upperbar(PanelMain main) {
@@ -41,7 +42,7 @@ public final class Upperbar extends javax.swing.JPanel {
         pnl_main = main;
         initGUI();
     }
-    
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Initializes the graphical user interface (GUI) for the upper bar.
@@ -295,6 +296,7 @@ public final class Upperbar extends javax.swing.JPanel {
         }
     }
     //</editor-fold>
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

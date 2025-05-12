@@ -36,6 +36,7 @@ import theknife.Controller;
 public final class Login extends javax.swing.JPanel 
 {
 
+    //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Creates a new {@code Login} {@link JPanel} and initializes its
      * components.
@@ -46,14 +47,14 @@ public final class Login extends javax.swing.JPanel
      *
      * @param controller the {@link Controller} class that manages the screen layout
      */
-    public       Login                                  (Controller controller) 
+    public       Login                                  (Controller controller)
     {
-      initComponents();
-      pnl_main = controller.getPanelMain();
-      this.controller = controller;
-      initGUI();
+        initComponents();
+        pnl_main = controller.getPanelMain();
+        this.controller = controller;
+        initGUI();
     }
-
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Initializes the graphical user interface (GUI) for the {@code Login}
@@ -665,6 +666,7 @@ public final class Login extends javax.swing.JPanel
     }
 
     //</editor-fold>
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

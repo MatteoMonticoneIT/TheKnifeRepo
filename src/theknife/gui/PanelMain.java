@@ -15,6 +15,7 @@ import javax.swing.JPanel;
  * @author Mattia Tamburo       761743 (CO)
  */
 public final class PanelMain {
+    //<editor-fold defaultstate="collapsed" desc="Components">
     /**
      * The {@code PanelMain} {@link JPanel}
      */
@@ -24,7 +25,8 @@ public final class PanelMain {
      * The {@code PanelMain} {@link CardLayout}
      */
     private final CardLayout card;
-    
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Constructs a new {@code PanelMain} with a {@link CardLayout}-managed {@code JPanel}.
      */
@@ -32,7 +34,8 @@ public final class PanelMain {
         this.card  = new CardLayout();
         this.panel = new JPanel(this.getCard());
     }
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getters">
     /**
      * Returns the main {@code JPanel} container.
      *
@@ -41,7 +44,7 @@ public final class PanelMain {
     public final JPanel getPanel() {
         return panel;
     }
-
+    
     /**
      * Returns the {@code CardLayout} used to manage the panel's content.
      *
@@ -50,7 +53,8 @@ public final class PanelMain {
     public final CardLayout getCard() {
         return card;
     }
-    
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Methods">
     /**
      * Shows the card with the specified name.
      *
@@ -59,5 +63,5 @@ public final class PanelMain {
     public final void showCard(String name) {
         this.getCard().show(this.getPanel(), name);
     }
-    
+    //</editor-fold>
 }

@@ -23,6 +23,7 @@ import theknife.obj.user.Customer;
 
 public final class ListCustomer extends AbstractListWrapper<Customer> {
 
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
      * <p>
@@ -32,7 +33,7 @@ public final class ListCustomer extends AbstractListWrapper<Customer> {
     public ListCustomer() {
         super(new LinkedList<Customer>());
     }
-
+    
     /**
      * Constructor that initializes the list with an existing list of {@link Customer} objects.
      *
@@ -41,13 +42,14 @@ public final class ListCustomer extends AbstractListWrapper<Customer> {
     public ListCustomer(List<Customer> list) {
         super(list);
     }
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Methods">
     /**
      * Checks if a client exists in the list by comparing the username and password.
      * <p>
      * This method iterates through the list of clients and checks if there is a client with the specified username and password.
      * </p>
-     * 
+     *
      * @param username the username of the client to check
      * @param password the password of the client to check
      * @return {@code true} if a client with the given username and password is found,
@@ -60,4 +62,5 @@ public final class ListCustomer extends AbstractListWrapper<Customer> {
         }
         return false;
     }
+    //</editor-fold>
 }

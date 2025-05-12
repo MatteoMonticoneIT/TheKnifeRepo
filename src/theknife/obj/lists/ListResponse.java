@@ -22,6 +22,7 @@ import theknife.obj.review.Response;
 
 public final class ListResponse extends AbstractListWrapper<Response> {
     
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
      * <p>
@@ -40,5 +41,5 @@ public final class ListResponse extends AbstractListWrapper<Response> {
     public ListResponse(List<Response> list) {
         super(list);
     }
-    
+    //</editor-fold>
 }

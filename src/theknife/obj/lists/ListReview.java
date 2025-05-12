@@ -22,6 +22,7 @@ import theknife.obj.review.Review;
 
 public final class ListReview extends AbstractListWrapper<Review> {
 
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor
      * <p>
@@ -40,5 +41,5 @@ public final class ListReview extends AbstractListWrapper<Review> {
     public ListReview(List<Review> list) {
         super(list);
     }
-    
+    //</editor-fold>
 }

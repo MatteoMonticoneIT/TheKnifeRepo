@@ -22,8 +22,14 @@ import javax.swing.plaf.LayerUI;
  * @author Mattia Tamburo       761743 (CO)
  */
 public final class RoundedComponentUI extends LayerUI<JComponent> {
+    
+    //<editor-fold defaultstate="collapsed" desc="Field">
+    /**
+     * The corner arc radius in pixels
+     */
     private int arc;
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Constructs a new {@code RoundedComponentUI} with the specified corner radius.
      *
@@ -32,7 +38,8 @@ public final class RoundedComponentUI extends LayerUI<JComponent> {
     public RoundedComponentUI(int arc) {
         this.setArc(arc);
     }
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
      * Returns the corner arc radius used for rounding the component.
      *
@@ -41,7 +48,7 @@ public final class RoundedComponentUI extends LayerUI<JComponent> {
     public final int getArc() {
         return arc;
     }
-
+    
     /**
      * Sets the corner arc radius used for rounding the component.
      *
@@ -50,14 +57,15 @@ public final class RoundedComponentUI extends LayerUI<JComponent> {
     public final void setArc(int arc) {
         this.arc = arc;
     }
-    
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Methods">
     /**
      * Overrides the {@code paint} method from {@link javax.swing.plaf.LayerUI LayerUI}{@code <JComponent>}.
      * <p>
      * Applies a rounded clipping shape to the wrapped component before painting, allowing for custom rendering effects.<br>
      * </p>
      * For more information on customizing the layer behavior, see {@link javax.swing.plaf.LayerUI LayerUI}{@code <JComponent>}.
-     * 
+     *
      * @param g the {@code Graphics} context to use for painting
      * @param c the component being painted (expected to be a {@code JLayer})
      */
@@ -75,5 +83,5 @@ public final class RoundedComponentUI extends LayerUI<JComponent> {
         super.paint(g2D, c);
         g2D.dispose();
     }
-    
+    //</editor-fold>
 }

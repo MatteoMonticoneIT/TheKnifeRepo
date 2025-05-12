@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Location extends Coordinate {
     
+    //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The country of the location.
      */
@@ -34,7 +35,8 @@ public class Location extends Coordinate {
      */
     @JsonProperty("address")
     private String address;
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
      * <p>
@@ -43,7 +45,7 @@ public class Location extends Coordinate {
      */
     public Location() {
     }
-
+    
     /**
      * Constructor that initializes the {@code Location} object with the specified country, city, address, and geographic coordinates (latitude and longitude).
      *
@@ -59,7 +61,8 @@ public class Location extends Coordinate {
         setCity(city);
         setAddress(address);
     }
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
      * Returns the country of the location.
      *
@@ -68,7 +71,7 @@ public class Location extends Coordinate {
     public final String getCountry() {
         return country;
     }
-
+    
     /**
      * Sets the country of the location.
      *
@@ -77,7 +80,7 @@ public class Location extends Coordinate {
     public final void setCountry(String country) {
         this.country = country;
     }
-
+    
     /**
      * Returns the city of the location.
      *
@@ -86,7 +89,7 @@ public class Location extends Coordinate {
     public final String getCity() {
         return city;
     }
-
+    
     /**
      * Sets the city of the location.
      *
@@ -95,7 +98,7 @@ public class Location extends Coordinate {
     public final void setCity(String city) {
         this.city = city;
     }
-
+    
     /**
      * Returns the address of the location.
      *
@@ -104,7 +107,7 @@ public class Location extends Coordinate {
     public final String getAddress() {
         return address;
     }
-
+    
     /**
      * Sets the address of the location.
      *
@@ -113,6 +116,5 @@ public class Location extends Coordinate {
     public final void setAddress(String address) {
         this.address = address;
     }
-    
-    
+    //</editor-fold>
 }

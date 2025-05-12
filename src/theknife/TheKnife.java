@@ -16,16 +16,19 @@ import theknife.gui.PanelMain;
 
 public final class TheKnife extends javax.swing.JFrame 
 {
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Creates a new instance of {@code TheKnife} {@link JFrame} and initializes its components.<br>
      * The constructor sets up the GUI, including the main panel and the home and login pages.
      */
-    public TheKnife() 
+    public TheKnife()
     {
-      initComponents();
-      initGUI();
+        initComponents();
+        initGUI();
     }
     
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Initializes the Graphic User Interface (GUI) of TheKnife application.<br>
@@ -41,8 +44,8 @@ public final class TheKnife extends javax.swing.JFrame
     
     private void initTheKnife() 
     {     
-      this.setContentPane(pnl_main.getPanel());
-      pnl_main.showCard  (Page.HOME);
+      this.setContentPane               (controller.getPanelMain().getPanel());
+      controller.getPanelMain().showCard(Page.HOME);
     }
     //</editor-fold>
     

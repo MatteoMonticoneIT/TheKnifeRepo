@@ -19,6 +19,7 @@ import theknife.obj.lists.ListResponse;
 @JsonPropertyOrder({"content", "grade", "responses"})
 public final class Review {
     
+    //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The content of the review, usually a textual description or feedback.
      */
@@ -36,7 +37,8 @@ public final class Review {
      */
     @JsonProperty("responses")
     private ListResponse responses;
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
      * <p>
@@ -45,7 +47,7 @@ public final class Review {
      */
     public Review() {
     }
-
+    
     /**
      * Constructor that initializes a {@code Review} object with specific content and grade.
      *
@@ -56,7 +58,8 @@ public final class Review {
         setContent(content);
         setGrade(grade);
     }
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
      * Returns the content of the review.
      *
@@ -65,7 +68,7 @@ public final class Review {
     public final String getContent() {
         return content;
     }
-
+    
     /**
      * Sets the content of the review.
      *
@@ -74,7 +77,7 @@ public final class Review {
     public final void setContent(String content) {
         this.content = content;
     }
-
+    
     /**
      * Returns the grade assigned in the review.
      *
@@ -83,7 +86,7 @@ public final class Review {
     public final int getGrade() {
         return grade;
     }
-
+    
     /**
      * Sets the grade for the review.
      *
@@ -92,7 +95,7 @@ public final class Review {
     public final void setGrade(int grade) {
         this.grade = grade;
     }
-
+    
     /**
      * Returns the response to the review.
      *
@@ -101,7 +104,7 @@ public final class Review {
     public final ListResponse getResponses() {
         return responses;
     }
-
+    
     /**
      * Sets the response to the review.
      *
@@ -110,5 +113,5 @@ public final class Review {
     public final void setResponses(ListResponse responses) {
         this.responses = responses;
     }
-    
+    //</editor-fold>
 }

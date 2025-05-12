@@ -36,70 +36,71 @@ import theknife.obj.lists.ListReview;
 })
 public final class Restaurant extends Location {
     
+    //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The restaurant id.
      */
-    @JsonProperty("id") 
+    @JsonProperty("id")
     private int id;
     
     /**
      * The name of the restaurant.
      */
-    @JsonProperty("name") 
+    @JsonProperty("name")
     private String name;
     
     /**
      * The normalized name of the restaurant (no accents and other characters that may interfere)
      */
-    @JsonProperty("normName") 
+    @JsonProperty("normName")
     private String normalizedName;
     
     /**
      * The price category of the restaurant.
      */
-    @JsonProperty("price") 
+    @JsonProperty("price")
     private int price;
     
     /**
      * The phone number of the restaurant.
      */
-    @JsonProperty("phoneNo") 
+    @JsonProperty("phoneNo")
     private String phoneNumber;
     
     /**
      * The URL for the restaurant.
      */
-    @JsonProperty("url") 
+    @JsonProperty("url")
     private String url;
     
     /**
      * The website URL of the restaurant.
      */
-    @JsonProperty("webUrl") 
+    @JsonProperty("webUrl")
     private String websiteUrl;
     
     /**
      * The award received by the restaurant.
      */
-    @JsonProperty("award") 
+    @JsonProperty("award")
     private String award;
     
     /**
      * Indicates if the restaurant has a green star (sustainability recognition).
      */
-    @JsonProperty("greenStar") 
+    @JsonProperty("greenStar")
     private boolean greenStar;
     
     /**
      * A description of the services available at the restaurant.
      */
-    @JsonProperty("services") 
+    @JsonProperty("services")
     private String servicesAvailable;
     
     /**
      * A brief description of the restaurant.
      */
-    @JsonProperty("description") 
+    @JsonProperty("description")
     private String description;
     
     /**
@@ -107,7 +108,8 @@ public final class Restaurant extends Location {
      */
     @JsonProperty("reviews")
     private ListReview listReview;
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
      * <p>
@@ -116,7 +118,7 @@ public final class Restaurant extends Location {
      */
     public Restaurant() {
     }
-
+    
     /**
      * Constructor that initializes the {@code Restaurant} object with the provided details.
      *
@@ -137,8 +139,8 @@ public final class Restaurant extends Location {
      * @param latitude the latitude of the restaurant's location
      * @param longitude the longitude of the restaurant's location
      */
-    public Restaurant(int id, String name, String normalizedName, int price, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String servicesAvailable, String description, 
-                      String country, String city, String address, double latitude, double longitude) {
+    public Restaurant(int id, String name, String normalizedName, int price, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String servicesAvailable, String description,
+            String country, String city, String address, double latitude, double longitude) {
         super(country, city, address, latitude, longitude);
         this.setId(id);
         this.setName(name);
@@ -152,16 +154,17 @@ public final class Restaurant extends Location {
         this.setServicesAvailable(servicesAvailable);
         this.setDescription(description);
     }
-    
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
      * Return the id of the restaurant.
-     * 
+     *
      * @return the id of the restaurant
      */
     public final int getId() {
         return id;
     }
-
+    
     /**
      * Sets the id of the restaurant.
      *
@@ -170,7 +173,7 @@ public final class Restaurant extends Location {
     public final void setId(int id) {
         this.id = id;
     }
-
+    
     /**
      * Returns the name of the restaurant.
      *
@@ -179,7 +182,7 @@ public final class Restaurant extends Location {
     public final String getName() {
         return name;
     }
-
+    
     /**
      * Sets the name of the restaurant.
      *
@@ -188,25 +191,25 @@ public final class Restaurant extends Location {
     public final void setName(String name) {
         this.name = name;
     }
-
+    
     /**
      * Returns the normalized name of the name of the restaurant.
-     * 
+     *
      * @return the normalized name of the name of the restaurant
      */
     public final String getNormalizedName() {
         return normalizedName;
     }
-
+    
     /**
      * Sets the name normalized removing accents to prevent search issues
-     * 
+     *
      * @param normalizedName the normalized name to set
      */
     public final void setNormalizedName(String normalizedName) {
         this.normalizedName = normalizedName;
     }
-
+    
     /**
      * Returns the price category of the restaurant.
      *
@@ -215,7 +218,7 @@ public final class Restaurant extends Location {
     public final int getPrice() {
         return price;
     }
-
+    
     /**
      * Sets the price category of the restaurant.
      *
@@ -224,7 +227,7 @@ public final class Restaurant extends Location {
     public final void setPrice(int price) {
         this.price = price;
     }
-
+    
     /**
      * Returns the phone number of the restaurant.
      *
@@ -233,7 +236,7 @@ public final class Restaurant extends Location {
     public final String getPhoneNumber() {
         return phoneNumber;
     }
-
+    
     /**
      * Sets the phone number of the restaurant.
      *
@@ -242,7 +245,7 @@ public final class Restaurant extends Location {
     public final void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
+    
     /**
      * Returns the URL for the restaurant.
      *
@@ -251,7 +254,7 @@ public final class Restaurant extends Location {
     public final String getUrl() {
         return url;
     }
-
+    
     /**
      * Sets the URL for the restaurant.
      *
@@ -260,7 +263,7 @@ public final class Restaurant extends Location {
     public final void setUrl(String url) {
         this.url = url;
     }
-
+    
     /**
      * Returns the website URL of the restaurant.
      *
@@ -269,7 +272,7 @@ public final class Restaurant extends Location {
     public final String getWebsiteUrl() {
         return websiteUrl;
     }
-
+    
     /**
      * Sets the website URL of the restaurant.
      *
@@ -278,7 +281,7 @@ public final class Restaurant extends Location {
     public final void setWebsiteUrl(String websiteUrl) {
         this.websiteUrl = websiteUrl;
     }
-
+    
     /**
      * Returns the award received by the restaurant.
      *
@@ -287,7 +290,7 @@ public final class Restaurant extends Location {
     public final String getAward() {
         return award;
     }
-
+    
     /**
      * Sets the award received by the restaurant.
      *
@@ -296,7 +299,7 @@ public final class Restaurant extends Location {
     public final void setAward(String award) {
         this.award = award;
     }
-
+    
     /**
      * Returns whether the restaurant has a green star (sustainability recognition).
      *
@@ -305,7 +308,7 @@ public final class Restaurant extends Location {
     public final boolean isGreenStar() {
         return greenStar;
     }
-
+    
     /**
      * Sets whether the restaurant has a green star (sustainability recognition).
      *
@@ -314,7 +317,7 @@ public final class Restaurant extends Location {
     public final void setGreenStar(boolean greenStar) {
         this.greenStar = greenStar;
     }
-
+    
     /**
      * Returns the services available at the restaurant.
      *
@@ -323,7 +326,7 @@ public final class Restaurant extends Location {
     public final String getServicesAvailable() {
         return servicesAvailable;
     }
-
+    
     /**
      * Sets the services available at the restaurant.
      *
@@ -332,7 +335,7 @@ public final class Restaurant extends Location {
     public final void setServicesAvailable(String servicesAvailable) {
         this.servicesAvailable = servicesAvailable;
     }
-
+    
     /**
      * Returns a brief description of the restaurant.
      *
@@ -341,7 +344,7 @@ public final class Restaurant extends Location {
     public final String getDescription() {
         return description;
     }
-
+    
     /**
      * Sets the description of the restaurant.
      *
@@ -350,7 +353,7 @@ public final class Restaurant extends Location {
     public final void setDescription(String description) {
         this.description = description;
     }
-
+    
     /**
      * Returns the list of reviews associated with the restaurant.
      *
@@ -359,7 +362,7 @@ public final class Restaurant extends Location {
     public final ListReview getListReview() {
         return listReview;
     }
-
+    
     /**
      * Sets the list of reviews for the restaurant.
      *
@@ -368,5 +371,5 @@ public final class Restaurant extends Location {
     public final void setListReview(ListReview listReview) {
         this.listReview = listReview;
     }
-    
+    //</editor-fold>
 }

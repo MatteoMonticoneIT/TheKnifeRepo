@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
  */
 public final class InputPattern {
     
+    //<editor-fold defaultstate="collapsed" desc="Consts">
     /**
      * The first name regex
      */
@@ -44,10 +45,11 @@ public final class InputPattern {
      * The password regex
      */
     public static final Pattern PASSWORD   = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[a-zA-Z\\d@$!%*?&]{8,64}$");
-    
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Methods">
     /**
      * Matches a pattern with an input.
-     * 
+     *
      * @param pattern the pattern to use
      * @param input the input to validate
      * @return true if the validation is ok, false otherwise
@@ -55,4 +57,5 @@ public final class InputPattern {
     public static final boolean match(Pattern pattern, String input) {
         return pattern.matcher(input).matches();
     }
+    //</editor-fold>
 }

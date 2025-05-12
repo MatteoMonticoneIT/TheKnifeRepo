@@ -18,12 +18,13 @@ import theknife.Controller;
  */
 public final class Home extends javax.swing.JPanel {
 
+    //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Creates a new {@code Home} panel and initializes its components.
      * <p>
      * This constructor also sets the main panel to control the screen transitions using {@link PanelMain#showCard}.
      * </p>
-     * 
+     *
      * @param controller the {@link Controller} class that manages the screen layout
      */
     public Home(Controller controller) {
@@ -31,7 +32,8 @@ public final class Home extends javax.swing.JPanel {
         pnl_main = controller.getPanelMain();
         initGUI();
     }
-    
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Initializes the graphical user interface (GUI) for the home page.
      */
@@ -46,6 +48,7 @@ public final class Home extends javax.swing.JPanel {
         this.setLayout(new BorderLayout());
         this.add(new Upperbar(pnl_main), BorderLayout.NORTH);
     }
+    //</editor-fold>
 
     /**
      * This method is called from within the constructor to initialize the form.

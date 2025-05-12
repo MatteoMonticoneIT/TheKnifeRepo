@@ -10,6 +10,7 @@ package theknife.gui;
  */
 public final class Page {
     
+    //<editor-fold defaultstate="collapsed" desc="Consts">
     /**
      * The home page
      */
@@ -39,4 +40,5 @@ public final class Page {
      * The advanced search page
      */
     public static final String ADVANCED_SEARCH       = "Advanced search";
+    //</editor-fold>
 }

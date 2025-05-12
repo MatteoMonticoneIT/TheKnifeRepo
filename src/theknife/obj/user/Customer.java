@@ -29,12 +29,14 @@ import theknife.obj.lists.ListFavorite;
 })
 public final class Customer extends User {
     
+    //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The list of favorite restaurants for the customer.
      */
     @JsonProperty("favorites")
     private ListFavorite listFavorite;
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
      * <p>
@@ -43,7 +45,7 @@ public final class Customer extends User {
      */
     public Customer() {
     }
-
+    
     /**
      * Constructor that initializes a {@code Client} object with the specified attributes.
      * <p>
@@ -65,7 +67,8 @@ public final class Customer extends User {
         this.setRole("customer");
         this.setListFavorite(listFavorite);
     }
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
      * Returns the list of favorite restaurants for the customer.
      *
@@ -74,7 +77,7 @@ public final class Customer extends User {
     public final ListFavorite getListFavorite() {
         return listFavorite;
     }
-
+    
     /**
      * Sets the list of favorite restaurants for the customer.
      *
@@ -83,5 +86,6 @@ public final class Customer extends User {
     public final void setListFavorite(ListFavorite listFavorite) {
         this.listFavorite = listFavorite;
     }
+    //</editor-fold>
     
 }

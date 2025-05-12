@@ -29,12 +29,14 @@ import theknife.obj.lists.ListRestaurant;
 })
 public final class Restaurateur extends User {
     
+    //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The list of restaurants managed by the restaurateur.
      */
     @JsonProperty("restaurants")
     private ListRestaurant listRestaurant;
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
      * <p>
@@ -43,7 +45,7 @@ public final class Restaurateur extends User {
      */
     public Restaurateur() {
     }
-
+    
     /**
      * Constructor that initializes a {@code Restaurateur} object with the specified attributes.
      * <p>
@@ -65,7 +67,8 @@ public final class Restaurateur extends User {
         super.setRole("restaurateur");
         this.setListRestaurant(listRestaurant);
     }
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
      * Returns the list of restaurants managed by the restaurateur.
      *
@@ -74,7 +77,7 @@ public final class Restaurateur extends User {
     public final ListRestaurant getListRestaurant() {
         return listRestaurant;
     }
-
+    
     /**
      * Sets the list of restaurants managed by the restaurateur.
      *
@@ -83,5 +86,5 @@ public final class Restaurateur extends User {
     public final void setListRestaurant(ListRestaurant listRestaurant) {
         this.listRestaurant = listRestaurant;
     }
-    
+    //</editor-fold>
 }

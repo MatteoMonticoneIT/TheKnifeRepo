@@ -21,11 +21,13 @@ import java.util.List;
  */
 public abstract class AbstractListWrapper<T> {
     
+    //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The list containing elements of type {@code T}.
      */
     private List<T> list;
-    
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor
      */
@@ -35,29 +37,30 @@ public abstract class AbstractListWrapper<T> {
     
     /**
      * Constructs a new instance of {@link AbstractListWrapper} with the specified list.
-     * 
+     *
      * @param list the list of elements to be used
      */
     protected AbstractListWrapper(List<T> list) {
         this.setList(list);
     }
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
      * Returns the list of elements.
-     * 
+     *
      * @return the list containing elements of type {@code T}
      */
     public final List<T> getList() {
         return list;
     }
-
+    
     /**
      * Sets the list of elements.
-     * 
+     *
      * @param list the new list of elements to assign
      */
     public final void setList(List<T> list) {
         this.list = list;
     }
-    
+    //</editor-fold>    
 }

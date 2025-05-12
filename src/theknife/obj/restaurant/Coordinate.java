@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Coordinate {
     
+    //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The latitude of the geographic location.
      */
@@ -28,7 +29,8 @@ public class Coordinate {
      */
     @JsonProperty("longitude")
     private double longitude;
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
      * <p>
@@ -37,10 +39,10 @@ public class Coordinate {
      */
     public Coordinate() {
     }
-
+    
     /**
      * Constructor that initializes the {@code Coordinate} object with the specified latitude and longitude.
-     * 
+     *
      * @param latitude the latitude of the geographic location
      * @param longitude the longitude of the geographic location
      */
@@ -48,7 +50,8 @@ public class Coordinate {
         setLatitude(latitude);
         setLongitude(longitude);
     }
-
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
      * Returns the latitude of the geographic location.
      *
@@ -57,7 +60,7 @@ public class Coordinate {
     public final double getLatitude() {
         return latitude;
     }
-
+    
     /**
      * Sets the latitude of the geographic location.
      *
@@ -66,7 +69,7 @@ public class Coordinate {
     public final void setLatitude(double latitude) {
         this.latitude = latitude;
     }
-
+    
     /**
      * Returns the longitude of the geographic location.
      *
@@ -75,7 +78,7 @@ public class Coordinate {
     public final double getLongitude() {
         return longitude;
     }
-
+    
     /**
      * Sets the longitude of the geographic location.
      *
@@ -84,5 +87,5 @@ public class Coordinate {
     public final void setLongitude(double longitude) {
         this.longitude = longitude;
     }
-    
+    //</editor-fold>
 }
