@@ -16,10 +16,16 @@ import theknife.obj.lists.ListResponse;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-@JsonPropertyOrder({"content", "grade", "responses"})
+@JsonPropertyOrder({"username", "grade", "content", "responses"})
 public final class Review {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    /**
+     * The username of the review, given by a customer's username or the owner of the restaurant.
+     */
+    @JsonProperty("username")
+    private String username;
+    
     /**
      * The content of the review, usually a textual description or feedback.
      */
@@ -51,15 +57,35 @@ public final class Review {
     /**
      * Constructor that initializes a {@code Review} object with specific content and grade.
      *
+     * @param username the username of the review
      * @param content the content of the review
      * @param grade the grade given in the review
      */
-    public Review(String content, int grade) {
+    public Review(String username, String content, int grade) {
+        setUsername(username);
         setContent(content);
         setGrade(grade);
     }
-    //</editor-fold>
+
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
+    /**
+     * Returns the username of the review.
+     * 
+     * @return the username of the review
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Sets the username of the review.
+     * 
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
     /**
      * Returns the content of the review.
      *

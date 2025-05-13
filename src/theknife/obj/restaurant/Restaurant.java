@@ -20,6 +20,7 @@ import theknife.obj.lists.ListReview;
     "name", 
     "normName", 
     "price", 
+    "currency",
     "phoneNo", 
     "country", 
     "city", 
@@ -60,6 +61,12 @@ public final class Restaurant extends Location {
      */
     @JsonProperty("price")
     private int price;
+    
+    /**
+     * The price category of the restaurant.
+     */
+    @JsonProperty("currency")
+    private String currency;
     
     /**
      * The phone number of the restaurant.
@@ -126,6 +133,7 @@ public final class Restaurant extends Location {
      * @param name the name of the restaurant
      * @param normalizedName the normalizedName of the name of the restaurant
      * @param price the price category of the restaurant
+     * @param currency the currency used by that restaurant
      * @param phoneNumber the phone number of the restaurant
      * @param url the URL for the restaurant
      * @param websiteUrl the website URL of the restaurant
@@ -139,13 +147,14 @@ public final class Restaurant extends Location {
      * @param latitude the latitude of the restaurant's location
      * @param longitude the longitude of the restaurant's location
      */
-    public Restaurant(int id, String name, String normalizedName, int price, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String servicesAvailable, String description,
+    public Restaurant(int id, String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String servicesAvailable, String description,
             String country, String city, String address, double latitude, double longitude) {
         super(country, city, address, latitude, longitude);
         this.setId(id);
         this.setName(name);
         this.setNormalizedName(normalizedName);
         this.setPrice(price);
+        this.setCurrency(currency);
         this.setPhoneNumber(phoneNumber);
         this.setUrl(url);
         this.setWebsiteUrl(websiteUrl);
@@ -226,6 +235,23 @@ public final class Restaurant extends Location {
      */
     public final void setPrice(int price) {
         this.price = price;
+    }
+
+    /**
+     * Returns the currency of the restaurant.
+     * 
+     * @return the currency of the restaurant
+     */
+    public String getCurrency() {
+        return currency;
+    }
+
+    /**
+     * Sets the currency of the restaurant
+     * @param currency the currency to set
+     */
+    public void setCurrency(String currency) {
+        this.currency = currency.substring(0, 1);
     }
     
     /**

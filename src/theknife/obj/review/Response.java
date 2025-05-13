@@ -14,10 +14,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-@JsonPropertyOrder({"review", "content"})
+@JsonPropertyOrder({"username", "content", "review"})
 public final class Response {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    /**
+     * The username of the response, given by a customer's username or the owner of the restaurant.
+     */
+    @JsonProperty("username")
+    private String username;
+    
     /**
      * The content of the response.
      */
@@ -43,15 +49,35 @@ public final class Response {
     /**
      * Constructor that initializes the {@code Response} object with specific content and associated review.
      *
+     * @param username the username of the response
      * @param content the content of the response
      * @param review the review that this response is related to
      */
-    public Response(String content, Review review) {
+    public Response(String username, String content, Review review) {
+        setUsername(username);
         setContent(content);
         setReview(review);
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
+    /**
+     * Returns the username of the response.
+     * 
+     * @return the username of the response
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Sets the username of the review.
+     * 
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
     /**
      * Returns the content of the response.
      *

@@ -161,6 +161,7 @@ public final class Controller {
                     row.get("Name", String.class),
                     StringUtils.normalize(row.get("Name", String.class)),
                     row.get("Price", String.class).length(),
+                    row.get("Price", String.class),
                     row.get("PhoneNumber", String.class),
                     row.get("Url", String.class),
                     row.get("WebsiteUrl", String.class),
