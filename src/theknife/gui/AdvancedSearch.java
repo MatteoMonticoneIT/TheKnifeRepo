@@ -24,6 +24,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import simple.file.CSV;
 import theknife.Controller;
+import theknife.obj.AppPaths;
 
 /**
  * A panel that represents the advanced search screen in the application.
@@ -572,7 +573,7 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final File     programDataset          = new File("./data/program/program_dataset.csv");
+    private final File     programDataset          = AppPaths.getDataFile("data", "program_dataset.csv");
     private final Color    FG_DEFAULT              = Color.BLACK;
     private final Color    FG_PLACEHOLDER          = Color.GRAY;
     private final Color    BG_TEXTFIELD            = new Color(255, 255, 255, 192);

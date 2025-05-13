@@ -5,4 +5,4 @@ nbbuild/
 nbproject/private/
 
 #Ignore all temp data used in The Knife
-data/temp/
+tempdata/

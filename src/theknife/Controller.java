@@ -20,6 +20,7 @@ import theknife.gui.Page;
 import theknife.gui.PanelMain;
 import theknife.gui.Register;
 import theknife.gui.RegisterRestaurateur;
+import theknife.obj.AppPaths;
 import theknife.obj.lists.ListCustomer;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.lists.ListRestaurateur;
@@ -44,12 +45,12 @@ public final class Controller {
     /**
      * JSON file dataset
      */
-    private static final File JSON_DATASET = new File("./data/program/dataset.json");
+    private static final File JSON_DATASET = AppPaths.getDataFile("data", "dataset.json");
     
     /**
      * CSV file dataset
      */
-    private static final File CSV_DATASET = new File("./data/program/dataset.csv");
+    private static final File CSV_DATASET = AppPaths.getDataFile("data", "dataset.csv");
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**

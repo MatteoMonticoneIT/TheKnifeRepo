@@ -1,0 +1,66 @@
+package theknife.obj;
+
+import java.io.File;
+import java.net.URISyntaxException;
+
+/**
+ * Utility class that provides paths relative to the JAR file location.
+ * <p>
+ * This class is useful for accessing files and directories that are located
+ * relative to the JAR file at runtime. It is especially useful when the JAR is
+ * distributed and executed from different locations, ensuring consistent access
+ * to resources like data files or configuration files.
+ * </p>
+ *
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
+ * @author Matteo Monticone     761701 (CO)
+ * @author Mattia Tamburo       761743 (CO)
+ */
+public final class AppPaths {
+
+    /**
+     * Returns the directory where the JAR file is located.
+     * <p>
+     * This method uses the location of this class to determine
+     * the path of the executing JAR file. If the application is running from an IDE,
+     * it will point to the {@code build/classes} or similar directory.
+     * </p>
+     *
+     * @return a {@link File} representing the directory containing the JAR
+     * @throws RuntimeException if the path cannot be determined
+     */
+    public static File getJarDir() {
+        try {
+            File jarPath = new File(AppPaths.class.getProtectionDomain()
+                .getCodeSource()
+                .getLocation()
+                .toURI());
+
+            File dir = jarPath.getParentFile();
+
+            if (dir.getName().equals("build")) {
+                return new File(dir.getParentFile(), "dist");
+            }
+
+            return dir;
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Impossibile ottenere la directory del JAR", e);
+        }
+    }
+
+    /**
+     * Returns a {@code File} pointing to a resource located in a subdirectory of the JAR's location.
+     * <p>
+     * Useful for accessing files located in folders like {@code data}, {@code config}, or similar,
+     * regardless of where the JAR is actually located.
+     * </p>
+     *
+     * @param folder the name of the folder inside the JAR's directory
+     * @param file the name of the file within the folder
+     * @return a {@link File} representing the full path to the desired file
+     */
+    public static File getDataFile(String folder, String file) {
+        return new File(new File(getJarDir(), folder), file);
+    }
+}
