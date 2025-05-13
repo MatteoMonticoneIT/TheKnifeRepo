@@ -1,5 +1,11 @@
 package theknife;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.KeyboardFocusManager;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 import theknife.gui.Page;
 import theknife.gui.PanelMain;
 
@@ -22,10 +28,10 @@ public final class TheKnife extends javax.swing.JFrame
      * Creates a new instance of {@code TheKnife} {@link JFrame} and initializes its components.<br>
      * The constructor sets up the GUI, including the main panel and the home and login pages.
      */
-    public TheKnife()
+    public       TheKnife           ()
     {
-        initComponents();
-        initGUI();
+      initComponents();
+      initGUI       ();
     }
     
     //</editor-fold>
@@ -35,17 +41,51 @@ public final class TheKnife extends javax.swing.JFrame
      * This method creates the main panel, home page, and login page, and adds them to the main panel.<br>
      * It also sets up the content pane and displays the home page initially.
      */
-    private void initGUI     () 
+    private void initGUI            () 
     {
       pnl_main   = new PanelMain ();
       controller = new Controller(pnl_main);
-      initTheKnife();
+      addFullscreenEvent();
+      initTheKnife      ();
     }
     
-    private void initTheKnife() 
+    private void initTheKnife       () 
     {     
       this.setContentPane               (controller.getPanelMain().getPanel());
       controller.getPanelMain().showCard(Page.HOME);
+    }
+    
+    private void addFullscreenEvent ()
+    {
+      KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(e -> 
+      {
+        if(e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_F11) 
+          toggleFullscreen();
+        return false;
+      });
+    }
+    
+    private void toggleFullscreen   () 
+    {
+      GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+
+      if(isFullscreen) 
+      {
+        this.dispose                ();
+        this.setUndecorated         (false);
+        this.setBounds              (windowResolution);
+        this.setVisible             (true);
+        isFullscreen                = false;
+      } 
+      else 
+      {
+        windowResolution            = this.getBounds();
+        this.dispose                ();
+        this.setUndecorated         (true);
+        this.setVisible             (true);
+        device.setFullScreenWindow  (this);
+        isFullscreen                = true;
+      }
     }
     //</editor-fold>
     
@@ -108,6 +148,8 @@ public final class TheKnife extends javax.swing.JFrame
     //<editor-fold defaultstate="collapsed" desc="Components">
     private PanelMain   pnl_main;
     private Controller  controller;
+    private boolean     isFullscreen = false;
+    private Rectangle   windowResolution;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
