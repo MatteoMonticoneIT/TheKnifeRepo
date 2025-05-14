@@ -32,18 +32,9 @@ public final class AppPaths {
      */
     public static File getJarDir() {
         try {
-            File jarPath = new File(AppPaths.class.getProtectionDomain()
-                .getCodeSource()
-                .getLocation()
-                .toURI());
-
+            File jarPath = new File(AppPaths.class.getProtectionDomain().getCodeSource().getLocation().toURI());
             File dir = jarPath.getParentFile();
-
-            if (dir.getName().equals("build")) {
-                return new File(dir.getParentFile(), "dist");
-            }
-
-            return dir;
+            return dir.getName().equals("build") ? new File(dir.getParentFile(), "dist") : dir;
         } catch (URISyntaxException e) {
             throw new RuntimeException("Impossibile ottenere la directory del JAR", e);
         }
