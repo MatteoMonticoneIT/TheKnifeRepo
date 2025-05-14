@@ -17,7 +17,7 @@ import theknife.obj.lists.ListRestaurant;
  * @author Mattia Tamburo       761743 (CO)
  */
 @JsonPropertyOrder({
-    "id", 
+    "ID", 
     "firstName", 
     "lastName", 
     "birthDate", 

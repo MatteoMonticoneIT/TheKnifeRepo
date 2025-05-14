@@ -22,7 +22,7 @@ public class User {
     /**
      * The user's id.
      */
-    @JsonProperty("id")
+    @JsonProperty("ID")
     private int id;
     
     /**

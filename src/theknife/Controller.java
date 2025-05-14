@@ -159,6 +159,7 @@ public final class Controller {
                 id++;
                 restaurant = new Restaurant(
                     id,
+                    -1,
                     row.get("Name", String.class),
                     StringUtils.normalize(row.get("Name", String.class)),
                     row.get("Price", String.class).length(),

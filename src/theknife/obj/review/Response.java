@@ -14,7 +14,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-@JsonPropertyOrder({"username", "content", "review"})
+@JsonPropertyOrder({
+    "username", 
+    "content", 
+    "review"
+})
 public final class Response {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">

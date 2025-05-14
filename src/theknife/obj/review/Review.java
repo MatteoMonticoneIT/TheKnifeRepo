@@ -16,7 +16,12 @@ import theknife.obj.lists.ListResponse;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-@JsonPropertyOrder({"username", "grade", "content", "responses"})
+@JsonPropertyOrder({
+    "username", 
+    "grade", 
+    "content", 
+    "responses"
+})
 public final class Review {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">

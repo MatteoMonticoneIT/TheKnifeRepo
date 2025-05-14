@@ -39,12 +39,12 @@ public final class InputPattern {
     /**
      * The username regex
      */
-    public static final Pattern USERNAME   = Pattern.compile("^[\\w.]{3,64}$");
+    public static final Pattern USERNAME   = Pattern.compile("^(?![_.])(?!.*\\.\\.)(?!.*____)[a-zA-Z0-9._]{3,64}(?<![_.])$");
     
     /**
      * The password regex
      */
-    public static final Pattern PASSWORD   = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[a-zA-Z\\d@$!%*?&]{8,64}$");
+    public static final Pattern PASSWORD   = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$!%*?&\\(\\)])[a-zA-Z\\d@#$!?%*?&\\(\\)\\.,]{8,64}$");
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
     /**

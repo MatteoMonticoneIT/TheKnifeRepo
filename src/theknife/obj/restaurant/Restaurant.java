@@ -16,7 +16,8 @@ import theknife.obj.lists.ListReview;
  * @author Mattia Tamburo       761743 (CO)
  */
 @JsonPropertyOrder({
-    "id", 
+    "ID", 
+    "ownerID",
     "name", 
     "normName", 
     "price", 
@@ -41,8 +42,14 @@ public final class Restaurant extends Location {
     /**
      * The restaurant id.
      */
-    @JsonProperty("id")
+    @JsonProperty("ID")
     private int id;
+    
+    /**
+     * The restaurant's owner id.
+     */
+    @JsonProperty("ownerID")
+    private int ownerId;
     
     /**
      * The name of the restaurant.
@@ -130,6 +137,7 @@ public final class Restaurant extends Location {
      * Constructor that initializes the {@code Restaurant} object with the provided details.
      *
      * @param id the restaurant id
+     * @param ownerId the restaurant's owner id
      * @param name the name of the restaurant
      * @param normalizedName the normalizedName of the name of the restaurant
      * @param price the price category of the restaurant
@@ -147,10 +155,11 @@ public final class Restaurant extends Location {
      * @param latitude the latitude of the restaurant's location
      * @param longitude the longitude of the restaurant's location
      */
-    public Restaurant(int id, String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String servicesAvailable, String description,
+    public Restaurant(int id, int ownerId, String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String servicesAvailable, String description,
             String country, String city, String address, double latitude, double longitude) {
         super(country, city, address, latitude, longitude);
         this.setId(id);
+        this.setOwnerId(ownerId);
         this.setName(name);
         this.setNormalizedName(normalizedName);
         this.setPrice(price);
@@ -181,6 +190,24 @@ public final class Restaurant extends Location {
      */
     public final void setId(int id) {
         this.id = id;
+    }
+    
+    /**
+     * Return the id of the restaurant's owner.
+     *
+     * @return the id of the restaurant's owner
+     */
+    public final int getOwnerId() {
+        return ownerId;
+    }
+    
+    /**
+     * Sets the id of the restaurant's owner.
+     *
+     * @param ownerId the id to set for the restaurant's owner
+     */
+    public final void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
     
     /**
