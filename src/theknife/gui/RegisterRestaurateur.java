@@ -78,8 +78,6 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         txt_username          = new JTextField(PLACEHOLDER[5]);
         txt_password          = new JPasswordField(PLACEHOLDER[6]);
         chkbx_seePassword     = new JCheckBox();
-        txt_layerUI           = new RoundedComponentUI(ARC_TEXTFIELD);
-        btn_layerUI           = new RoundedComponentUI(ARC_BUTTON);
         txt_firstNameRounded  = new JLayer<>(txt_firstName, txt_layerUI);
         txt_lastNameRounded   = new JLayer<>(txt_lastName,  txt_layerUI);
         txt_birthDateRounded  = new JLayer<>(txt_birthDate,  txt_layerUI);
@@ -170,7 +168,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         gbc.gridy++;
         gbc.ipady = 30;
         gbc.gridwidth--;
-        gbc.insets = new Insets(5, 2, 5, 2);
+        gbc.insets = INSETS;
         pnl_grid.add(txt_firstNameRounded, gbc);
         
         gbc.gridx++;
@@ -725,6 +723,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     private final Color    BG_CANCEL_BTN         = new Color(255, 64, 0, 192);
     private final Color    BG_TEXTFIELD          = new Color(255, 255, 255, 192);
     private final Border   PADDING_TEXTFIELD     = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+    private final Insets   INSETS                = new Insets(5, 2, 5, 2);
     private final String[] PLACEHOLDER           = {
         "First name",
         "Last name",
@@ -738,6 +737,8 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     private final char DEFAULT_PASSWORD_ECHOCHAR = '*';
     private final int ARC_TEXTFIELD              = 30;
     private final int ARC_BUTTON                 = 20;
+    private final RoundedComponentUI txt_layerUI = new RoundedComponentUI(ARC_TEXTFIELD);
+    private final RoundedComponentUI btn_layerUI = new RoundedComponentUI(ARC_BUTTON);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private final PanelMain          pnl_main;
@@ -757,8 +758,6 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     private       JTextField         txt_username;
     private       JPasswordField     txt_password;
     private       JCheckBox          chkbx_seePassword;
-    private       RoundedComponentUI txt_layerUI;
-    private       RoundedComponentUI btn_layerUI;
     private       JLayer<JComponent> txt_firstNameRounded;
     private       JLayer<JComponent> txt_lastNameRounded;
     private       JLayer<JComponent> txt_birthDateRounded;

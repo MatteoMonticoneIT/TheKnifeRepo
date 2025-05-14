@@ -82,8 +82,6 @@ public class LoginRestaurateur extends javax.swing.JPanel {
         txt_emailUsername        = new JTextField(PLACEHOLDER[0]);
         txt_password             = new JPasswordField(PLACEHOLDER[1]);
         chkbx_seePassword        = new JCheckBox();
-        txt_layerUI              = new RoundedComponentUI(ARC_TEXTFIELD);
-        btn_layerUI              = new RoundedComponentUI(ARC_BUTTON);
         txt_emailUsernameRounded = new JLayer<>(txt_emailUsername, txt_layerUI);
         txt_passwordRounded      = new JLayer<>(txt_password,      txt_layerUI);
         btn_loginRounded         = new JLayer<>(btn_login,         btn_layerUI);
@@ -161,7 +159,7 @@ public class LoginRestaurateur extends javax.swing.JPanel {
         
         gbc.gridy++;
         gbc.ipady = 30;
-        gbc.insets = new Insets(8, 0, 8, 0);
+        gbc.insets = INSETS;
         pnl_grid.add(txt_emailUsernameRounded, gbc);
         
         GridBagConstraints gbc1 = new GridBagConstraints();
@@ -622,6 +620,7 @@ public class LoginRestaurateur extends javax.swing.JPanel {
     private final Color    BG_CANCEL_BTN         = new Color(255, 64, 0, 192);
     private final Color    BG_TEXTFIELD          = new Color(255, 255, 255, 192);
     private final Border   PADDING_TEXTFIELD     = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+    private final Insets   INSETS                = new Insets(8, 0, 8, 0);
     private final String[] PLACEHOLDER           = {
         "Your email or username",
         "Your password"
@@ -632,6 +631,8 @@ public class LoginRestaurateur extends javax.swing.JPanel {
     private final char DEFAULT_PASSWORD_ECHOCHAR = '*';
     private final int ARC_TEXTFIELD              = 30;
     private final int ARC_BUTTON                 = 20;
+    private final RoundedComponentUI txt_layerUI = new RoundedComponentUI(ARC_TEXTFIELD);
+    private final RoundedComponentUI btn_layerUI = new RoundedComponentUI(ARC_BUTTON);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private final PanelMain          pnl_main;
@@ -649,8 +650,6 @@ public class LoginRestaurateur extends javax.swing.JPanel {
     private       JTextField         txt_emailUsername;
     private       JPasswordField     txt_password;
     private       JCheckBox          chkbx_seePassword;
-    private       RoundedComponentUI txt_layerUI;
-    private       RoundedComponentUI btn_layerUI;
     private       JLayer<JComponent> txt_emailUsernameRounded;
     private       JLayer<JComponent> txt_passwordRounded;
     private       JLayer<JComponent> btn_loginRounded;

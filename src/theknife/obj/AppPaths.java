@@ -6,10 +6,9 @@ import java.net.URISyntaxException;
 /**
  * Utility class that provides paths relative to the JAR file location.
  * <p>
- * This class is useful for accessing files and directories that are located
- * relative to the JAR file at runtime. It is especially useful when the JAR is
- * distributed and executed from different locations, ensuring consistent access
- * to resources like data files or configuration files.
+ * This class is useful for accessing files and directories that are located relative to the JAR file at runtime. 
+ * It is especially useful when the JAR is distributed and executed from both the jar file itself or from command prompt (CMD), 
+ * ensuring consistent access to resources like data files or configuration files.
  * </p>
  *
  * @author Damiano De Mutiis    761348 (CO)

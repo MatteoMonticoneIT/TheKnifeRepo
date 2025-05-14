@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -62,7 +61,6 @@ public final class Upperbar extends javax.swing.JPanel {
         txt_searchbar             = new JTextField();
         btn_advancedSearch        = new JLabel();
         btn_login                 = new JLabel(Page.LOGIN);
-        layerUI                   = new RoundedComponentUI(ARC);
         txt_searchbarRounded      = new JLayer<>(txt_searchbar,      layerUI);
         btn_advancedSearchRounded = new JLayer<>(btn_advancedSearch, layerUI);
         pnl_searchbarRounded      = new JLayer<>(pnl_searchbar,      layerUI);
@@ -324,7 +322,7 @@ public final class Upperbar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final Color BG_ADVANCED_SEARCH_BTN = new Color(0xababab);
+    private final Color BG_ADVANCED_SEARCH_BTN = new Color(171, 171, 171);
     private final Color BG_LOGIN_BTN           = new Color(102, 255, 154);
     private final int[] PADDING_UPPERBAR       = {65, 20};
     private final int   WIDTH_SIDEBUTTONS      = 100;
@@ -332,6 +330,7 @@ public final class Upperbar extends javax.swing.JPanel {
     private final int   PADDING_SEARCHBAR      = 14;
     private final int   ARC                    = 50;
     private final int   MAX_SEARCHBAR_LENGTH   = 64;
+    private final RoundedComponentUI layerUI   = new RoundedComponentUI(ARC);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private final PanelMain          pnl_main;
@@ -340,7 +339,6 @@ public final class Upperbar extends javax.swing.JPanel {
     private       JTextField         txt_searchbar;
     private       JLabel             btn_advancedSearch;
     private       JLabel             btn_login;
-    private       RoundedComponentUI layerUI;
     private       JLayer<JComponent> txt_searchbarRounded;
     private       JLayer<JComponent> btn_advancedSearchRounded;
     private       JLayer<JComponent> pnl_searchbarRounded;

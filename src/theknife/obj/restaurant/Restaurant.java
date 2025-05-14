@@ -34,6 +34,7 @@ import theknife.obj.lists.ListReview;
     "greenStar", 
     "services", 
     "description", 
+    "rating",
     "reviews"
 })
 public final class Restaurant extends Location {
@@ -118,6 +119,12 @@ public final class Restaurant extends Location {
     private String description;
     
     /**
+     * A brief description of the restaurant.
+     */
+    @JsonProperty("rating")
+    private int rating;
+    
+    /**
      * The list of reviews associated with the restaurant.
      */
     @JsonProperty("reviews")
@@ -155,7 +162,7 @@ public final class Restaurant extends Location {
      * @param latitude the latitude of the restaurant's location
      * @param longitude the longitude of the restaurant's location
      */
-    public Restaurant(int id, int ownerId, String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String servicesAvailable, String description,
+    public Restaurant(int id, int ownerId, String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String servicesAvailable, String description, int rating,
             String country, String city, String address, double latitude, double longitude) {
         super(country, city, address, latitude, longitude);
         this.setId(id);
@@ -171,6 +178,7 @@ public final class Restaurant extends Location {
         this.setGreenStar(greenStar);
         this.setServicesAvailable(servicesAvailable);
         this.setDescription(description);
+        this.setRating(rating);
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
@@ -405,6 +413,24 @@ public final class Restaurant extends Location {
      */
     public final void setDescription(String description) {
         this.description = description;
+    }
+    
+    /**
+     * Returns the rating of the restaurant.
+     *
+     * @return the rating of the restaurant
+     */
+    public int getRating() {
+        return rating;
+    }
+    
+    /**
+     * Sets the rating of the restaurant.
+     *
+     * @param rating the rating to set
+     */
+    public void setRating(int rating) {
+        this.rating = rating;
     }
     
     /**

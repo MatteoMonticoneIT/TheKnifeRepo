@@ -9,7 +9,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -86,12 +85,10 @@ public final class Login extends javax.swing.JPanel
       txt_emailUsername           = new JTextField        (PLACEHOLDER[0]);
       txt_password                = new JPasswordField    (PLACEHOLDER[1]);
       chkbx_seePassword           = new JCheckBox         ();
-      txt_layerUI                 = new RoundedComponentUI(ARC_TEXTFIELD);
-      btn_layerUI                 = new RoundedComponentUI(ARC_BUTTON);
       txt_emailUsernameRounded    = new JLayer<>          (txt_emailUsername, txt_layerUI);
-      txt_passwordRounded         = new JLayer<>          (txt_password, txt_layerUI);
-      btn_loginRounded            = new JLayer<>          (btn_login, btn_layerUI);
-      btn_cancelRounded           = new JLayer<>          (btn_cancel, btn_layerUI);
+      txt_passwordRounded         = new JLayer<>          (txt_password,      txt_layerUI);
+      btn_loginRounded            = new JLayer<>          (btn_login,         btn_layerUI);
+      btn_cancelRounded           = new JLayer<>          (btn_cancel,        btn_layerUI);
     }
     
     /**
@@ -165,7 +162,7 @@ public final class Login extends javax.swing.JPanel
       pnl_grid                      .add                        (lbl_title, gbc);
       gbc                           .gridy++;
       gbc                           .ipady                      = 30;
-      gbc                           .insets                     = new Insets(8, 0, 8, 0);
+      gbc                           .insets                     = INSETS;
       pnl_grid                      .add                        (txt_emailUsernameRounded, gbc);
 
       GridBagConstraints            gbc1                        = new GridBagConstraints();
@@ -694,23 +691,26 @@ public final class Login extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final Color             FG_DEFAULT                   = Color.BLACK;
-    private final Color             FG_PLACEHOLDER               = Color.GRAY;
-    private final Color             BG_LOGIN_BTN                 = new Color(0, 255, 0, 192);
-    private final Color             BG_CANCEL_BTN                = new Color(255, 64, 0, 192);
-    private final Color             BG_TEXTFIELD                 = new Color(255, 255, 255, 192);
-    private final Border            PADDING_TEXTFIELD            = BorderFactory.createEmptyBorder(0, 10, 0, 10);
-    private final String[]          PLACEHOLDER                  = 
+    private final Color              FG_DEFAULT                = Color.BLACK;
+    private final Color              FG_PLACEHOLDER            = Color.GRAY;
+    private final Color              BG_LOGIN_BTN              = new Color(0, 255, 0, 192);
+    private final Color              BG_CANCEL_BTN             = new Color(255, 64, 0, 192);
+    private final Color              BG_TEXTFIELD              = new Color(255, 255, 255, 192);
+    private final Border             PADDING_TEXTFIELD         = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+    private final Insets             INSETS                    = new Insets(8, 0, 8, 0);
+    private final String[]           PLACEHOLDER               = 
     {
         "Your email or username",
         "Your password"
     };
-    private final String            CANCEL                       = "Cancel";
-    private final String            REGISTER                     = "Still not our customer yet? Sign up here!";
-    private final String            LOGIN_AS_RESTAURATEUR        = "Are you a restaurateur? Log in here!";
-    private final char              DEFAULT_PASSWORD_ECHOCHAR    = '*';
-    private final int               ARC_TEXTFIELD                = 30;
-    private final int               ARC_BUTTON                   = 20;
+    private final String             CANCEL                    = "Cancel";
+    private final String             REGISTER                  = "Still not our customer yet? Sign up here!";
+    private final String             LOGIN_AS_RESTAURATEUR     = "Are you a restaurateur? Log in here!";
+    private final char               DEFAULT_PASSWORD_ECHOCHAR = '*';
+    private final int                ARC_TEXTFIELD             = 30;
+    private final int                ARC_BUTTON                = 20;
+    private final RoundedComponentUI txt_layerUI               = new RoundedComponentUI(ARC_TEXTFIELD);
+    private final RoundedComponentUI btn_layerUI               = new RoundedComponentUI(ARC_BUTTON);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     public        Controller         controller;
@@ -729,8 +729,6 @@ public final class Login extends javax.swing.JPanel
     private       JTextField         txt_emailUsername;
     private       JPasswordField     txt_password;
     private       JCheckBox          chkbx_seePassword;
-    private       RoundedComponentUI txt_layerUI;
-    private       RoundedComponentUI btn_layerUI;
     private       JLayer<JComponent> txt_emailUsernameRounded;
     private       JLayer<JComponent> txt_passwordRounded;
     private       JLayer<JComponent> btn_loginRounded;

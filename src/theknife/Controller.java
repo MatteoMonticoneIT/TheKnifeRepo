@@ -171,6 +171,7 @@ public final class Controller {
                     row.get("GreenStar", Boolean.class), 
                     row.get("FacilitiesAndServices", String.class), 
                     row.get("Description", String.class), 
+                    -1,
                     row.get("Location", String.class).split(",")[row.get("Location", String.class).split(",").length - 1], 
                     row.get("Location", String.class).split(",")[0], 
                     row.get("Address", String.class), 

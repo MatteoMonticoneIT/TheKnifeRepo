@@ -87,13 +87,10 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         txt_location           = new JTextField(PLACEHOLDER[0]);
         chkbx_cuisines         = new JCheckBox[CHKBX_CUISINE_TXT.length];
         chkbx_services         = new JCheckBox[CHKBX_SERVICE_TXT.length];
-        txt_layerUI            = new RoundedComponentUI(ARC_TEXTFIELD);
-        btn_layerUI            = new RoundedComponentUI(ARC_BUTTON);
-        pnl_layerUI            = new RoundedComponentUI(ARC_PANEL);
         scrlPnl_filtersRounded = new JLayer<>(scrlPnl_filters, pnl_layerUI);
-        txt_locationRounded    = new JLayer<>(txt_location, txt_layerUI);
-        btn_applyRounded       = new JLayer<>(btn_apply,    btn_layerUI);
-        btn_cancelRounded      = new JLayer<>(btn_cancel,   btn_layerUI);
+        txt_locationRounded    = new JLayer<>(txt_location,    txt_layerUI);
+        btn_applyRounded       = new JLayer<>(btn_apply,       btn_layerUI);
+        btn_cancelRounded      = new JLayer<>(btn_cancel,      btn_layerUI);
     }
     
     /**
@@ -210,7 +207,7 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         gbc.weighty   = 1;
         gbc.gridwidth = 1;
         gbc.fill      = GridBagConstraints.BOTH;
-        gbc.insets    = new Insets(20, 10, 20, 10);
+        gbc.insets    = INSETS;
         pnl_filters.add(lbl_guides[0], gbc);
         
         gbc.gridx++;
@@ -366,7 +363,7 @@ public final class AdvancedSearch extends javax.swing.JPanel {
      * @param e the component event triggered by resizing the GUI application
      */
     private void advancedSearch_ComponentResized(java.awt.event.ComponentEvent e) {
-        int[] padding = {(int) (this.getWidth() * 0.005), (int) (this.getHeight() * 0.0025)}; //0 = width; 1 = height;
+        int[] padding = {(int) (this.getWidth() * 0.005), (int) (this.getHeight() * 0.0025)};
         this.setBorder(BorderFactory.createEmptyBorder(padding[1], padding[0], padding[1], padding[0]));
         
         final int PADDING_BTN = (int) (this.getWidth() * 0.005);
@@ -573,29 +570,33 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final File     programDataset          = AppPaths.getDataFile("data", "program_dataset.csv");
-    private final Color    FG_DEFAULT              = Color.BLACK;
-    private final Color    FG_PLACEHOLDER          = Color.GRAY;
-    private final Color    BG_TEXTFIELD            = new Color(255, 255, 255, 192);
-    private final Color    BG_APPLY_BTN            = new Color(0, 255, 0, 192);
-    private final Color    BG_CANCEL_BTN           = new Color(255, 64, 0, 192);
-    private final Color    BG_PNL_FILTERS          = new Color(95, 199, 40);
-    private final Color    BG_PNL_CHKBXS           = new Color(61, 166, 5);
-    private final Border   PADDING_TEXTFIELD       = BorderFactory.createEmptyBorder(0, 10, 0, 10);
-    private final Border   PADDING_PANEL_CHKBXS    = BorderFactory.createEmptyBorder(20, 20, 20, 20);
-    private final String[] CHKBX_CUISINE_TXT       = CSV.read(programDataset, "CUISINES").toArray(new String[0]);
-    private final String[] CHKBX_SERVICE_TXT       = CSV.read(programDataset, "SERVICES").toArray(new String[0]);
-    private final String[] LBL_GUIDE_TXT           = CSV.read(programDataset, "GUIDES"  ).toArray(new String[0]);
-    private final String[] PLACEHOLDER             = new String[]{"Your location"};
-    private final String   TITLE                   = "Filters";
-    private final String   APPLY_FILTERS           = "Apply filters";
-    private final String   CANCEL                  = "Cancel";
-    private final int      ARC_PANEL               = 50;
-    private final int      ARC_TEXTFIELD           = 30;
-    private final int      ARC_BUTTON              = 20;
-    private final int      PRICES                  = 4;
-    private final int      RATINGS                 = 5;
-    private final int      SCRLPNL_CUISINES_HEIGHT = 600;
+    private final File               programDataset          = AppPaths.getDataFile("data", "program_dataset.csv");
+    private final Color              FG_DEFAULT              = Color.BLACK;
+    private final Color              FG_PLACEHOLDER          = Color.GRAY;
+    private final Color              BG_TEXTFIELD            = new Color(255, 255, 255, 192);
+    private final Color              BG_APPLY_BTN            = new Color(0, 255, 0, 192);
+    private final Color              BG_CANCEL_BTN           = new Color(255, 64, 0, 192);
+    private final Color              BG_PNL_FILTERS          = new Color(95, 199, 40);
+    private final Color              BG_PNL_CHKBXS           = new Color(61, 166, 5);
+    private final Border             PADDING_TEXTFIELD       = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+    private final Border             PADDING_PANEL_CHKBXS    = BorderFactory.createEmptyBorder(20, 20, 20, 20);
+    private final Insets             INSETS                  = new Insets(20, 10, 20, 10);
+    private final String[]           CHKBX_CUISINE_TXT       = CSV.read(programDataset, "CUISINES").toArray(new String[0]);
+    private final String[]           CHKBX_SERVICE_TXT       = CSV.read(programDataset, "SERVICES").toArray(new String[0]);
+    private final String[]           LBL_GUIDE_TXT           = CSV.read(programDataset, "GUIDES"  ).toArray(new String[0]);
+    private final String[]           PLACEHOLDER             = new String[]{"Your location"};
+    private final String             TITLE                   = "Filters";
+    private final String             APPLY_FILTERS           = "Apply filters";
+    private final String             CANCEL                  = "Cancel";
+    private final int                ARC_PANEL               = 50;
+    private final int                ARC_TEXTFIELD           = 30;
+    private final int                ARC_BUTTON              = 20;
+    private final int                PRICES                  = 4;
+    private final int                RATINGS                 = 5;
+    private final int                SCRLPNL_CUISINES_HEIGHT = 600;
+    private final RoundedComponentUI txt_layerUI = new RoundedComponentUI(ARC_TEXTFIELD);
+    private final RoundedComponentUI btn_layerUI = new RoundedComponentUI(ARC_BUTTON);
+    private final RoundedComponentUI pnl_layerUI = new RoundedComponentUI(ARC_PANEL);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private final PanelMain          pnl_main;
@@ -617,9 +618,6 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     private       JTextField         txt_location;
     private       JCheckBox[]        chkbx_cuisines; 
     private       JCheckBox[]        chkbx_services; 
-    private       RoundedComponentUI txt_layerUI;
-    private       RoundedComponentUI btn_layerUI;
-    private       RoundedComponentUI pnl_layerUI;
     private       JLayer<JComponent> scrlPnl_filtersRounded;
     private       JLayer<JComponent> txt_locationRounded;
     private       JLayer<JComponent> btn_applyRounded;
