@@ -51,7 +51,7 @@ public final class AdvancedSearch extends javax.swing.JPanel {
      */
     public AdvancedSearch(Controller controller) {
         initComponents();
-        pnl_main = controller.getPanelMain();
+        this.controller = controller;
         initGUI();
     }
     //</editor-fold>
@@ -441,7 +441,7 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     private void btn_cancel_MouseClicked(java.awt.event.MouseEvent e) {
         txt_location.setText(PLACEHOLDER[0]);
         txt_location.setForeground(FG_PLACEHOLDER);
-        pnl_main.showCard(Page.HOME);
+        controller.getPanelMain().showCard(Page.HOME);
     }
     
     /**
@@ -474,7 +474,7 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     private void btn_apply_MouseClicked(java.awt.event.MouseEvent e) {
         txt_location.setText(PLACEHOLDER[0]);
         txt_location.setForeground(FG_PLACEHOLDER);
-        pnl_main.showCard(Page.HOME);
+        controller.getPanelMain().showCard(Page.HOME);
     }
     
     /**
@@ -599,7 +599,6 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     private final RoundedComponentUI pnl_layerUI = new RoundedComponentUI(ARC_PANEL);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private final PanelMain          pnl_main;
     private       JPanel             pnl_filters;
     private       JPanel             pnl_btn_apply;
     private       JPanel             pnl_btn_cancel;
@@ -622,6 +621,9 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     private       JLayer<JComponent> txt_locationRounded;
     private       JLayer<JComponent> btn_applyRounded;
     private       JLayer<JComponent> btn_cancelRounded;
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Fields">
+    private final Controller controller;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

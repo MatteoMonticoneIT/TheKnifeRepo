@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import theknife.Controller;
 
 /**
  * The Upperbar class represents the upper navigation bar of the application.
@@ -34,11 +35,11 @@ public final class Upperbar extends javax.swing.JPanel {
      * This constructor also sets the main panel to control the screen transitions using {@link PanelMain#showCard}.
      * </p>
      *
-     * @param main the main panel that manages the screen layout
+     * @param controller the {@link Controller} class that manages the screen layout
      */
-    public Upperbar(PanelMain main) {
+    public Upperbar(Controller controller) {
         initComponents();
-        pnl_main = main;
+        this.controller = controller;
         initGUI();
     }
     //</editor-fold>
@@ -197,7 +198,7 @@ public final class Upperbar extends javax.swing.JPanel {
      */
     private void btn_advancedSearch_MouseClicked(java.awt.event.MouseEvent e) {
         txt_searchbar.setText("");
-        pnl_main.showCard(Page.ADVANCED_SEARCH);
+        controller.getPanelMain().showCard(Page.ADVANCED_SEARCH);
     }
     
     /**
@@ -229,7 +230,7 @@ public final class Upperbar extends javax.swing.JPanel {
      */
     private void btn_login_MouseClicked(java.awt.event.MouseEvent e) {
         txt_searchbar.setText("");
-        pnl_main.showCard(Page.LOGIN);
+        controller.getPanelMain().showCard(Page.LOGIN);
     }
     
     /**
@@ -333,7 +334,6 @@ public final class Upperbar extends javax.swing.JPanel {
     private final RoundedComponentUI layerUI   = new RoundedComponentUI(ARC);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private final PanelMain          pnl_main;
     private       JPanel[]           pnls_upperbar;
     private       JPanel             pnl_searchbar;
     private       JTextField         txt_searchbar;
@@ -344,7 +344,8 @@ public final class Upperbar extends javax.swing.JPanel {
     private       JLayer<JComponent> pnl_searchbarRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
-    private boolean ctrlA_pressed;
+    private final Controller controller;
+    private       boolean    ctrlA_pressed;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

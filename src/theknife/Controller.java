@@ -20,6 +20,7 @@ import theknife.gui.Page;
 import theknife.gui.PanelMain;
 import theknife.gui.Register;
 import theknife.gui.RegisterRestaurateur;
+import theknife.gui.RestaurantGUI;
 import theknife.obj.AppPaths;
 import theknife.obj.lists.ListCustomer;
 import theknife.obj.lists.ListRestaurant;
@@ -171,7 +172,7 @@ public final class Controller {
                     row.get("GreenStar", Boolean.class), 
                     row.get("FacilitiesAndServices", String.class), 
                     row.get("Description", String.class), 
-                    -1,
+                    0,
                     row.get("Location", String.class).split(",")[row.get("Location", String.class).split(",").length - 1], 
                     row.get("Location", String.class).split(",")[0], 
                     row.get("Address", String.class), 
@@ -204,12 +205,12 @@ public final class Controller {
      */
     private void        initTheKnife        () 
     {        
-        pnl_main.getPanel().add(home,                 Page.HOME);
-        pnl_main.getPanel().add(login,                Page.LOGIN);
-        pnl_main.getPanel().add(loginRestaurateur,    Page.LOGIN_RESTAURATEUR);
-        pnl_main.getPanel().add(register,             Page.REGISTER);
-        pnl_main.getPanel().add(registerRestaurateur, Page.REGISTER_RESTAURATEUR);
-        pnl_main.getPanel().add(advancedSearch,       Page.ADVANCED_SEARCH);
+        this.getPanelMain().getPanel().add(home,                 Page.HOME);
+        this.getPanelMain().getPanel().add(login,                Page.LOGIN);
+        this.getPanelMain().getPanel().add(loginRestaurateur,    Page.LOGIN_RESTAURATEUR);
+        this.getPanelMain().getPanel().add(register,             Page.REGISTER);
+        this.getPanelMain().getPanel().add(registerRestaurateur, Page.REGISTER_RESTAURATEUR);
+        this.getPanelMain().getPanel().add(advancedSearch,       Page.ADVANCED_SEARCH);
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getter and Setters">

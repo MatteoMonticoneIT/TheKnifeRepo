@@ -122,7 +122,7 @@ public final class Restaurant extends Location {
      * A brief description of the restaurant.
      */
     @JsonProperty("rating")
-    private int rating;
+    private double rating;
     
     /**
      * The list of reviews associated with the restaurant.
@@ -162,7 +162,7 @@ public final class Restaurant extends Location {
      * @param latitude the latitude of the restaurant's location
      * @param longitude the longitude of the restaurant's location
      */
-    public Restaurant(int id, int ownerId, String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String servicesAvailable, String description, int rating,
+    public Restaurant(int id, int ownerId, String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String servicesAvailable, String description, double rating,
             String country, String city, String address, double latitude, double longitude) {
         super(country, city, address, latitude, longitude);
         this.setId(id);
@@ -420,7 +420,7 @@ public final class Restaurant extends Location {
      *
      * @return the rating of the restaurant
      */
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
     
@@ -429,7 +429,7 @@ public final class Restaurant extends Location {
      *
      * @param rating the rating to set
      */
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
     

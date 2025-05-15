@@ -9,12 +9,12 @@ package theknife.gui;
  *
  * @author Matteo Monticone
  */
-public class Restaurant extends javax.swing.JPanel {
+public class ReviewGUI extends javax.swing.JPanel {
 
     /**
-     * Creates new form Restaurant
+     * Creates new form Review
      */
-    public Restaurant() {
+    public ReviewGUI() {
         initComponents();
     }
 
@@ -24,8 +24,6 @@ public class Restaurant extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        setBackground(new java.awt.Color(53, 216, 58));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

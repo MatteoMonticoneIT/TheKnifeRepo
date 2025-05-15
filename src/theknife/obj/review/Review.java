@@ -26,6 +26,18 @@ public final class Review {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
+     * The review's id.
+     */
+    @JsonProperty("ID")
+    private int id;
+    
+    /**
+     * The restaurant's id.
+     */
+    @JsonProperty("restaurantID")
+    private int restaurantID;
+    
+    /**
      * The username of the review, given by a customer's username or the owner of the restaurant.
      */
     @JsonProperty("username")
@@ -66,10 +78,47 @@ public final class Review {
      * @param content the content of the review
      * @param grade the grade given in the review
      */
-    public Review(String username, String content, int grade) {
+    public Review(int id, int restaurantID, String username, String content, int grade) {
         setUsername(username);
         setContent(content);
         setGrade(grade);
+    }
+
+    //</editor-fold>
+    /**
+     * Returns the user's id.
+     *
+     * @return the user's id
+     */
+    public final int getId() {
+        return id;
+    }
+    
+    /**
+     * Sets the user's id.
+     *
+     * @param id the new id to set
+     */
+    public final void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Returns the restaurant's id.
+     *
+     * @return the restaurant's id
+     */
+    public int getRestaurantID() {
+        return restaurantID;
+    }
+    
+    /**
+     * Sets the restaurant's id.
+     *
+     * @param restaurantID the new restaurant id to set
+     */
+    public void setRestaurantID(int restaurantID) {
+        this.restaurantID = restaurantID;
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">

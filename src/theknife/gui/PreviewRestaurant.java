@@ -6,13 +6,14 @@
 package theknife.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.border.Border;
+import javax.swing.JPanel;
+import theknife.Controller;
 import theknife.obj.restaurant.Restaurant;
 
 /**
@@ -28,35 +29,44 @@ public class PreviewRestaurant extends javax.swing.JPanel {
      * This constructor also sets the restaurant to insert the data needed to have a preview of the restaurant itself.
      * </p>
      *
+     * @param controller the {@link Controller} class that manages the screen layout
      * @param restaurant the {@link Restaurant} to set for the GUI preview
      */
-    public PreviewRestaurant(Restaurant restaurant) {
+    public PreviewRestaurant(Controller controller, Restaurant restaurant) {
         initComponents();
+        this.controller = controller;
         this.restaurant = restaurant;
+        initGUI();
+    }
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Initialization">
+    /**
+     * Initializes the graphical user interface (GUI) for the {@code PreviewRestaurant} page.
+     */
+    private void initGUI() {
         initFields();
         initPreviewRestaurant();
         initEvents();
     }
-    //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Initialization">
     
     /**
      * Initializes the basic fields of the {@code PreviewRestaurant} panel.
      */
     private void initFields() {
-        lbl_name      = new JLabel(restaurant.getName());
-        lbl_address   = new JLabel(restaurant.getAddress());
-        lbl_rating    = new JLabel(String.valueOf(restaurant.getRating()));
-        lbl_award     = new JLabel(restaurant.getAward());
-        lbl_greenStar = new JLabel(restaurant.isGreenStar() ? GREENSTAR_TRUE : GREENSTAR_FALSE);
-        lbl_details   = new JLabel(DETAILS);
-        lbls          = new JLabel[] {
+        pnl_awardAndGreenStar = new JPanel(new GridBagLayout());
+        lbl_name              = new JLabel(setMaxWidthContent(MAX_WIDTH,     restaurant.getName()));
+        lbl_address           = new JLabel(setMaxWidthContent(MAX_WIDTH * 2, restaurant.getAddress()));
+        lbl_rating            = new JLabel(String.valueOf(restaurant.getRating()));
+        lbl_award             = new JLabel(restaurant.getAward());
+        lbl_greenStar         = new JLabel(restaurant.isGreenStar() ? GREENSTAR_TRUE : GREENSTAR_FALSE);
+        btn_details           = new JLabel(DETAILS);
+        lbls                  = new JLabel[] {
             lbl_name,
             lbl_address,
             lbl_rating,
             lbl_award,
             lbl_greenStar,
-            lbl_details
+            btn_details
         };
     }
     
@@ -65,6 +75,8 @@ public class PreviewRestaurant extends javax.swing.JPanel {
      */
     private void initPreviewRestaurant() {
         this.setLayout(new GridBagLayout());
+        
+        pnl_awardAndGreenStar.setOpaque(false);
         
         for (int i = 0; i < lbls.length; i++) {
             lbls[i].setBackground(BG_DEFAULT);
@@ -82,7 +94,6 @@ public class PreviewRestaurant extends javax.swing.JPanel {
         gbc.ipady      = 10;
         gbc.gridwidth  = 1;
         gbc.gridheight = 2;
-        gbc.weighty    = 1;
         gbc.insets     = INSETS;
         gbc.fill       = GridBagConstraints.BOTH;
         this.add(lbl_name, gbc);
@@ -98,23 +109,60 @@ public class PreviewRestaurant extends javax.swing.JPanel {
         gbc.gridy++;
         gbc.gridx--;
         gbc.gridwidth--;
-        this.add(lbl_details, gbc);
+        this.add(btn_details, gbc);
+        
+        GridBagConstraints gbc1 = new GridBagConstraints();
+        gbc1.gridx     = 0;
+        gbc1.gridy     = 0;
+        gbc1.weightx   = 0.45;
+        gbc1.weighty   = 1;
+        gbc1.insets    = new Insets(0, 0, 0, 5);
+        gbc1.fill      = GridBagConstraints.BOTH;
+        pnl_awardAndGreenStar.add(lbl_award, gbc1);
+        
+        gbc1.gridx++;
+        gbc1.insets    = new Insets(0, 5, 0, 0);
+        pnl_awardAndGreenStar.add(lbl_greenStar, gbc1);
         
         gbc.gridx++;
-        this.add(lbl_award, gbc);
-        
-        gbc.gridx++;
-        this.add(lbl_greenStar, gbc);
+        gbc.gridwidth++;
+        this.add(pnl_awardAndGreenStar, gbc);
     }
     
     /**
      * Sets up event listeners for user interaction.
      */
-    private void initEvents() {
-        
+    private void initEvents() {        
+        btn_details.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                btn_details_MouseClicked(e);
+            }
+        });
     }
     //</editor-fold>
-
+    //<editor-fold defaultstate="collapsed" desc="Event Listeners">
+    
+    /**
+     * Handles the hover event on the details button {@link JLabel}.
+     * <p>
+     * When the button is clicked, the {@link Restaurant} given to this object will be passed to the {@link RestaurantGUI} page.
+     * It is necessary to pass in order to handle the GUI page giving the restaurant's fields to the components.
+     * </p>
+     * 
+     * @param e the mouse event triggered by clicking the button
+     */
+    private void btn_details_MouseClicked(java.awt.event.MouseEvent e) {
+        RestaurantGUI restaurantGUI = new RestaurantGUI(controller, restaurant);
+        controller.getPanelMain().getPanel().add(restaurantGUI, Page.RESTAURANT);
+        controller.getPanelMain().showCard(Page.RESTAURANT);
+    }
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    private String setMaxWidthContent(int width, String text) {
+        return "<html><div style='text-align: center; width: " + width + "px;'>" + text + "</div></html>";
+    }
+    //</editor-fold>
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
      */
@@ -141,19 +189,22 @@ public class PreviewRestaurant extends javax.swing.JPanel {
     private final Color    FG_DEFAULT         = new Color(47, 235, 78);
     private final Insets   INSETS             = new Insets(5, 5, 5, 5);
     private final String   DETAILS            = "Go to details";
-    private final String   GREENSTAR_TRUE     = "Eco sustainable";
-    private final String   GREENSTAR_FALSE    = "Not Eco sustainable";
+    private final String   GREENSTAR_TRUE     = "Green";
+    private final String   GREENSTAR_FALSE    = "No Green";
+    private final int      MAX_WIDTH          = 400;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
+    private JPanel   pnl_awardAndGreenStar;
     private JLabel   lbl_name;
     private JLabel   lbl_address;
     private JLabel   lbl_rating;
     private JLabel   lbl_award;
     private JLabel   lbl_greenStar;
-    private JLabel   lbl_details;
+    private JLabel   btn_details;
     private JLabel[] lbls;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    private final Controller controller;
     private final Restaurant restaurant;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables

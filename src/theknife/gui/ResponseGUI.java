@@ -9,12 +9,12 @@ package theknife.gui;
  *
  * @author Matteo Monticone
  */
-public class Response extends javax.swing.JPanel {
+public class ResponseGUI extends javax.swing.JPanel {
 
     /**
      * Creates new form Response
      */
-    public Response() {
+    public ResponseGUI() {
         initComponents();
     }
 

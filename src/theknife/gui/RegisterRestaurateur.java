@@ -44,7 +44,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
      */
     public RegisterRestaurateur(Controller controller) {
         initComponents();
-        pnl_main = controller.getPanelMain();
+        this.controller = controller;
         initGUI();
     }
     //</editor-fold>
@@ -669,7 +669,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         txt_password     .setEchoChar((char) 0);
         txt_password     .setForeground(FG_PLACEHOLDER);
         
-        pnl_main.showCard(Page.LOGIN_RESTAURATEUR);
+        controller.getPanelMain().showCard(Page.LOGIN_RESTAURATEUR);
     }
     
     /**
@@ -741,7 +741,6 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     private final RoundedComponentUI btn_layerUI = new RoundedComponentUI(ARC_BUTTON);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private final PanelMain          pnl_main;
     private       JPanel             pnl_grid;
     private       JPanel             pnl_password;
     private       JPanel             pnl_birthDateLocation;
@@ -769,7 +768,8 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     private       JLayer<JComponent> btn_cancelRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
-    private boolean ctrlA_pressed;
+    private final Controller controller;
+    private       boolean    ctrlA_pressed;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

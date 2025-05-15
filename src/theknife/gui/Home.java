@@ -56,6 +56,7 @@ public final class Home extends javax.swing.JPanel {
     private void initGUI() {
         initFields();
         initHome();
+        initEvents();
     }
     
     /**
@@ -90,8 +91,13 @@ public final class Home extends javax.swing.JPanel {
         lbl_title.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 48));
         lbl_title.setOpaque(true);
         
-        for (Restaurant restaurant : controller.getRestaurants().getList()) 
-            pnl_restaurants.add(new PreviewRestaurant(restaurant));
+        int i = 0;
+        for (Restaurant restaurant : controller.getRestaurants().getList()) {
+            i++;
+            if (i > 3)
+                break;
+            pnl_restaurants.add(new PreviewRestaurant(controller, restaurant));
+        }
         
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx   = 0;
@@ -110,8 +116,8 @@ public final class Home extends javax.swing.JPanel {
         gbc.fill    = GridBagConstraints.BOTH;
         pnl_home.add(scrlPnl_restaurants, gbc);
         
-        this.add(new Upperbar(pnl_main), BorderLayout.NORTH);
-        this.add(pnl_home,               BorderLayout.CENTER);
+        this.add(new Upperbar(controller), BorderLayout.NORTH);
+        this.add(pnl_home,                 BorderLayout.CENTER);
     }
     
     private void initEvents() {
@@ -120,8 +126,6 @@ public final class Home extends javax.swing.JPanel {
         });
     }
     //</editor-fold>
-    
-        
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
     /**
      * Handles the {@link JScrollPane} {@link JScrollBar}.
@@ -170,12 +174,14 @@ public final class Home extends javax.swing.JPanel {
     private final String TITLE              = "All restaurants";  
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private final Controller  controller;
     private final PanelMain   pnl_main;
     private       JPanel      pnl_home;
     private       JPanel      pnl_restaurants;
     private       JScrollPane scrlPnl_restaurants;
     private       JLabel      lbl_title;
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Fields">
+    private final Controller controller;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

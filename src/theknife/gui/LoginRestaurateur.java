@@ -50,7 +50,7 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      */
     public LoginRestaurateur(Controller controller) {
         initComponents();
-        pnl_main = controller.getPanelMain();
+        this.controller = controller;
         initGUI();
     }
     //</editor-fold>
@@ -489,7 +489,7 @@ public class LoginRestaurateur extends javax.swing.JPanel {
         txt_password     .setForeground(FG_PLACEHOLDER);
         txt_password     .setEchoChar((char) 0);
         
-        pnl_main.showCard(Page.HOME);
+        controller.getPanelMain().showCard(Page.HOME);
     }
     
     /**
@@ -528,7 +528,7 @@ public class LoginRestaurateur extends javax.swing.JPanel {
         txt_password     .setForeground(FG_PLACEHOLDER);
         txt_password     .setEchoChar((char) 0);
         
-        pnl_main.showCard(Page.REGISTER_RESTAURATEUR);
+        controller.getPanelMain().showCard(Page.REGISTER_RESTAURATEUR);
     }
     
     /**
@@ -566,7 +566,7 @@ public class LoginRestaurateur extends javax.swing.JPanel {
         txt_password.setForeground(FG_PLACEHOLDER);
         txt_password.setEchoChar((char) 0);
         
-        pnl_main.showCard(Page.LOGIN);
+        controller.getPanelMain().showCard(Page.LOGIN);
     }
     
     /**
@@ -635,7 +635,6 @@ public class LoginRestaurateur extends javax.swing.JPanel {
     private final RoundedComponentUI btn_layerUI = new RoundedComponentUI(ARC_BUTTON);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private final PanelMain          pnl_main;
     private       JPanel             pnl_grid;
     private       JPanel             pnl_password;
     private       JPanel             pnl_btn_login;
@@ -656,7 +655,8 @@ public class LoginRestaurateur extends javax.swing.JPanel {
     private       JLayer<JComponent> btn_cancelRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
-    private boolean ctrlA_pressed;
+    private final Controller controller;
+    private       boolean    ctrlA_pressed;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
