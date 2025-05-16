@@ -49,6 +49,9 @@ public final class TheKnife extends javax.swing.JFrame
       initTheKnife      ();
     }
     
+    /**
+     * Initializes the main page.
+     */
     private void initTheKnife       () 
     {     
       this.setContentPane               (controller.getPanelMain().getPanel());
@@ -56,6 +59,12 @@ public final class TheKnife extends javax.swing.JFrame
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
+    /**
+     * This method sets the main page to fullscreen functionality.
+     * <p>
+     * Can be enabled by pressing F11
+     * </p>
+     */
     private void addFullscreenEvent ()
     {
       KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(e ->
@@ -66,6 +75,9 @@ public final class TheKnife extends javax.swing.JFrame
       });
     }
     
+    /**
+     * This method resets the main page to its original size before fullscreening
+     */
     private void toggleFullscreen   ()
     {
       GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
