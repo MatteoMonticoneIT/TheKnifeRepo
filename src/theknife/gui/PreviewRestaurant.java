@@ -84,7 +84,7 @@ public class PreviewRestaurant extends javax.swing.JPanel {
             lbls[i].setForeground(FG_DEFAULT);
             lbls[i].setHorizontalAlignment(JLabel.CENTER);
             lbls[i].setVerticalAlignment  (JLabel.CENTER);
-            lbls[i].setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 24));
+            lbls[i].setFont(this.getFont());
             lbls[i].setOpaque(true);
         }
         
@@ -174,7 +174,7 @@ public class PreviewRestaurant extends javax.swing.JPanel {
      * @param e the mouse event triggered by clicking the button
      */
     private void btn_details_MouseClicked(java.awt.event.MouseEvent e) {
-        RestaurantGUI restaurantGUI = new RestaurantGUI(controller, restaurant);
+        restaurantGUI = new RestaurantGUI(controller, restaurant);
         controller.getPanelMain().getPanel().add(restaurantGUI, Page.RESTAURANT);
         controller.getPanelMain().showCard(Page.RESTAURANT);
     }
@@ -192,6 +192,7 @@ public class PreviewRestaurant extends javax.swing.JPanel {
     private void initComponents() {
 
         setBackground(new java.awt.Color(15, 166, 40));
+        setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         setPreferredSize(new java.awt.Dimension(718, 300));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -218,14 +219,15 @@ public class PreviewRestaurant extends javax.swing.JPanel {
     private final int      ORIGINAL_WIDTH     = this.getPreferredSize().width;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private JPanel   pnl_awardAndGreenStar;
-    private JLabel   lbl_name;
-    private JLabel   lbl_address;
-    private JLabel   lbl_rating;
-    private JLabel   lbl_award;
-    private JLabel   lbl_greenStar;
-    private JLabel   btn_details;
-    private JLabel[] lbls;
+    public  static RestaurantGUI restaurantGUI;
+    private        JPanel        pnl_awardAndGreenStar;
+    private        JLabel        lbl_name;
+    private        JLabel        lbl_address;
+    private        JLabel        lbl_rating;
+    private        JLabel        lbl_award;
+    private        JLabel        lbl_greenStar;
+    private        JLabel        btn_details;
+    private        JLabel[]      lbls;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final Controller controller;

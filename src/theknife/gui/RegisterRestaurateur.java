@@ -78,15 +78,15 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         txt_username          = new JTextField(PLACEHOLDER[5]);
         txt_password          = new JPasswordField(PLACEHOLDER[6]);
         chkbx_seePassword     = new JCheckBox();
-        txt_firstNameRounded  = new JLayer<>(txt_firstName, txt_layerUI);
-        txt_lastNameRounded   = new JLayer<>(txt_lastName,  txt_layerUI);
-        txt_birthDateRounded  = new JLayer<>(txt_birthDate,  txt_layerUI);
-        txt_locationRounded   = new JLayer<>(txt_location,  txt_layerUI);
-        txt_emailRounded      = new JLayer<>(txt_email,     txt_layerUI);
-        txt_usernameRounded   = new JLayer<>(txt_username,  txt_layerUI);
-        txt_passwordRounded   = new JLayer<>(txt_password,  txt_layerUI);
-        btn_registerRounded   = new JLayer<>(btn_register,  btn_layerUI);
-        btn_cancelRounded     = new JLayer<>(btn_cancel,    btn_layerUI);
+        txt_firstNameRounded  = new JLayer<>(txt_firstName, TXT_LAYER_UI);
+        txt_lastNameRounded   = new JLayer<>(txt_lastName,  TXT_LAYER_UI);
+        txt_birthDateRounded  = new JLayer<>(txt_birthDate,  TXT_LAYER_UI);
+        txt_locationRounded   = new JLayer<>(txt_location,  TXT_LAYER_UI);
+        txt_emailRounded      = new JLayer<>(txt_email,     TXT_LAYER_UI);
+        txt_usernameRounded   = new JLayer<>(txt_username,  TXT_LAYER_UI);
+        txt_passwordRounded   = new JLayer<>(txt_password,  TXT_LAYER_UI);
+        btn_registerRounded   = new JLayer<>(btn_register,  BTN_LAYER_UI);
+        btn_cancelRounded     = new JLayer<>(btn_cancel,    BTN_LAYER_UI);
         
     }
     
@@ -717,14 +717,14 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final Color    FG_DEFAULT            = Color.BLACK;
-    private final Color    FG_PLACEHOLDER        = Color.GRAY;
-    private final Color    BG_REGISTER_BTN       = new Color(0, 255, 0, 192);
-    private final Color    BG_CANCEL_BTN         = new Color(255, 64, 0, 192);
-    private final Color    BG_TEXTFIELD          = new Color(255, 255, 255, 192);
-    private final Border   PADDING_TEXTFIELD     = BorderFactory.createEmptyBorder(0, 10, 0, 10);
-    private final Insets   INSETS                = new Insets(5, 2, 5, 2);
-    private final String[] PLACEHOLDER           = {
+    private final Color    FG_DEFAULT             = Color.BLACK;
+    private final Color    FG_PLACEHOLDER         = Color.GRAY;
+    private final Color    BG_REGISTER_BTN        = new Color(0, 255, 0, 192);
+    private final Color    BG_CANCEL_BTN          = new Color(255, 64, 0, 192);
+    private final Color    BG_TEXTFIELD           = new Color(255, 255, 255, 192);
+    private final Border   PADDING_TEXTFIELD      = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+    private final Insets   INSETS                 = new Insets(5, 2, 5, 2);
+    private final String[] PLACEHOLDER            = {
         "First name",
         "Last name",
         "Birthday",
@@ -733,12 +733,12 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         "Username",
         "Password"
     };
-    private final String CANCEL                  = "Cancel";
-    private final char DEFAULT_PASSWORD_ECHOCHAR = '*';
-    private final int ARC_TEXTFIELD              = 30;
-    private final int ARC_BUTTON                 = 20;
-    private final RoundedComponentUI txt_layerUI = new RoundedComponentUI(ARC_TEXTFIELD);
-    private final RoundedComponentUI btn_layerUI = new RoundedComponentUI(ARC_BUTTON);
+    private final String CANCEL                   = "Cancel";
+    private final char DEFAULT_PASSWORD_ECHOCHAR  = '*';
+    private final int ARC_TEXTFIELD               = 30;
+    private final int ARC_BUTTON                  = 20;
+    private final RoundedComponentUI TXT_LAYER_UI = new RoundedComponentUI(ARC_TEXTFIELD);
+    private final RoundedComponentUI BTN_LAYER_UI = new RoundedComponentUI(ARC_BUTTON);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private       JPanel             pnl_grid;

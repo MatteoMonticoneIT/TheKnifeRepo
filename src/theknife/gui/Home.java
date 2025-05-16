@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import theknife.Controller;
 import theknife.obj.restaurant.Restaurant;
@@ -64,8 +63,8 @@ public final class Home extends javax.swing.JPanel {
      */
     private void initFields() {
         pnl_home            = new JPanel(new GridBagLayout());
-        pnl_restaurants     = new JPanel(new GridLayout(controller.getRestaurants().getList().size(), 1, 15, 15));
-        scrlPnl_restaurants = new JScrollPane(pnl_restaurants);
+        pnl_restaurants     = new JPanel(new GridLayout(controller.getRestaurants().getList().size(), 1, 0, 10));
+        scrlPnl_restaurants = new JScrollPane(pnl_restaurants, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         lbl_title           = new JLabel(TITLE);
     }
     
@@ -80,8 +79,6 @@ public final class Home extends javax.swing.JPanel {
         
         scrlPnl_restaurants.getVerticalScrollBar()      .setUI(new CustomScrollBar());
         scrlPnl_restaurants.getHorizontalScrollBar()    .setUI(new CustomScrollBar());
-        scrlPnl_restaurants.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrlPnl_restaurants.setVerticalScrollBarPolicy  (ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrlPnl_restaurants.setBorder                   (PADDING_SCROLLPANE);
         
         lbl_title.setBackground(BG_TITLE);

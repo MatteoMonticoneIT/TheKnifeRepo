@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import simple.file.CSV;
 import theknife.Controller;
@@ -74,11 +73,11 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         pnl_btn_cancel         = new JPanel(new BorderLayout());
         pnl_ratingBar          = new JPanel(new GridLayout(1, RATINGS));
         pnl_priceBar           = new JPanel(new GridLayout(1, PRICES));
-        pnl_btns               = new JPanel(new GridLayout(1, 2, 10, 10));
+        pnl_btns               = new JPanel(new GridLayout(1, 2, 0, 10));
         pnl_cuisines           = new JPanel(new GridLayout((int) Math.ceil(CHKBX_CUISINE_TXT.length / 2), 2, 10, 10));
         pnl_services           = new JPanel(new GridLayout((int) Math.ceil(CHKBX_SERVICE_TXT.length / 2), 2, 10, 10));
-        scrlPnl_filters        = new JScrollPane(pnl_filters);
-        scrlPnl_cuisines       = new JScrollPane(pnl_cuisines);
+        scrlPnl_filters        = new JScrollPane(pnl_filters,  JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrlPnl_cuisines       = new JScrollPane(pnl_cuisines, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         lbl_title              = new JLabel(TITLE);
         lbl_stars              = new JLabel[RATINGS];
         lbl_prices             = new JLabel[PRICES];
@@ -87,10 +86,10 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         txt_location           = new JTextField(PLACEHOLDER[0]);
         chkbx_cuisines         = new JCheckBox[CHKBX_CUISINE_TXT.length];
         chkbx_services         = new JCheckBox[CHKBX_SERVICE_TXT.length];
-        scrlPnl_filtersRounded = new JLayer<>(scrlPnl_filters, pnl_layerUI);
-        txt_locationRounded    = new JLayer<>(txt_location,    txt_layerUI);
-        btn_applyRounded       = new JLayer<>(btn_apply,       btn_layerUI);
-        btn_cancelRounded      = new JLayer<>(btn_cancel,      btn_layerUI);
+        scrlPnl_filtersRounded = new JLayer<>(scrlPnl_filters, PNL_LAYER_UI);
+        txt_locationRounded    = new JLayer<>(txt_location,    TXT_LAYER_UI);
+        btn_applyRounded       = new JLayer<>(btn_apply,       BTN_LAYER_UI);
+        btn_cancelRounded      = new JLayer<>(btn_cancel,      BTN_LAYER_UI);
     }
     
     /**
@@ -124,14 +123,10 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         
         scrlPnl_filters .getVerticalScrollBar()      .setUI(new CustomScrollBar());
         scrlPnl_filters .getHorizontalScrollBar()    .setUI(new CustomScrollBar());
-        scrlPnl_filters .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrlPnl_filters .setVerticalScrollBarPolicy  (ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrlPnl_filters .setBorder                   (BorderFactory.createEmptyBorder());
         
         scrlPnl_cuisines.getVerticalScrollBar()      .setUI(new CustomScrollBar());
         scrlPnl_cuisines.getHorizontalScrollBar()    .setUI(new CustomScrollBar());
-        scrlPnl_cuisines.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrlPnl_cuisines.setVerticalScrollBarPolicy  (ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrlPnl_cuisines.setPreferredSize            (new Dimension(0, SCRLPNL_CUISINES_HEIGHT));
         scrlPnl_cuisines.setBorder                   (BorderFactory.createEmptyBorder());
         
@@ -188,6 +183,10 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         
         pnl_btn_apply .add(btn_applyRounded,  BorderLayout.CENTER);
         pnl_btn_cancel.add(btn_cancelRounded, BorderLayout.CENTER);
+        
+        pnl_btns.setPreferredSize(new Dimension(this.getWidth(), PNL_BTNS_HEIGHT));
+        pnl_btns.add(pnl_btn_apply,  BorderLayout.CENTER);
+        pnl_btns.add(pnl_btn_cancel, BorderLayout.EAST);
         
         JLabel[] lbl_guides = new JLabel[LBL_GUIDE_TXT.length];
         for (int i = 0; i < lbl_guides.length; i++) {
@@ -247,13 +246,9 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         gbc.gridy++;
         pnl_filters.add(pnl_services, gbc);
         
-        pnl_btns.setPreferredSize(new Dimension(this.getWidth(), 80));
-        pnl_btns.add(pnl_btn_apply,  BorderLayout.CENTER);
-        pnl_btns.add(pnl_btn_cancel, BorderLayout.EAST);
-        
-        this.add(lbl_title, BorderLayout.NORTH);
+        this.add(lbl_title,              BorderLayout.NORTH);
         this.add(scrlPnl_filtersRounded, BorderLayout.CENTER);
-        this.add(pnl_btns,  BorderLayout.SOUTH);
+        this.add(pnl_btns,               BorderLayout.SOUTH);
         
     }
     
@@ -594,33 +589,34 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     private final int                PRICES                  = 4;
     private final int                RATINGS                 = 5;
     private final int                SCRLPNL_CUISINES_HEIGHT = 600;
-    private final RoundedComponentUI txt_layerUI = new RoundedComponentUI(ARC_TEXTFIELD);
-    private final RoundedComponentUI btn_layerUI = new RoundedComponentUI(ARC_BUTTON);
-    private final RoundedComponentUI pnl_layerUI = new RoundedComponentUI(ARC_PANEL);
+    private final int                PNL_BTNS_HEIGHT         = 80;
+    private final RoundedComponentUI TXT_LAYER_UI            = new RoundedComponentUI(ARC_TEXTFIELD);
+    private final RoundedComponentUI BTN_LAYER_UI            = new RoundedComponentUI(ARC_BUTTON);
+    private final RoundedComponentUI PNL_LAYER_UI            = new RoundedComponentUI(ARC_PANEL);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private       JPanel             pnl_filters;
-    private       JPanel             pnl_btn_apply;
-    private       JPanel             pnl_btn_cancel;
-    private       JPanel             pnl_ratingBar;
-    private       JPanel             pnl_priceBar;
-    private       JPanel             pnl_btns;
-    private       JPanel             pnl_cuisines;
-    private       JPanel             pnl_services;
-    private       JScrollPane        scrlPnl_filters;
-    private       JScrollPane        scrlPnl_cuisines;
-    private       JLabel             lbl_title;
-    private       JLabel[]           lbl_stars;
-    private       JLabel[]           lbl_prices;
-    private       JLabel             btn_apply;
-    private       JLabel             btn_cancel;
-    private       JTextField         txt_location;
-    private       JCheckBox[]        chkbx_cuisines; 
-    private       JCheckBox[]        chkbx_services; 
-    private       JLayer<JComponent> scrlPnl_filtersRounded;
-    private       JLayer<JComponent> txt_locationRounded;
-    private       JLayer<JComponent> btn_applyRounded;
-    private       JLayer<JComponent> btn_cancelRounded;
+    private JPanel             pnl_filters;
+    private JPanel             pnl_btn_apply;
+    private JPanel             pnl_btn_cancel;
+    private JPanel             pnl_ratingBar;
+    private JPanel             pnl_priceBar;
+    private JPanel             pnl_btns;
+    private JPanel             pnl_cuisines;
+    private JPanel             pnl_services;
+    private JScrollPane        scrlPnl_filters;
+    private JScrollPane        scrlPnl_cuisines;
+    private JLabel             lbl_title;
+    private JLabel[]           lbl_stars;
+    private JLabel[]           lbl_prices;
+    private JLabel             btn_apply;
+    private JLabel             btn_cancel;
+    private JTextField         txt_location;
+    private JCheckBox[]        chkbx_cuisines; 
+    private JCheckBox[]        chkbx_services; 
+    private JLayer<JComponent> scrlPnl_filtersRounded;
+    private JLayer<JComponent> txt_locationRounded;
+    private JLayer<JComponent> btn_applyRounded;
+    private JLayer<JComponent> btn_cancelRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final Controller controller;

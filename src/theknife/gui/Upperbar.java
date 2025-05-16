@@ -62,9 +62,9 @@ public final class Upperbar extends javax.swing.JPanel {
         txt_searchbar             = new JTextField();
         btn_advancedSearch        = new JLabel();
         btn_login                 = new JLabel(Page.LOGIN);
-        txt_searchbarRounded      = new JLayer<>(txt_searchbar,      layerUI);
-        btn_advancedSearchRounded = new JLayer<>(btn_advancedSearch, layerUI);
-        pnl_searchbarRounded      = new JLayer<>(pnl_searchbar,      layerUI);
+        txt_searchbarRounded      = new JLayer<>(txt_searchbar,      LAYER_UI);
+        btn_advancedSearchRounded = new JLayer<>(btn_advancedSearch, LAYER_UI);
+        pnl_searchbarRounded      = new JLayer<>(pnl_searchbar,      LAYER_UI);
     }
     
     /**
@@ -323,15 +323,15 @@ public final class Upperbar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final Color BG_ADVANCED_SEARCH_BTN = new Color(171, 171, 171);
-    private final Color BG_LOGIN_BTN           = new Color(102, 255, 154);
-    private final int[] PADDING_UPPERBAR       = {65, 20};
-    private final int   WIDTH_SIDEBUTTONS      = 100;
-    private final int   WIDTH_ADVANCED_SEARCH  = 60;
-    private final int   PADDING_SEARCHBAR      = 14;
-    private final int   ARC                    = 50;
-    private final int   MAX_SEARCHBAR_LENGTH   = 64;
-    private final RoundedComponentUI layerUI   = new RoundedComponentUI(ARC);
+    private final Color              BG_ADVANCED_SEARCH_BTN = new Color(171, 171, 171);
+    private final Color              BG_LOGIN_BTN           = new Color(102, 255, 154);
+    private final int[]              PADDING_UPPERBAR       = {65, 20};
+    private final int                WIDTH_SIDEBUTTONS      = 100;
+    private final int                WIDTH_ADVANCED_SEARCH  = 60;
+    private final int                PADDING_SEARCHBAR      = 14;
+    private final int                ARC                    = 50;
+    private final int                MAX_SEARCHBAR_LENGTH   = 64;
+    private final RoundedComponentUI LAYER_UI   = new RoundedComponentUI(ARC);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private       JPanel[]           pnls_upperbar;

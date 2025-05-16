@@ -151,7 +151,6 @@ public final class Controller {
             this.setCustomers    (JSON.readNodeAsObject(JSON_DATASET, "customers",     ListCustomer.class));
             this.setRestaurateurs(JSON.readNodeAsObject(JSON_DATASET, "restaurateurs", ListRestaurateur.class));
         } else if (CSV_DATASET.exists()) {
-            FileUtils.create(JSON_DATASET);
             this.setRestaurants(new ListRestaurant());
             List<CSVRow> csvContent = CSV.read(CSV_DATASET);
             Restaurant restaurant;
@@ -175,12 +174,13 @@ public final class Controller {
                     0,
                     row.get("Location", String.class).split(",")[row.get("Location", String.class).split(",").length - 1], 
                     row.get("Location", String.class).split(",")[0], 
-                    row.get("Address", String.class), 
+                    row.get("Address", String.class),
                     row.get("Latitude", Double.class), 
                     row.get("Longitude", Double.class)
                 );
                 this.getRestaurants().getList().add(restaurant);
             }
+            FileUtils.create(JSON_DATASET);
             JSON.writeToFile(JSON_DATASET, this);
         } else {
             LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new CSVFileNotFoundException("Unable to get the dataset file!"));

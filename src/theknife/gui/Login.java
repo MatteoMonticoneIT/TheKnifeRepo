@@ -84,10 +84,10 @@ public final class Login extends javax.swing.JPanel
       txt_emailUsername           = new JTextField        (PLACEHOLDER[0]);
       txt_password                = new JPasswordField    (PLACEHOLDER[1]);
       chkbx_seePassword           = new JCheckBox         ();
-      txt_emailUsernameRounded    = new JLayer<>          (txt_emailUsername, txt_layerUI);
-      txt_passwordRounded         = new JLayer<>          (txt_password,      txt_layerUI);
-      btn_loginRounded            = new JLayer<>          (btn_login,         btn_layerUI);
-      btn_cancelRounded           = new JLayer<>          (btn_cancel,        btn_layerUI);
+      txt_emailUsernameRounded    = new JLayer<>          (txt_emailUsername, TXT_LAYER_UI);
+      txt_passwordRounded         = new JLayer<>          (txt_password,      TXT_LAYER_UI);
+      btn_loginRounded            = new JLayer<>          (btn_login,         BTN_LAYER_UI);
+      btn_cancelRounded           = new JLayer<>          (btn_cancel,        BTN_LAYER_UI);
     }
     
     /**
@@ -708,8 +708,8 @@ public final class Login extends javax.swing.JPanel
     private final char               DEFAULT_PASSWORD_ECHOCHAR = '*';
     private final int                ARC_TEXTFIELD             = 30;
     private final int                ARC_BUTTON                = 20;
-    private final RoundedComponentUI txt_layerUI               = new RoundedComponentUI(ARC_TEXTFIELD);
-    private final RoundedComponentUI btn_layerUI               = new RoundedComponentUI(ARC_BUTTON);
+    private final RoundedComponentUI TXT_LAYER_UI              = new RoundedComponentUI(ARC_TEXTFIELD);
+    private final RoundedComponentUI BTN_LAYER_UI              = new RoundedComponentUI(ARC_BUTTON);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private       JPanel             pnl_grid;

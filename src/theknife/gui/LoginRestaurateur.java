@@ -82,10 +82,10 @@ public class LoginRestaurateur extends javax.swing.JPanel {
         txt_emailUsername        = new JTextField(PLACEHOLDER[0]);
         txt_password             = new JPasswordField(PLACEHOLDER[1]);
         chkbx_seePassword        = new JCheckBox();
-        txt_emailUsernameRounded = new JLayer<>(txt_emailUsername, txt_layerUI);
-        txt_passwordRounded      = new JLayer<>(txt_password,      txt_layerUI);
-        btn_loginRounded         = new JLayer<>(btn_login,         btn_layerUI);
-        btn_cancelRounded        = new JLayer<>(btn_cancel,        btn_layerUI);
+        txt_emailUsernameRounded = new JLayer<>(txt_emailUsername, TXT_LAYER_UI);
+        txt_passwordRounded      = new JLayer<>(txt_password,      TXT_LAYER_UI);
+        btn_loginRounded         = new JLayer<>(btn_login,         BTN_LAYER_UI);
+        btn_cancelRounded        = new JLayer<>(btn_cancel,        BTN_LAYER_UI);
     }
     
     /**
@@ -614,25 +614,25 @@ public class LoginRestaurateur extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final Color    FG_DEFAULT            = Color.BLACK;
-    private final Color    FG_PLACEHOLDER        = Color.GRAY;
-    private final Color    BG_LOGIN_BTN          = new Color(0, 255, 0, 192);
-    private final Color    BG_CANCEL_BTN         = new Color(255, 64, 0, 192);
-    private final Color    BG_TEXTFIELD          = new Color(255, 255, 255, 192);
-    private final Border   PADDING_TEXTFIELD     = BorderFactory.createEmptyBorder(0, 10, 0, 10);
-    private final Insets   INSETS                = new Insets(8, 0, 8, 0);
-    private final String[] PLACEHOLDER           = {
+    private final Color    FG_DEFAULT             = Color.BLACK;
+    private final Color    FG_PLACEHOLDER         = Color.GRAY;
+    private final Color    BG_LOGIN_BTN           = new Color(0, 255, 0, 192);
+    private final Color    BG_CANCEL_BTN          = new Color(255, 64, 0, 192);
+    private final Color    BG_TEXTFIELD           = new Color(255, 255, 255, 192);
+    private final Border   PADDING_TEXTFIELD      = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+    private final Insets   INSETS                 = new Insets(8, 0, 8, 0);
+    private final String[] PLACEHOLDER            = {
         "Your email or username",
         "Your password"
     };
-    private final String CANCEL                  = "Cancel";
-    private final String REGISTER                = "Still not our restaurateur yet? Sign up here!";
-    private final String LOGIN_AS_CUSTOMER       = "Are you a customer? Log in here!";
-    private final char DEFAULT_PASSWORD_ECHOCHAR = '*';
-    private final int ARC_TEXTFIELD              = 30;
-    private final int ARC_BUTTON                 = 20;
-    private final RoundedComponentUI txt_layerUI = new RoundedComponentUI(ARC_TEXTFIELD);
-    private final RoundedComponentUI btn_layerUI = new RoundedComponentUI(ARC_BUTTON);
+    private final String CANCEL                   = "Cancel";
+    private final String REGISTER                 = "Still not our restaurateur yet? Sign up here!";
+    private final String LOGIN_AS_CUSTOMER        = "Are you a customer? Log in here!";
+    private final char DEFAULT_PASSWORD_ECHOCHAR  = '*';
+    private final int ARC_TEXTFIELD               = 30;
+    private final int ARC_BUTTON                  = 20;
+    private final RoundedComponentUI TXT_LAYER_UI = new RoundedComponentUI(ARC_TEXTFIELD);
+    private final RoundedComponentUI BTN_LAYER_UI = new RoundedComponentUI(ARC_BUTTON);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private       JPanel             pnl_grid;

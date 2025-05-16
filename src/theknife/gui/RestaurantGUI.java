@@ -7,12 +7,24 @@ package theknife.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
+import java.io.File;
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
+import simple.file.CSV;
 import theknife.Controller;
+import theknife.obj.AppPaths;
 import theknife.obj.restaurant.Restaurant;
 
 /**
@@ -52,21 +64,62 @@ public class RestaurantGUI extends javax.swing.JPanel {
      * Initializes the basic fields of the {@code PreviewRestaurant} panel.
      */
     private void initFields() {
-        lbl_name      = new JLabel(restaurant.getName());
-        lbl_price     = new JLabel(String.valueOf(restaurant.getPrice()));
-        lbl_currency  = new JLabel(restaurant.getCurrency());
-        lbl_phoneNo   = new JLabel(restaurant.getPhoneNumber());
-        lbl_country   = new JLabel(restaurant.getCountry());
-        lbl_city      = new JLabel(restaurant.getCity());
-        lbl_address   = new JLabel(restaurant.getAddress());
-        lbl_latitude  = new JLabel(String.valueOf(restaurant.getLatitude()));
-        lbl_longitude = new JLabel(String.valueOf(restaurant.getLongitude()));
-        lbl_url       = new JLabel(restaurant.getUrl());
-        lbl_webUrl    = new JLabel(restaurant.getWebsiteUrl());
-        lbl_award     = new JLabel(restaurant.getAward());
-        lbl_greenStar = new JLabel(restaurant.isGreenStar() ? GREENSTAR_TRUE : GREENSTAR_FALSE);
-        lbl_services  = new JLabel(restaurant.getServicesAvailable());
-        lbl_rating    = new JLabel(String.valueOf(restaurant.getRating()));
+        pnl_content           = new JPanel(new GridBagLayout());
+        pnl_leftContent       = new JPanel(new GridBagLayout());
+        pnl_leftSection       = new JPanel(new GridBagLayout());
+        pnl_section           = new JPanel(new GridBagLayout());
+        pnl_btns              = new JPanel(new GridLayout(1, 2, 0, 10));
+        pnl_btn_addReview     = new JPanel(new BorderLayout());
+        pnl_btn_back          = new JPanel(new BorderLayout());
+        lbl_name              = new JLabel(restaurant.getName());
+        lbl_price             = new JLabel(String.valueOf(restaurant.getPrice()));
+        lbl_currency          = new JLabel(restaurant.getCurrency());
+        lbl_phoneNo           = new JLabel(restaurant.getPhoneNumber());
+        lbl_location          = new JLabel(restaurant.getCountry() + ", " + restaurant.getCity());
+        lbl_address           = new JLabel(restaurant.getAddress());
+        lbl_latitude          = new JLabel(String.valueOf(restaurant.getLatitude()));
+        lbl_longitude         = new JLabel(String.valueOf(restaurant.getLongitude()));
+        lbl_url               = new JLabel(restaurant.getUrl());
+        lbl_webUrl            = new JLabel(restaurant.getWebsiteUrl());
+        lbl_award             = new JLabel(restaurant.getAward());
+        lbl_greenStar         = new JLabel(restaurant.isGreenStar() ? GREENSTAR_TRUE : GREENSTAR_FALSE);
+        lbl_services          = new JLabel(restaurant.getServicesAvailable());
+        lbl_rating            = new JLabel(String.valueOf(restaurant.getRating()));
+        lbls                  = new JLabel[] {
+            lbl_name,
+            lbl_price,
+            lbl_currency,
+            lbl_phoneNo,
+            lbl_location,
+            lbl_address,
+            lbl_latitude,
+            lbl_longitude,
+            lbl_url,
+            lbl_webUrl,
+            lbl_award,
+            lbl_greenStar,
+            lbl_services,
+            lbl_rating
+        };
+        lbls_leftSection      = new JLabel[] {
+            lbl_price,
+            lbl_location,
+            lbl_phoneNo,
+            lbl_award,
+            lbl_greenStar
+        };
+        lbls_section          = new JLabel[] {
+            lbl_address,
+            lbl_url,
+            lbl_webUrl,
+            lbl_services
+        };
+        btn_addReview         = new JLabel(ADD_REVIEW);
+        btn_back              = new JLabel(BACK);
+        btn_addReviewRounded  = new JLayer<>(btn_addReview, BTN_LAYERUI);
+        btn_backRounded       = new JLayer<>(btn_back,      BTN_LAYERUI);
+        txt_description       = new JTextArea(restaurant.getDescription());
+        scrlPnl_description   = new JScrollPane(txt_description);
     }
     
     /**
@@ -74,14 +127,152 @@ public class RestaurantGUI extends javax.swing.JPanel {
      */
     private void initPreviewRestaurant() {
         this.setLayout(new BorderLayout());
+        
+        pnl_leftSection.setBackground(this.getBackground());
+        pnl_section.setBackground(this.getBackground());
+        
+        pnl_leftContent.setPreferredSize(new Dimension(LEFT_CONTENT_HEIGHT, 0));
+        
+        pnl_btns.setBackground(this.getBackground());
+        pnl_btns.setBorder(BorderFactory.createEmptyBorder());
+        
+        pnl_btn_addReview.setBackground(this.getBackground());
+        pnl_btn_back     .setBackground(this.getBackground());
+        
+        for (JLabel lbl : lbls) {
+            lbl.setBackground(BG_DEFAULT);
+            lbl.setForeground(FG_DEFAULT);
+            lbl.setHorizontalAlignment(JLabel.LEFT);
+            lbl.setVerticalAlignment(JLabel.CENTER);
+            lbl.setFont(this.getFont());
+            lbl.setBorder(PADDING_LBL);
+            lbl.setOpaque(true);
+        }
+        lbl_name.setBackground(BG_NAME);
+        lbl_name.setHorizontalAlignment(JLabel.CENTER);
+        lbl_name.setPreferredSize(new Dimension(0, LBL_NAME_HEIGHT));
+        
+        scrlPnl_description.setBackground(this.getBackground());
+        scrlPnl_description.setBorder(BORDER_PNL);
+        scrlPnl_description.getVerticalScrollBar()      .setUI(new CustomScrollBar());
+        scrlPnl_description.getHorizontalScrollBar()    .setUI(new CustomScrollBar());
+        
+        txt_description.setBackground(this.getBackground());
+        txt_description.setBorder(PADDING_TXT);
+        txt_description.setLineWrap(true);
+        txt_description.setWrapStyleWord(true);
+        txt_description.setEditable(false);
+        
+        btn_addReview.setBackground(BG_ADDREVIEW_BTN);
+        btn_addReview.setForeground(FG_DEFAULT);
+        btn_addReview.setHorizontalAlignment(JLabel.CENTER);
+        btn_addReview.setVerticalAlignment  (JLabel.CENTER);
+        btn_addReview.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
+        btn_addReview.setOpaque(true);
+        
+        btn_back.setBackground(BG_BACK_BTN);
+        btn_back.setForeground(FG_DEFAULT);
+        btn_back.setHorizontalAlignment(JLabel.CENTER);
+        btn_back.setVerticalAlignment  (JLabel.CENTER);
+        btn_back.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
+        btn_back.setOpaque(true);
+        
+        pnl_btn_addReview.add(btn_addReviewRounded, BorderLayout.CENTER);
+        pnl_btn_back     .add(btn_backRounded,      BorderLayout.CENTER);
+        
+        pnl_btns.setPreferredSize(new Dimension(this.getWidth(), PNL_BTNS_HEIGHT));
+        pnl_btns.add(pnl_btn_addReview, BorderLayout.CENTER);
+        pnl_btns.add(pnl_btn_back,      BorderLayout.EAST);
+        
+        JLabel[] lbl_guidesLeftSection = new JLabel[GUIDES_LEFT_SECTION.length];
+        for (int i = 0; i < lbl_guidesLeftSection.length; i++) {
+            lbl_guidesLeftSection[i] = new JLabel(GUIDES_LEFT_SECTION[i]);
+            lbl_guidesLeftSection[i].setBackground(this.getBackground());
+            lbl_guidesLeftSection[i].setHorizontalAlignment(JLabel.CENTER);
+            lbl_guidesLeftSection[i].setVerticalAlignment  (JLabel.CENTER);
+            lbl_guidesLeftSection[i].setFont(this.getFont());
+            lbl_guidesLeftSection[i].setBorder(PADDING_LBL);
+            lbl_guidesLeftSection[i].setOpaque(true);
+        }
+        JLabel[] lbl_guidesSection = new JLabel[GUIDES_SECTION.length];
+        for (int i = 0; i < lbl_guidesSection.length; i++) {
+            lbl_guidesSection[i] = new JLabel(GUIDES_SECTION[i]);
+            lbl_guidesSection[i].setBackground(this.getBackground());
+            lbl_guidesSection[i].setHorizontalAlignment(JLabel.CENTER);
+            lbl_guidesSection[i].setVerticalAlignment  (JLabel.CENTER);
+            lbl_guidesSection[i].setFont(this.getFont());
+            lbl_guidesSection[i].setBorder(PADDING_LBL);
+            lbl_guidesSection[i].setOpaque(true);
+        }
+        
+        GridBagConstraints gbc_section = new GridBagConstraints();
+        gbc_section.gridx     = 0;
+        gbc_section.gridy     = 0;
+        gbc_section.weightx   = 0.3;
+        gbc_section.weighty   = 1;
+        gbc_section.gridwidth = 1;
+        gbc_section.fill      = GridBagConstraints.BOTH;
+        for (JLabel lbl : lbl_guidesLeftSection) {
+            pnl_leftSection.add(lbl, gbc_section);
+            gbc_section.gridy++;
+        }
+        gbc_section.gridy = 0;
+        gbc_section.gridx++;
+        for (JLabel lbl : lbls_leftSection) {
+            if (gbc_section.gridy > 2) {
+                gbc_section.gridwidth = 2;
+                gbc_section.gridx     = 0;
+            }
+            pnl_leftSection.add(lbl, gbc_section);
+            gbc_section.gridy++;
+        }
+        
+        GridBagConstraints gbc_leftContent = new GridBagConstraints();
+        gbc_leftContent.gridx   = 0;
+        gbc_leftContent.gridy   = 0;
+        gbc_leftContent.weightx = 1;
+        gbc_leftContent.weighty = 0.3;
+        gbc_leftContent.fill    = GridBagConstraints.BOTH;
+        pnl_leftContent.add(pnl_leftSection, gbc_leftContent);
+        
+        gbc_leftContent.gridy++;
+        gbc_leftContent.weighty = 0.7;
+        pnl_leftContent.add(scrlPnl_description, gbc_leftContent);
+        
+        this.add(lbl_name,        BorderLayout.NORTH);
+        this.add(pnl_content,     BorderLayout.CENTER);
+        this.add(pnl_leftContent, BorderLayout.WEST);
+        this.add(pnl_btns,        BorderLayout.SOUTH);
     }
+    
     /**
      * Sets up event listeners for user interaction.
      */
     private void initEvents() {
-        
+        this.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent e) {
+                restaurantGUI_ComponentResized(e);
+            }
+        });
     }
     //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Event Listeners">
+    /**
+     * Handles the resize event for the {@code RestaurantGUI} {@link JPanel}.
+     * <p>
+     * When resized, resizes the padding of the components.
+     * </p>
+     * 
+     * @param e the component event triggered by resizing the GUI application
+     */
+    private void restaurantGUI_ComponentResized(java.awt.event.ComponentEvent e) {
+        final int PADDING_BTN = (int) (this.getWidth() * 0.01);
+        pnl_btn_addReview.setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
+        pnl_btn_back     .setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
+    }
+    //</editor-fold>
+    
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
      */
@@ -90,6 +281,7 @@ public class RestaurantGUI extends javax.swing.JPanel {
     private void initComponents() {
 
         setBackground(new java.awt.Color(53, 216, 58));
+        setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -104,35 +296,60 @@ public class RestaurantGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final Color    BG_DEFAULT         = new Color(65, 150, 79);
-    private final Color    FG_DEFAULT         = new Color(47, 235, 78);
-    private final Insets   INSETS             = new Insets(5, 5, 5, 5);
-    private final String   GREENSTAR_TRUE     = "Eco sustainable";
-    private final String   GREENSTAR_FALSE    = "Not Eco sustainable";
+    private final File               programDataset      = AppPaths.getDataFile("data", "program_dataset.csv");
+    private final Color              BG_NAME             = new Color(173, 199, 2);
+    private final Color              BG_DEFAULT          = new Color(139, 232, 26);
+    private final Color              FG_DEFAULT          = Color.BLACK;
+    private final Color              BG_ADDREVIEW_BTN    = new Color(0, 255, 0, 192);
+    private final Color              BG_BACK_BTN         = new Color(255, 64, 0, 192);
+    private final Border             PADDING_LBL         = BorderFactory.createEmptyBorder(0, 5, 0, 5);
+    private final Border             PADDING_TXT         = BorderFactory.createEmptyBorder(3, 3, 3, 3);
+    private final Border             BORDER_PNL          = BorderFactory.createLineBorder(Color.BLACK, 3);
+    private final String[]           GUIDES_LEFT_SECTION = CSV.read(programDataset, "GUIDES_LEFT_SECTION").toArray(new String[0]);
+    private final String[]           GUIDES_SECTION      = CSV.read(programDataset, "GUIDES_SECTION"     ).toArray(new String[0]);
+    private final String             GREENSTAR_TRUE      = "Green";
+    private final String             GREENSTAR_FALSE     = "No Green";
+    private final String             ADD_REVIEW          = "Add review";
+    private final String             BACK                = "Back";
+    private final int                LBL_NAME_HEIGHT     = 80;
+    private final int                ARC_BUTTON          = 20;
+    private final int                LEFT_CONTENT_HEIGHT = 300;
+    private final int                PNL_BTNS_HEIGHT     = 80;
+    private final RoundedComponentUI BTN_LAYERUI         = new RoundedComponentUI(ARC_BUTTON);
+
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private JPanel      pnl_restaurant;
-    private JPanel      pnl_content;
-    private JPanel      pnl_firstHalfContent;
-    private JPanel      pnl_secondHalfcontent;
-    private JScrollPane scrlPnl_description;
-    private JScrollPane scrlPnl_reviews;
-    private JTextArea   txt_description;
-    private JLabel      lbl_name;
-    private JLabel      lbl_price;
-    private JLabel      lbl_currency;
-    private JLabel      lbl_phoneNo;
-    private JLabel      lbl_country;
-    private JLabel      lbl_city;
-    private JLabel      lbl_address;
-    private JLabel      lbl_latitude;
-    private JLabel      lbl_longitude;
-    private JLabel      lbl_url;
-    private JLabel      lbl_webUrl;
-    private JLabel      lbl_award;
-    private JLabel      lbl_greenStar;
-    private JLabel      lbl_services;
-    private JLabel      lbl_rating;
+    private JPanel             pnl_content;
+    private JPanel             pnl_leftContent;
+    private JPanel             pnl_leftSection;
+    private JPanel             pnl_section;
+    private JPanel             pnl_btns;
+    private JPanel             pnl_btn_addReview;
+    private JPanel             pnl_btn_back;
+    private JScrollPane        scrlPnl_description;
+    private JScrollPane        scrlPnl_reviews;
+    private JTextArea          txt_description;
+    private JLabel             lbl_name;
+    private JLabel             lbl_price;
+    private JLabel             lbl_currency;
+    private JLabel             lbl_phoneNo;
+    private JLabel             lbl_location;
+    private JLabel             lbl_address;
+    private JLabel             lbl_latitude;
+    private JLabel             lbl_longitude;
+    private JLabel             lbl_url;
+    private JLabel             lbl_webUrl;
+    private JLabel             lbl_award;
+    private JLabel             lbl_greenStar;
+    private JLabel             lbl_services;
+    private JLabel             lbl_rating;
+    private JLabel[]           lbls;
+    private JLabel[]           lbls_leftSection;
+    private JLabel[]           lbls_section;
+    private JLabel             btn_addReview;
+    private JLabel             btn_back;
+    private JLayer<JComponent> btn_addReviewRounded;
+    private JLayer<JComponent> btn_backRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final Controller controller;
