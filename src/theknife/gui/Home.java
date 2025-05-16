@@ -94,7 +94,7 @@ public final class Home extends javax.swing.JPanel {
         int i = 0;
         for (Restaurant restaurant : controller.getRestaurants().getList()) {
             i++;
-            if (i > 3)
+            if (i > 100)
                 break;
             pnl_restaurants.add(new PreviewRestaurant(controller, restaurant));
         }

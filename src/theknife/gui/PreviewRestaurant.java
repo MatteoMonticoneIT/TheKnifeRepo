@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import theknife.Controller;
@@ -132,7 +133,13 @@ public class PreviewRestaurant extends javax.swing.JPanel {
     /**
      * Sets up event listeners for user interaction.
      */
-    private void initEvents() {        
+    private void initEvents() {  
+        this.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent e) {
+                previewRestaurant_ComponentResized(e);
+            }
+        });      
         btn_details.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -142,6 +149,20 @@ public class PreviewRestaurant extends javax.swing.JPanel {
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
+    /**
+     * Handles the resize event for the {@code PreviewRestaurant} {@link JPanel}.
+     * <p>
+     * When resized, resizes the padding of the components.
+     * </p>
+     * 
+     * @param e the component event triggered by resizing the GUI application
+     */
+    boolean flag = true;
+    private void previewRestaurant_ComponentResized(java.awt.event.ComponentEvent e) {
+        double avgPercentage = (double) ((this.getWidth() - SCROLLBAR_WIDTH) / ORIGINAL_WIDTH);
+        lbl_name   .setText(setMaxWidthContent((int)  ((MAX_WIDTH * avgPercentage) / 100) + MAX_WIDTH - SCROLLBAR_WIDTH,      restaurant.getName()));
+        lbl_address.setText(setMaxWidthContent((int) (((MAX_WIDTH * avgPercentage) / 100) + MAX_WIDTH - SCROLLBAR_WIDTH), restaurant.getAddress()));
+    }
     
     /**
      * Handles the hover event on the details button {@link JLabel}.
@@ -171,6 +192,7 @@ public class PreviewRestaurant extends javax.swing.JPanel {
     private void initComponents() {
 
         setBackground(new java.awt.Color(15, 166, 40));
+        setPreferredSize(new java.awt.Dimension(718, 300));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -191,7 +213,9 @@ public class PreviewRestaurant extends javax.swing.JPanel {
     private final String   DETAILS            = "Go to details";
     private final String   GREENSTAR_TRUE     = "Green";
     private final String   GREENSTAR_FALSE    = "No Green";
-    private final int      MAX_WIDTH          = 400;
+    private final int      MAX_WIDTH          = 160;
+    private final int      SCROLLBAR_WIDTH    = 16;
+    private final int      ORIGINAL_WIDTH     = this.getPreferredSize().width;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private JPanel   pnl_awardAndGreenStar;
