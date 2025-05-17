@@ -31,7 +31,8 @@ import theknife.obj.restaurant.Restaurant;
  *
  * @author Matteo Monticone
  */
-public class RestaurantGUI extends javax.swing.JPanel {
+public class RestaurantGUI extends javax.swing.JPanel
+{
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
@@ -43,7 +44,8 @@ public class RestaurantGUI extends javax.swing.JPanel {
      * @param controller the {@link Controller} class that manages the screen layout
      * @param restaurant the {@link Restaurant} to set for the {@code RestaurantGUI}
      */
-    public RestaurantGUI(Controller controller, Restaurant restaurant) {
+    public RestaurantGUI(Controller controller, Restaurant restaurant) 
+    {
         initComponents();
         this.controller = controller;
         this.restaurant = restaurant;
@@ -54,7 +56,8 @@ public class RestaurantGUI extends javax.swing.JPanel {
     /**
      * Initializes the graphical user interface (GUI) for the {@code PreviewRestaurant} page.
      */
-    private void initGUI() {
+    private void initGUI() 
+    {
         initFields();
         initPreviewRestaurant();
         initEvents();
@@ -63,7 +66,8 @@ public class RestaurantGUI extends javax.swing.JPanel {
     /**
      * Initializes the basic fields of the {@code PreviewRestaurant} panel.
      */
-    private void initFields() {
+    private void initFields() 
+    {
         pnl_content           = new JPanel(new GridBagLayout());
         pnl_leftContent       = new JPanel(new GridBagLayout());
         pnl_leftSection       = new JPanel(new GridBagLayout());
@@ -85,7 +89,8 @@ public class RestaurantGUI extends javax.swing.JPanel {
         lbl_greenStar         = new JLabel(restaurant.isGreenStar() ? GREENSTAR_TRUE : GREENSTAR_FALSE);
         lbl_services          = new JLabel(restaurant.getServicesAvailable());
         lbl_rating            = new JLabel(String.valueOf(restaurant.getRating()));
-        lbls                  = new JLabel[] {
+        lbls                  = new JLabel[] 
+        {
             lbl_name,
             lbl_price,
             lbl_currency,
@@ -101,81 +106,85 @@ public class RestaurantGUI extends javax.swing.JPanel {
             lbl_services,
             lbl_rating
         };
-        lbls_leftSection      = new JLabel[] {
+        lbls_leftSection      = new JLabel[] 
+        {
             lbl_price,
             lbl_location,
             lbl_phoneNo,
             lbl_award,
             lbl_greenStar
         };
-        lbls_section          = new JLabel[] {
+        lbls_section          = new JLabel[] 
+        {
             lbl_address,
             lbl_url,
             lbl_webUrl,
             lbl_services
         };
-        btn_addReview         = new JLabel(ADD_REVIEW);
-        btn_back              = new JLabel(BACK);
-        btn_addReviewRounded  = new JLayer<>(btn_addReview, BTN_LAYERUI);
-        btn_backRounded       = new JLayer<>(btn_back,      BTN_LAYERUI);
-        txt_description       = new JTextArea(restaurant.getDescription());
-        scrlPnl_description   = new JScrollPane(txt_description);
+        btn_addReview         = new JLabel      (ADD_REVIEW);
+        btn_back              = new JLabel      (BACK);
+        btn_addReviewRounded  = new JLayer<>    (btn_addReview, BTN_LAYERUI);
+        btn_backRounded       = new JLayer<>    (btn_back,      BTN_LAYERUI);
+        txt_description       = new JTextArea   (restaurant.getDescription());
+        scrlPnl_description   = new JScrollPane (txt_description);
     }
     
     /**
      * Initializes the layout and appearance of the home page.
      */
-    private void initPreviewRestaurant() {
+    private void initPreviewRestaurant() 
+    {
         this.setLayout(new BorderLayout());
         
         pnl_leftSection.setBackground(this.getBackground());
-        pnl_section.setBackground(this.getBackground());
+        pnl_section    .setBackground(this.getBackground());
         
-        pnl_leftContent.setPreferredSize(new Dimension(LEFT_CONTENT_HEIGHT, 0));
+        pnl_leftContent.setPreferredSize(new Dimension(LEFT_CONTENT_WIDTH, 0));
         
         pnl_btns.setBackground(this.getBackground());
-        pnl_btns.setBorder(BorderFactory.createEmptyBorder());
+        pnl_btns.setBorder    (BorderFactory.createEmptyBorder());
         
         pnl_btn_addReview.setBackground(this.getBackground());
         pnl_btn_back     .setBackground(this.getBackground());
         
-        for (JLabel lbl : lbls) {
-            lbl.setBackground(BG_DEFAULT);
-            lbl.setForeground(FG_DEFAULT);
-            lbl.setHorizontalAlignment(JLabel.LEFT);
-            lbl.setVerticalAlignment(JLabel.CENTER);
-            lbl.setFont(this.getFont());
-            lbl.setBorder(PADDING_LBL);
-            lbl.setOpaque(true);
+        for (JLabel lbl : lbls) 
+        {
+            lbl.setBackground           (BG_DEFAULT);
+            lbl.setForeground           (FG_DEFAULT);
+            lbl.setHorizontalAlignment  (JLabel.LEFT);
+            lbl.setVerticalAlignment    (JLabel.CENTER);
+            lbl.setFont                 (this.getFont());
+            lbl.setBorder               (PADDING_LBL);
+            lbl.setOpaque               (true);
         }
-        lbl_name.setBackground(BG_NAME);
-        lbl_name.setHorizontalAlignment(JLabel.CENTER);
-        lbl_name.setPreferredSize(new Dimension(0, LBL_NAME_HEIGHT));
+        lbl_name.setBackground          (BG_NAME);
+        lbl_name.setHorizontalAlignment (JLabel.CENTER);
+        lbl_name.setPreferredSize       (new Dimension(0, LBL_NAME_HEIGHT));
         
-        scrlPnl_description.setBackground(this.getBackground());
-        scrlPnl_description.setBorder(BORDER_PNL);
+        scrlPnl_description.setBackground                     (this.getBackground());
+        scrlPnl_description.setBorder                         (BORDER_PNL);
         scrlPnl_description.getVerticalScrollBar()      .setUI(new CustomScrollBar());
         scrlPnl_description.getHorizontalScrollBar()    .setUI(new CustomScrollBar());
         
-        txt_description.setBackground(this.getBackground());
-        txt_description.setBorder(PADDING_TXT);
-        txt_description.setLineWrap(true);
+        txt_description.setBackground   (this.getBackground());
+        txt_description.setBorder       (PADDING_TXT);
+        txt_description.setLineWrap     (true);
         txt_description.setWrapStyleWord(true);
-        txt_description.setEditable(false);
+        txt_description.setEditable     (false);
         
-        btn_addReview.setBackground(BG_ADDREVIEW_BTN);
-        btn_addReview.setForeground(FG_DEFAULT);
+        btn_addReview.setBackground         (BG_ADDREVIEW_BTN);
+        btn_addReview.setForeground         (FG_DEFAULT);
         btn_addReview.setHorizontalAlignment(JLabel.CENTER);
         btn_addReview.setVerticalAlignment  (JLabel.CENTER);
-        btn_addReview.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
-        btn_addReview.setOpaque(true);
+        btn_addReview.setFont               (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
+        btn_addReview.setOpaque             (true);
         
-        btn_back.setBackground(BG_BACK_BTN);
-        btn_back.setForeground(FG_DEFAULT);
-        btn_back.setHorizontalAlignment(JLabel.CENTER);
-        btn_back.setVerticalAlignment  (JLabel.CENTER);
-        btn_back.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
-        btn_back.setOpaque(true);
+        btn_back.setBackground              (BG_BACK_BTN);
+        btn_back.setForeground              (FG_DEFAULT);
+        btn_back.setHorizontalAlignment     (JLabel.CENTER);
+        btn_back.setVerticalAlignment       (JLabel.CENTER);
+        btn_back.setFont                    (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
+        btn_back.setOpaque                  (true);
         
         pnl_btn_addReview.add(btn_addReviewRounded, BorderLayout.CENTER);
         pnl_btn_back     .add(btn_backRounded,      BorderLayout.CENTER);
@@ -185,24 +194,26 @@ public class RestaurantGUI extends javax.swing.JPanel {
         pnl_btns.add(pnl_btn_back,      BorderLayout.EAST);
         
         JLabel[] lbl_guidesLeftSection = new JLabel[GUIDES_LEFT_SECTION.length];
-        for (int i = 0; i < lbl_guidesLeftSection.length; i++) {
-            lbl_guidesLeftSection[i] = new JLabel(GUIDES_LEFT_SECTION[i]);
-            lbl_guidesLeftSection[i].setBackground(this.getBackground());
-            lbl_guidesLeftSection[i].setHorizontalAlignment(JLabel.CENTER);
-            lbl_guidesLeftSection[i].setVerticalAlignment  (JLabel.CENTER);
-            lbl_guidesLeftSection[i].setFont(this.getFont());
-            lbl_guidesLeftSection[i].setBorder(PADDING_LBL);
-            lbl_guidesLeftSection[i].setOpaque(true);
+        for (int i = 0; i < lbl_guidesLeftSection.length; i++) 
+        {
+            lbl_guidesLeftSection[i] = new JLabel           (GUIDES_LEFT_SECTION[i]);
+            lbl_guidesLeftSection[i].setBackground          (this.getBackground());
+            lbl_guidesLeftSection[i].setHorizontalAlignment (JLabel.CENTER);
+            lbl_guidesLeftSection[i].setVerticalAlignment   (JLabel.CENTER);
+            lbl_guidesLeftSection[i].setFont                (this.getFont());
+            lbl_guidesLeftSection[i].setBorder              (PADDING_LBL);
+            lbl_guidesLeftSection[i].setOpaque              (true);
         }
         JLabel[] lbl_guidesSection = new JLabel[GUIDES_SECTION.length];
-        for (int i = 0; i < lbl_guidesSection.length; i++) {
-            lbl_guidesSection[i] = new JLabel(GUIDES_SECTION[i]);
-            lbl_guidesSection[i].setBackground(this.getBackground());
-            lbl_guidesSection[i].setHorizontalAlignment(JLabel.CENTER);
-            lbl_guidesSection[i].setVerticalAlignment  (JLabel.CENTER);
-            lbl_guidesSection[i].setFont(this.getFont());
-            lbl_guidesSection[i].setBorder(PADDING_LBL);
-            lbl_guidesSection[i].setOpaque(true);
+        for (int i = 0; i < lbl_guidesSection.length; i++) 
+        {
+            lbl_guidesSection[i] = new JLabel               (GUIDES_SECTION[i]);
+            lbl_guidesSection[i].setBackground              (this.getBackground());
+            lbl_guidesSection[i].setHorizontalAlignment     (JLabel.CENTER);
+            lbl_guidesSection[i].setVerticalAlignment       (JLabel.CENTER);
+            lbl_guidesSection[i].setFont                    (this.getFont());
+            lbl_guidesSection[i].setBorder                  (PADDING_LBL);
+            lbl_guidesSection[i].setOpaque                  (true);
         }
         
         GridBagConstraints gbc_section = new GridBagConstraints();
@@ -210,15 +221,18 @@ public class RestaurantGUI extends javax.swing.JPanel {
         gbc_section.gridy     = 0;
         gbc_section.weightx   = 0.3;
         gbc_section.weighty   = 1;
+        gbc_section.ipady     = 15;
         gbc_section.gridwidth = 1;
         gbc_section.fill      = GridBagConstraints.BOTH;
-        for (JLabel lbl : lbl_guidesLeftSection) {
+        for (JLabel lbl : lbl_guidesLeftSection) 
+        {
             pnl_leftSection.add(lbl, gbc_section);
             gbc_section.gridy++;
         }
         gbc_section.gridy = 0;
         gbc_section.gridx++;
-        for (JLabel lbl : lbls_leftSection) {
+        for (JLabel lbl : lbls_leftSection) 
+        {
             if (gbc_section.gridy > 2) {
                 gbc_section.gridwidth = 2;
                 gbc_section.gridx     = 0;
@@ -231,12 +245,12 @@ public class RestaurantGUI extends javax.swing.JPanel {
         gbc_leftContent.gridx   = 0;
         gbc_leftContent.gridy   = 0;
         gbc_leftContent.weightx = 1;
-        gbc_leftContent.weighty = 0.3;
         gbc_leftContent.fill    = GridBagConstraints.BOTH;
         pnl_leftContent.add(pnl_leftSection, gbc_leftContent);
         
         gbc_leftContent.gridy++;
-        gbc_leftContent.weighty = 0.7;
+        gbc_leftContent.weighty = 1;
+            
         pnl_leftContent.add(scrlPnl_description, gbc_leftContent);
         
         this.add(lbl_name,        BorderLayout.NORTH);
@@ -248,7 +262,8 @@ public class RestaurantGUI extends javax.swing.JPanel {
     /**
      * Sets up event listeners for user interaction.
      */
-    private void initEvents() {
+    private void initEvents() 
+    {
         this.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {
@@ -266,7 +281,8 @@ public class RestaurantGUI extends javax.swing.JPanel {
      * 
      * @param e the component event triggered by resizing the GUI application
      */
-    private void restaurantGUI_ComponentResized(java.awt.event.ComponentEvent e) {
+    private void restaurantGUI_ComponentResized(java.awt.event.ComponentEvent e) 
+    {
         final int PADDING_BTN = (int) (this.getWidth() * 0.01);
         pnl_btn_addReview.setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
         pnl_btn_back     .setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
@@ -313,7 +329,7 @@ public class RestaurantGUI extends javax.swing.JPanel {
     private final String             BACK                = "Back";
     private final int                LBL_NAME_HEIGHT     = 80;
     private final int                ARC_BUTTON          = 20;
-    private final int                LEFT_CONTENT_HEIGHT = 300;
+    private final int                LEFT_CONTENT_WIDTH  = 300;
     private final int                PNL_BTNS_HEIGHT     = 80;
     private final RoundedComponentUI BTN_LAYERUI         = new RoundedComponentUI(ARC_BUTTON);
 
