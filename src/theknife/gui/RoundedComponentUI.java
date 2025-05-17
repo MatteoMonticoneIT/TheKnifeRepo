@@ -9,7 +9,6 @@ import javax.swing.JComponent;
 import javax.swing.JLayer;
 import javax.swing.plaf.LayerUI;
 
-
 /**
  * A custom {@link LayerUI} implementation that applies a rounded clipping mask to the wrapped {@link JComponent}, allowing for smooth rounded corners.
  * <p>

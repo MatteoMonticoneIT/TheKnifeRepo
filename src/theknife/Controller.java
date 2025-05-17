@@ -172,7 +172,7 @@ public final class Controller {
                     row.get("FacilitiesAndServices", String.class), 
                     row.get("Description", String.class), 
                     0,
-                    row.get("Location", String.class).split(",")[row.get("Location", String.class).split(",").length - 1], 
+                    row.get("Location", String.class).split(",")[row.get("Location", String.class).split(",").length - 1].trim(), 
                     row.get("Location", String.class).split(",")[0], 
                     row.get("Address", String.class),
                     row.get("Latitude", Double.class), 

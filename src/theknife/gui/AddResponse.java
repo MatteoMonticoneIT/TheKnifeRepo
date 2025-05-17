@@ -9,7 +9,7 @@ package theknife.gui;
  *
  * @author Matteo Monticone
  */
-public class AddResponse extends javax.swing.JPanel {
+public final class AddResponse extends javax.swing.JPanel {
 
     /**
      * Creates new form AddResponse

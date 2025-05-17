@@ -478,7 +478,7 @@ public final class AdvancedSearch extends javax.swing.JPanel {
      * @param e the mouse event triggered by hovering to the button
      */
     private void btn_apply_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_cancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn_apply.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btn_apply.setBackground(btn_apply.getBackground().darker());
     }
     
@@ -584,8 +584,8 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     private final String             APPLY_FILTERS           = "Apply filters";
     private final String             CANCEL                  = "Cancel";
     private final int                ARC_PANEL               = 50;
-    private final int                ARC_TEXTFIELD           = 30;
-    private final int                ARC_BUTTON              = 20;
+    private final int                ARC_TEXTFIELD           = 50;
+    private final int                ARC_BUTTON              = 50;
     private final int                PRICES                  = 4;
     private final int                RATINGS                 = 5;
     private final int                SCRLPNL_CUISINES_HEIGHT = 600;

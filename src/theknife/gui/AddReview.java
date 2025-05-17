@@ -9,7 +9,7 @@ package theknife.gui;
  *
  * @author Matteo Monticone
  */
-public class AddReview extends javax.swing.JPanel {
+public final class AddReview extends javax.swing.JPanel {
 
     /**
      * Creates new form AddReview

@@ -8,8 +8,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import javax.swing.BorderFactory;
-import javax.swing.JDialog;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -44,7 +45,6 @@ public final class Home extends javax.swing.JPanel {
     public Home(Controller controller) {
         initComponents();
         this.controller = controller;
-        pnl_main = controller.getPanelMain();
         initGUI();
     }
     //</editor-fold>
@@ -62,8 +62,9 @@ public final class Home extends javax.swing.JPanel {
      * Initializes the basic fields of the {@code Home} panel.
      */
     private void initFields() {
+        upperbar            = new Upperbar(controller);
         pnl_home            = new JPanel(new GridBagLayout());
-        pnl_restaurants     = new JPanel(new GridLayout(controller.getRestaurants().getList().size(), 1, 0, 10));
+        pnl_restaurants     = new JPanel(new GridLayout(100, 1));
         scrlPnl_restaurants = new JScrollPane(pnl_restaurants, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         lbl_title           = new JLabel(TITLE);
     }
@@ -93,7 +94,7 @@ public final class Home extends javax.swing.JPanel {
             i++;
             if (i > 100)
                 break;
-            pnl_restaurants.add(new PreviewRestaurant(controller, restaurant));
+            pnl_restaurants.add(new PreviewRestaurant(controller, restaurant, i % 2 == 0 ? BG_RESTAURANT_PNL_EVEN : BG_RESTAURANT_PNL_ODD));
         }
         
         GridBagConstraints gbc = new GridBagConstraints();
@@ -131,7 +132,7 @@ public final class Home extends javax.swing.JPanel {
      */
     private void scrlPnl_filters_MouseWheelMoved(java.awt.event.MouseWheelEvent e) {
         int notches = e.getWheelRotation();
-        int fasterScroll = notches * 40;
+        int fasterScroll = notches * 150;
 
         JScrollBar vertical = scrlPnl_restaurants.getVerticalScrollBar();
         vertical.setValue(vertical.getValue() + fasterScroll);
@@ -163,19 +164,22 @@ public final class Home extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final Color  FG_DEFAULT         = Color.BLACK;
-    private final Color  BG_TITLE           = new Color(101, 179, 0);
-    private final Border PADDING_SCROLLPANE = BorderFactory.createEmptyBorder(30, 60, 30, 60);
-    private final Insets INSETS             = new Insets(20, 0, 0, 0);
-    private final Insets INSETS_ZERO        = new Insets(0, 0, 0, 0);  
-    private final String TITLE              = "All restaurants";  
+    private final Color  FG_DEFAULT             = Color.BLACK;
+    private final Color  BG_TITLE               = new Color(101, 179, 0);
+    private final Color  BG_RESTAURANT_PNL_EVEN = new Color(88, 138, 12);
+    private final Color  BG_RESTAURANT_PNL_ODD  = new Color(98, 150, 18);
+    private final Border PADDING_SCROLLPANE     = BorderFactory.createEmptyBorder(30, 60, 30, 60);
+    private final Insets INSETS                 = new Insets(20, 0, 0, 0);
+    private final Insets INSETS_ZERO            = new Insets(0, 0, 0, 0);  
+    private final String TITLE                  = "All restaurants";  
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private final PanelMain   pnl_main;
-    private       JPanel      pnl_home;
-    private       JPanel      pnl_restaurants;
-    private       JScrollPane scrlPnl_restaurants;
-    private       JLabel      lbl_title;
+    private Upperbar           upperbar;
+    private JPanel             pnl_home;
+    private JPanel             pnl_restaurants;
+    private JScrollPane        scrlPnl_restaurants;
+    private JLabel             lbl_title;
+    private JLayer<JComponent> scrlPnl_restaurantsRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final Controller controller;

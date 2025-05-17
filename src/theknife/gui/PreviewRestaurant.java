@@ -6,15 +6,22 @@
 package theknife.gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
-import javax.swing.BorderFactory;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JComponent;
+import javax.swing.JLayer;
+import simple.logging.LoggerUtils;
 import theknife.Controller;
+import theknife.obj.AppPaths;
 import theknife.obj.restaurant.Restaurant;
 
 /**
@@ -32,11 +39,13 @@ public class PreviewRestaurant extends javax.swing.JPanel {
      *
      * @param controller the {@link Controller} class that manages the screen layout
      * @param restaurant the {@link Restaurant} to set for the GUI preview
+     * @param bg the background {@link Color} of the preview of the restaurant
      */
-    public PreviewRestaurant(Controller controller, Restaurant restaurant) {
+    public PreviewRestaurant(Controller controller, Restaurant restaurant, Color bg) {
         initComponents();
         this.controller = controller;
         this.restaurant = restaurant;
+        this.bg = bg;
         initGUI();
     }
     //</editor-fold>
@@ -54,6 +63,11 @@ public class PreviewRestaurant extends javax.swing.JPanel {
      * Initializes the basic fields of the {@code PreviewRestaurant} panel.
      */
     private void initFields() {
+//        try {
+//            icon = ImageIO.read(ICON_FILE);
+//        } catch (IOException e) {
+//            LoggerUtils.logSevere("Error while loading the full star image: {0}", e);
+//        }
         pnl_awardAndGreenStar = new JPanel(new GridBagLayout());
         lbl_name              = new JLabel(setMaxWidthContent(MAX_WIDTH,     restaurant.getName()));
         lbl_address           = new JLabel(setMaxWidthContent(MAX_WIDTH * 2, restaurant.getAddress()));
@@ -75,18 +89,28 @@ public class PreviewRestaurant extends javax.swing.JPanel {
      * Initializes the layout and appearance of the home page.
      */
     private void initPreviewRestaurant() {
+        this.setBackground(bg);
         this.setLayout(new GridBagLayout());
         
         pnl_awardAndGreenStar.setOpaque(false);
         
-        for (int i = 0; i < lbls.length; i++) {
-            lbls[i].setBackground(BG_DEFAULT);
-            lbls[i].setForeground(FG_DEFAULT);
-            lbls[i].setHorizontalAlignment(JLabel.CENTER);
-            lbls[i].setVerticalAlignment  (JLabel.CENTER);
-            lbls[i].setFont(this.getFont());
-            lbls[i].setOpaque(true);
+        for (JLabel lbl : lbls) {
+            lbl.setBackground(BG_DEFAULT);
+            lbl.setForeground(FG_DEFAULT);
+            lbl.setHorizontalAlignment(JLabel.CENTER);
+            lbl.setVerticalAlignment(JLabel.CENTER);
+            lbl.setFont(this.getFont());
+            lbl.setOpaque(true);
         }
+        
+        lbl_rating.setHorizontalTextPosition(JLabel.LEFT);
+        lbl_rating.setIconTextGap(ICON_GAP);
+        
+        lbl_award.setHorizontalTextPosition(JLabel.LEFT);
+        lbl_award.setIconTextGap(ICON_GAP);
+        
+        lbl_greenStar.setHorizontalTextPosition(JLabel.LEFT);
+        lbl_greenStar.setIconTextGap(ICON_GAP);
         
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx      = 0;
@@ -157,11 +181,21 @@ public class PreviewRestaurant extends javax.swing.JPanel {
      * 
      * @param e the component event triggered by resizing the GUI application
      */
-    boolean flag = true;
     private void previewRestaurant_ComponentResized(java.awt.event.ComponentEvent e) {
         double avgPercentage = (double) ((this.getWidth() - SCROLLBAR_WIDTH) / ORIGINAL_WIDTH);
-        lbl_name   .setText(setMaxWidthContent((int)  ((MAX_WIDTH * avgPercentage) / 100) + MAX_WIDTH - SCROLLBAR_WIDTH,      restaurant.getName()));
-        lbl_address.setText(setMaxWidthContent((int) (((MAX_WIDTH * avgPercentage) / 100) + MAX_WIDTH - SCROLLBAR_WIDTH), restaurant.getAddress()));
+        lbl_name   .setText(setMaxWidthContent((int) ((MAX_WIDTH * avgPercentage) / 100) + MAX_WIDTH - SCROLLBAR_WIDTH, restaurant.getName()));
+        lbl_address.setText(setMaxWidthContent((int) ((MAX_WIDTH * avgPercentage) / 100) + MAX_WIDTH - SCROLLBAR_WIDTH, restaurant.getAddress()));
+        
+//        JLabel[] lblsStar = {
+//            lbl_rating,
+//            lbl_award,
+//            lbl_greenStar
+//        };
+//        Image[] scaledIcons = new Image[lblsStar.length];
+//        for (int i = 0; i < scaledIcons.length; i++) {
+//            scaledIcons[i] = icon.getScaledInstance(lblsStar[i].getHeight(), lblsStar[i].getHeight(), Image.SCALE_SMOOTH);
+//            lblsStar[i].setIcon(new ImageIcon(scaledIcons[i]));
+//        }
     }
     
     /**
@@ -180,10 +214,18 @@ public class PreviewRestaurant extends javax.swing.JPanel {
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
+    /**
+     * Handles the width of a text inside a {@link JComponent}.
+     * 
+     * @param width - the width to set
+     * @param text - the {@code JComponent}'s text
+     * @return the {@code JComponent}'s text wrapped in HTML and basic CSS
+     */
     private String setMaxWidthContent(int width, String text) {
         return "<html><div style='text-align: center; width: " + width + "px;'>" + text + "</div></html>";
     }
     //</editor-fold>
+    
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
      */
@@ -208,30 +250,34 @@ public class PreviewRestaurant extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final Color    BG_DEFAULT         = new Color(65, 150, 79);
-    private final Color    FG_DEFAULT         = new Color(47, 235, 78);
-    private final Insets   INSETS             = new Insets(5, 5, 5, 5);
-    private final String   DETAILS            = "Go to details";
-    private final String   GREENSTAR_TRUE     = "Green";
-    private final String   GREENSTAR_FALSE    = "No Green";
-    private final int      MAX_WIDTH          = 160;
-    private final int      SCROLLBAR_WIDTH    = 16;
-    private final int      ORIGINAL_WIDTH     = this.getPreferredSize().width;
+//    private final File               ICON_FILE              = AppPaths.getDataFile("img", "Full Star (256x256).png");
+    private final Color              BG_DEFAULT             = new Color(85, 107, 10);
+    private final Color              FG_DEFAULT             = new Color(47, 235, 78);
+    private final Insets             INSETS                 = new Insets(5, 5, 5, 5);
+    private final String             DETAILS                = "Go to details";
+    private final String             GREENSTAR_TRUE         = "Green";
+    private final String             GREENSTAR_FALSE        = "No Green";
+    private final int                MAX_WIDTH              = 160;
+    private final int                SCROLLBAR_WIDTH        = 16;
+    private final int                ORIGINAL_WIDTH         = this.getPreferredSize().width;
+    private final int                ICON_GAP               = 10;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    public  static RestaurantGUI restaurantGUI;
-    private        JPanel        pnl_awardAndGreenStar;
-    private        JLabel        lbl_name;
-    private        JLabel        lbl_address;
-    private        JLabel        lbl_rating;
-    private        JLabel        lbl_award;
-    private        JLabel        lbl_greenStar;
-    private        JLabel        btn_details;
-    private        JLabel[]      lbls;
+    public  static RestaurantGUI      restaurantGUI;
+    private        JPanel             pnl_awardAndGreenStar;
+    private        JLabel             lbl_name;
+    private        JLabel             lbl_address;
+    private        JLabel             lbl_rating;
+    private        JLabel             lbl_award;
+    private        JLabel             lbl_greenStar;
+    private        JLabel             btn_details;
+    private        JLabel[]           lbls;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
-    private final Controller controller;
-    private final Restaurant restaurant;
+    private final Controller    controller;
+    private final Restaurant    restaurant;
+    private       Color         bg;
+//    private       BufferedImage icon;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

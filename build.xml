@@ -74,5 +74,8 @@
         <copy todir="${dist.dir}/data">
             <fileset dir="data"/>
         </copy>
+        <copy todir="${dist.dir}/img">
+            <fileset dir="img"/>
+        </copy>
     </target>
 </project>

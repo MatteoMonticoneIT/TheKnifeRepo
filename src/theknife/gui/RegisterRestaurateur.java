@@ -3,6 +3,7 @@ package theknife.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -77,7 +78,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         txt_email             = new JTextField(PLACEHOLDER[4]);
         txt_username          = new JTextField(PLACEHOLDER[5]);
         txt_password          = new JPasswordField(PLACEHOLDER[6]);
-        chkbx_seePassword     = new JCheckBox();
+        chkbx_seePassword     = new CustomCheckBox();
         txt_firstNameRounded  = new JLayer<>(txt_firstName, TXT_LAYER_UI);
         txt_lastNameRounded   = new JLayer<>(txt_lastName,  TXT_LAYER_UI);
         txt_birthDateRounded  = new JLayer<>(txt_birthDate,  TXT_LAYER_UI);
@@ -133,7 +134,9 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         txt_username.setForeground(FG_PLACEHOLDER);
         txt_username.setBorder    (PADDING_TEXTFIELD);
         
-        chkbx_seePassword.setSelected(true);
+        chkbx_seePassword             .setSelected                (true);
+        chkbx_seePassword             .setPreferredSize           (new Dimension(CHKBX_PASSWORD_HEIGHT, CHKBX_PASSWORD_HEIGHT));
+        chkbx_seePassword             .setCharacter('A');
         
         txt_password.setBackground(BG_TEXTFIELD);
         txt_password.setForeground(FG_PLACEHOLDER);
@@ -606,8 +609,10 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
      * @param e the item event triggered by clicking the checkbox
      */
     private void chkbx_seePassword_ItemStateChanged(java.awt.event.ItemEvent e) {
-        if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[6]))
-            txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
+        chkbx_seePassword.setCharacter(e.getStateChange() % 2 != 0 ? 'A' : 'B');
+        if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1])) 
+            if (e.getStateChange() % 2 != 0) 
+                txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
     }
     
     /**
@@ -735,8 +740,9 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     };
     private final String CANCEL                   = "Cancel";
     private final char DEFAULT_PASSWORD_ECHOCHAR  = '*';
-    private final int ARC_TEXTFIELD               = 30;
-    private final int ARC_BUTTON                  = 20;
+    private final int CHKBX_PASSWORD_HEIGHT       = 48;
+    private final int ARC_TEXTFIELD               = 50;
+    private final int ARC_BUTTON                  = 50;
     private final RoundedComponentUI TXT_LAYER_UI = new RoundedComponentUI(ARC_TEXTFIELD);
     private final RoundedComponentUI BTN_LAYER_UI = new RoundedComponentUI(ARC_BUTTON);
     //</editor-fold>
@@ -756,7 +762,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     private       JTextField         txt_email;
     private       JTextField         txt_username;
     private       JPasswordField     txt_password;
-    private       JCheckBox          chkbx_seePassword;
+    private       CustomCheckBox     chkbx_seePassword;
     private       JLayer<JComponent> txt_firstNameRounded;
     private       JLayer<JComponent> txt_lastNameRounded;
     private       JLayer<JComponent> txt_birthDateRounded;

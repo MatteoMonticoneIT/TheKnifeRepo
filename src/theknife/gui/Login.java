@@ -3,6 +3,7 @@ package theknife.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -83,7 +84,7 @@ public final class Login extends javax.swing.JPanel
       btn_loginAsRestaurateur     = new JLabel            (LOGIN_AS_RESTAURATEUR);
       txt_emailUsername           = new JTextField        (PLACEHOLDER[0]);
       txt_password                = new JPasswordField    (PLACEHOLDER[1]);
-      chkbx_seePassword           = new JCheckBox         ();
+      chkbx_seePassword           = new CustomCheckBox    ();
       txt_emailUsernameRounded    = new JLayer<>          (txt_emailUsername, TXT_LAYER_UI);
       txt_passwordRounded         = new JLayer<>          (txt_password,      TXT_LAYER_UI);
       btn_loginRounded            = new JLayer<>          (btn_login,         BTN_LAYER_UI);
@@ -121,7 +122,9 @@ public final class Login extends javax.swing.JPanel
       txt_password                  .setEchoChar                ((char) 0);
 
       chkbx_seePassword             .setSelected                (true);
-
+      chkbx_seePassword             .setPreferredSize           (new Dimension(CHKBX_PASSWORD_HEIGHT, CHKBX_PASSWORD_HEIGHT));
+      chkbx_seePassword             .setCharacter('A');
+      
       btn_login                     .setBackground              (BG_LOGIN_BTN);
       btn_login                     .setForeground              (FG_DEFAULT);
       btn_login                     .setHorizontalAlignment     (JLabel.CENTER);
@@ -461,9 +464,9 @@ public final class Login extends javax.swing.JPanel
      */
     private void txt_password_KeyPressed                (java.awt.event.KeyEvent e) 
     {
-      if (txt_password.getEchoChar() == DEFAULT_PASSWORD_ECHOCHAR && !chkbx_seePassword.isSelected())
+      if (txt_password.getEchoChar() == DEFAULT_PASSWORD_ECHOCHAR && !chkbx_seePassword.isSelected()) {
         txt_password.setEchoChar((char) 0);
-        
+      }
       if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A) 
       {
         txt_password.selectAll();
@@ -488,8 +491,10 @@ public final class Login extends javax.swing.JPanel
      */
     private void chkbx_seePassword_ItemStateChanged     (java.awt.event.ItemEvent e) 
     {
-      if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1]))
-        txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
+      chkbx_seePassword.setCharacter(e.getStateChange() % 2 != 0 ? 'A' : 'B');
+        if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1])) 
+          if (e.getStateChange() % 2 != 0) 
+            txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
     }
 
     /**
@@ -706,6 +711,7 @@ public final class Login extends javax.swing.JPanel
     private final String             REGISTER                  = "Still not our customer yet? Sign up here!";
     private final String             LOGIN_AS_RESTAURATEUR     = "Are you a restaurateur? Log in here!";
     private final char               DEFAULT_PASSWORD_ECHOCHAR = '*';
+    private final int                CHKBX_PASSWORD_HEIGHT     = 48;
     private final int                ARC_TEXTFIELD             = 30;
     private final int                ARC_BUTTON                = 20;
     private final RoundedComponentUI TXT_LAYER_UI              = new RoundedComponentUI(ARC_TEXTFIELD);
@@ -725,15 +731,15 @@ public final class Login extends javax.swing.JPanel
     private       JLabel             btn_loginAsRestaurateur;
     private       JTextField         txt_emailUsername;
     private       JPasswordField     txt_password;
-    private       JCheckBox          chkbx_seePassword;
+    private       CustomCheckBox     chkbx_seePassword;
     private       JLayer<JComponent> txt_emailUsernameRounded;
     private       JLayer<JComponent> txt_passwordRounded;
     private       JLayer<JComponent> btn_loginRounded;
     private       JLayer<JComponent> btn_cancelRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
-    private final Controller controller;
-    private       boolean    ctrlA_pressed;
+    private final Controller    controller;
+    private       boolean       ctrlA_pressed;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

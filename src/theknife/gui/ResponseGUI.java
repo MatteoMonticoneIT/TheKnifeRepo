@@ -7,9 +7,13 @@ package theknife.gui;
 
 /**
  *
- * @author Matteo Monticone
+ * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
+ * @author Matteo Monticone     761701 (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
-public class ResponseGUI extends javax.swing.JPanel {
+public final class ResponseGUI extends javax.swing.JPanel {
 
     /**
      * Creates new form Response
