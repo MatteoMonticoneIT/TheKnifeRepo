@@ -179,6 +179,7 @@ public final class Restaurant extends Location {
         this.setServicesAvailable(servicesAvailable);
         this.setDescription(description);
         this.setRating(rating);
+        this.setListReview(new ListReview());
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">

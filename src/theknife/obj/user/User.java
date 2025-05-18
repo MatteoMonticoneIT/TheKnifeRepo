@@ -3,6 +3,7 @@ package theknife.obj.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
+import simple.util.StringUtils;
 
 /**
  * Represents a generic user in the system.
@@ -32,10 +33,22 @@ public class User {
     private String firstName;
     
     /**
+     * The user's first name normalized (No combined characters such as à, é, ò, ...).
+     */
+    @JsonProperty("firstNameNormalized")
+    private String firstNameNormalized;
+    
+    /**
      * The user's last name.
      */
     @JsonProperty("lastName")
     private String lastName;
+    
+    /**
+     * The user's last name normalized (No combined characters such as à, é, ò, ...).
+     */
+    @JsonProperty("lastNameNormalized")
+    private String lastNameNormalized;
     
     /**
      * The user's username.
@@ -101,7 +114,9 @@ public class User {
     public User(int id, String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password) {
         this.setId(id);
         this.setFirstName(firstName);
+        this.setFirstNameNormalized(StringUtils.normalize(this.getFirstName()));
         this.setLastName(lastName);
+        this.setLastNameNormalized(StringUtils.normalize(this.getLastName()));
         this.setUsername(username);
         this.setPassword(password);
         this.setBirthDate(birthDate);
@@ -144,6 +159,24 @@ public class User {
     public final void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
+    /**
+     * Returns the user's first name normalized.
+     *
+     * @return the user's first name normalized
+     */
+    public final String getFirstNameNormalized() {
+        return firstNameNormalized;
+    }
+
+    /**
+     * Sets the user's first name normalized.
+     *
+     * @param firstNameNormalized the new first name normalized to set
+     */
+    private void setFirstNameNormalized(String firstNameNormalized) {
+        this.firstNameNormalized = firstNameNormalized;
+    }
     
     /**
      * Returns the user's last name.
@@ -161,6 +194,24 @@ public class User {
      */
     public final void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    /**
+     * Returns the user's last name normalized.
+     *
+     * @return the user's last name normalized
+     */
+    public final String getLastNameNormalized() {
+        return lastNameNormalized;
+    }
+
+    /**
+     * Sets the user's first name normalized.
+     *
+     * @param lastNameNormalized the new last name normalized to set
+     */
+    private void setLastNameNormalized(String lastNameNormalized) {
+        this.lastNameNormalized = lastNameNormalized;
     }
     
     /**

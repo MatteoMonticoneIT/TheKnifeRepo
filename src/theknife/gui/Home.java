@@ -114,8 +114,8 @@ public final class Home extends javax.swing.JPanel {
         gbc.fill    = GridBagConstraints.BOTH;
         pnl_home.add(scrlPnl_restaurants, gbc);
         
-        this.add(new Upperbar(controller), BorderLayout.NORTH);
-        this.add(pnl_home,                 BorderLayout.CENTER);
+        this.add(upperbar, BorderLayout.NORTH);
+        this.add(pnl_home, BorderLayout.CENTER);
     }
     
     private void initEvents() {
@@ -179,7 +179,6 @@ public final class Home extends javax.swing.JPanel {
     private JPanel             pnl_restaurants;
     private JScrollPane        scrlPnl_restaurants;
     private JLabel             lbl_title;
-    private JLayer<JComponent> scrlPnl_restaurantsRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final Controller controller;

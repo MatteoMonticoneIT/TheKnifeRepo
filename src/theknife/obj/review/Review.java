@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import theknife.obj.lists.ListResponse;
 
 /**
- * A class representing a review with content, grade, and an associated response.
+ * A class representing a review with content, rating, and an associated response.
  * <p>
- * This class allows you to store a review consisting of a textual content and a numerical grade.<br>
+ * This class allows you to store a review consisting of a textual content and a numerical rating.<br>
  * It also stores a {@link Response} to the review.
  * </p>
  * 
@@ -18,7 +18,7 @@ import theknife.obj.lists.ListResponse;
  */
 @JsonPropertyOrder({
     "username", 
-    "grade", 
+    "rating", 
     "content", 
     "responses"
 })
@@ -50,10 +50,10 @@ public final class Review {
     private String content;
     
     /**
-     * The grade given in the review, typically an integer score.
+     * The rating given in the review, typically an integer score.
      */
-    @JsonProperty("grade")
-    private int grade;
+    @JsonProperty("rating")
+    private double rating;
     
     /**
      * The responses to the review, typically an instance of {@link ListResponse}.
@@ -72,16 +72,20 @@ public final class Review {
     }
     
     /**
-     * Constructor that initializes a {@code Review} object with specific content and grade.
+     * Constructor that initializes a {@code Review} object with specific content and rating.
      *
+     * @param id the id of the review
+     * @param restaurantID the id of the restaurant where the review is added
      * @param username the username of the review
      * @param content the content of the review
-     * @param grade the grade given in the review
+     * @param rating the rating given in the review
      */
-    public Review(int id, int restaurantID, String username, String content, int grade) {
+    public Review(int id, int restaurantID, String username, String content, double rating) {
+        setId(id);
+        setRestaurantID(restaurantID);
         setUsername(username);
         setContent(content);
-        setGrade(grade);
+        setRating(rating);
     }
 
     //</editor-fold>
@@ -159,21 +163,21 @@ public final class Review {
     }
     
     /**
-     * Returns the grade assigned in the review.
+     * Returns the rating assigned in the review.
      *
-     * @return the grade of the review
+     * @return the rating of the review
      */
-    public final int getGrade() {
-        return grade;
+    public final double getRating() {
+        return rating;
     }
     
     /**
-     * Sets the grade for the review.
+     * Sets the rating for the review.
      *
-     * @param grade the grade to assign to the review
+     * @param rating the rating to assign to the review
      */
-    public final void setGrade(int grade) {
-        this.grade = grade;
+    public final void setRating(double rating) {
+        this.rating = rating;
     }
     
     /**

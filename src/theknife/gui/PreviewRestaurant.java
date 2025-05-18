@@ -1,32 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package theknife.gui;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JComponent;
-import javax.swing.JLayer;
-import simple.logging.LoggerUtils;
 import theknife.Controller;
-import theknife.obj.AppPaths;
 import theknife.obj.restaurant.Restaurant;
 
 /**
- *
- * @author Matteo Monticone
+ * The {@code PreviewRestaurant} panel provides a visual summary of a {@link Restaurant} object.
+ * <p>
+ * This panel displays key information such as the restaurant's name, address, rating, awards, and green star status.
+ * It allows the user to view a summarized version of the restaurant and navigate to the full detail page by clicking a label.
+ * </p>
+ * <p>
+ * This component is part of the GUI of the application and is typically added to a parent container managed by a {@link Controller}.
+ * </p>
+ * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
+ * @author Matteo Monticone     761701 (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 public class PreviewRestaurant extends javax.swing.JPanel {
 
@@ -185,17 +182,6 @@ public class PreviewRestaurant extends javax.swing.JPanel {
         double avgPercentage = (double) ((this.getWidth() - SCROLLBAR_WIDTH) / ORIGINAL_WIDTH);
         lbl_name   .setText(setMaxWidthContent((int) ((MAX_WIDTH * avgPercentage) / 100) + MAX_WIDTH - SCROLLBAR_WIDTH, restaurant.getName()));
         lbl_address.setText(setMaxWidthContent((int) ((MAX_WIDTH * avgPercentage) / 100) + MAX_WIDTH - SCROLLBAR_WIDTH, restaurant.getAddress()));
-        
-//        JLabel[] lblsStar = {
-//            lbl_rating,
-//            lbl_award,
-//            lbl_greenStar
-//        };
-//        Image[] scaledIcons = new Image[lblsStar.length];
-//        for (int i = 0; i < scaledIcons.length; i++) {
-//            scaledIcons[i] = icon.getScaledInstance(lblsStar[i].getHeight(), lblsStar[i].getHeight(), Image.SCALE_SMOOTH);
-//            lblsStar[i].setIcon(new ImageIcon(scaledIcons[i]));
-//        }
     }
     
     /**

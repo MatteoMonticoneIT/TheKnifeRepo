@@ -711,8 +711,8 @@ public final class Login extends javax.swing.JPanel
     private final String             REGISTER                  = "Still not our customer yet? Sign up here!";
     private final String             LOGIN_AS_RESTAURATEUR     = "Are you a restaurateur? Log in here!";
     private final char               DEFAULT_PASSWORD_ECHOCHAR = '*';
-    private final int                ARC_TEXTFIELD             = 30;
-    private final int                ARC_BUTTON                = 20;
+    private final int                ARC_TEXTFIELD             = 50;
+    private final int                ARC_BUTTON                = 50;
     private final RoundedComponentUI TXT_LAYER_UI              = new RoundedComponentUI(ARC_TEXTFIELD);
     private final RoundedComponentUI BTN_LAYER_UI              = new RoundedComponentUI(ARC_BUTTON);
     //</editor-fold>

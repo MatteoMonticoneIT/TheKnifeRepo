@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package theknife.gui;
 
 import java.awt.BorderLayout;
@@ -13,7 +8,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -22,15 +16,24 @@ import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import simple.file.CSV;
 import theknife.Controller;
 import theknife.obj.AppPaths;
 import theknife.obj.restaurant.Restaurant;
+import theknife.obj.review.Review;
 
 /**
- *
- * @author Matteo Monticone
+ * The {@code RestaurantGUI} class represents the graphical interface panel for displaying information about a specific {@link Restaurant}.
+ * <p>
+ * This panel shows restaurant details such as name, price, location, description, rating, services available, and allows users to navigate back or add a review.
+ * </p>
+ * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
+ * @author Matteo Monticone     761701 (CO)
+ * @author Mattia Tamburo       761743 (CO)
  */
 public class RestaurantGUI extends javax.swing.JPanel
 {
@@ -55,17 +58,62 @@ public class RestaurantGUI extends javax.swing.JPanel
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
-     * Initializes the graphical user interface (GUI) for the {@code PreviewRestaurant} page.
+     * Initializes the graphical user interface (GUI) for the {@code RestaurantGUI} page.
      */
     private void initGUI() 
     {
+        controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
+                1, 
+                controller.getRestaurants().getList().get(restaurant.getId()).getId(),
+                "username test 1", 
+                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
+                4)
+        );
+        controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
+                2, 
+                controller.getRestaurants().getList().get(restaurant.getId()).getId(),
+                "username test 2", 
+                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
+                2.5)
+        );
+        controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
+                3, 
+                controller.getRestaurants().getList().get(restaurant.getId()).getId(), 
+                "username test 3", 
+                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
+                3.5)
+        );
+        controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
+                4, 
+                controller.getRestaurants().getList().get(restaurant.getId()).getId(), 
+                "username test 4", 
+                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
+                5)
+        );
+        controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
+                5, 
+                controller.getRestaurants().getList().get(restaurant.getId()).getId(), 
+                "username test 5", 
+                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
+                1.5)
+        );
+        controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
+                6, 
+                controller.getRestaurants().getList().get(restaurant.getId()).getId(), 
+                "username test 6", 
+                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
+                2)
+        );
         initFields();
-        initPreviewRestaurant();
+        initRestaurantGUI();
         initEvents();
+        SwingUtilities.invokeLater(() -> {
+            scrlPnl_reviews.getVerticalScrollBar().setValue(0);
+        });
     }
     
     /**
-     * Initializes the basic fields of the {@code PreviewRestaurant} panel.
+     * Initializes the basic fields of the {@code RestaurantGUI} panel.
      */
     private void initFields() 
     {
@@ -73,8 +121,8 @@ public class RestaurantGUI extends javax.swing.JPanel
         pnl_leftContent       = new JPanel(new GridBagLayout());
         pnl_leftSection       = new JPanel(new GridBagLayout());
         pnl_section           = new JPanel(new GridBagLayout());
-        pnl_reviews           = new JPanel(new GridLayout(10, 1, 0, 10));
-        pnl_btns              = new JPanel(new GridLayout(1, 2, 0, 10));
+        pnl_reviews           = new JPanel(new GridLayout(restaurant.getListReview().getList().size(), 1));
+        pnl_btns              = new JPanel(new GridLayout(1, 2, 10, 10));
         pnl_btn_addReview     = new JPanel(new BorderLayout());
         pnl_btn_back          = new JPanel(new BorderLayout());
         lbl_name              = new JLabel(restaurant.getName());
@@ -135,7 +183,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     /**
      * Initializes the layout and appearance of the home page.
      */
-    private void initPreviewRestaurant() 
+    private void initRestaurantGUI() 
     {
         this.setLayout(new BorderLayout());
         
@@ -166,19 +214,25 @@ public class RestaurantGUI extends javax.swing.JPanel
         lbl_name.setHorizontalAlignment (JLabel.CENTER);
         lbl_name.setPreferredSize       (new Dimension(0, LBL_NAME_HEIGHT));
         
-        lbl_rating.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
+        lbl_rating.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 34));
         lbl_rating.setHorizontalAlignment(JLabel.CENTER);
         
-        scrlPnl_description.setBackground                     (this.getBackground());
-        scrlPnl_description.setBorder                         (BORDER_PNL);
-        scrlPnl_description.getVerticalScrollBar()      .setUI(new CustomScrollBar());
-        scrlPnl_description.getHorizontalScrollBar()    .setUI(new CustomScrollBar());
+        scrlPnl_description.setBackground                 (BG_DEFAULT);
+        scrlPnl_description.setBorder                     (BORDER_PNL);
+        scrlPnl_description.getVerticalScrollBar()  .setUI(new CustomScrollBar());
+        scrlPnl_description.getHorizontalScrollBar().setUI(new CustomScrollBar());
         
-        txt_description.setBackground   (this.getBackground());
+        scrlPnl_reviews.setBackground                 (BG_DEFAULT);
+        scrlPnl_reviews.setBorder                     (BORDER_PNL);
+        scrlPnl_reviews.getVerticalScrollBar()  .setUI(new CustomScrollBar());
+        scrlPnl_reviews.getHorizontalScrollBar().setUI(new CustomScrollBar());
+        
+        txt_description.setBackground   (BG_DEFAULT);
         txt_description.setBorder       (PADDING_TXT);
         txt_description.setLineWrap     (true);
         txt_description.setWrapStyleWord(true);
         txt_description.setEditable     (false);
+        txt_description.setFocusable    (false);
         
         btn_addReview.setBackground         (BG_ADDREVIEW_BTN);
         btn_addReview.setForeground         (FG_DEFAULT);
@@ -223,6 +277,12 @@ public class RestaurantGUI extends javax.swing.JPanel
             lbl_guidesSection[i].setFont                    (this.getFont());
             lbl_guidesSection[i].setBorder                  (PADDING_LBL);
             lbl_guidesSection[i].setOpaque                  (true);
+        }
+        
+        int i = 0;
+        for (Review review : restaurant.getListReview().getList()) {
+            i++;
+            pnl_reviews.add(new PreviewReviewGUI(review, i % 2 == 0 ? BG_REVIEW_PNL_EVEN : BG_REVIEW_PNL_ODD), BorderLayout.CENTER);
         }
         
         GridBagConstraints gbc_leftSection = new GridBagConstraints();
@@ -468,6 +528,8 @@ public class RestaurantGUI extends javax.swing.JPanel
     private final Color              FG_DEFAULT           = Color.BLACK;
     private final Color              BG_ADDREVIEW_BTN     = new Color(0, 255, 0, 192);
     private final Color              BG_BACK_BTN          = new Color(255, 64, 0, 192);
+    private final Color              BG_REVIEW_PNL_EVEN   = new Color(120, 196, 27);
+    private final Color              BG_REVIEW_PNL_ODD    = new Color(109, 181, 22);
     private final Border             PADDING_LBL          = BorderFactory.createEmptyBorder(0, 5, 0, 5);
     private final Border             PADDING_TXT          = BorderFactory.createEmptyBorder(3, 3, 3, 3);
     private final Border             BORDER_PNL           = BorderFactory.createLineBorder(Color.BLACK, 3);
@@ -520,8 +582,9 @@ public class RestaurantGUI extends javax.swing.JPanel
     private JLayer<JComponent> btn_backRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
-    private final Controller controller;
-    private final Restaurant restaurant;
+    private final  Controller controller;
+    private final  Restaurant restaurant;
+    private static int reviewWidth;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

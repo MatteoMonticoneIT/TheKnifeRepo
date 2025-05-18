@@ -279,6 +279,9 @@ public final class Controller {
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
+    public final void        saveData() {
+        JSON.writeToFile(JSON_DATASET, this);
+    }
     
     public final void        LoginClient         (String user, String password)
     {

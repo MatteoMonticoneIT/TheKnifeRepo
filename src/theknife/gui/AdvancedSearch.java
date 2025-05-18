@@ -73,7 +73,7 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         pnl_btn_cancel         = new JPanel(new BorderLayout());
         pnl_ratingBar          = new JPanel(new GridLayout(1, RATINGS));
         pnl_priceBar           = new JPanel(new GridLayout(1, PRICES));
-        pnl_btns               = new JPanel(new GridLayout(1, 2, 0, 10));
+        pnl_btns               = new JPanel(new GridLayout(1, 2, 10, 10));
         pnl_cuisines           = new JPanel(new GridLayout((int) Math.ceil(CHKBX_CUISINE_TXT.length / 2), 2, 10, 10));
         pnl_services           = new JPanel(new GridLayout((int) Math.ceil(CHKBX_SERVICE_TXT.length / 2), 2, 10, 10));
         scrlPnl_filters        = new JScrollPane(pnl_filters,  JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

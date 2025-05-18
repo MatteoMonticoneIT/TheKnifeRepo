@@ -29,7 +29,7 @@ public final class InputPattern {
     /**
      * The address regex
      */
-    public static final Pattern ADDRESS    = Pattern.compile("^(\\d{1,5}[A-Za-z]?\\s?[\\p{L}\\s\\.'-]+|[\\p{L}\\s\\.'-]+\\s\\d{1,5}[A-Za-z]?)(,\\s?[\\p{L}\\s\\.'-]+){1,3}$");
+    public static final Pattern ADDRESS    = Pattern.compile("^(?=.{1,256}$)(\\d{1,5}[A-Za-z]?\\s?[\\p{L}\\s\\.'-]+|[\\p{L}\\s\\.'-]+\\s\\d{1,5}[A-Za-z]?)(,\\s?[\\p{L}\\s\\.'-]+){1,3}$");
     
     /**
      * The email regex
@@ -39,12 +39,12 @@ public final class InputPattern {
     /**
      * The username regex
      */
-    public static final Pattern USERNAME   = Pattern.compile("^(?![_.])(?!.*\\.\\.)(?!.*____)[a-zA-Z0-9._]{3,64}(?<![_.])$");
+    public static final Pattern USERNAME   = Pattern.compile("^(?![_.])(?!.*\\.\\.)(?!.*____)[a-zA-Z0-9._]{3,32}(?<![_.])$");
     
     /**
      * The password regex
      */
-    public static final Pattern PASSWORD   = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$!%*?&\\(\\)])[a-zA-Z\\d@#$!?%*?&\\(\\)\\.,]{8,64}$");
+    public static final Pattern PASSWORD   = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$!%*?&\\(\\)])[a-zA-Z\\d@#$!?%*?&\\(\\)\\.,]{8,128}$");
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
     /**
