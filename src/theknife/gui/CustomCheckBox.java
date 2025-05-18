@@ -108,6 +108,7 @@ public final class CustomCheckBox extends JCheckBox {
 
         g2d.translate(super.getHeight() / 2, super.getHeight() / 2 + 6);
         g2d.setColor(getForeground());
+        g2d.fill(shape);
         g2d.draw(shape);
 
         g2d.dispose();
