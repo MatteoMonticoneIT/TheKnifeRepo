@@ -122,7 +122,6 @@ public final class Login extends javax.swing.JPanel
       txt_password                  .setEchoChar                ((char) 0);
 
       chkbx_seePassword             .setSelected                (true);
-      chkbx_seePassword             .setPreferredSize           (new Dimension(CHKBX_PASSWORD_HEIGHT, CHKBX_PASSWORD_HEIGHT));
       chkbx_seePassword             .setCharacter('A');
       
       btn_login                     .setBackground              (BG_LOGIN_BTN);
@@ -170,13 +169,15 @@ public final class Login extends javax.swing.JPanel
       GridBagConstraints            gbc1                        = new GridBagConstraints();
       gbc1                          .gridx                      = 0;
       gbc1                          .gridy                      = 0;
-      gbc1                          .weightx                    = 0.95;
+      gbc1                          .weightx                    = 1;
       gbc1                          .weighty                    = 1;
       gbc1                          .fill                       = GridBagConstraints.BOTH;
+      gbc1                          .ipadx                      = 40;
       pnl_password                  .add                        (txt_passwordRounded, gbc1);
 
       gbc1                          .gridx++;
-      gbc1                          .weightx                    = 0.05;
+      gbc1                          .weightx                    = 0;
+      gbc1                          .insets                     = new Insets(0, -15, 0, 0);
       pnl_password                  .add                        (chkbx_seePassword, gbc1);
 
       gbc                           .gridy++;
@@ -493,8 +494,7 @@ public final class Login extends javax.swing.JPanel
     {
       chkbx_seePassword.setCharacter(e.getStateChange() % 2 != 0 ? 'A' : 'B');
         if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1])) 
-          if (e.getStateChange() % 2 != 0) 
-            txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
+          txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
     }
 
     /**
@@ -711,7 +711,6 @@ public final class Login extends javax.swing.JPanel
     private final String             REGISTER                  = "Still not our customer yet? Sign up here!";
     private final String             LOGIN_AS_RESTAURATEUR     = "Are you a restaurateur? Log in here!";
     private final char               DEFAULT_PASSWORD_ECHOCHAR = '*';
-    private final int                CHKBX_PASSWORD_HEIGHT     = 48;
     private final int                ARC_TEXTFIELD             = 30;
     private final int                ARC_BUTTON                = 20;
     private final RoundedComponentUI TXT_LAYER_UI              = new RoundedComponentUI(ARC_TEXTFIELD);

@@ -77,7 +77,7 @@ public final class Register extends javax.swing.JPanel {
         txt_email             = new JTextField(PLACEHOLDER[4]);
         txt_username          = new JTextField(PLACEHOLDER[5]);
         txt_password          = new JPasswordField(PLACEHOLDER[6]);
-        chkbx_seePassword     = new JCheckBox();
+        chkbx_seePassword     = new CustomCheckBox    ();
         txt_firstNameRounded  = new JLayer<>(txt_firstName, TXT_LAYER_UI);
         txt_lastNameRounded   = new JLayer<>(txt_lastName,  TXT_LAYER_UI);
         txt_birthDateRounded  = new JLayer<>(txt_birthDate, TXT_LAYER_UI);
@@ -137,7 +137,8 @@ public final class Register extends javax.swing.JPanel {
         txt_password.setBorder    (PADDING_TEXTFIELD);
         txt_password.setEchoChar  ((char) 0);
         
-        chkbx_seePassword.setSelected(true);
+        chkbx_seePassword.setSelected                (true);
+        chkbx_seePassword.setCharacter('A');
         
         btn_register.setBackground(BG_REGISTER_BTN);
         btn_register.setForeground(FG_DEFAULT);
@@ -199,13 +200,15 @@ public final class Register extends javax.swing.JPanel {
         GridBagConstraints gbc2 = new GridBagConstraints();
         gbc2.gridx     = 0;
         gbc2.gridy     = 0;
-        gbc2.weightx   = 0.95;
+        gbc2.weightx   = 1;
         gbc2.weighty   = 1;
         gbc2.fill      = GridBagConstraints.BOTH;
+        gbc2.ipadx     = 40;
         pnl_password.add(txt_passwordRounded, gbc2);
         
         gbc2.gridx++;
-        gbc2.weightx = 0.05;
+        gbc2.weightx = 0;
+        gbc2.insets  = new Insets(0, -15, 0, 0);
         pnl_password.add(chkbx_seePassword, gbc2);
         
         gbc.gridy++;
@@ -551,16 +554,6 @@ public final class Register extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the item state when clicking the {@link JCheckBox}.
-     * 
-     * @param e the item event triggered by clicking the checkbox
-     */
-    private void chkbx_seePassword_ItemStateChanged(java.awt.event.ItemEvent e) {
-        if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[6]))
-            txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
-    }
-    
-    /**
      * Handles the losing focus event on the password {@link JTextField}.
      * 
      * @param e the mouse event triggered by gaining focus
@@ -609,6 +602,19 @@ public final class Register extends javax.swing.JPanel {
      */
     private void txt_password_KeyReleased(java.awt.event.KeyEvent e) {
         System.out.println(String.valueOf(txt_password.getPassword()));
+    }
+    
+       
+    /**
+     * Handles the item state when clicking the {@link JCheckBox}.
+     * 
+     * @param e the item event triggered by clicking the checkbox
+     */
+    private void chkbx_seePassword_ItemStateChanged     (java.awt.event.ItemEvent e) 
+    {
+      chkbx_seePassword.setCharacter(e.getStateChange() % 2 != 0 ? 'A' : 'B');
+        if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[6])) 
+          txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
     }
     
     /**
@@ -759,7 +765,7 @@ public final class Register extends javax.swing.JPanel {
     private       JTextField         txt_email;
     private       JTextField         txt_username;
     private       JPasswordField     txt_password;
-    private       JCheckBox          chkbx_seePassword;
+    private       CustomCheckBox     chkbx_seePassword;
     private       JLayer<JComponent> txt_firstNameRounded;
     private       JLayer<JComponent> txt_lastNameRounded;
     private       JLayer<JComponent> txt_birthDateRounded;

@@ -135,7 +135,6 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         txt_username.setBorder    (PADDING_TEXTFIELD);
         
         chkbx_seePassword             .setSelected                (true);
-        chkbx_seePassword             .setPreferredSize           (new Dimension(CHKBX_PASSWORD_HEIGHT, CHKBX_PASSWORD_HEIGHT));
         chkbx_seePassword             .setCharacter('A');
         
         txt_password.setBackground(BG_TEXTFIELD);
@@ -204,13 +203,15 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         GridBagConstraints gbc2 = new GridBagConstraints();
         gbc2.gridx     = 0;
         gbc2.gridy     = 0;
-        gbc2.weightx   = 0.95;
+        gbc2.weightx   = 1;
         gbc2.weighty   = 1;
+        gbc2.ipadx     = 40;
         gbc2.fill      = GridBagConstraints.BOTH;
         pnl_password.add(txt_passwordRounded, gbc2);
         
         gbc2.gridx++;
-        gbc2.weightx = 0.05;
+        gbc2.weightx = 0;
+        gbc2.insets  = new Insets(0, -15, 0, 0);
         pnl_password.add(chkbx_seePassword, gbc2);
         
         gbc.gridy++;
@@ -610,9 +611,8 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
      */
     private void chkbx_seePassword_ItemStateChanged(java.awt.event.ItemEvent e) {
         chkbx_seePassword.setCharacter(e.getStateChange() % 2 != 0 ? 'A' : 'B');
-        if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1])) 
-            if (e.getStateChange() % 2 != 0) 
-                txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
+        if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[6])) 
+          txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
     }
     
     /**
@@ -740,7 +740,6 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     };
     private final String CANCEL                   = "Cancel";
     private final char DEFAULT_PASSWORD_ECHOCHAR  = '*';
-    private final int CHKBX_PASSWORD_HEIGHT       = 48;
     private final int ARC_TEXTFIELD               = 50;
     private final int ARC_BUTTON                  = 50;
     private final RoundedComponentUI TXT_LAYER_UI = new RoundedComponentUI(ARC_TEXTFIELD);
