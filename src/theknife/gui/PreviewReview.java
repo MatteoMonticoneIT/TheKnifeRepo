@@ -3,16 +3,16 @@ package theknife.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ComponentEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
+import theknife.Controller;
 import theknife.obj.review.Review;
 
 /**
- * The {@code PreviewReviewGUI} class represents a graphical panel component for displaying a single {@link Review} object.
+ * The {@code PreviewReview} class represents a graphical panel component for displaying a single {@link Review} object.
  * <p>
  * This class is part of the GUI layer of the {@link RestaurantGUI} and is typically used to have a graphical interface of the review itself.
  * </p>
@@ -22,43 +22,45 @@ import theknife.obj.review.Review;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class PreviewReviewGUI extends javax.swing.JPanel {
+public final class PreviewReview extends javax.swing.JPanel {
     
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
-     * Creates a new {@code PreviewReviewGUI} panel and initializes its components.
+     * Creates a new {@code PreviewReview} panel and initializes its components.
      * <p>
      * This constructor also sets the review to insert the data needed to have a preview of the review itself.
      * </p>
      *
+     * @param controller the {@link Controller} class that manages the screen layout
      * @param review the {@link Review} class that represents the review
-     * @param bg the {@code Color} of the background for the {@code PreviewReviewGUI}
+     * @param bg the {@code Color} of the background for the {@code PreviewReview}
      */
-    public PreviewReviewGUI(Review review, Color bg) {
+    public PreviewReview(Controller controller, Review review, Color bg) {
         initComponents();
-        this.bg     = bg;
-        this.review = review;
+        this.controller = controller;
+        this.review     = review;
+        this.bg         = bg;
         initGUI();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
-     * Initializes the graphical user interface (GUI) for the {@code PreviewReviewGUI} page.
+     * Initializes the graphical user interface (GUI) for the {@code PreviewReview} page.
      */
     private void initGUI() {
         initFields();
-        initPreviewReviewGUI();
+        initPreviewReview();
         initEvents();
     }
     
     /**
-     * Initializes the basic fields of the {@code PreviewReviewGUI} panel.
+     * Initializes the basic fields of the {@code PreviewReview} panel.
      */
     private void initFields() 
     {
         pnl_usernameRating = new JPanel(new BorderLayout());
         lbl_username       = new JLabel(review.getUsername());
-        lbl_rating         = new JLabel(String.valueOf(review.getRating()));
+        lbl_rating         = new CustomLabel(String.valueOf(review.getRating()), FULL_STAR);
         txt_content        = new JTextArea(review.getContent().length() > MAX_CONTENT_LENGTH ? review.getContent().substring(0, MAX_CONTENT_LENGTH) + "..." : review.getContent());
         lbls               = new JLabel[] {
             lbl_username,
@@ -69,11 +71,11 @@ public final class PreviewReviewGUI extends javax.swing.JPanel {
     /**
      * Initializes the layout and appearance of the home page.
      */
-    private void initPreviewReviewGUI() 
+    private void initPreviewReview() 
     {
         this.setBackground(bg);
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(0, HEIGHT));
+        this.setPreferredSize(new Dimension(0, PREVIEWREVIEW_HEIGHT));
         
         pnl_usernameRating.setBackground(bg);
         pnl_usernameRating.setBorder(BORDER_NORTH_PNL);
@@ -88,7 +90,9 @@ public final class PreviewReviewGUI extends javax.swing.JPanel {
             lbl.setBorder               (PADDING_LBL);
             lbl.setOpaque               (true);
         }
-        lbl_rating.setHorizontalAlignment(JLabel.RIGHT);
+        lbl_rating.setPreferredSize(new Dimension(RATING_HEIGHT, 0));
+        lbl_rating.setCharacterColor(STAR_BG_DEFAULT);
+        lbl_rating.setCharacterSpacing(10);
         
         txt_content.setBackground   (bg);
         txt_content.setBorder       (PADDING_TXT);
@@ -109,11 +113,46 @@ public final class PreviewReviewGUI extends javax.swing.JPanel {
      */
     private void initEvents() 
     {
+        this.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                previewReviewGUI_MouseClicked(e);
+            }
+        });
+        
+        pnl_usernameRating.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                previewReviewGUI_MouseClicked(e);
+            }
+        });
+        
+        txt_content.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                previewReviewGUI_MouseClicked(e);
+            }
+        });
+    }
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Event Listeners">ù
+    /**
+     * Handles the click event on the {@code PreviewReview} {@link JPanel}.
+     * <p>
+     * When the button is clicked, the {@link Review} given to this object will be passed to the {@link RestaurantGUI} page.
+     * It is necessary to pass in order to handle the GUI page giving the restaurant's fields to the components.
+     * </p>
+     * 
+     * @param e the mouse event triggered by clicking the button
+     */
+    private void previewReviewGUI_MouseClicked(java.awt.event.MouseEvent e) {
+        reviewGUI = new ReviewGUI(controller, review, bg);
+        controller.getPanelMain().getPanel().add(reviewGUI, Page.REVIEW);
+        controller.getPanelMain().showCard(Page.REVIEW);
         
     }
     //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Event Listeners">
-    //</editor-fold>
+    
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
      */
@@ -139,21 +178,26 @@ public final class PreviewReviewGUI extends javax.swing.JPanel {
     private final Color              FG_DEFAULT           = Color.BLACK;
     private final Border             PADDING_LBL          = BorderFactory.createEmptyBorder(5, 5, 5, 5);
     private final Border             PADDING_TXT          = BorderFactory.createEmptyBorder(3, 3, 3, 3);
-    private final Border             BORDER_NORTH_PNL     = BorderFactory.createLineBorder(Color.BLACK, 1);
+    private final Border             BORDER_NORTH_PNL     = BorderFactory.createMatteBorder(1, 0, 1, 0, Color.BLACK);
+    private final Color              STAR_BG_DEFAULT      = new Color(255, 215, 0);
+    private final char               FULL_STAR            = 'C';
     private final int                NORTH_CONTENT_HEIGHT = 30;
-    private final int                MAX_CONTENT_LENGTH   = 200;
-    private final int                HEIGHT               = 100;
+    private final int                MAX_CONTENT_LENGTH   = 300;
+    private final int                PREVIEWREVIEW_HEIGHT = 100;
+    private final int                RATING_HEIGHT        = 70;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private JPanel    pnl_usernameRating;
-    private JLabel    lbl_username;
-    private JLabel    lbl_rating;
-    private JTextArea txt_content;
-    private JLabel[]  lbls;
+    private ReviewGUI   reviewGUI;
+    private JPanel      pnl_usernameRating;
+    private JLabel      lbl_username;
+    private CustomLabel lbl_rating;
+    private JTextArea   txt_content;
+    private JLabel[]    lbls;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
-    private final Color  bg;
-    private final Review review;
+    private final Controller controller;
+    private final Color      bg;
+    private final Review     review;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

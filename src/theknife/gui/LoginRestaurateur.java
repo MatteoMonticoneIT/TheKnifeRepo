@@ -8,7 +8,6 @@ package theknife.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -119,7 +118,7 @@ public class LoginRestaurateur extends javax.swing.JPanel {
         txt_password     .setEchoChar  ((char) 0);
         
         chkbx_seePassword.setSelected(true);
-        chkbx_seePassword.setCharacter('A');
+        chkbx_seePassword.setCharacter(EYE_OFF);
         
         btn_login.setBackground(BG_LOGIN_BTN);
         btn_login.setForeground(FG_DEFAULT);
@@ -439,7 +438,7 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * @param e the item event triggered by clicking the checkbox
      */
     private void chkbx_seePassword_ItemStateChanged(java.awt.event.ItemEvent e) {
-        chkbx_seePassword.setCharacter(e.getStateChange() % 2 != 0 ? 'A' : 'B');
+        chkbx_seePassword.setCharacter(e.getStateChange() % 2 != 0 ? EYE_OFF : EYE);
         if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1])) 
           txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
     }
@@ -634,6 +633,8 @@ public class LoginRestaurateur extends javax.swing.JPanel {
     private final String             REGISTER                  = "Still not our restaurateur yet? Sign up here!";
     private final String             LOGIN_AS_CUSTOMER         = "Are you a customer? Log in here!";
     private final char               DEFAULT_PASSWORD_ECHOCHAR = '*';
+    private final char               EYE                       = 'B';
+    private final char               EYE_OFF                   = 'A';
     private final int                ARC_TEXTFIELD             = 50;
     private final int                ARC_BUTTON                = 50;
     private final RoundedComponentUI TXT_LAYER_UI              = new RoundedComponentUI(ARC_TEXTFIELD);

@@ -12,47 +12,52 @@ public final class Page {
     
     //<editor-fold defaultstate="collapsed" desc="Consts">
     /**
-     * The {@link Home} page
+     * The {@link Home} page.
      */
     public static final String HOME                  = "Home";
     
     /**
-     * The {@link Login} page
+     * The {@link Login} page.
      */
     public static final String LOGIN                 = "Login";
     
     /**
-     * The {@link LoginRestaurateur} page
+     * The {@link LoginRestaurateur} page.
      */
     public static final String LOGIN_RESTAURATEUR    = "Login as a restaurateur";
     
     /**
-     * The {@link Register} page
+     * The {@link Register} page.
      */
     public static final String REGISTER              = "Register";
     
     /**
-     * The {@link RegisterRestaurateur} page
+     * The {@link RegisterRestaurateur} page.
      */
     public static final String REGISTER_RESTAURATEUR = "Register as a restaurateur";
     
     /**
-     * The {@link AdvancedSearch} page
+     * The {@link AdvancedSearch} page.
      */
     public static final String ADVANCED_SEARCH       = "Advanced search";
     
     /**
-     * The {@link RestaurantGUI} page
+     * The {@link RestaurantGUI} page.
      */
     public static final String RESTAURANT            = "Restaurant";
     
     /**
-     * The {@link AddReview} page
+     * The {@link ReviewGUI} page.
+     */
+    public static final String REVIEW                = "Review";
+    
+    /**
+     * The {@link AddReview} page.
      */
     public static final String ADD_REVIEW            = "Add Review";
     
     /**
-     * The {@link AddResponse} page
+     * The {@link AddResponse} page.
      */
     public static final String ADD_RESPONSE          = "Add Response";
     //</editor-fold>

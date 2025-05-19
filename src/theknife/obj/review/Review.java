@@ -17,6 +17,8 @@ import theknife.obj.lists.ListResponse;
  * @author Mattia Tamburo       761743 (CO)
  */
 @JsonPropertyOrder({
+    "ID",
+    "restaurantID",
     "username", 
     "rating", 
     "content", 
@@ -87,19 +89,19 @@ public final class Review {
         setContent(content);
         setRating(rating);
     }
-
     //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
-     * Returns the user's id.
+     * Returns the review's id.
      *
-     * @return the user's id
+     * @return the review's id
      */
     public final int getId() {
         return id;
     }
     
     /**
-     * Sets the user's id.
+     * Sets the review's id.
      *
      * @param id the new id to set
      */
@@ -124,8 +126,7 @@ public final class Review {
     public void setRestaurantID(int restaurantID) {
         this.restaurantID = restaurantID;
     }
-
-    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
+    
     /**
      * Returns the username of the review.
      * 

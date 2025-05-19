@@ -3,7 +3,6 @@ package theknife.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -135,7 +134,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         txt_username.setBorder    (PADDING_TEXTFIELD);
         
         chkbx_seePassword             .setSelected                (true);
-        chkbx_seePassword             .setCharacter('A');
+        chkbx_seePassword             .setCharacter(EYE_OFF);
         
         txt_password.setBackground(BG_TEXTFIELD);
         txt_password.setForeground(FG_PLACEHOLDER);
@@ -610,7 +609,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
      * @param e the item event triggered by clicking the checkbox
      */
     private void chkbx_seePassword_ItemStateChanged(java.awt.event.ItemEvent e) {
-        chkbx_seePassword.setCharacter(e.getStateChange() % 2 != 0 ? 'A' : 'B');
+        chkbx_seePassword.setCharacter(e.getStateChange() % 2 != 0 ? EYE_OFF : EYE);
         if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[6])) 
           txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
     }
@@ -722,14 +721,14 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final Color    FG_DEFAULT             = Color.BLACK;
-    private final Color    FG_PLACEHOLDER         = Color.GRAY;
-    private final Color    BG_REGISTER_BTN        = new Color(0, 255, 0, 192);
-    private final Color    BG_CANCEL_BTN          = new Color(255, 64, 0, 192);
-    private final Color    BG_TEXTFIELD           = new Color(255, 255, 255, 192);
-    private final Border   PADDING_TEXTFIELD      = BorderFactory.createEmptyBorder(0, 10, 0, 10);
-    private final Insets   INSETS                 = new Insets(5, 2, 5, 2);
-    private final String[] PLACEHOLDER            = {
+    private final Color              FG_DEFAULT                = Color.BLACK;
+    private final Color              FG_PLACEHOLDER            = Color.GRAY;
+    private final Color              BG_REGISTER_BTN           = new Color(0, 255, 0, 192);
+    private final Color              BG_CANCEL_BTN             = new Color(255, 64, 0, 192);
+    private final Color              BG_TEXTFIELD              = new Color(255, 255, 255, 192);
+    private final Border             PADDING_TEXTFIELD         = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+    private final Insets             INSETS                    = new Insets(5, 2, 5, 2);
+    private final String[]           PLACEHOLDER               = {
         "First name",
         "Last name",
         "Birthday",
@@ -738,12 +737,14 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         "Username",
         "Password"
     };
-    private final String CANCEL                   = "Cancel";
-    private final char DEFAULT_PASSWORD_ECHOCHAR  = '*';
-    private final int ARC_TEXTFIELD               = 50;
-    private final int ARC_BUTTON                  = 50;
-    private final RoundedComponentUI TXT_LAYER_UI = new RoundedComponentUI(ARC_TEXTFIELD);
-    private final RoundedComponentUI BTN_LAYER_UI = new RoundedComponentUI(ARC_BUTTON);
+    private final String             CANCEL                    = "Cancel";
+    private final char               DEFAULT_PASSWORD_ECHOCHAR = '*';
+    private final char               EYE                       = 'B';
+    private final char               EYE_OFF                   = 'A';
+    private final int                ARC_TEXTFIELD             = 50;
+    private final int                ARC_BUTTON                = 50;
+    private final RoundedComponentUI TXT_LAYER_UI              = new RoundedComponentUI(ARC_TEXTFIELD);
+    private final RoundedComponentUI BTN_LAYER_UI              = new RoundedComponentUI(ARC_BUTTON);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private       JPanel             pnl_grid;

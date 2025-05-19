@@ -156,6 +156,7 @@ public final class Restaurant extends Location {
      * @param greenStar whether the restaurant has a green star (sustainability recognition)
      * @param servicesAvailable the services available at the restaurant
      * @param description a brief description of the restaurant
+     * @param rating the overall rating of the quality of the restaurant
      * @param country the country where the restaurant is located
      * @param city the city where the restaurant is located
      * @param address the address of the restaurant

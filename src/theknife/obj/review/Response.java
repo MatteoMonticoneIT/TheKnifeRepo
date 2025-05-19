@@ -15,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * @author Mattia Tamburo       761743 (CO)
  */
 @JsonPropertyOrder({
+    "ID",
+    "reviewID",
     "username", 
     "content", 
     "review"
@@ -22,6 +24,18 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public final class Response {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    /**
+     * The review's id.
+     */
+    @JsonProperty("ID")
+    private int id;
+    
+    /**
+     * The restaurant's id.
+     */
+    @JsonProperty("reviewID")
+    private int reviewID;
+    
     /**
      * The username of the response, given by a customer's username or the owner of the restaurant.
      */
@@ -53,17 +67,57 @@ public final class Response {
     /**
      * Constructor that initializes the {@code Response} object with specific content and associated review.
      *
+     * @param id the id of the response
+     * @param reviewID the id of the review where the response is added
      * @param username the username of the response
      * @param content the content of the response
      * @param review the review that this response is related to
      */
-    public Response(String username, String content, Review review) {
+    public Response(int id, int reviewID, String username, String content, Review review) {
+        setId(id);
+        setReviewID(reviewID);
         setUsername(username);
         setContent(content);
         setReview(review);
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
+    /**
+     * Returns the response's id.
+     *
+     * @return the response's id
+     */
+    public final int getId() {
+        return id;
+    }
+    
+    /**
+     * Sets the response's id.
+     *
+     * @param id the new id to set
+     */
+    public final void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Returns the review's id.
+     *
+     * @return the review's id
+     */
+    public int getReviewID() {
+        return reviewID;
+    }
+    
+    /**
+     * Sets the review's id.
+     *
+     * @param reviewID the new review id to set
+     */
+    public void setReviewID(int reviewID) {
+        this.reviewID = reviewID;
+    }
+    
     /**
      * Returns the username of the response.
      * 

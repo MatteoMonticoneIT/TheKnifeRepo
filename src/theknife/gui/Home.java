@@ -8,9 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -118,6 +116,9 @@ public final class Home extends javax.swing.JPanel {
         this.add(pnl_home, BorderLayout.CENTER);
     }
     
+    /**
+     * Sets up event listeners for user interaction.
+     */
     private void initEvents() {
         scrlPnl_restaurants.addMouseWheelListener((java.awt.event.MouseWheelEvent e) -> {
             scrlPnl_filters_MouseWheelMoved(e);

@@ -14,6 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayer;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
@@ -64,42 +65,42 @@ public class RestaurantGUI extends javax.swing.JPanel
     {
         controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
                 1, 
-                controller.getRestaurants().getList().get(restaurant.getId()).getId(),
+                controller.getRestaurants().getList().get(restaurant.getId() - 1).getId(),
                 "username test 1", 
                 "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
                 4)
         );
         controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
                 2, 
-                controller.getRestaurants().getList().get(restaurant.getId()).getId(),
+                controller.getRestaurants().getList().get(restaurant.getId() - 1).getId(),
                 "username test 2", 
                 "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
                 2.5)
         );
         controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
                 3, 
-                controller.getRestaurants().getList().get(restaurant.getId()).getId(), 
+                controller.getRestaurants().getList().get(restaurant.getId() - 1).getId(), 
                 "username test 3", 
                 "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
                 3.5)
         );
         controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
                 4, 
-                controller.getRestaurants().getList().get(restaurant.getId()).getId(), 
+                controller.getRestaurants().getList().get(restaurant.getId() - 1).getId(), 
                 "username test 4", 
                 "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
                 5)
         );
         controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
                 5, 
-                controller.getRestaurants().getList().get(restaurant.getId()).getId(), 
+                controller.getRestaurants().getList().get(restaurant.getId() - 1).getId(), 
                 "username test 5", 
                 "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
                 1.5)
         );
         controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
                 6, 
-                controller.getRestaurants().getList().get(restaurant.getId()).getId(), 
+                controller.getRestaurants().getList().get(restaurant.getId() - 1).getId(), 
                 "username test 6", 
                 "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
                 2)
@@ -135,10 +136,10 @@ public class RestaurantGUI extends javax.swing.JPanel
         lbl_longitude         = new JLabel(String.valueOf(restaurant.getLongitude()));
         lbl_url               = new JLabel(restaurant.getUrl());
         lbl_webUrl            = new JLabel(restaurant.getWebsiteUrl());
-        lbl_award             = new JLabel(restaurant.getAward());
-        lbl_greenStar         = new JLabel(restaurant.isGreenStar() ? GREENSTAR_TRUE : GREENSTAR_FALSE);
+        lbl_award             = new CustomLabel(restaurant.getAward(), FULL_STAR);
+        lbl_greenStar         = new CustomLabel("", restaurant.isGreenStar() ? FULL_STAR : EMPTY_STAR);
         lbl_services          = new JLabel(wrapTextHTML(restaurant.getServicesAvailable()));
-        lbl_rating            = new JLabel("Overall rating: " + String.valueOf(restaurant.getRating()));
+        lbl_rating            = new CustomLabel("Overall rating: " + String.valueOf(restaurant.getRating()), FULL_STAR);
         lbls                  = new JLabel[] 
         {
             lbl_name,
@@ -192,7 +193,7 @@ public class RestaurantGUI extends javax.swing.JPanel
         
         pnl_leftContent.setPreferredSize(new Dimension(LEFT_CONTENT_WIDTH, 0));
         
-        pnl_reviews.setBackground(BG_DEFAULT);
+        pnl_reviews.setBackground(restaurant.getListReview().getList().size() > 0 ? Color.BLACK : BG_DEFAULT);
         
         pnl_btns.setBackground(this.getBackground());
         pnl_btns.setBorder    (BorderFactory.createEmptyBorder());
@@ -216,6 +217,16 @@ public class RestaurantGUI extends javax.swing.JPanel
         
         lbl_rating.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 34));
         lbl_rating.setHorizontalAlignment(JLabel.CENTER);
+        lbl_rating.setCharacterColor(STAR_BG_DEFAULT);
+        lbl_rating.setCustomFontSize(32f);
+        lbl_rating.setCharacterSpacing(10);
+        
+        lbl_award.setCharacterColor(STAR_BG_DEFAULT);
+        lbl_award.setCustomFontSize(18f);
+        lbl_award.setCharacterSpacing(8);
+        
+        lbl_greenStar.setCharacterColor(GREENSTAR_BG);
+        lbl_greenStar.setCustomFontSize(16f);
         
         scrlPnl_description.setBackground                 (BG_DEFAULT);
         scrlPnl_description.setBorder                     (BORDER_PNL);
@@ -282,7 +293,7 @@ public class RestaurantGUI extends javax.swing.JPanel
         int i = 0;
         for (Review review : restaurant.getListReview().getList()) {
             i++;
-            pnl_reviews.add(new PreviewReviewGUI(review, i % 2 == 0 ? BG_REVIEW_PNL_EVEN : BG_REVIEW_PNL_ODD), BorderLayout.CENTER);
+            pnl_reviews.add(new PreviewReview(controller, review, i % 2 == 0 ? BG_REVIEW_PNL_EVEN : BG_REVIEW_PNL_ODD), BorderLayout.CENTER);
         }
         
         GridBagConstraints gbc_leftSection = new GridBagConstraints();
@@ -372,6 +383,10 @@ public class RestaurantGUI extends javax.swing.JPanel
             }
         });
         
+        scrlPnl_reviews.addMouseWheelListener((java.awt.event.MouseWheelEvent e) -> {
+            scrlPnl_reviews_MouseWheelMoved(e);
+        });
+        
         btn_back.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -421,6 +436,19 @@ public class RestaurantGUI extends javax.swing.JPanel
         final int PADDING_BTN = (int) (this.getWidth() * 0.01);
         pnl_btn_addReview.setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
         pnl_btn_back     .setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
+    }
+    
+    /**
+     * Handles the {@link JScrollPane} {@link JScrollBar}.
+     * 
+     * @param e the component event triggered by wheel-scrolling using the mouse.
+     */
+    private void scrlPnl_reviews_MouseWheelMoved(java.awt.event.MouseWheelEvent e) {
+        int notches = e.getWheelRotation();
+        int fasterScroll = notches * 50;
+
+        JScrollBar vertical = scrlPnl_reviews.getVerticalScrollBar();
+        vertical.setValue(vertical.getValue() + fasterScroll);
     }
     
     /**
@@ -530,15 +558,17 @@ public class RestaurantGUI extends javax.swing.JPanel
     private final Color              BG_BACK_BTN          = new Color(255, 64, 0, 192);
     private final Color              BG_REVIEW_PNL_EVEN   = new Color(120, 196, 27);
     private final Color              BG_REVIEW_PNL_ODD    = new Color(109, 181, 22);
+    private final Color              STAR_BG_DEFAULT      = new Color(255, 215, 0);
+    private final Color              GREENSTAR_BG         = new Color(8, 138, 4);
     private final Border             PADDING_LBL          = BorderFactory.createEmptyBorder(0, 5, 0, 5);
     private final Border             PADDING_TXT          = BorderFactory.createEmptyBorder(3, 3, 3, 3);
-    private final Border             BORDER_PNL           = BorderFactory.createLineBorder(Color.BLACK, 3);
+    private final Border             BORDER_PNL           = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
     private final String[]           GUIDES_LEFT_SECTION  = CSV.read(programDataset, "GUIDES_LEFT_SECTION").toArray(new String[0]);
     private final String[]           GUIDES_SECTION       = CSV.read(programDataset, "GUIDES_SECTION"     ).toArray(new String[0]);
-    private final String             GREENSTAR_TRUE       = "Green";
-    private final String             GREENSTAR_FALSE      = "No Green";
     private final String             ADD_REVIEW           = "Add review";
     private final String             BACK                 = "Back";
+    private final char               FULL_STAR            = 'C';
+    private final char               EMPTY_STAR           = 'A';
     private final int                LBL_NAME_HEIGHT      = 80;
     private final int                ARC                  = 50;
     private final int                LEFT_CONTENT_WIDTH   = 300;
@@ -569,10 +599,10 @@ public class RestaurantGUI extends javax.swing.JPanel
     private JLabel             lbl_longitude;
     private JLabel             lbl_url;
     private JLabel             lbl_webUrl;
-    private JLabel             lbl_award;
-    private JLabel             lbl_greenStar;
+    private CustomLabel        lbl_award;
+    private CustomLabel        lbl_greenStar;
     private JLabel             lbl_services;
-    private JLabel             lbl_rating;
+    private CustomLabel        lbl_rating;
     private JLabel[]           lbls;
     private JLabel[]           lbls_leftSection;
     private JLabel[]           lbls_section;
@@ -584,7 +614,6 @@ public class RestaurantGUI extends javax.swing.JPanel
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final  Controller controller;
     private final  Restaurant restaurant;
-    private static int reviewWidth;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

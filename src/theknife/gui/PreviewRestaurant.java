@@ -60,17 +60,12 @@ public class PreviewRestaurant extends javax.swing.JPanel {
      * Initializes the basic fields of the {@code PreviewRestaurant} panel.
      */
     private void initFields() {
-//        try {
-//            icon = ImageIO.read(ICON_FILE);
-//        } catch (IOException e) {
-//            LoggerUtils.logSevere("Error while loading the full star image: {0}", e);
-//        }
         pnl_awardAndGreenStar = new JPanel(new GridBagLayout());
         lbl_name              = new JLabel(setMaxWidthContent(MAX_WIDTH,     restaurant.getName()));
         lbl_address           = new JLabel(setMaxWidthContent(MAX_WIDTH * 2, restaurant.getAddress()));
-        lbl_rating            = new JLabel(String.valueOf(restaurant.getRating()));
-        lbl_award             = new JLabel(restaurant.getAward());
-        lbl_greenStar         = new JLabel(restaurant.isGreenStar() ? GREENSTAR_TRUE : GREENSTAR_FALSE);
+        lbl_rating            = new CustomLabel(OVERALL_RATING + String.valueOf(restaurant.getRating()), FULL_STAR);
+        lbl_award             = new CustomLabel(restaurant.getAward(), FULL_STAR);
+        lbl_greenStar         = new CustomLabel("", restaurant.isGreenStar() ? FULL_STAR : EMPTY_STAR);
         btn_details           = new JLabel(DETAILS);
         lbls                  = new JLabel[] {
             lbl_name,
@@ -102,9 +97,12 @@ public class PreviewRestaurant extends javax.swing.JPanel {
         
         lbl_rating.setHorizontalTextPosition(JLabel.LEFT);
         lbl_rating.setIconTextGap(ICON_GAP);
+        lbl_rating.setCharacterColor(STAR_BG_DEFAULT);
+        lbl_rating.setCharacterSpacing(8);
         
         lbl_award.setHorizontalTextPosition(JLabel.LEFT);
         lbl_award.setIconTextGap(ICON_GAP);
+        lbl_award.setCharacterColor(STAR_BG_DEFAULT);
         
         lbl_greenStar.setHorizontalTextPosition(JLabel.LEFT);
         lbl_greenStar.setIconTextGap(ICON_GAP);
@@ -160,7 +158,8 @@ public class PreviewRestaurant extends javax.swing.JPanel {
             public void componentResized(java.awt.event.ComponentEvent e) {
                 previewRestaurant_ComponentResized(e);
             }
-        });      
+        }); 
+        
         btn_details.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -185,7 +184,7 @@ public class PreviewRestaurant extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the hover event on the details button {@link JLabel}.
+     * Handles the click event on the details button {@link JLabel}.
      * <p>
      * When the button is clicked, the {@link Restaurant} given to this object will be passed to the {@link RestaurantGUI} page.
      * It is necessary to pass in order to handle the GUI page giving the restaurant's fields to the components.
@@ -236,33 +235,34 @@ public class PreviewRestaurant extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-//    private final File               ICON_FILE              = AppPaths.getDataFile("img", "Full Star (256x256).png");
     private final Color              BG_DEFAULT             = new Color(85, 107, 10);
     private final Color              FG_DEFAULT             = new Color(47, 235, 78);
+    private final Color              STAR_BG_DEFAULT        = new Color(255, 215, 0);
     private final Insets             INSETS                 = new Insets(5, 5, 5, 5);
+    private final String             OVERALL_RATING         = "Overall rating: ";
     private final String             DETAILS                = "Go to details";
-    private final String             GREENSTAR_TRUE         = "Green";
-    private final String             GREENSTAR_FALSE        = "No Green";
+    private final char               FULL_STAR              = 'C';
+    private final char               EMPTY_STAR             = 'A';
     private final int                MAX_WIDTH              = 160;
     private final int                SCROLLBAR_WIDTH        = 16;
     private final int                ORIGINAL_WIDTH         = this.getPreferredSize().width;
     private final int                ICON_GAP               = 10;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    public  static RestaurantGUI      restaurantGUI;
-    private        JPanel             pnl_awardAndGreenStar;
-    private        JLabel             lbl_name;
-    private        JLabel             lbl_address;
-    private        JLabel             lbl_rating;
-    private        JLabel             lbl_award;
-    private        JLabel             lbl_greenStar;
-    private        JLabel             btn_details;
-    private        JLabel[]           lbls;
+    private RestaurantGUI      restaurantGUI;
+    private JPanel             pnl_awardAndGreenStar;
+    private JLabel             lbl_name;
+    private JLabel             lbl_address;
+    private CustomLabel        lbl_rating;
+    private CustomLabel        lbl_award;
+    private CustomLabel        lbl_greenStar;
+    private JLabel             btn_details;
+    private JLabel[]           lbls;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final Controller    controller;
     private final Restaurant    restaurant;
-    private       Color         bg;
+    private final Color         bg;
 //    private       BufferedImage icon;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
