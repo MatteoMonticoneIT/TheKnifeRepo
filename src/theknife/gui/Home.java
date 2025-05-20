@@ -61,7 +61,7 @@ public final class Home extends javax.swing.JPanel {
      */
     private void initFields() {
         upperbar            = new Upperbar(controller);
-        pnl_home            = new JPanel(new GridBagLayout());
+        pnl_home            = new CustomJPanel(new GridBagLayout());
         pnl_restaurants     = new JPanel(new GridLayout(100, 1));
         scrlPnl_restaurants = new JScrollPane(pnl_restaurants, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         lbl_title           = new JLabel(TITLE);
@@ -121,7 +121,7 @@ public final class Home extends javax.swing.JPanel {
      */
     private void initEvents() {
         scrlPnl_restaurants.addMouseWheelListener((java.awt.event.MouseWheelEvent e) -> {
-            scrlPnl_filters_MouseWheelMoved(e);
+            scrlPnl_restaurants_MouseWheelMoved(e);
         });
     }
     //</editor-fold>
@@ -131,7 +131,7 @@ public final class Home extends javax.swing.JPanel {
      * 
      * @param e the component event triggered by wheel-scrolling using the mouse.
      */
-    private void scrlPnl_filters_MouseWheelMoved(java.awt.event.MouseWheelEvent e) {
+    private void scrlPnl_restaurants_MouseWheelMoved(java.awt.event.MouseWheelEvent e) {
         int notches = e.getWheelRotation();
         int fasterScroll = notches * 150;
 
@@ -176,7 +176,7 @@ public final class Home extends javax.swing.JPanel {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private Upperbar           upperbar;
-    private JPanel             pnl_home;
+    private CustomJPanel       pnl_home;
     private JPanel             pnl_restaurants;
     private JScrollPane        scrlPnl_restaurants;
     private JLabel             lbl_title;
