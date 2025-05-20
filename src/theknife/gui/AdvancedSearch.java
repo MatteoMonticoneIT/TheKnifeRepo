@@ -99,15 +99,21 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         this.setLayout(new BorderLayout());
         
         pnl_filters   .setBackground(BG_PNL_FILTERS);
+        
         pnl_cuisines  .setBackground(BG_PNL_CHKBXS);
         pnl_cuisines  .setBorder    (PADDING_PANEL_CHKBXS);
+        
         pnl_services  .setBackground(BG_PNL_CHKBXS);
         pnl_services  .setBorder    (PADDING_PANEL_CHKBXS);
+        
         pnl_ratingBar .setBackground(this.getBackground());
+        
         pnl_priceBar  .setBackground(this.getBackground());
+        
         pnl_btns      .setBackground(this.getBackground());
-        pnl_btn_apply .setBackground(this.getBackground());
-        pnl_btn_cancel.setBackground(this.getBackground());
+        
+        pnl_btn_apply .setBackground(pnl_btns.getBackground());
+        pnl_btn_cancel.setBackground(pnl_btns.getBackground());
         
         for (int i = 0; i < chkbx_cuisines.length; i++) {
             chkbx_cuisines[i] = new JCheckBox(CHKBX_CUISINE_TXT[i]);

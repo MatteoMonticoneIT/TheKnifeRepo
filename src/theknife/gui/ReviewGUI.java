@@ -2,9 +2,14 @@ package theknife.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
@@ -59,13 +64,20 @@ public final class ReviewGUI extends javax.swing.JPanel {
     private void initFields() 
     {
         pnl_usernameRatingReview = new JPanel(new BorderLayout());
+        pnl_btns                 = new JPanel(new GridLayout(1, 2, 10, 10));
+        pnl_btn_addResponse      = new JPanel(new BorderLayout());
+        pnl_btn_back             = new JPanel(new BorderLayout());
         lbl_usernameReview       = new JLabel(review.getUsername());
-        lbl_rating               = new JLabel(String.valueOf(review.getRating()));
+        lbl_rating               = new CustomLabel(String.valueOf(review.getRating()), FULL_STAR);
         txt_reviewContent        = new JTextArea(review.getContent());
         lbls                     = new JLabel[] {
             lbl_usernameReview,
             lbl_rating
         };
+        btn_addResponse          = new JLabel     (ADD_RESPONSE);
+        btn_back                 = new JLabel     (BACK);
+        btn_addResponseRounded   = new JLayer<>   (btn_addResponse, BTN_LAYERUI);
+        btn_backRounded          = new JLayer<>   (btn_back,        BTN_LAYERUI);
     }
     
     /**
@@ -75,11 +87,16 @@ public final class ReviewGUI extends javax.swing.JPanel {
     {
         this.setBackground(bg);
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(0, REVIEW_HEIGHT));
         
         pnl_usernameRatingReview.setBackground(bg);
         pnl_usernameRatingReview.setBorder(BORDER_NORTH_PNL);
         pnl_usernameRatingReview.setPreferredSize(new Dimension(0, NORTH_CONTENT_HEIGHT));
+        
+        pnl_btns.setBackground(BG_PNL_BTNS);
+        pnl_btns.setBorder    (BorderFactory.createEmptyBorder());
+        
+        pnl_btn_addResponse.setBackground(pnl_btns.getBackground());
+        pnl_btn_back       .setBackground(pnl_btns.getBackground());
         
         for (JLabel lbl : lbls) {
             lbl.setBackground(bg);
@@ -90,7 +107,10 @@ public final class ReviewGUI extends javax.swing.JPanel {
             lbl.setBorder               (PADDING_LBL);
             lbl.setOpaque               (true);
         }
-        lbl_rating.setHorizontalAlignment(JLabel.RIGHT);
+        lbl_rating.setPreferredSize(new Dimension(LBL_RATING_WIDTH, 0));
+        lbl_rating.setCharacterColor(BG_STAR);
+        lbl_rating.setCharacterSpacing(15);
+        lbl_rating.setCustomFontSize(50f);
         
         txt_reviewContent.setBackground   (bg);
         txt_reviewContent.setBorder       (PADDING_TXT);
@@ -99,6 +119,34 @@ public final class ReviewGUI extends javax.swing.JPanel {
         txt_reviewContent.setEditable     (false);
         txt_reviewContent.setFocusable    (false);
         
+        btn_addResponse.setBackground         (BG_ADDRESPONSE_BTN);
+        btn_addResponse.setForeground         (FG_DEFAULT);
+        btn_addResponse.setHorizontalAlignment(JLabel.CENTER);
+        btn_addResponse.setVerticalAlignment  (JLabel.CENTER);
+        btn_addResponse.setFont               (this.getFont());
+        btn_addResponse.setOpaque             (true);
+        
+        btn_back.setBackground                (BG_BACK_BTN);
+        btn_back.setForeground                (FG_DEFAULT);
+        btn_back.setHorizontalAlignment       (JLabel.CENTER);
+        btn_back.setVerticalAlignment         (JLabel.CENTER);
+        btn_back.setFont                      (this.getFont());
+        btn_back.setOpaque                    (true);
+        
+        pnl_usernameRatingReview.add(lbl_usernameReview, BorderLayout.CENTER);
+        pnl_usernameRatingReview.add(lbl_rating,         BorderLayout.EAST);
+        
+        pnl_btn_addResponse.add(btn_addResponseRounded, BorderLayout.CENTER);
+        pnl_btn_back       .add(btn_backRounded,        BorderLayout.CENTER);
+        
+        pnl_btns.setPreferredSize(new Dimension(this.getWidth(), PNL_BTNS_HEIGHT));
+        pnl_btns.add(pnl_btn_addResponse, BorderLayout.CENTER);
+        pnl_btns.add(pnl_btn_back,        BorderLayout.EAST);
+        
+        
+        this.add(pnl_usernameRatingReview, BorderLayout.NORTH);
+        this.add(pnl_btns,                 BorderLayout.SOUTH);
+        
     }
     
     /**
@@ -106,10 +154,126 @@ public final class ReviewGUI extends javax.swing.JPanel {
      */
     private void initEvents() 
     {
+        this.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent e) {
+                reviewGUI_ComponentResized(e);
+            }
+        });
         
+        btn_back.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                btn_back_MouseClicked(e);
+            }
+            
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                btn_back_MouseEntered(e);
+            }
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                btn_back_MouseExited(e);
+            }
+        });
+        
+        btn_addResponse.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                btn_addResponse_MouseClicked(e);
+            }
+            
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                btn_addResponse_MouseEntered(e);
+            }
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                btn_addResponse_MouseExited(e);
+            }
+        });
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
+    /**
+     * Handles the resize event for the {@code RestaurantGUI} {@link JPanel}.
+     * <p>
+     * When resized, resizes the padding of the components.
+     * </p>
+     * 
+     * @param e the component event triggered by resizing the GUI application
+     */
+    private void reviewGUI_ComponentResized(java.awt.event.ComponentEvent e) 
+    {
+        final int PADDING_BTN = (int) (this.getWidth() * 0.01);
+        pnl_btn_addResponse.setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
+        pnl_btn_back       .setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
+    }
+    
+    /**
+     * Handles the click event on the cancel button {@link JLabel}.
+     * <p>
+     * When the button is clicked, the view switches to the {@code Home} screen canceling the login procedure.
+     * </p>
+     * 
+     * @param e the mouse event triggered by clicking the button 
+     */
+    private void btn_back_MouseClicked(java.awt.event.MouseEvent e) {
+        controller.getPanelMain().showCard(Page.RESTAURANT);
+        controller.getPanelMain().getPanel().remove(this);
+    }
+    
+    /**
+     * Handles the hover event on the cancel button {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by hovering to the button
+     */
+    private void btn_back_MouseEntered(java.awt.event.MouseEvent e) {
+        btn_back.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn_back.setBackground(btn_back.getBackground().darker());
+    }
+    
+    /**
+     * Handles the exit hover event on the cancel button {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by leaving the cursor from the button
+     */
+    private void btn_back_MouseExited(java.awt.event.MouseEvent e) {
+        btn_back.setBackground(BG_BACK_BTN);
+    }
+    
+    /**
+     * Handles the click event on the apply button {@link JLabel}.
+     * <p>
+     * When the button is clicked, the filters will be applied and the view switches to the {@code Home} screen.
+     * </p>
+     * 
+     * @param e the mouse event triggered by clicking the button 
+     */
+    private void btn_addResponse_MouseClicked(java.awt.event.MouseEvent e) {
+        
+    }
+    
+    /**
+     * Handles the hover event on the apply button {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by hovering to the button
+     */
+    private void btn_addResponse_MouseEntered(java.awt.event.MouseEvent e) {
+        btn_addResponse.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn_addResponse.setBackground(btn_addResponse.getBackground().darker());
+    }
+    
+    /**
+     * Handles the exit hover event on the apply button {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by leaving the cursor from the button
+     */
+    private void btn_addResponse_MouseExited(java.awt.event.MouseEvent e) {
+        btn_addResponse.setBackground(BG_ADDRESPONSE_BTN);
+    }
     //</editor-fold>
 
     /**
@@ -118,6 +282,8 @@ public final class ReviewGUI extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        setFont(new java.awt.Font("Consolas", 0, 28)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -132,21 +298,36 @@ public final class ReviewGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final Color              FG_DEFAULT           = Color.BLACK;
-    private final Border             PADDING_LBL          = BorderFactory.createEmptyBorder(5, 5, 5, 5);
-    private final Border             PADDING_TXT          = BorderFactory.createEmptyBorder(3, 3, 3, 3);
-    private final Border             BORDER_NORTH_PNL     = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK);
-    private final int                NORTH_CONTENT_HEIGHT = 30;
-    private final int                REVIEW_HEIGHT        = 100;
+    private final Color              FG_DEFAULT                = Color.BLACK;
+    private final Color              BG_ADDRESPONSE_BTN        = new Color(0, 255, 0, 192);
+    private final Color              BG_BACK_BTN               = new Color(255, 64, 0, 192);
+    private final Color              BG_STAR                   = new Color(255, 215, 0);
+    private final Color              BG_PNL_BTNS               = new Color(94, 168, 69);
+    private final Border             PADDING_LBL               = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+    private final Border             PADDING_TXT               = BorderFactory.createEmptyBorder(3, 3, 3, 3);
+    private final Border             BORDER_NORTH_PNL          = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK);
+    private final String             ADD_RESPONSE              = "Add response";
+    private final String             BACK                      = "Back";
+    private final char               FULL_STAR                 = 'C';
+    private final int                NORTH_CONTENT_HEIGHT      = 80;
+    private final int                ARC                       = 50;
+    private final int                PNL_BTNS_HEIGHT           = 80;
+    private final int                LBL_RATING_WIDTH          = 125;
+    private final RoundedComponentUI BTN_LAYERUI               = new RoundedComponentUI(ARC);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private JPanel    pnl_usernameRatingReview;
-    private JLabel    lbl_usernameReview;
-    private JLabel    lbl_rating;
-    private JTextArea txt_reviewContent;
-    private JLabel[]  lbls;
-    private JLabel    btn_addReview;
-    private JLabel    btn_back;
+    private JPanel             pnl_usernameRatingReview;
+    private JPanel             pnl_btns;
+    private JPanel             pnl_btn_addResponse;
+    private JPanel             pnl_btn_back;
+    private JLabel             lbl_usernameReview;
+    private CustomLabel        lbl_rating;
+    private JTextArea          txt_reviewContent;
+    private JLabel[]           lbls;
+    private JLabel             btn_addResponse;
+    private JLabel             btn_back;
+    private JLayer<JComponent> btn_addResponseRounded;
+    private JLayer<JComponent> btn_backRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final Controller controller;

@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import simple.file.CSV;
+import simple.file.JSON;
 import theknife.Controller;
 import theknife.obj.AppPaths;
 import theknife.obj.restaurant.Restaurant;
@@ -198,8 +199,8 @@ public class RestaurantGUI extends javax.swing.JPanel
         pnl_btns.setBackground(this.getBackground());
         pnl_btns.setBorder    (BorderFactory.createEmptyBorder());
         
-        pnl_btn_addReview.setBackground(this.getBackground());
-        pnl_btn_back     .setBackground(this.getBackground());
+        pnl_btn_addReview.setBackground(pnl_btns.getBackground());
+        pnl_btn_back     .setBackground(pnl_btns.getBackground());
         
         for (JLabel lbl : lbls) 
         {
@@ -217,15 +218,15 @@ public class RestaurantGUI extends javax.swing.JPanel
         
         lbl_rating.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 34));
         lbl_rating.setHorizontalAlignment(JLabel.CENTER);
-        lbl_rating.setCharacterColor(STAR_BG_DEFAULT);
+        lbl_rating.setCharacterColor(BG_STAR_DEFAULT);
         lbl_rating.setCustomFontSize(32f);
         lbl_rating.setCharacterSpacing(10);
         
-        lbl_award.setCharacterColor(STAR_BG_DEFAULT);
+        lbl_award.setCharacterColor(BG_STAR_DEFAULT);
         lbl_award.setCustomFontSize(18f);
         lbl_award.setCharacterSpacing(8);
         
-        lbl_greenStar.setCharacterColor(GREENSTAR_BG);
+        lbl_greenStar.setCharacterColor(BG_GREENSTAR);
         lbl_greenStar.setCustomFontSize(16f);
         
         scrlPnl_description.setBackground                 (BG_DEFAULT);
@@ -313,11 +314,6 @@ public class RestaurantGUI extends javax.swing.JPanel
         gbc_leftSection.gridx++;
         for (JLabel lbl : lbls_leftSection) 
         {
-            if (gbc_leftSection.gridy > 2) 
-            {
-                gbc_leftSection.gridwidth = 2;
-                gbc_leftSection.gridx     = 0;
-            }
             pnl_leftSection.add(lbl, gbc_leftSection);
             gbc_leftSection.gridy++;
         }
@@ -558,8 +554,8 @@ public class RestaurantGUI extends javax.swing.JPanel
     private final Color              BG_BACK_BTN          = new Color(255, 64, 0, 192);
     private final Color              BG_REVIEW_PNL_EVEN   = new Color(120, 196, 27);
     private final Color              BG_REVIEW_PNL_ODD    = new Color(109, 181, 22);
-    private final Color              STAR_BG_DEFAULT      = new Color(255, 215, 0);
-    private final Color              GREENSTAR_BG         = new Color(8, 138, 4);
+    private final Color              BG_STAR_DEFAULT      = new Color(255, 215, 0);
+    private final Color              BG_GREENSTAR         = new Color(8, 138, 4);
     private final Border             PADDING_LBL          = BorderFactory.createEmptyBorder(0, 5, 0, 5);
     private final Border             PADDING_TXT          = BorderFactory.createEmptyBorder(3, 3, 3, 3);
     private final Border             BORDER_PNL           = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);

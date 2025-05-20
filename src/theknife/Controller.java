@@ -20,7 +20,6 @@ import theknife.gui.Page;
 import theknife.gui.PanelMain;
 import theknife.gui.Register;
 import theknife.gui.RegisterRestaurateur;
-import theknife.gui.RestaurantGUI;
 import theknife.obj.AppPaths;
 import theknife.obj.lists.ListCustomer;
 import theknife.obj.lists.ListRestaurant;
@@ -167,7 +166,7 @@ public final class Controller {
                     row.get("PhoneNumber", String.class),
                     row.get("Url", String.class),
                     row.get("WebsiteUrl", String.class),
-                    row.get("Award", String.class), 
+                    row.get("Award", String.class).contains("Stars") ? row.get("Award", String.class).replace("Stars", "Michelin") : row.get("Award", String.class).contains(" Restaurants") ? row.get("Award", String.class).replace(" Restaurants", "") : row.get("Award", String.class), 
                     row.get("GreenStar", Boolean.class), 
                     row.get("FacilitiesAndServices", String.class), 
                     row.get("Description", String.class), 
@@ -285,7 +284,7 @@ public final class Controller {
     
     public final void        LoginClient         (String user, String password)
     {
-        //controllo user e password
+        
     }
     
     public final void        LoginRestaurateur   ()
@@ -305,7 +304,7 @@ public final class Controller {
     
     public final void        addRestaurant       ()
     {
-        //funzione di aggiunta ristorante
+        
     }
     
     public final void        searchRestaurant    ()
