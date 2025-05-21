@@ -19,8 +19,8 @@ import java.util.List;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public abstract class AbstractListWrapper<T> {
-    
+public abstract class AbstractListWrapper<T> 
+{  
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The list containing elements of type {@code T}.
@@ -31,18 +31,32 @@ public abstract class AbstractListWrapper<T> {
     /**
      * Default constructor
      */
-    public AbstractListWrapper() {
-        
-    }
+    public      AbstractListWrapper ()              {}
     
     /**
      * Constructs a new instance of {@link AbstractListWrapper} with the specified list.
      *
      * @param list the list of elements to be used
      */
-    protected AbstractListWrapper(List<T> list) {
-        this.setList(list);
-    }
+    protected   AbstractListWrapper (List<T> list)  {this.setList(list);}
+    //</editor-fold> 
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    /**
+     * Add a new element in the list
+     * @param t generic type
+     */
+    public void add     (T t)   {list.add(t);}
+    
+    /**
+     * Remove a given element in the list
+     * @param t generic type
+     */
+    public void remove  (T t)   {list.remove(t);}
+    
+    /**
+     * @return Returns size of the list
+     */
+    public int  size    ()      {return list.size();}
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
@@ -50,17 +64,13 @@ public abstract class AbstractListWrapper<T> {
      *
      * @return the list containing elements of type {@code T}
      */
-    public final List<T> getList() {
-        return list;
-    }
+    public final List<T>    getList ()              {return list;}
     
     /**
      * Sets the list of elements.
      *
      * @param list the new list of elements to assign
      */
-    public final void setList(List<T> list) {
-        this.list = list;
-    }
+    public final void       setList (List<T> list)  {this.list = list;}
     //</editor-fold>    
 }

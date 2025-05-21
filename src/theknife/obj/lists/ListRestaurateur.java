@@ -20,8 +20,8 @@ import theknife.obj.user.Restaurateur;
  * @author Mattia Tamburo       761743 (CO)
  */
 
-public final class ListRestaurateur extends AbstractListWrapper<Restaurateur> {
-    
+public final class ListRestaurateur extends AbstractListWrapper<Restaurateur> 
+{
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
@@ -29,17 +29,34 @@ public final class ListRestaurateur extends AbstractListWrapper<Restaurateur> {
      * Initializes the list as a new empty {@link LinkedList}.
      * </p>
      */
-    public ListRestaurateur() {
-        super(new LinkedList<Restaurateur>());
-    }
+    public ListRestaurateur ()                          {super(new LinkedList<Restaurateur>());}
     
     /**
      * Constructor that initializes the list with an existing list of {@link Restaurateur} objects.
      *
      * @param list the list of restaurateurs to be used
      */
-    public ListRestaurateur(List<Restaurateur> list) {
-        super(list);
+    public ListRestaurateur (List<Restaurateur> list)   {super(list); }
+    
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    /**
+     * Checks if a restaurateur exists in the list by comparing the username and password.
+     * <p>
+     * This method iterates through the list of restaurateur and checks if there is a client with the specified username and password.
+     * </p>
+     *
+     * @param username the username of the restaurateur to check
+     * @param password the password of the restaurateur to check
+     * @return {@code true} if a restaurateur with the given username and password is found,
+     *         {@code false} otherwise
+     */
+    public boolean checkUser(String username, String password)
+    {
+        for(Restaurateur user : super.getList())
+          if(user.getUsername().equals(username) && user.getPassword().equals(password))
+            return true;
+        
+        return false;
     }
     //</editor-fold>
 }

@@ -21,8 +21,8 @@ import theknife.obj.user.Customer;
  * @author Mattia Tamburo       761743 (CO)
  */
 
-public final class ListCustomer extends AbstractListWrapper<Customer> {
-
+public final class ListCustomer extends AbstractListWrapper<Customer> 
+{
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
@@ -30,18 +30,14 @@ public final class ListCustomer extends AbstractListWrapper<Customer> {
      * Initializes the list as a new empty {@link LinkedList}.
      * </p>
      */
-    public ListCustomer() {
-        super(new LinkedList<Customer>());
-    }
+    public ListCustomer ()                      {super(new LinkedList<Customer>());}
     
     /**
      * Constructor that initializes the list with an existing list of {@link Customer} objects.
      *
      * @param list the list of clients to be used
      */
-    public ListCustomer(List<Customer> list) {
-        super(list);
-    }
+    public ListCustomer (List<Customer> list)   {super(list);}
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
     /**
@@ -55,12 +51,13 @@ public final class ListCustomer extends AbstractListWrapper<Customer> {
      * @return {@code true} if a client with the given username and password is found,
      *         {@code false} otherwise
      */
-    public boolean checkUser(String username, String password){
-        for(Customer user : super.getList()){
-            if(user.getUsername().equals(username) && user.getPassword().equals(password))
-                return true;
-        }
-        return false;
+    public boolean checkUser(String username, String password)
+    {
+      for(Customer user : super.getList())
+        if(user.getUsername().equals(username) && user.getPassword().equals(password))
+          return true;
+      
+      return false;
     }
     //</editor-fold>
 }

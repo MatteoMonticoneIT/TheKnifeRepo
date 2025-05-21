@@ -34,7 +34,7 @@ public final class Restaurateur extends User {
      * The list of restaurants managed by the restaurateur.
      */
     @JsonProperty("restaurants")
-    private ListRestaurant listRestaurant;
+    private ListRestaurant listRestaurant = null;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
@@ -43,8 +43,7 @@ public final class Restaurateur extends User {
      * Initializes a new {@code Restaurateur} object without any attributes set.
      * </p>
      */
-    public Restaurateur() {
-    }
+    public Restaurateur() {}
     
     /**
      * Constructor that initializes a {@code Restaurateur} object with the specified attributes.
@@ -63,10 +62,17 @@ public final class Restaurateur extends User {
      * @param listRestaurant the list of restaurants managed by the restaurateur
      */
     public Restaurateur(int id, String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password, ListRestaurant listRestaurant) {
-        super(id, firstName, lastName, birthDate, address, username, email, password);
-        super.setRole("restaurateur");
+        this(firstName, lastName, birthDate, address, username, email, password);
         this.setListRestaurant(listRestaurant);
+        this.setId(id);
     }
+    
+    public Restaurateur(String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password) 
+    {
+        super(firstName, lastName, birthDate, address, username, email, password);
+        super.setRole("restaurateur");
+    }
+    
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**

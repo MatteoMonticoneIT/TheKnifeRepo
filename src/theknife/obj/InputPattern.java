@@ -27,6 +27,11 @@ public final class InputPattern {
     public static final Pattern LAST_NAME  = Pattern.compile("^[\\p{L}'-]{2,100}$");
     
     /**
+     * The birth date regex
+     */
+    public static final Pattern BIRTH_DATE = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$");
+    
+    /**
      * The address regex
      */
     public static final Pattern ADDRESS    = Pattern.compile("^(?=.{1,256}$)(\\d{1,5}[A-Za-z]?\\s?[\\p{L}\\s\\.'-]+|[\\p{L}\\s\\.'-]+\\s\\d{1,5}[A-Za-z]?)(,\\s?[\\p{L}\\s\\.'-]+){1,3}$");

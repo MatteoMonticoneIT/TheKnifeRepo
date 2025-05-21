@@ -34,7 +34,7 @@ public final class Customer extends User {
      * The list of favorite restaurants for the customer.
      */
     @JsonProperty("favorites")
-    private ListFavorite listFavorite;
+    private ListFavorite listFavorite = null;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
@@ -62,10 +62,18 @@ public final class Customer extends User {
      * @param password the customer's password
      * @param listFavorite the list of favorite restaurants for the customer
      */
-    public Customer(int id, ListFavorite listFavorite, String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password) {
-        super(id, firstName, lastName, birthDate, address, username, email, password);
-        this.setRole("customer");
-        this.setListFavorite(listFavorite);
+    
+    public Customer(int id, ListFavorite listFavorite, String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password) 
+    {
+        this                    (firstName, lastName, birthDate, address, username, email, password);
+        this.setListFavorite    (listFavorite);
+        this.setId              (id);
+    }
+    
+    public Customer(String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password) 
+    {
+        super           (firstName, lastName, birthDate, address, username, email, password);
+        this.setRole    ("customer");
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
@@ -74,18 +82,14 @@ public final class Customer extends User {
      *
      * @return the list of favorite restaurants
      */
-    public final ListFavorite getListFavorite() {
-        return listFavorite;
-    }
+    public final ListFavorite   getListFavorite ()                          {return listFavorite;}
     
     /**
      * Sets the list of favorite restaurants for the customer.
      *
      * @param listFavorite the new list of favorite restaurants
      */
-    public final void setListFavorite(ListFavorite listFavorite) {
-        this.listFavorite = listFavorite;
-    }
+    public final void           setListFavorite (ListFavorite listFavorite) {this.listFavorite = listFavorite;}
     //</editor-fold>
     
 }

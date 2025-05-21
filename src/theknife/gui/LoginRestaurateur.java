@@ -437,7 +437,8 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the item event triggered by clicking the checkbox
      */
-    private void chkbx_seePassword_ItemStateChanged(java.awt.event.ItemEvent e) {
+    private void chkbx_seePassword_ItemStateChanged(java.awt.event.ItemEvent e) 
+    {
         chkbx_seePassword.setCharacter(e.getStateChange() % 2 != 0 ? EYE_OFF : EYE);
         if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1])) 
           txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
@@ -453,8 +454,12 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      *
      * @param e the mouse event triggered by clicking the button
      */
-    private void btn_login_MouseClicked(java.awt.event.MouseEvent e) {
-        
+    private void btn_login_MouseClicked(java.awt.event.MouseEvent e)
+    {
+      String user     =                txt_emailUsername.getText    ();
+      String password = String.valueOf(txt_password     .getPassword());
+      if(controller.LoginRestaurateur(user, password))
+        controller.getPanelMain().showCard(Page.HOME);  
     }
     
     /**

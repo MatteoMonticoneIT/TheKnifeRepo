@@ -10,6 +10,7 @@ import simple.file.CSVFileNotFoundException;
 import simple.file.CSVRow;
 import simple.file.FileUtils;
 import simple.file.JSON;
+import simple.file.JSONFileNotFoundException;
 import simple.logging.LoggerUtils;
 import simple.util.StringUtils;
 import theknife.gui.AdvancedSearch;
@@ -21,6 +22,7 @@ import theknife.gui.PanelMain;
 import theknife.gui.Register;
 import theknife.gui.RegisterRestaurateur;
 import theknife.obj.AppPaths;
+import theknife.obj.InputPattern;
 import theknife.obj.lists.ListCustomer;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.lists.ListRestaurateur;
@@ -43,14 +45,24 @@ public final class Controller {
     
     //<editor-fold defaultstate="collapsed" desc="Consts">
     /**
-     * JSON file dataset
+     * JSON file restaurants
      */
-    private static final File JSON_DATASET = AppPaths.getDataFile("data", "dataset.json");
+    private static final File JSON_RESTAURANTS      = AppPaths.getDataFile("data", "restaurants.json");
+    
+    /**
+     * JSON file customers
+     */
+    private static final File JSON_CUSTOMERS        = AppPaths.getDataFile("data", "customers.json");
+    
+    /**
+     * JSON file restaurateurs
+     */
+    private static final File JSON_RESTAURATEURS    = AppPaths.getDataFile("data", "restaurateurs.json");
     
     /**
      * CSV file dataset
      */
-    private static final File CSV_DATASET = AppPaths.getDataFile("data", "dataset.csv");
+    private static final File CSV_RESTAURANTS       = AppPaths.getDataFile("data", "restaurants.csv");
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
@@ -145,45 +157,56 @@ public final class Controller {
     
     private void        initLists           () 
     {
-        if (JSON_DATASET.exists()) {
-            this.setRestaurants  (JSON.readNodeAsObject(JSON_DATASET, "restaurants",   ListRestaurant.class));
-            this.setCustomers    (JSON.readNodeAsObject(JSON_DATASET, "customers",     ListCustomer.class));
-            this.setRestaurateurs(JSON.readNodeAsObject(JSON_DATASET, "restaurateurs", ListRestaurateur.class));
-        } else if (CSV_DATASET.exists()) {
-            this.setRestaurants(new ListRestaurant());
-            List<CSVRow> csvContent = CSV.read(CSV_DATASET);
-            Restaurant restaurant;
-            int id = 0;
-            for (CSVRow row : csvContent) {
-                id++;
-                restaurant = new Restaurant(
-                    id,
-                    -1,
-                    row.get("Name", String.class),
-                    StringUtils.normalize(row.get("Name", String.class)),
-                    row.get("Price", String.class).length(),
-                    row.get("Price", String.class),
-                    row.get("PhoneNumber", String.class),
-                    row.get("Url", String.class),
-                    row.get("WebsiteUrl", String.class),
-                    row.get("Award", String.class).contains("Stars") ? row.get("Award", String.class).replace("Stars", "Michelin") : row.get("Award", String.class).contains(" Restaurants") ? row.get("Award", String.class).replace(" Restaurants", "") : row.get("Award", String.class), 
-                    row.get("GreenStar", Boolean.class), 
-                    row.get("FacilitiesAndServices", String.class), 
-                    row.get("Description", String.class), 
-                    0,
-                    row.get("Location", String.class).split(",")[row.get("Location", String.class).split(",").length - 1].trim(), 
-                    row.get("Location", String.class).split(",")[0], 
-                    row.get("Address", String.class),
-                    row.get("Latitude", Double.class), 
-                    row.get("Longitude", Double.class)
-                );
-                this.getRestaurants().getList().add(restaurant);
-            }
-            FileUtils.create(JSON_DATASET);
-            JSON.writeToFile(JSON_DATASET, this);
-        } else {
-            LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new CSVFileNotFoundException("Unable to get the dataset file!"));
-        }
+        if (JSON_RESTAURANTS.exists())
+          this.setRestaurants  (JSON.readNodeAsObject(JSON_RESTAURANTS, "restaurants", ListRestaurant.class));
+        else if (CSV_RESTAURANTS.exists()) 
+        {
+          this.setRestaurants(new ListRestaurant());
+          List<CSVRow> csvContent = CSV.read(CSV_RESTAURANTS);
+          Restaurant restaurant;
+          int id = 0;
+          for (CSVRow row : csvContent) 
+          {
+            id++;
+            restaurant = new Restaurant
+           (
+              id,
+              -1,
+              row.get("Name", String.class),
+              StringUtils.normalize(row.get("Name", String.class)),
+              row.get("Price", String.class).length(),
+              row.get("Price", String.class),
+              row.get("PhoneNumber", String.class),
+              row.get("Url", String.class),
+              row.get("WebsiteUrl", String.class),
+              row.get("Award", String.class).contains("Stars") ? row.get("Award", String.class).replace("Stars", "Michelin") : row.get("Award", String.class).contains(" Restaurants") ? row.get("Award", String.class).replace(" Restaurants", "") : row.get("Award", String.class), 
+              row.get("GreenStar", Boolean.class), 
+              row.get("FacilitiesAndServices", String.class), 
+              row.get("Description", String.class), 
+              0,
+              row.get("Location", String.class).split(",")[row.get("Location", String.class).split(",").length - 1].trim(), 
+              row.get("Location", String.class).split(",")[0], 
+              row.get("Address", String.class),
+              row.get("Latitude", Double.class), 
+              row.get("Longitude", Double.class)
+            );
+            this.getRestaurants().getList().add(restaurant);
+          }
+          FileUtils.create(JSON_RESTAURANTS);
+          JSON.writeToFile(JSON_RESTAURANTS, this);
+        } 
+        else
+          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new CSVFileNotFoundException("Unable to get the restaurant file!"));
+
+        if (JSON_CUSTOMERS.exists())
+          this.setCustomers    (JSON.readNodeAsObject(JSON_CUSTOMERS,     "Customers",     ListCustomer.class));
+        else
+          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the customers file!"));
+            
+        if(JSON_RESTAURATEURS.exists())
+          this.setRestaurateurs(JSON.readNodeAsObject(JSON_RESTAURATEURS, "Restaurateurs", ListRestaurateur.class));
+        else
+          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the restaurateurs file!"));
     }
     
     /**
@@ -278,28 +301,37 @@ public final class Controller {
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
-    public final void        saveData() {
-        JSON.writeToFile(JSON_DATASET, this);
+    public final void        saveData() 
+    {
+      JSON.writeToFile(JSON_RESTAURANTS,    restaurants);
+      JSON.writeToFile(JSON_CUSTOMERS,      customers);
+      JSON.writeToFile(JSON_RESTAURATEURS,  restaurateurs);
     }
     
-    public final void        LoginClient         (String user, String password)
+    public final boolean     LoginClient         (String user, String password)
     {
-        
+      return  InputPattern   .match    (InputPattern.USERNAME, user)     &&
+              InputPattern   .match    (InputPattern.PASSWORD, password) &&
+              customers      .checkUser(user,                  password);   
     }
     
-    public final void        LoginRestaurateur   ()
+    public final boolean     LoginRestaurateur   (String user, String password)
     {
-        
+      return  InputPattern   .match      (InputPattern.USERNAME, user)     &&
+              InputPattern   .match      (InputPattern.PASSWORD, password) &&
+              restaurateurs  .checkUser  (user,                  password);    
     }
     
-    public final void        RegisterClient      ()
+    public final void        RegisterClient      (Customer customer)
     {
-        
+      customer      .setId  (customers.size());
+      customers     .add    (customer);
     }
     
-    public final void        RegisterRestaurateur()
+    public final void        RegisterRestaurateur(Restaurateur restaurateur)
     {
-        
+      restaurateur  .setId  (restaurateurs.size());
+      restaurateurs .add    (restaurateur);
     }
     
     public final void        addRestaurant       ()

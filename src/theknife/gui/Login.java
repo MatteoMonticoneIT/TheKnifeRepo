@@ -510,9 +510,10 @@ public final class Login extends javax.swing.JPanel
      */
     private void btn_login_MouseClicked                 (java.awt.event.MouseEvent e) 
     {
-      String user     = this.txt_emailUsername.getText();
-      String password = String.valueOf(this.txt_password.getPassword());
-      controller.LoginClient(user, password);
+      String user     =                txt_emailUsername.getText    ();
+      String password = String.valueOf(txt_password     .getPassword());
+      if(controller.LoginClient(user, password))
+        controller.getPanelMain().showCard(Page.HOME);
     }
 
     /**

@@ -5,6 +5,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.KeyboardFocusManager;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import theknife.gui.Page;
 import theknife.gui.PanelMain;
@@ -45,8 +47,9 @@ public final class TheKnife extends javax.swing.JFrame
     {
       pnl_main   = new PanelMain ();
       controller = new Controller(pnl_main);
-      addFullscreenEvent();
-      initTheKnife      ();
+      addFullscreenEvent    ();
+      addWindowClosingEvent ();
+      initTheKnife          ();
     }
     
     /**
@@ -57,13 +60,31 @@ public final class TheKnife extends javax.swing.JFrame
       this.setContentPane               (controller.getPanelMain().getPanel());
       controller.getPanelMain().showCard(Page.HOME);
     }
+
+
+    private void addWindowClosingEvent ()
+    {         
+      this.addWindowListener(new WindowAdapter() 
+      {
+        @Override
+        public void windowClosing(WindowEvent e) {WindowClosing();}
+      });  
+    }
+    
+    public void WindowClosing() 
+    {
+      controller.saveData();
+    }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
     /**
-     * This method sets the main page to fullscreen functionality.
+     * Registers a keyboard event dispatcher that listens for the F11 key press
+     * to toggle the fullscreen mode of the main application window.
      * <p>
-     * Can be enabled by pressing F11
+     * When F11 is pressed, the {@link #toggleFullscreen()} method is called.
      * </p>
+     *
+     * @see #toggleFullscreen()
      */
     private void addFullscreenEvent ()
     {
@@ -76,7 +97,12 @@ public final class TheKnife extends javax.swing.JFrame
     }
     
     /**
-     * This method resets the main page to its original size before fullscreening
+     * Toggles the fullscreen mode of the main application window.
+     * <p>
+     * If the application is currently in fullscreen mode, it will
+     * restore the window to its previous size and decorations. 
+     * Otherwise, it will enter fullscreen mode.
+     * </p>
      */
     private void toggleFullscreen   ()
     {

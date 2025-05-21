@@ -93,8 +93,7 @@ public class User {
      * Initializes a new {@code User} object without any attributes set.
      * </p>
      */
-    public User() {
-    }
+    public User() {}
     
     /**
      * Constructor that initializes a {@code User} object with the specified attributes.
@@ -111,16 +110,21 @@ public class User {
      * @param email the user's email
      * @param password the user's password
      */
-    public User(int id, String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password) {
-        this.setId(id);
-        this.setFirstName(firstName);
+    public User(int id, String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password) 
+    {
+        this(firstName, lastName, birthDate, address, username, email, password);
+        this.setId(id);    
+    }
+    
+    public User(String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password)
+    {
         this.setFirstNameNormalized(StringUtils.normalize(this.getFirstName()));
         this.setLastName(lastName);
         this.setLastNameNormalized(StringUtils.normalize(this.getLastName()));
         this.setUsername(username);
         this.setPassword(password);
         this.setBirthDate(birthDate);
-        this.setAddress(address);
+        this.setAddress(address);        
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">

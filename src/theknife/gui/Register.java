@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -18,6 +19,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import theknife.Controller;
+import theknife.obj.InputPattern;
+import theknife.obj.user.Customer;
 
 /**
  * A panel that represents the register screen in the application.
@@ -625,8 +628,59 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_register_MouseClicked(java.awt.event.MouseEvent e) {
+    private void btn_register_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      boolean error = false;
+      
+      if(                                       !InputPattern.match(InputPattern.FIRST_NAME,                txt_firstName.getText()))
+      {
+        error = true;
+        txt_firstName.setBackground(Color.RED);
+      }
+      if(                                       !InputPattern.match(InputPattern.LAST_NAME,                 txt_lastName .getText()))
+      {
+        error = true;
+        txt_lastName .setBackground(Color.RED);
+      }
+      if((!txt_birthDate.getText().isEmpty() || !InputPattern.match(InputPattern.BIRTH_DATE,                txt_birthDate.getText())))
+      {
+        error = true;
+        txt_lastName .setBackground(Color.RED);
+      }
+      if(                                       !InputPattern.match(InputPattern.ADDRESS,                   txt_location .getText()))
+      {
+        error = true;
+        txt_location .setBackground(Color.RED);
+      }
+      if(                                       !InputPattern.match(InputPattern.EMAIL,                     txt_email    .getText()))
+      {
+        error = true;
+        txt_email .setBackground(Color.RED);
+      }     
+      if(                                       !InputPattern.match(InputPattern.USERNAME,                  txt_username .getText()))
+      {
+        error = true;
+        txt_username .setBackground(Color.RED);
+      }
+      if(                                       !InputPattern.match(InputPattern.PASSWORD,   String.valueOf(txt_password .getPassword())))
+      {
+        error = true;
+        txt_password .setBackground(Color.RED);
+      }
+         
+      if(!error)
+      {
+        Customer customer = new Customer(txt_firstName.getText(),
+                                         txt_lastName .getText(),
+                         LocalDate.parse(txt_birthDate.getText()),
+                                         txt_location .getText(),
+                                         txt_username .getText(),
+                                         txt_email    .getText(),
+                          String.valueOf(txt_password .getPassword()));  
         
+        controller.RegisterClient           (customer);
+        controller.getPanelMain().showCard  (Page.HOME);
+      }     
     }
     
     /**
