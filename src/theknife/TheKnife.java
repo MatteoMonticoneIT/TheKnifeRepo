@@ -81,6 +81,7 @@ public final class TheKnife extends javax.swing.JFrame
     public void WindowClosing() 
     {
 //      controller.saveData();
+        
     }
     
     //</editor-fold>
