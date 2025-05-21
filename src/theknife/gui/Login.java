@@ -83,7 +83,7 @@ public final class Login extends javax.swing.JPanel
       btn_loginAsRestaurateur     = new JLabel            (LOGIN_AS_RESTAURATEUR);
       txt_emailUsername           = new JTextField        (PLACEHOLDER[0]);
       txt_password                = new JPasswordField    (PLACEHOLDER[1]);
-      chkbx_seePassword           = new CustomCheckBox    ();
+      chkbx_seePassword           = new CustomJCheckBox    ();
       txt_emailUsernameRounded    = new JLayer<>          (txt_emailUsername, TXT_LAYER_UI);
       txt_passwordRounded         = new JLayer<>          (txt_password,      TXT_LAYER_UI);
       btn_loginRounded            = new JLayer<>          (btn_login,         BTN_LAYER_UI);
@@ -732,7 +732,7 @@ public final class Login extends javax.swing.JPanel
     private       JLabel             btn_loginAsRestaurateur;
     private       JTextField         txt_emailUsername;
     private       JPasswordField     txt_password;
-    private       CustomCheckBox     chkbx_seePassword;
+    private       CustomJCheckBox     chkbx_seePassword;
     private       JLayer<JComponent> txt_emailUsernameRounded;
     private       JLayer<JComponent> txt_passwordRounded;
     private       JLayer<JComponent> btn_loginRounded;

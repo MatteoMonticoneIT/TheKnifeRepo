@@ -76,8 +76,8 @@ public final class Home extends javax.swing.JPanel {
         pnl_restaurants.setBackground(this.getBackground().darker());
         pnl_home       .setBackground(this.getBackground());
         
-        scrlPnl_restaurants.getVerticalScrollBar()      .setUI(new CustomScrollBar());
-        scrlPnl_restaurants.getHorizontalScrollBar()    .setUI(new CustomScrollBar());
+        scrlPnl_restaurants.getVerticalScrollBar()      .setUI(new CustomJScrollBar());
+        scrlPnl_restaurants.getHorizontalScrollBar()    .setUI(new CustomJScrollBar());
         scrlPnl_restaurants.setBorder                   (PADDING_SCROLLPANE);
         
         lbl_title.setBackground(BG_TITLE);

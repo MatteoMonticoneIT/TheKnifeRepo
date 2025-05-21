@@ -1,6 +1,7 @@
 package theknife.gui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -63,9 +64,9 @@ public class PreviewRestaurant extends javax.swing.JPanel {
         pnl_awardAndGreenStar = new JPanel(new GridBagLayout());
         lbl_name              = new JLabel(setMaxWidthContent(MAX_WIDTH,     restaurant.getName()));
         lbl_address           = new JLabel(setMaxWidthContent(MAX_WIDTH * 2, restaurant.getAddress()));
-        lbl_rating            = new CustomLabel(OVERALL_RATING + String.valueOf(restaurant.getRating()), FULL_STAR);
-        lbl_award             = new CustomLabel(restaurant.getAward(), FULL_STAR);
-        lbl_greenStar         = new CustomLabel("", restaurant.isGreenStar() ? FULL_STAR : EMPTY_STAR);
+        lbl_rating            = new CustomJLabel(OVERALL_RATING + String.valueOf(restaurant.getRating()), FULL_STAR);
+        lbl_award             = new CustomJLabel(restaurant.getAward(), FULL_STAR);
+        lbl_greenStar         = new CustomJLabel("", restaurant.isGreenStar() ? FULL_STAR : EMPTY_STAR);
         btn_details           = new JLabel(DETAILS);
         lbls                  = new JLabel[] {
             lbl_name,
@@ -165,6 +166,16 @@ public class PreviewRestaurant extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 btn_details_MouseClicked(e);
             }
+            
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                btn_details_MouseEntered(e);
+            }
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                btn_details_MouseExited(e);
+            }
         });
     }
     //</editor-fold>
@@ -196,6 +207,27 @@ public class PreviewRestaurant extends javax.swing.JPanel {
         restaurantGUI = new RestaurantGUI(controller, restaurant);
         controller.getPanelMain().getPanel().add(restaurantGUI, Page.RESTAURANT);
         controller.getPanelMain().showCard(Page.RESTAURANT);
+    }
+    
+    
+    
+    /**
+     * Handles the hover event on the details button {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by hovering to the button
+     */
+    private void btn_details_MouseEntered(java.awt.event.MouseEvent e) {
+        btn_details.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn_details.setBackground(btn_details.getBackground().darker());
+    }
+    
+    /**
+     * Handles the exit hover event on the details button {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by leaving the cursor from the button
+     */
+    private void btn_details_MouseExited(java.awt.event.MouseEvent e) {
+        btn_details.setBackground(BG_DEFAULT);
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
@@ -253,9 +285,9 @@ public class PreviewRestaurant extends javax.swing.JPanel {
     private JPanel             pnl_awardAndGreenStar;
     private JLabel             lbl_name;
     private JLabel             lbl_address;
-    private CustomLabel        lbl_rating;
-    private CustomLabel        lbl_award;
-    private CustomLabel        lbl_greenStar;
+    private CustomJLabel        lbl_rating;
+    private CustomJLabel        lbl_award;
+    private CustomJLabel        lbl_greenStar;
     private JLabel             btn_details;
     private JLabel[]           lbls;
     //</editor-fold>

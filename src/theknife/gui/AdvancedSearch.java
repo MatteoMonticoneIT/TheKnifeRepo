@@ -9,7 +9,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
@@ -79,7 +78,7 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         scrlPnl_filters        = new JScrollPane(pnl_filters,  JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrlPnl_cuisines       = new JScrollPane(pnl_cuisines, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         lbl_title              = new JLabel(TITLE);
-        lbl_stars              = new JLabel[RATINGS];
+        lbl_stars              = new CustomJLabel[RATINGS];
         lbl_prices             = new JLabel[PRICES];
         btn_apply              = new JLabel(APPLY_FILTERS);
         btn_cancel             = new JLabel(CANCEL);
@@ -106,9 +105,9 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         pnl_services  .setBackground(BG_PNL_CHKBXS);
         pnl_services  .setBorder    (PADDING_PANEL_CHKBXS);
         
-        pnl_ratingBar .setBackground(this.getBackground());
+        pnl_ratingBar .setBackground(BG_STAR_LBL);
         
-        pnl_priceBar  .setBackground(this.getBackground());
+        pnl_priceBar  .setBackground(BG_PRICE_LBL);
         
         pnl_btns      .setBackground(this.getBackground());
         
@@ -127,12 +126,12 @@ public final class AdvancedSearch extends javax.swing.JPanel {
             pnl_services.add(chkbx_services[i]);
         }
         
-        scrlPnl_filters .getVerticalScrollBar()      .setUI(new CustomScrollBar());
-        scrlPnl_filters .getHorizontalScrollBar()    .setUI(new CustomScrollBar());
+        scrlPnl_filters .getVerticalScrollBar()      .setUI(new CustomJScrollBar());
+        scrlPnl_filters .getHorizontalScrollBar()    .setUI(new CustomJScrollBar());
         scrlPnl_filters .setBorder                   (BorderFactory.createEmptyBorder());
         
-        scrlPnl_cuisines.getVerticalScrollBar()      .setUI(new CustomScrollBar());
-        scrlPnl_cuisines.getHorizontalScrollBar()    .setUI(new CustomScrollBar());
+        scrlPnl_cuisines.getVerticalScrollBar()      .setUI(new CustomJScrollBar());
+        scrlPnl_cuisines.getHorizontalScrollBar()    .setUI(new CustomJScrollBar());
         scrlPnl_cuisines.setPreferredSize            (new Dimension(0, SCRLPNL_CUISINES_HEIGHT));
         scrlPnl_cuisines.setBorder                   (BorderFactory.createEmptyBorder());
         
@@ -144,10 +143,10 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         lbl_title.setOpaque(true);
         
         for (int i = 0; i < lbl_stars.length; i++) {
-            lbl_stars[i] = new JLabel();
-            lbl_stars[i].setBackground(this.getBackground());
+            lbl_stars[i] = new CustomJLabel("", 'A');
+            lbl_stars[i].setBackground(BG_STAR_LBL);
             lbl_stars[i].setForeground(FG_DEFAULT);
-            lbl_stars[i].setBorder(BorderFactory.createLineBorder(this.getBackground().brighter(), 1));
+            lbl_stars[i].setCharacterColor(BG_STAR_CHAR);
             lbl_stars[i].setHorizontalAlignment(JLabel.CENTER);
             lbl_stars[i].setVerticalAlignment  (JLabel.CENTER);
             lbl_stars[i].setFont(this.getFont());
@@ -156,10 +155,9 @@ public final class AdvancedSearch extends javax.swing.JPanel {
         }
         
         for (int i = 0; i < lbl_prices.length; i++) {
-            lbl_prices[i] = new JLabel();
-            lbl_prices[i].setBackground(this.getBackground());
+            lbl_prices[i] = new JLabel(PRICE_TAGS[i]);
+            lbl_prices[i].setBackground(BG_PRICE_LBL);
             lbl_prices[i].setForeground(FG_DEFAULT);
-            lbl_prices[i].setBorder(BorderFactory.createLineBorder(this.getBackground().brighter(), 1));
             lbl_prices[i].setHorizontalAlignment(JLabel.CENTER);
             lbl_prices[i].setVerticalAlignment  (JLabel.CENTER);
             lbl_prices[i].setFont(this.getFont());
@@ -339,7 +337,20 @@ public final class AdvancedSearch extends javax.swing.JPanel {
             lbl.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent e) {
-                    btn_star_MouseClicked(e);
+                    lbl_star_MouseClicked(e);
+                }
+
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent e) {
+                    lbl_star_MouseExited(e);
+                }
+            
+            });
+            
+            lbl.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+                @Override
+                public void mouseMoved(java.awt.event.MouseEvent e) {
+                    lbl_star_MouseMoved(e);
                 }
             });
         }
@@ -348,7 +359,19 @@ public final class AdvancedSearch extends javax.swing.JPanel {
             lbl.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent e) {
-                    btn_price_MouseClicked(e);
+                    lbl_price_MouseClicked(e);
+                }
+                
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent e) {
+                    lbl_price_MouseExited(e);
+                }
+            });
+            
+            lbl.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+                @Override
+                public void mouseMoved(java.awt.event.MouseEvent e) {
+                    lbl_price_MouseMoved(e);
                 }
             });
         }
@@ -503,14 +526,53 @@ public final class AdvancedSearch extends javax.swing.JPanel {
      * When the label is clicked, it checks if the rating given has a half star or not.
      * </p>
      * 
-     * @param e the mouse event triggered by clicking the button 
+     * @param e the mouse event triggered by clicking the label 
      */
-    private void btn_star_MouseClicked(java.awt.event.MouseEvent e) {
+    private void lbl_star_MouseClicked(java.awt.event.MouseEvent e) {
+        starClicked = true;
         for (int i = 0; i < lbl_stars.length; i++) {
             if (lbl_stars[i].equals(e.getSource())) {
-                System.out.println(e.getPoint().x <= lbl_stars[0].getWidth() / 2 ? i + 0.5 : i + 1);
+                indexStar = i;
+                lbl_stars[i].setCharacter(e.getX() <= lbl_stars[i].getWidth() / 2 ? 'B' : 'C');
+                starRating = e.getX() <= lbl_stars[i].getWidth() / 2 ? i + 0.5 : i + 1;
                 break;
             }
+            lbl_stars[i].setCharacter('C');
+        }
+    }
+    
+    /**
+     * Handles the hover event on the stars {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by hovering to the label
+     */
+    private void lbl_star_MouseMoved(java.awt.event.MouseEvent e) {
+        for (CustomJLabel lbl : lbl_stars) 
+            lbl.setCharacter('A');
+            
+        for (CustomJLabel lbl : lbl_stars) {
+            if (lbl.equals(e.getSource())) {
+                lbl.setCharacter(e.getX() <= lbl.getWidth() / 2 ? 'B' : 'C');
+                break;
+            }
+            lbl.setCharacter('C');
+        }
+    }
+    
+    /**
+     * Handles the exit hover event on the stars {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by leaving the cursor from the label
+     */
+    private void lbl_star_MouseExited(java.awt.event.MouseEvent e) {
+        for (CustomJLabel lbl : lbl_stars) 
+            lbl.setCharacter('A');
+        
+        if (starClicked) {
+            for (int i = 0; i < indexStar + 1; i++) 
+                lbl_stars[i].setCharacter('C');
+            if (starRating - indexStar == 0.5)
+                lbl_stars[indexStar].setCharacter('B');
         }
     }
     
@@ -520,27 +582,52 @@ public final class AdvancedSearch extends javax.swing.JPanel {
      * When the label is clicked, it process the price interval.
      * </p>
      * 
-     * @param e the mouse event triggered by clicking the button 
+     * @param e the mouse event triggered by clicking the label 
      */
-    private void btn_price_MouseClicked(MouseEvent e) {
+    private void lbl_price_MouseClicked(java.awt.event.MouseEvent e) {
+        prevIndexPrice = indexPrice;
         for (int i = 0; i < lbl_prices.length; i++) {
             if (lbl_prices[i].equals(e.getSource())) {
-                switch (i) {
-                    case 0:
-                        System.out.println("0 - 100");
-                        break;
-                    case 1:
-                        System.out.println("101 - 200");
-                        break;
-                    case 2:
-                        System.out.println("201 - 300");
-                        break;
-                    case 3:
-                        System.out.println("301 - 400");
-                        break;
-                }
+                indexPrice = i;
+                break;
             }
         }
+        if (priceClicked) {
+            if (prevIndexPrice != indexPrice)
+                lbl_prices[prevIndexPrice].setBackground(BG_PRICE_LBL);
+        } else {
+            lbl_prices[indexPrice].setBackground(BG_PRICE_DARKER);
+        }
+        priceClicked = true;
+        System.out.println(lbl_prices[indexPrice].getText());
+    }
+    
+    /**
+     * Handles the hover event on the price {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by hovering to the label
+     */
+    private void lbl_price_MouseMoved(java.awt.event.MouseEvent e) {
+        for (JLabel lbl : lbl_prices) {
+            if (lbl.equals(e.getSource())) {
+                lbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                lbl.setBackground(BG_PRICE_DARKER);
+            }
+        }
+    }
+    
+    /**
+     * Handles the exit hover event on the price {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by leaving the cursor from the label
+     */
+    private void lbl_price_MouseExited(java.awt.event.MouseEvent e) {
+        for (JLabel lbl : lbl_prices) 
+            lbl.setBackground(BG_PRICE_LBL);
+        
+        if (priceClicked)
+            for (int i = 0; i < indexPrice; i++) 
+                lbl_prices[indexPrice].setBackground(BG_PRICE_DARKER);
     }
     //</editor-fold>
     
@@ -579,6 +666,10 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     private final Color              BG_CANCEL_BTN           = new Color(255, 64, 0, 192);
     private final Color              BG_PNL_FILTERS          = new Color(95, 199, 40);
     private final Color              BG_PNL_CHKBXS           = new Color(61, 166, 5);
+    private final Color              BG_STAR_LBL             = new Color(85, 191, 33);
+    private final Color              BG_STAR_CHAR            = new Color(255, 215, 0);
+    private final Color              BG_PRICE_LBL            = new Color(85, 191, 33);
+    private final Color              BG_PRICE_DARKER         = new Color(74, 150, 36);
     private final Border             PADDING_TEXTFIELD       = BorderFactory.createEmptyBorder(0, 10, 0, 10);
     private final Border             PADDING_PANEL_CHKBXS    = BorderFactory.createEmptyBorder(20, 20, 20, 20);
     private final Insets             INSETS                  = new Insets(20, 10, 20, 10);
@@ -586,6 +677,12 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     private final String[]           CHKBX_SERVICE_TXT       = CSV.read(programDataset, "SERVICES").toArray(new String[0]);
     private final String[]           LBL_GUIDE_TXT           = CSV.read(programDataset, "GUIDES"  ).toArray(new String[0]);
     private final String[]           PLACEHOLDER             = new String[]{"Your location"};
+    private final String[]           PRICE_TAGS              = new String[] {
+        "Cheap",
+        "Moderate",
+        "Expensive",
+        "Luxury"
+    };
     private final String             TITLE                   = "Filters";
     private final String             APPLY_FILTERS           = "Apply filters";
     private final String             CANCEL                  = "Cancel";
@@ -612,7 +709,7 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     private JScrollPane        scrlPnl_filters;
     private JScrollPane        scrlPnl_cuisines;
     private JLabel             lbl_title;
-    private JLabel[]           lbl_stars;
+    private CustomJLabel[]     lbl_stars;
     private JLabel[]           lbl_prices;
     private JLabel             btn_apply;
     private JLabel             btn_cancel;
@@ -626,6 +723,12 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final Controller controller;
+    private       boolean    starClicked;
+    private       boolean    priceClicked;
+    private       double     starRating;
+    private       int        indexStar;
+    private       int        indexPrice;
+    private       int        prevIndexPrice;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -158,7 +158,7 @@ public final class Controller {
     private void        initLists           () 
     {
         if (JSON_RESTAURANTS.exists())
-          this.setRestaurants  (JSON.readNodeAsObject(JSON_RESTAURANTS, "restaurants", ListRestaurant.class));
+          this.setRestaurants    (JSON.read(JSON_RESTAURANTS, ListRestaurant.class));
         else if (CSV_RESTAURANTS.exists()) 
         {
           this.setRestaurants(new ListRestaurant());
@@ -193,20 +193,20 @@ public final class Controller {
             this.getRestaurants().getList().add(restaurant);
           }
           FileUtils.create(JSON_RESTAURANTS);
-          JSON.writeToFile(JSON_RESTAURANTS, this);
+          JSON.writeToFile(JSON_RESTAURANTS, this.getRestaurants());
         } 
         else
           LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new CSVFileNotFoundException("Unable to get the restaurant file!"));
 
-        if (JSON_CUSTOMERS.exists())
-          this.setCustomers    (JSON.readNodeAsObject(JSON_CUSTOMERS,     "Customers",     ListCustomer.class));
-        else
-          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the customers file!"));
-            
-        if(JSON_RESTAURATEURS.exists())
-          this.setRestaurateurs(JSON.readNodeAsObject(JSON_RESTAURATEURS, "Restaurateurs", ListRestaurateur.class));
-        else
-          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the restaurateurs file!"));
+//        if (JSON_CUSTOMERS.exists())
+//          this.setCustomers    (JSON.readNodeAsObject(JSON_CUSTOMERS,     "Customers",     ListCustomer.class));
+//        else
+//          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the customers file!"));
+//            
+//        if(JSON_RESTAURATEURS.exists())
+//          this.setRestaurateurs(JSON.readNodeAsObject(JSON_RESTAURATEURS, "Restaurateurs", ListRestaurateur.class));
+//        else
+//          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the restaurateurs file!"));
     }
     
     /**

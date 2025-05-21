@@ -48,8 +48,8 @@ public final class TheKnife extends javax.swing.JFrame
       pnl_main   = new PanelMain ();
       controller = new Controller(pnl_main);
       addFullscreenEvent    ();
-      addWindowClosingEvent ();
       initTheKnife          ();
+      initEvents            ();
     }
     
     /**
@@ -61,8 +61,10 @@ public final class TheKnife extends javax.swing.JFrame
       controller.getPanelMain().showCard(Page.HOME);
     }
 
-
-    private void addWindowClosingEvent ()
+    /**
+     * Sets up event listeners for user interaction.
+     */
+    private void initEvents         ()
     {         
       this.addWindowListener(new WindowAdapter() 
       {
@@ -71,10 +73,16 @@ public final class TheKnife extends javax.swing.JFrame
       });  
     }
     
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Event Listeners">
+    /**
+     * When closing {@code TheKnife} application (from the "X"), all data will be saved.
+     */
     public void WindowClosing() 
     {
-      controller.saveData();
+//      controller.saveData();
     }
+    
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
     /**

@@ -20,7 +20,6 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import simple.file.CSV;
-import simple.file.JSON;
 import theknife.Controller;
 import theknife.obj.AppPaths;
 import theknife.obj.restaurant.Restaurant;
@@ -68,42 +67,54 @@ public class RestaurantGUI extends javax.swing.JPanel
                 1, 
                 controller.getRestaurants().getList().get(restaurant.getId() - 1).getId(),
                 "username test 1", 
-                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
+                "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+                "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+                "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+                "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+                "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+                "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+                "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+                "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+                "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+                "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+                "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+                "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+                "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
                 4)
         );
         controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
                 2, 
                 controller.getRestaurants().getList().get(restaurant.getId() - 1).getId(),
                 "username test 2", 
-                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
+                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm",
                 2.5)
         );
         controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
                 3, 
                 controller.getRestaurants().getList().get(restaurant.getId() - 1).getId(), 
                 "username test 3", 
-                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
+                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm",
                 3.5)
         );
         controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
                 4, 
                 controller.getRestaurants().getList().get(restaurant.getId() - 1).getId(), 
                 "username test 4", 
-                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
+                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm",
                 5)
         );
         controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
                 5, 
                 controller.getRestaurants().getList().get(restaurant.getId() - 1).getId(), 
                 "username test 5", 
-                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
+                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm",
                 1.5)
         );
         controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
                 6, 
                 controller.getRestaurants().getList().get(restaurant.getId() - 1).getId(), 
                 "username test 6", 
-                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm", 
+                "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm",
                 2)
         );
         initFields();
@@ -137,10 +148,10 @@ public class RestaurantGUI extends javax.swing.JPanel
         lbl_longitude         = new JLabel(String.valueOf(restaurant.getLongitude()));
         lbl_url               = new JLabel(restaurant.getUrl());
         lbl_webUrl            = new JLabel(restaurant.getWebsiteUrl());
-        lbl_award             = new CustomLabel(restaurant.getAward(), FULL_STAR);
-        lbl_greenStar         = new CustomLabel("", restaurant.isGreenStar() ? FULL_STAR : EMPTY_STAR);
+        lbl_award             = new CustomJLabel(restaurant.getAward(), FULL_STAR);
+        lbl_greenStar         = new CustomJLabel("", restaurant.isGreenStar() ? FULL_STAR : EMPTY_STAR);
         lbl_services          = new JLabel(wrapTextHTML(restaurant.getServicesAvailable()));
-        lbl_rating            = new CustomLabel("Overall rating: " + String.valueOf(restaurant.getRating()), FULL_STAR);
+        lbl_rating            = new CustomJLabel("Overall rating: " + String.valueOf(restaurant.getRating()), FULL_STAR);
         lbls                  = new JLabel[] 
         {
             lbl_name,
@@ -231,13 +242,13 @@ public class RestaurantGUI extends javax.swing.JPanel
         
         scrlPnl_description.setBackground                 (BG_DEFAULT);
         scrlPnl_description.setBorder                     (BORDER_PNL);
-        scrlPnl_description.getVerticalScrollBar()  .setUI(new CustomScrollBar());
-        scrlPnl_description.getHorizontalScrollBar().setUI(new CustomScrollBar());
+        scrlPnl_description.getVerticalScrollBar()  .setUI(new CustomJScrollBar());
+        scrlPnl_description.getHorizontalScrollBar().setUI(new CustomJScrollBar());
         
         scrlPnl_reviews.setBackground                 (BG_DEFAULT);
         scrlPnl_reviews.setBorder                     (BORDER_PNL);
-        scrlPnl_reviews.getVerticalScrollBar()  .setUI(new CustomScrollBar());
-        scrlPnl_reviews.getHorizontalScrollBar().setUI(new CustomScrollBar());
+        scrlPnl_reviews.getVerticalScrollBar()  .setUI(new CustomJScrollBar());
+        scrlPnl_reviews.getHorizontalScrollBar().setUI(new CustomJScrollBar());
         
         txt_description.setBackground   (BG_DEFAULT);
         txt_description.setBorder       (PADDING_TXT);
@@ -595,10 +606,10 @@ public class RestaurantGUI extends javax.swing.JPanel
     private JLabel             lbl_longitude;
     private JLabel             lbl_url;
     private JLabel             lbl_webUrl;
-    private CustomLabel        lbl_award;
-    private CustomLabel        lbl_greenStar;
+    private CustomJLabel        lbl_award;
+    private CustomJLabel        lbl_greenStar;
     private JLabel             lbl_services;
-    private CustomLabel        lbl_rating;
+    private CustomJLabel        lbl_rating;
     private JLabel[]           lbls;
     private JLabel[]           lbls_leftSection;
     private JLabel[]           lbls_section;

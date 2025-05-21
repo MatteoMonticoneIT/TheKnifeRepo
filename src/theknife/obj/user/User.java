@@ -2,7 +2,6 @@ package theknife.obj.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.LocalDate;
 import simple.util.StringUtils;
 
 /**
@@ -72,7 +71,7 @@ public class User {
      * The user's birthDate.
      */
     @JsonProperty("birthDate")
-    private LocalDate birthDate;
+    private String birthDate;
     
     /**
      * The user's address.
@@ -110,13 +109,13 @@ public class User {
      * @param email the user's email
      * @param password the user's password
      */
-    public User(int id, String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password) 
+    public User(int id, String firstName, String lastName, String birthDate, String address, String username, String email, String password) 
     {
         this(firstName, lastName, birthDate, address, username, email, password);
         this.setId(id);    
     }
     
-    public User(String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password)
+    public User(String firstName, String lastName, String birthDate, String address, String username, String email, String password)
     {
         this.setFirstNameNormalized(StringUtils.normalize(this.getFirstName()));
         this.setLastName(lastName);
@@ -223,7 +222,7 @@ public class User {
      *
      * @return the user's birthDate
      */
-    public final LocalDate getBirthDate() {
+    public final String getBirthDate() {
         return birthDate;
     }
     
@@ -232,7 +231,7 @@ public class User {
      *
      * @param birthDate the new birthDate to set
      */
-    public final void setBirthDate(LocalDate birthDate) {
+    public final void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
     

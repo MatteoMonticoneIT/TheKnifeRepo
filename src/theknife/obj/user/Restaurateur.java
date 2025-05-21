@@ -61,13 +61,13 @@ public final class Restaurateur extends User {
      * @param password the restaurateur's password
      * @param listRestaurant the list of restaurants managed by the restaurateur
      */
-    public Restaurateur(int id, String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password, ListRestaurant listRestaurant) {
+    public Restaurateur(int id, String firstName, String lastName, String birthDate, String address, String username, String email, String password, ListRestaurant listRestaurant) {
         this(firstName, lastName, birthDate, address, username, email, password);
         this.setListRestaurant(listRestaurant);
         this.setId(id);
     }
     
-    public Restaurateur(String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password) 
+    public Restaurateur(String firstName, String lastName, String birthDate, String address, String username, String email, String password) 
     {
         super(firstName, lastName, birthDate, address, username, email, password);
         super.setRole("restaurateur");

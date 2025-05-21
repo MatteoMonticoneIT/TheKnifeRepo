@@ -11,6 +11,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayer;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import theknife.Controller;
@@ -68,12 +69,13 @@ public final class ReviewGUI extends javax.swing.JPanel {
         pnl_btn_addResponse      = new JPanel(new BorderLayout());
         pnl_btn_back             = new JPanel(new BorderLayout());
         lbl_usernameReview       = new JLabel(review.getUsername());
-        lbl_rating               = new CustomLabel(String.valueOf(review.getRating()), FULL_STAR);
+        lbl_rating               = new CustomJLabel(String.valueOf(review.getRating()), FULL_STAR);
         txt_reviewContent        = new JTextArea(review.getContent());
         lbls                     = new JLabel[] {
             lbl_usernameReview,
             lbl_rating
         };
+        scrlPnl_reviewContent    = new JScrollPane(txt_reviewContent, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         btn_addResponse          = new JLabel     (ADD_RESPONSE);
         btn_back                 = new JLabel     (BACK);
         btn_addResponseRounded   = new JLayer<>   (btn_addResponse, BTN_LAYERUI);
@@ -88,8 +90,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
         this.setBackground(bg);
         this.setLayout(new BorderLayout());
         
-        pnl_usernameRatingReview.setBackground(bg);
-        pnl_usernameRatingReview.setBorder(BORDER_NORTH_PNL);
+        pnl_usernameRatingReview.setBackground(this.getBackground());
         pnl_usernameRatingReview.setPreferredSize(new Dimension(0, NORTH_CONTENT_HEIGHT));
         
         pnl_btns.setBackground(BG_PNL_BTNS);
@@ -99,7 +100,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
         pnl_btn_back       .setBackground(pnl_btns.getBackground());
         
         for (JLabel lbl : lbls) {
-            lbl.setBackground(bg);
+            lbl.setBackground(this.getBackground());
             lbl.setForeground(FG_DEFAULT);
             lbl.setHorizontalAlignment  (JLabel.LEFT);
             lbl.setVerticalAlignment    (JLabel.CENTER);
@@ -112,7 +113,12 @@ public final class ReviewGUI extends javax.swing.JPanel {
         lbl_rating.setCharacterSpacing(15);
         lbl_rating.setCustomFontSize(50f);
         
-        txt_reviewContent.setBackground   (bg);
+        scrlPnl_reviewContent.setBackground                 (this.getBackground());
+        scrlPnl_reviewContent.setBorder                     (BORDER_PNL);
+        scrlPnl_reviewContent.getVerticalScrollBar()  .setUI(new CustomJScrollBar());
+        scrlPnl_reviewContent.getHorizontalScrollBar().setUI(new CustomJScrollBar());
+        
+        txt_reviewContent.setBackground   (this.getBackground());
         txt_reviewContent.setBorder       (PADDING_TXT);
         txt_reviewContent.setLineWrap     (true);
         txt_reviewContent.setWrapStyleWord(true);
@@ -143,10 +149,9 @@ public final class ReviewGUI extends javax.swing.JPanel {
         pnl_btns.add(pnl_btn_addResponse, BorderLayout.CENTER);
         pnl_btns.add(pnl_btn_back,        BorderLayout.EAST);
         
-        
         this.add(pnl_usernameRatingReview, BorderLayout.NORTH);
+        this.add(scrlPnl_reviewContent,    BorderLayout.CENTER);
         this.add(pnl_btns,                 BorderLayout.SOUTH);
-        
     }
     
     /**
@@ -305,7 +310,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
     private final Color              BG_PNL_BTNS               = new Color(94, 168, 69);
     private final Border             PADDING_LBL               = BorderFactory.createEmptyBorder(5, 5, 5, 5);
     private final Border             PADDING_TXT               = BorderFactory.createEmptyBorder(3, 3, 3, 3);
-    private final Border             BORDER_NORTH_PNL          = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK);
+    private final Border             BORDER_PNL                = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
     private final String             ADD_RESPONSE              = "Add response";
     private final String             BACK                      = "Back";
     private final char               FULL_STAR                 = 'C';
@@ -320,8 +325,9 @@ public final class ReviewGUI extends javax.swing.JPanel {
     private JPanel             pnl_btns;
     private JPanel             pnl_btn_addResponse;
     private JPanel             pnl_btn_back;
+    private JScrollPane        scrlPnl_reviewContent;
     private JLabel             lbl_usernameReview;
-    private CustomLabel        lbl_rating;
+    private CustomJLabel        lbl_rating;
     private JTextArea          txt_reviewContent;
     private JLabel[]           lbls;
     private JLabel             btn_addResponse;

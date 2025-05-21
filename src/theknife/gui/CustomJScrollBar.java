@@ -9,7 +9,7 @@ import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 /**
- * CustomScrollBar is a subclass of {@link BasicScrollBarUI} that customizes the appearance
+ * CustomJScrollBar is a subclass of {@link BasicScrollBarUI} that customizes the appearance
  * of a Swing scrollbar. It overrides the painting of the thumb and track, and removes
  * the default increase and decrease buttons.
  * <p>
@@ -27,7 +27,7 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class CustomScrollBar extends BasicScrollBarUI 
+public final class CustomJScrollBar extends BasicScrollBarUI 
 {
     //<editor-fold defaultstate="collapsed" desc="Methods">
     /**

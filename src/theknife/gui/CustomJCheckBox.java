@@ -15,7 +15,7 @@ import simple.logging.LoggerUtils;
 import theknife.obj.AppPaths;
 
 /**
- * {@code CustomCheckBox} is a subclass of {@link JCheckBox} that displays a custom character using a personalized font instead of the default checkbox appearance.
+ * {@code CustomJCheckBox} is a subclass of {@link JCheckBox} that displays a custom character using a personalized font instead of the default checkbox appearance.
  * <p>
  * This component is typically used to represent symbolic states, such as toggling password visibility, with a glyph rendered in place of the traditional checkmark.
  * </p>
@@ -28,7 +28,7 @@ import theknife.obj.AppPaths;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class CustomCheckBox extends JCheckBox {
+public final class CustomJCheckBox extends JCheckBox {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private Font customFont;
@@ -36,10 +36,10 @@ public final class CustomCheckBox extends JCheckBox {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
-     * Constructs a new {@code CustomCheckBox} with default character and font.
+     * Constructs a new {@code CustomJCheckBox} with default character and font.
      * Attempts to load the custom font from application resources.
      */
-    public CustomCheckBox() {
+    public CustomJCheckBox() {
         try {
             File fontFile = AppPaths.getDataFile("img", "Password.ttf");
             this.setCustomFont(Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(24f));

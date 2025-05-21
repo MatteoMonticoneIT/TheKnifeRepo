@@ -63,14 +63,14 @@ public final class Customer extends User {
      * @param listFavorite the list of favorite restaurants for the customer
      */
     
-    public Customer(int id, ListFavorite listFavorite, String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password) 
+    public Customer(int id, ListFavorite listFavorite, String firstName, String lastName, String birthDate, String address, String username, String email, String password) 
     {
         this                    (firstName, lastName, birthDate, address, username, email, password);
         this.setListFavorite    (listFavorite);
         this.setId              (id);
     }
     
-    public Customer(String firstName, String lastName, LocalDate birthDate, String address, String username, String email, String password) 
+    public Customer(String firstName, String lastName, String birthDate, String address, String username, String email, String password) 
     {
         super           (firstName, lastName, birthDate, address, username, email, password);
         this.setRole    ("customer");

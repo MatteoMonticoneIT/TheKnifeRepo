@@ -80,7 +80,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
         txt_email             = new JTextField(PLACEHOLDER[4]);
         txt_username          = new JTextField(PLACEHOLDER[5]);
         txt_password          = new JPasswordField(PLACEHOLDER[6]);
-        chkbx_seePassword     = new CustomCheckBox();
+        chkbx_seePassword     = new CustomJCheckBox();
         txt_firstNameRounded  = new JLayer<>(txt_firstName, TXT_LAYER_UI);
         txt_lastNameRounded   = new JLayer<>(txt_lastName,  TXT_LAYER_UI);
         txt_birthDateRounded  = new JLayer<>(txt_birthDate,  TXT_LAYER_UI);
@@ -669,7 +669,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
       {
         Restaurateur restaurateur = new Restaurateur(txt_firstName.getText(),
                                                      txt_lastName .getText(),
-                                     LocalDate.parse(txt_birthDate.getText()),
+                                                     txt_birthDate.getText(),
                                                      txt_location .getText(),
                                                      txt_username .getText(),
                                                      txt_email    .getText(),
@@ -817,7 +817,7 @@ public class RegisterRestaurateur extends javax.swing.JPanel {
     private       JTextField         txt_email;
     private       JTextField         txt_username;
     private       JPasswordField     txt_password;
-    private       CustomCheckBox     chkbx_seePassword;
+    private       CustomJCheckBox     chkbx_seePassword;
     private       JLayer<JComponent> txt_firstNameRounded;
     private       JLayer<JComponent> txt_lastNameRounded;
     private       JLayer<JComponent> txt_birthDateRounded;

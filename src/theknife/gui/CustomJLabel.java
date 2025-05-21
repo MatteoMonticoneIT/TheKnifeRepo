@@ -16,7 +16,7 @@ import simple.logging.LoggerUtils;
 import theknife.obj.AppPaths;
 
 /**
- * {@code CustomLabel} is a subclass of {@link JLabel} that appends a custom symbol rendered using a personalized font to the standard label text.
+ * {@code CustomJLabel} is a subclass of {@link JLabel} that appends a custom symbol rendered using a personalized font to the standard label text.
  * <p>
  * It is useful for scenarios where symbolic icons must be displayed next to standard text without using image icons.
  * </p>
@@ -29,7 +29,7 @@ import theknife.obj.AppPaths;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class CustomLabel extends JLabel {
+public final class CustomJLabel extends JLabel {
     
     //<editor-fold defaultstate="collapsed" desc="Consts">
     private final int DEFAULT_SPACING = 4;
@@ -42,12 +42,12 @@ public final class CustomLabel extends JLabel {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
-     * Constructs a new {@code CustomLabel} with default character and font.
+     * Constructs a new {@code CustomJLabel} with default character and font.
      * Attempts to load the custom font from application resources.
      * @param text - the text in the {@link JLabel}
      * @param character - the {@code char} used to display a certain caracter within the ttf file
      */
-    public CustomLabel(String text, char character) {
+    public CustomJLabel(String text, char character) {
         super(text);
         this.setCharacter(character);
         this.setCharacterSpacing(DEFAULT_SPACING);
