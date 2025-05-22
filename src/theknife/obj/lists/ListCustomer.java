@@ -51,13 +51,13 @@ public final class ListCustomer extends AbstractListWrapper<Customer>
      * @return {@code true} if a client with the given username and password is found,
      *         {@code false} otherwise
      */
-    public boolean checkUser(String username, String password)
+    public Customer checkUser(String username, String password)
     {
       for(Customer user : super.getList())
         if(user.getUsername().equals(username) && user.getPassword().equals(password))
-          return true;
+          return user;
       
-      return false;
+      return null;
     }
     
     /**

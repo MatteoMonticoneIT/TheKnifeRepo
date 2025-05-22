@@ -50,13 +50,13 @@ public final class ListRestaurateur extends AbstractListWrapper<Restaurateur>
      * @return {@code true} if a restaurateur with the given username and password is found,
      *         {@code false} otherwise
      */
-    public boolean checkUser(String username, String password)
+    public Restaurateur checkUser(String username, String password)
     {
       for(Restaurateur user : super.getList())
         if(user.getUsername().equals(username) && user.getPassword().equals(password))
-          return true;
+          return user;
         
-      return false;
+      return null;
     }
     
     /**

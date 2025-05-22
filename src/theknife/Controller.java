@@ -32,6 +32,7 @@ import theknife.obj.lists.ListRestaurateur;
 import theknife.obj.restaurant.Restaurant;
 import theknife.obj.user.Customer;
 import theknife.obj.user.Restaurateur;
+import theknife.obj.user.User;
 
 /**
  * @author Damiano De Mutiis    761348 (CO)
@@ -69,6 +70,11 @@ public final class Controller
     private static final File CSV_RESTAURANTS       = AppPaths.getDataFile("data", "restaurants.csv");
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    
+    /**
+     * The {@link User} who log in (either Restaurateur or Customer)
+     */
+    private User             loggedUser;
     /**
      * The list of {@link Restaurant}.
      */
@@ -377,16 +383,18 @@ public final class Controller
     
     public final boolean     LoginClient         (String user, String password)
     {
-      return  InputPattern   .match    (InputPattern.USERNAME, user)     &&
-              InputPattern   .match    (InputPattern.PASSWORD, password) &&
-              customers      .checkUser(user,                  password);   
+      if(InputPattern   .match    (InputPattern.USERNAME, user)     &&
+         InputPattern   .match    (InputPattern.PASSWORD, password))
+        loggedUser = customers      .checkUser(user, password);
+      return loggedUser!=null;       
     }
     
     public final boolean     LoginRestaurateur   (String user, String password)
     {
-      return  InputPattern   .match      (InputPattern.USERNAME, user)     &&
-              InputPattern   .match      (InputPattern.PASSWORD, password) &&
-              restaurateurs  .checkUser  (user,                  password);    
+      if(InputPattern   .match      (InputPattern.USERNAME, user)     &&
+         InputPattern   .match      (InputPattern.PASSWORD, password))
+        loggedUser = restaurateurs  .checkUser(user, password); 
+      return loggedUser!=null;
     }
     
     public final boolean     RegisterClient      (Customer customer)
@@ -423,9 +431,23 @@ public final class Controller
       home.list_restaurants_searchRestaurants (restaurant);
     }
     
-    public final void        viewUserList        (String username, String role)
+    public final void        viewUserList        ()
     {
-      home.list_restaurants_viewUserList      (username, role);
+      List<Restaurant>  restaurants;
+      Customer          customers;
+      Restaurateur      restaurateurs;
+      
+      if(loggedUser instanceof Customer)
+      {
+        customers       = (Customer)    loggedUser;
+        restaurants     = customers     .getListFavorite()  .getList();
+      }
+      else
+      {
+        restaurateurs   = (Restaurateur)loggedUser;
+        restaurants     = restaurateurs .getListRestaurant().getList();
+      }
+      home.list_restaurants_viewUserList      (restaurants, loggedUser.getRole());
     }
     
     public final void        advancedSearch      (Double rating, String city, boolean[] cuisines, boolean[] services)

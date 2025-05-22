@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
@@ -104,8 +105,9 @@ public final class Home extends javax.swing.JPanel
       this.setLayout(new BorderLayout());
       
       //pnl_restaurants.setBackground(this.getBackground().darker());
-      pnl_home       .setBackground(this.getBackground());
-        
+      pnl_home          .setBackground(this.getBackground());            
+      list_restaurants  .setBackground(BG_RESTAURANT_PNL_ODD);  
+      
       scrlPnl_restaurants.getVerticalScrollBar()      .setUI(new CustomJScrollBar());
       scrlPnl_restaurants.getHorizontalScrollBar()    .setUI(new CustomJScrollBar());
       scrlPnl_restaurants.setBorder                   (PADDING_SCROLLPANE);
@@ -201,34 +203,18 @@ public final class Home extends javax.swing.JPanel
     
     /**
      * Let the user see his list(Favorite or Owned Restaurants)
-     * @param username
-     * @param role 
+     * @param restaurants gets user list
+     * @param role gets user role
      */
-    public void list_restaurants_viewUserList(String username, String role)
+    public void list_restaurants_viewUserList(List<Restaurant> restaurants, String role)
     {      
       listModel.clear();
       
-      if(role.equals("customer"))  
-      {
-        for(Customer customer : controller.getCustomers().getList()) 
-          if(customer.getUsername().equals(username))
-          {
-            for(Restaurant restaurant : customer.getListFavorite().getList())
-              listModel.addElement(restaurant);
-            lbl_title.setText("Favorite Restaurant");
-            break;
-          }      
-      } 
-      else
-        for(Restaurateur restaurateur : controller.getRestaurateurs().getList()) 
-          if(restaurateur.getUsername().equals(username))
-          {
-            for(Restaurant restaurant : restaurateur.getListRestaurant().getList())
-              listModel.addElement(restaurant);
-            lbl_title.setText("Owned Restaurant");
-            break;
-          }
-      
+      for(Restaurant restaurant : restaurants)
+        listModel.addElement(restaurant);
+  
+      lbl_title.setText(role.equals("customer") ? "Favorite Restaurant":"Owned Restaurant");
+  
       list_restaurants.setModel(listModel);
     }
     //</editor-fold>

@@ -44,7 +44,7 @@ public final class CustomJLabel extends JLabel {
     /**
      * Constructs a new {@code CustomJLabel} with default character and font.
      * @param text - the text in the {@link JLabel}
-     * @param character - the {@code char} used to display a certain caracter within the ttf file
+     * @param character - the {@code char} used to display a certain character within the ttf file
      */
     public CustomJLabel(String text, char character) 
     {

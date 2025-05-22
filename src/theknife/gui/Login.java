@@ -121,7 +121,7 @@ public final class Login extends javax.swing.JPanel
       txt_password                  .setEchoChar                ((char) 0);
 
       chkbx_seePassword             .setSelected                (true);
-      chkbx_seePassword             .setCharacter(EYE_OFF);
+      chkbx_seePassword             .setCharacter               (EYE_OFF);
       
       btn_login                     .setBackground              (BG_LOGIN_BTN);
       btn_login                     .setForeground              (FG_DEFAULT);

@@ -158,6 +158,7 @@ public final class AdvancedSearch extends javax.swing.JPanel
         lbl_stars[i].setHorizontalAlignment (JLabel.CENTER);
         lbl_stars[i].setVerticalAlignment   (JLabel.CENTER);
         lbl_stars[i].setFont                (this.getFont());
+        lbl_stars[i].setCustomFontSize      (64f);
         lbl_stars[i].setOpaque              (true);
         pnl_ratingBar.add                   (lbl_stars[i]);
       }
