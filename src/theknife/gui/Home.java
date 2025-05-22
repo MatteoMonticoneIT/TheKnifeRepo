@@ -20,8 +20,6 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 import theknife.Controller;
 import theknife.obj.restaurant.Restaurant;
-import theknife.obj.user.Customer;
-import theknife.obj.user.Restaurateur;
 
 /**
  * The Home class represents the home screen of the application.
@@ -91,10 +89,11 @@ public final class Home extends javax.swing.JPanel
         }
       }); 
 
-      upperbar              = new Upperbar      (controller);
+      lbl_title             = new JLabel        (TITLE);
+      upperbar              = new Upperbar      (controller, lbl_title);
       pnl_home              = new CustomJPanel  (new GridBagLayout());
       scrlPnl_restaurants   = new JScrollPane   (list_restaurants, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
-      lbl_title             = new JLabel        (TITLE);
+      
     }
     
     /**
@@ -205,16 +204,21 @@ public final class Home extends javax.swing.JPanel
      * @param restaurants gets user list
      * @param role gets user role
      */
-    public void list_restaurants_viewUserList(List<Restaurant> restaurants, String role)
+    public void list_restaurants_viewUserList(List<Integer> restaurants, String role)
     {      
       listModel.clear();
       
-      for(Restaurant restaurant : restaurants)
-        listModel.addElement(restaurant);
+      for(Integer index: restaurants)
+        listModel.addElement(controller.getRestaurants().getList().get(index-1));
   
       lbl_title.setText(role.equals("customer") ? "Favorite Restaurant":"Owned Restaurant");
-  
+      lbl_title.repaint();
       list_restaurants.setModel(listModel);
+    }
+    
+    public void UILoggedUser(String role)
+    {
+      upperbar.changeUI(role);
     }
     //</editor-fold>
     

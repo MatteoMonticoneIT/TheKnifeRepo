@@ -2,7 +2,7 @@ package theknife.obj.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import theknife.obj.lists.ListRestaurant;
+import theknife.obj.lists.ListOwned;
 
 /**
  * Represents a restaurateur user in the system. A restaurateur is a type of {@link User} who manages a list of restaurants.
@@ -26,14 +26,15 @@ import theknife.obj.lists.ListRestaurant;
     "password", 
     "restaurants"
 })
-public final class Restaurateur extends User {
+public final class Restaurateur extends User 
+{
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The list of restaurants managed by the restaurateur.
      */
     @JsonProperty("restaurants")
-    private ListRestaurant listRestaurant = null;
+    private ListOwned listOwned = null;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
@@ -58,18 +59,19 @@ public final class Restaurateur extends User {
      * @param username the restaurateur's username
      * @param email the restaurateur's email
      * @param password the restaurateur's password
-     * @param listRestaurant the list of restaurants managed by the restaurateur
+     * @param listOwned the list of restaurants managed by the restaurateur
      */
-    public Restaurateur(int id, String firstName, String lastName, String birthDate, String address, String username, String email, String password, ListRestaurant listRestaurant) {
-        this(firstName, lastName, birthDate, address, username, email, password);
-        this.setListRestaurant(listRestaurant);
-        this.setId(id);
+    public Restaurateur(int id, String firstName, String lastName, String birthDate, String address, String username, String email, String password, ListOwned listOwned) 
+    {
+      this              (firstName, lastName, birthDate, address, username, email, password);
+      this.setListOwned (listOwned);
+      this.setId        (id);
     }
     
     public Restaurateur(String firstName, String lastName, String birthDate, String address, String username, String email, String password) 
     {
-        super(firstName, lastName, birthDate, address, username, email, password);
-        super.setRole("restaurateur");
+      super         (firstName, lastName, birthDate, address, username, email, password);
+      super.setRole ("restaurateur");
     }
     
     //</editor-fold>
@@ -79,8 +81,9 @@ public final class Restaurateur extends User {
      *
      * @return the list of managed restaurants
      */
-    public final ListRestaurant getListRestaurant() {
-        return listRestaurant;
+    public final ListOwned getListOwned()
+    {
+      return listOwned;
     }
     
     /**
@@ -88,8 +91,9 @@ public final class Restaurateur extends User {
      *
      * @param listRestaurant the new list of restaurants to be managed
      */
-    public final void setListRestaurant(ListRestaurant listRestaurant) {
-        this.listRestaurant = listRestaurant;
+    public final void setListOwned(ListOwned listRestaurant) 
+    {
+      this.listOwned = listRestaurant;
     }
     //</editor-fold>
 }

@@ -37,10 +37,11 @@ public final class Upperbar extends javax.swing.JPanel
      *
      * @param controller the {@link Controller} class that manages the screen layout
      */
-    public Upperbar(Controller controller) 
+    public Upperbar(Controller controller, JLabel lbl_title) 
     {
       initComponents();
       this.controller = controller;
+      this.lbl_title  = lbl_title;
       initGUI       ();
     }
     //</editor-fold>
@@ -84,11 +85,11 @@ public final class Upperbar extends javax.swing.JPanel
       btn_advancedSearch.setBorder(null);
       btn_advancedSearch.setOpaque(true);
         
-      btn_login.setBackground(BG_LOGIN_BTN);
-      btn_login.setHorizontalAlignment(JLabel.CENTER);
-      btn_login.setVerticalAlignment  (JLabel.CENTER);
-      btn_login.setBorder(null);
-      btn_login.setOpaque(true);
+      btn_login.setBackground           (BG_LOGIN_BTN);
+      btn_login.setHorizontalAlignment  (JLabel.CENTER);
+      btn_login.setVerticalAlignment    (JLabel.CENTER);
+      btn_login.setBorder               (null);
+      btn_login.setOpaque               (true);
         
       for (int i = 0; i < pnls_upperbar.length; i++) 
       {
@@ -186,7 +187,8 @@ public final class Upperbar extends javax.swing.JPanel
      * 
      * @param e the component event triggered by resizing the GUI application
      */
-    private void upperbar_ComponentResized(java.awt.event.ComponentEvent e) {
+    private void upperbar_ComponentResized(java.awt.event.ComponentEvent e) 
+    {
         int[] padding = {(int) (pnls_upperbar[1].getWidth() * 0.1), (int) (pnls_upperbar[1].getHeight() * 0.2)};
         pnls_upperbar[1].setBorder(BorderFactory.createEmptyBorder(padding[1], padding[0], padding[1], padding[0]));
         
@@ -202,9 +204,10 @@ public final class Upperbar extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_advancedSearch_MouseClicked(java.awt.event.MouseEvent e) {
-        txt_searchbar.setText("");
-        controller.getPanelMain().showCard(Page.ADVANCED_SEARCH);
+    private void btn_advancedSearch_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      txt_searchbar.setText("");
+      controller   .getPanelMain().showCard(Page.ADVANCED_SEARCH);
     }
     
     /**
@@ -212,9 +215,10 @@ public final class Upperbar extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by hovering to the button.
      */
-    private void btn_advancedSearch_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_advancedSearch.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn_advancedSearch.setBackground(btn_advancedSearch.getBackground().darker());
+    private void btn_advancedSearch_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_advancedSearch.setCursor      (new Cursor(Cursor.HAND_CURSOR));
+      btn_advancedSearch.setBackground  (btn_advancedSearch.getBackground().darker());
     }
     
     /**
@@ -222,8 +226,9 @@ public final class Upperbar extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_advancedSearch_MouseExited(java.awt.event.MouseEvent e) {
-        btn_advancedSearch.setBackground(BG_ADVANCED_SEARCH_BTN);
+    private void btn_advancedSearch_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_advancedSearch.setBackground(BG_ADVANCED_SEARCH_BTN);
     }
     
     /**
@@ -234,9 +239,18 @@ public final class Upperbar extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_login_MouseClicked(java.awt.event.MouseEvent e) {
-        txt_searchbar.setText("");
+    private void btn_login_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      txt_searchbar.setText("");
+      
+      if(btn_login.getText().equals("Login"))
         controller.getPanelMain().showCard(Page.LOGIN);
+      else
+      {
+        //revertUI();
+        //controller.logout();
+        controller.viewUserList();
+      }
     }
     
     /**
@@ -244,9 +258,10 @@ public final class Upperbar extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by hovering to the button.
      */
-    private void btn_login_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_login.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn_login.setBackground(btn_login.getBackground().darker());
+    private void btn_login_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_login.setCursor     (new Cursor(Cursor.HAND_CURSOR));
+      btn_login.setBackground (btn_login.getBackground().darker());
     }
     
     /**
@@ -254,8 +269,9 @@ public final class Upperbar extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_login_MouseExited(java.awt.event.MouseEvent e) {
-        btn_login.setBackground(BG_LOGIN_BTN);
+    private void btn_login_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_login.setBackground(BG_LOGIN_BTN);
     }
     
     /**
@@ -266,9 +282,10 @@ public final class Upperbar extends javax.swing.JPanel
      * 
      * @param e the key event triggered by typing on the {@link JTextField}
      */
-    private void txt_searchbar_KeyTyped(java.awt.event.KeyEvent e) {
-        if (txt_searchbar.getText().length() >= MAX_SEARCHBAR_LENGTH)
-            e.consume();
+    private void txt_searchbar_KeyTyped(java.awt.event.KeyEvent e) 
+    {
+      if(txt_searchbar.getText().length() >= MAX_SEARCHBAR_LENGTH)
+        e.consume();
     }
     
     /**
@@ -276,11 +293,13 @@ public final class Upperbar extends javax.swing.JPanel
      * 
      * @param e the key event triggered by pressing some keys  
      */
-    private void txt_searchbar_KeyPressed(java.awt.event.KeyEvent e) {
-        if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A) {
-            txt_searchbar.selectAll();
-            ctrlA_pressed = true;
-        }
+    private void txt_searchbar_KeyPressed(java.awt.event.KeyEvent e) 
+    {
+      if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A) 
+      {
+        txt_searchbar.selectAll();
+        ctrlA_pressed = true;
+      }
     }
     
     /**
@@ -304,10 +323,23 @@ public final class Upperbar extends javax.swing.JPanel
         ctrlA_pressed = false;
       }
         
+      lbl_title .setText         (txt_searchbar.getText().isEmpty() ? "All Restaurants":"Searching...");
       controller.searchRestaurant(txt_searchbar.getText());
+      
     }
     //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    public void changeUI(String role)
+    {
+      btn_login.setText("Logout");
+    }
+    
+    private void revertUI()
+    {
+      btn_login.setText("Login");
+    }
+    //</editor-fold>
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -351,6 +383,7 @@ public final class Upperbar extends javax.swing.JPanel
     private       JTextField         txt_searchbar;
     private       JLabel             btn_advancedSearch;
     private       JLabel             btn_login;
+    private final JLabel             lbl_title;
     private       JLayer<JComponent> txt_searchbarRounded;
     private       JLayer<JComponent> btn_advancedSearchRounded;
     private       JLayer<JComponent> pnl_searchbarRounded;
