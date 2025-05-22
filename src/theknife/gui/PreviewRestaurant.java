@@ -26,7 +26,8 @@ import theknife.obj.restaurant.Restaurant;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public class PreviewRestaurant extends javax.swing.JPanel {
+public class PreviewRestaurant extends javax.swing.JPanel 
+{
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
@@ -36,124 +37,127 @@ public class PreviewRestaurant extends javax.swing.JPanel {
      * </p>
      *
      * @param controller the {@link Controller} class that manages the screen layout
-     * @param restaurant the {@link Restaurant} to set for the GUI preview
-     * @param bg the background {@link Color} of the preview of the restaurant
      */
-    public PreviewRestaurant(Controller controller, Restaurant restaurant, Color bg) {
-        initComponents();
-        this.controller = controller;
-        this.restaurant = restaurant;
-        this.bg = bg;
-        initGUI();
+    public PreviewRestaurant(Controller controller) 
+    {
+      initComponents();
+      this.controller = controller;
+      initGUI();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Initializes the graphical user interface (GUI) for the {@code PreviewRestaurant} page.
      */
-    private void initGUI() {
-        initFields();
-        initPreviewRestaurant();
-        initEvents();
+    private void initGUI() 
+    {
+      initFields           ();
+      initPreviewRestaurant();
+      initEvents           ();
     }
     
     /**
      * Initializes the basic fields of the {@code PreviewRestaurant} panel.
      */
-    private void initFields() {
-        pnl_awardAndGreenStar = new JPanel(new GridBagLayout());
-        lbl_name              = new JLabel(setMaxWidthContent(MAX_WIDTH,     restaurant.getName()));
-        lbl_address           = new JLabel(setMaxWidthContent(MAX_WIDTH * 2, restaurant.getAddress()));
-        lbl_rating            = new CustomJLabel(OVERALL_RATING + String.valueOf(restaurant.getRating()), FULL_STAR);
-        lbl_award             = new CustomJLabel(restaurant.getAward(), FULL_STAR);
-        lbl_greenStar         = new CustomJLabel("", restaurant.isGreenStar() ? FULL_STAR : EMPTY_STAR);
-        btn_details           = new JLabel(DETAILS);
-        lbls                  = new JLabel[] {
-            lbl_name,
-            lbl_address,
-            lbl_rating,
-            lbl_award,
-            lbl_greenStar,
-            btn_details
-        };
+    private void initFields() 
+    {
+      pnl_awardAndGreenStar = new JPanel(new GridBagLayout());
+      lbl_name              = new JLabel(setMaxWidthContent(MAX_WIDTH, ""));
+      lbl_address           = new JLabel(setMaxWidthContent(MAX_WIDTH * 2, ""));
+      lbl_rating            = new CustomJLabel();
+      lbl_award             = new CustomJLabel();
+      lbl_greenStar         = new CustomJLabel();
+      btn_details           = new JLabel(DETAILS);
+      lbls                  = new JLabel[] 
+      {
+        lbl_name,
+        lbl_address,
+        lbl_rating,
+        lbl_award,
+        lbl_greenStar,
+        btn_details
+      };
     }
     
     /**
      * Initializes the layout and appearance of the home page.
      */
-    private void initPreviewRestaurant() {
-        this.setBackground(bg);
-        this.setLayout(new GridBagLayout());
+    private void initPreviewRestaurant()
+    {
+      this.setBackground(bg);
+      this.setLayout    (new GridBagLayout());
         
-        pnl_awardAndGreenStar.setOpaque(false);
+      pnl_awardAndGreenStar.setOpaque(false);
         
-        for (JLabel lbl : lbls) {
-            lbl.setBackground(BG_DEFAULT);
-            lbl.setForeground(FG_DEFAULT);
-            lbl.setHorizontalAlignment(JLabel.CENTER);
-            lbl.setVerticalAlignment(JLabel.CENTER);
-            lbl.setFont(this.getFont());
-            lbl.setOpaque(true);
-        }
+      for(JLabel lbl : lbls) 
+      {
+        lbl.setBackground(BG_DEFAULT);
+        lbl.setForeground(FG_DEFAULT);
+        lbl.setHorizontalAlignment(JLabel.CENTER);
+        lbl.setVerticalAlignment(JLabel.CENTER);
+        lbl.setFont(this.getFont());
+        lbl.setOpaque(true);
+      }
         
-        lbl_rating.setHorizontalTextPosition(JLabel.LEFT);
-        lbl_rating.setIconTextGap(ICON_GAP);
-        lbl_rating.setCharacterColor(STAR_BG_DEFAULT);
-        lbl_rating.setCharacterSpacing(8);
+      lbl_rating.setHorizontalTextPosition(JLabel.LEFT);
+      lbl_rating.setIconTextGap(ICON_GAP);
+      lbl_rating.setCharacterColor(STAR_BG_DEFAULT);
+      lbl_rating.setCharacterSpacing(8);
+       
+      lbl_award.setHorizontalTextPosition(JLabel.LEFT);
+      lbl_award.setIconTextGap(ICON_GAP);
+      lbl_award.setCharacterColor(STAR_BG_DEFAULT);
         
-        lbl_award.setHorizontalTextPosition(JLabel.LEFT);
-        lbl_award.setIconTextGap(ICON_GAP);
-        lbl_award.setCharacterColor(STAR_BG_DEFAULT);
+      lbl_greenStar.setHorizontalTextPosition(JLabel.LEFT);
+      lbl_greenStar.setIconTextGap(ICON_GAP);
         
-        lbl_greenStar.setHorizontalTextPosition(JLabel.LEFT);
-        lbl_greenStar.setIconTextGap(ICON_GAP);
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.gridx      = 0;
+      gbc.gridy      = 0;
+      gbc.ipadx      = 10;
+      gbc.ipady      = 10;
+      gbc.gridwidth  = 1;
+      gbc.gridheight = 2;
+      gbc.insets     = INSETS;
+      gbc.fill       = GridBagConstraints.BOTH;
+      this.add(lbl_name, gbc);
+       
+      gbc.gridx++;
+      gbc.gridwidth++;
+      gbc.gridheight--;
+      this.add(lbl_address, gbc);
         
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx      = 0;
-        gbc.gridy      = 0;
-        gbc.ipadx      = 10;
-        gbc.ipady      = 10;
-        gbc.gridwidth  = 1;
-        gbc.gridheight = 2;
-        gbc.insets     = INSETS;
-        gbc.fill       = GridBagConstraints.BOTH;
-        this.add(lbl_name, gbc);
+      gbc.gridy++;
+      this.add(lbl_rating, gbc);
+       
+      gbc.gridy++;
+      gbc.gridx--;
+      gbc.gridwidth--;
+      this.add(btn_details, gbc);
         
-        gbc.gridx++;
-        gbc.gridwidth++;
-        gbc.gridheight--;
-        this.add(lbl_address, gbc);
+      GridBagConstraints gbc1 = new GridBagConstraints();
+      gbc1.gridx     = 0;
+      gbc1.gridy     = 0;
+      gbc1.weightx   = 0.45;
+      gbc1.weighty   = 1;
+      gbc1.insets    = new Insets(0, 0, 0, 5);
+      gbc1.fill      = GridBagConstraints.BOTH;
+      pnl_awardAndGreenStar.add(lbl_award, gbc1);
         
-        gbc.gridy++;
-        this.add(lbl_rating, gbc);
-        
-        gbc.gridy++;
-        gbc.gridx--;
-        gbc.gridwidth--;
-        this.add(btn_details, gbc);
-        
-        GridBagConstraints gbc1 = new GridBagConstraints();
-        gbc1.gridx     = 0;
-        gbc1.gridy     = 0;
-        gbc1.weightx   = 0.45;
-        gbc1.weighty   = 1;
-        gbc1.insets    = new Insets(0, 0, 0, 5);
-        gbc1.fill      = GridBagConstraints.BOTH;
-        pnl_awardAndGreenStar.add(lbl_award, gbc1);
-        
-        gbc1.gridx++;
-        gbc1.insets    = new Insets(0, 5, 0, 0);
-        pnl_awardAndGreenStar.add(lbl_greenStar, gbc1);
-        
-        gbc.gridx++;
-        gbc.gridwidth++;
-        this.add(pnl_awardAndGreenStar, gbc);
+      gbc1.gridx++;
+      gbc1.insets    = new Insets(0, 5, 0, 0);
+      pnl_awardAndGreenStar.add(lbl_greenStar, gbc1);
+      
+      gbc.gridx++;
+      gbc.gridwidth++;
+      this.add(pnl_awardAndGreenStar, gbc);
     }
     
     /**
      * Sets up event listeners for user interaction.
      */
-    private void initEvents() {  
+    private void initEvents() 
+    {  
         this.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {
@@ -179,6 +183,7 @@ public class PreviewRestaurant extends javax.swing.JPanel {
         });
     }
     //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
     /**
      * Handles the resize event for the {@code PreviewRestaurant} {@link JPanel}.
@@ -203,22 +208,22 @@ public class PreviewRestaurant extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the button
      */
-    private void btn_details_MouseClicked(java.awt.event.MouseEvent e) {
-        restaurantGUI = new RestaurantGUI(controller, restaurant);
-        controller.getPanelMain().getPanel().add(restaurantGUI, Page.RESTAURANT);
-        controller.getPanelMain().showCard(Page.RESTAURANT);
+    private void btn_details_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      restaurantGUI = new RestaurantGUI(controller, restaurant);
+      controller.getPanelMain().getPanel().add(restaurantGUI, Page.RESTAURANT);
+      controller.getPanelMain().showCard(Page.RESTAURANT);
     }
-    
-    
     
     /**
      * Handles the hover event on the details button {@link JLabel}.
      * 
      * @param e the mouse event triggered by hovering to the button
      */
-    private void btn_details_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_details.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn_details.setBackground(btn_details.getBackground().darker());
+    private void btn_details_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_details.setCursor(new Cursor(Cursor.HAND_CURSOR));
+      btn_details.setBackground(btn_details.getBackground().darker());
     }
     
     /**
@@ -226,8 +231,9 @@ public class PreviewRestaurant extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_details_MouseExited(java.awt.event.MouseEvent e) {
-        btn_details.setBackground(BG_DEFAULT);
+    private void btn_details_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_details.setBackground(BG_DEFAULT);
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
@@ -238,8 +244,32 @@ public class PreviewRestaurant extends javax.swing.JPanel {
      * @param text - the {@code JComponent}'s text
      * @return the {@code JComponent}'s text wrapped in HTML and basic CSS
      */
-    private String setMaxWidthContent(int width, String text) {
-        return "<html><div style='text-align: center; width: " + width + "px;'>" + text + "</div></html>";
+    private String setMaxWidthContent(int width, String text) 
+    {
+      return "<html><div style='text-align: center; width: " + width + "px;'>" + text + "</div></html>";
+    }
+    
+    /**
+     * 
+     * @param restaurant the {@link Restaurant} to set for the GUI preview
+     * @param bg the background {@link Color} of the preview of the restaurant
+     */    
+    public void updateWith(Restaurant restaurant, Color bg) 
+    {
+      this.restaurant = restaurant;
+      this.bg         = bg;
+
+      lbl_name      .setText        (setMaxWidthContent(MAX_WIDTH, restaurant.getName()));
+      lbl_address   .setText        (setMaxWidthContent(MAX_WIDTH * 2, restaurant.getAddress()));
+      lbl_rating    .setText        (OVERALL_RATING + String.valueOf(restaurant.getRating()));
+      lbl_rating    .setCharacter   ('C');
+      lbl_award     .setText        (restaurant.getAward());
+      lbl_award     .setCharacter   ('C');
+      lbl_greenStar .setCharacter   (restaurant.isGreenStar() ? FULL_STAR : EMPTY_STAR);
+
+      this.setBackground(bg);
+      this.revalidate   ();
+      this.repaint      ();
     }
     //</editor-fold>
     
@@ -293,8 +323,8 @@ public class PreviewRestaurant extends javax.swing.JPanel {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final Controller    controller;
-    private final Restaurant    restaurant;
-    private final Color         bg;
+    private  Restaurant    restaurant;
+    private  Color         bg;
 //    private       BufferedImage icon;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -672,8 +672,10 @@ public final class Login extends javax.swing.JPanel
     {
       txt_emailUsername .setText        (PLACEHOLDER[0]);
       txt_emailUsername .setForeground  (FG_PLACEHOLDER);
-
+      txt_emailUsername .setBackground  (BG_TEXTFIELD);
+      
       chkbx_seePassword .setSelected    (true);
+      txt_password      .setBackground  (BG_TEXTFIELD);
       txt_password      .setText        (PLACEHOLDER[1]);
       txt_password      .setForeground  (FG_PLACEHOLDER);
       txt_password      .setEchoChar    ((char) 0);   

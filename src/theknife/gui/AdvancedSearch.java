@@ -36,7 +36,8 @@ import theknife.obj.AppPaths;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
 */
-public final class AdvancedSearch extends javax.swing.JPanel {
+public final class AdvancedSearch extends javax.swing.JPanel 
+{
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
@@ -47,219 +48,229 @@ public final class AdvancedSearch extends javax.swing.JPanel {
      *
      * @param controller the {@link Controller} class that manages the screen layout
      */
-    public AdvancedSearch(Controller controller) {
-        initComponents();
-        this.controller = controller;
-        initGUI();
+    public AdvancedSearch(Controller controller) 
+    {
+      initComponents();
+      this.controller = controller;
+      initGUI       ();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Initializes the graphical user interface (GUI) for the {@code AdvancedSearch} page.
      */
-    private void initGUI() {
-        initFields();
-        initAdvancedSearch();
-        initEvents();
+    private void initGUI() 
+    {
+      initFields();
+      initAdvancedSearch();
+      initEvents();
     }
     
     /**
      * Initializes the basic fields of the {@code AdvancedSearch} panel.
      */
-    private void initFields() {
-        pnl_filters            = new JPanel(new GridBagLayout());
-        pnl_btn_apply          = new JPanel(new BorderLayout());
-        pnl_btn_cancel         = new JPanel(new BorderLayout());
-        pnl_ratingBar          = new JPanel(new GridLayout(1, RATINGS));
-        pnl_priceBar           = new JPanel(new GridLayout(1, PRICES));
-        pnl_btns               = new JPanel(new GridLayout(1, 2, 10, 10));
-        pnl_cuisines           = new JPanel(new GridLayout((int) Math.ceil(CHKBX_CUISINE_TXT.length / 2), 2, 10, 10));
-        pnl_services           = new JPanel(new GridLayout((int) Math.ceil(CHKBX_SERVICE_TXT.length / 2), 2, 10, 10));
-        scrlPnl_filters        = new JScrollPane(pnl_filters,  JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrlPnl_cuisines       = new JScrollPane(pnl_cuisines, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        lbl_title              = new JLabel(TITLE);
-        lbl_stars              = new CustomJLabel[RATINGS];
-        lbl_prices             = new JLabel[PRICES];
-        btn_apply              = new JLabel(APPLY_FILTERS);
-        btn_cancel             = new JLabel(CANCEL);
-        txt_location           = new JTextField(PLACEHOLDER[0]);
-        chkbx_cuisines         = new JCheckBox[CHKBX_CUISINE_TXT.length];
-        chkbx_services         = new JCheckBox[CHKBX_SERVICE_TXT.length];
-        scrlPnl_filtersRounded = new JLayer<>(scrlPnl_filters, PNL_LAYER_UI);
-        txt_locationRounded    = new JLayer<>(txt_location,    TXT_LAYER_UI);
-        btn_applyRounded       = new JLayer<>(btn_apply,       BTN_LAYER_UI);
-        btn_cancelRounded      = new JLayer<>(btn_cancel,      BTN_LAYER_UI);
+    private void initFields() 
+    {
+      pnl_filters            = new JPanel(new GridBagLayout());
+      pnl_btn_apply          = new JPanel(new BorderLayout());
+      pnl_btn_cancel         = new JPanel(new BorderLayout());
+      pnl_ratingBar          = new JPanel(new GridLayout(1, RATINGS));
+      pnl_priceBar           = new JPanel(new GridLayout(1, PRICES));
+      pnl_btns               = new JPanel(new GridLayout(1, 2, 10, 10));
+      pnl_cuisines           = new JPanel(new GridLayout((int) Math.ceil(CHKBX_CUISINE_TXT.length / 2), 2, 10, 10));
+      pnl_services           = new JPanel(new GridLayout((int) Math.ceil(CHKBX_SERVICE_TXT.length / 2), 2, 10, 10));
+      scrlPnl_filters        = new JScrollPane(pnl_filters,  JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+      scrlPnl_cuisines       = new JScrollPane(pnl_cuisines, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+      lbl_title              = new JLabel(TITLE);
+      lbl_stars              = new CustomJLabel[RATINGS];
+      lbl_prices             = new JLabel[PRICES];
+      btn_apply              = new JLabel(APPLY_FILTERS);
+      btn_cancel             = new JLabel(CANCEL);
+      txt_location           = new JTextField(PLACEHOLDER[0]);
+      chkbx_cuisines         = new JCheckBox[CHKBX_CUISINE_TXT.length];
+      chkbx_services         = new JCheckBox[CHKBX_SERVICE_TXT.length];
+      scrlPnl_filtersRounded = new JLayer<>(scrlPnl_filters, PNL_LAYER_UI);
+      txt_locationRounded    = new JLayer<>(txt_location,    TXT_LAYER_UI);
+      btn_applyRounded       = new JLayer<>(btn_apply,       BTN_LAYER_UI);
+      btn_cancelRounded      = new JLayer<>(btn_cancel,      BTN_LAYER_UI);
     }
     
     /**
      * Initializes the layout and appearance of the {@code AdvancedSearch} page.
      */
-    private void initAdvancedSearch() {
-        this.setLayout(new BorderLayout());
+    private void initAdvancedSearch() 
+    {
+      this.setLayout(new BorderLayout());
+       
+      pnl_filters   .setBackground(BG_PNL_FILTERS);
+       
+      pnl_cuisines  .setBackground(BG_PNL_CHKBXS);
+      pnl_cuisines  .setBorder    (PADDING_PANEL_CHKBXS);
+       
+      pnl_services  .setBackground(BG_PNL_CHKBXS);
+      pnl_services  .setBorder    (PADDING_PANEL_CHKBXS);
+       
+      pnl_ratingBar .setBackground(BG_STAR_LBL);
+       
+      pnl_priceBar  .setBackground(BG_PRICE_LBL);
         
-        pnl_filters   .setBackground(BG_PNL_FILTERS);
+      pnl_btns      .setBackground(this.getBackground());
         
-        pnl_cuisines  .setBackground(BG_PNL_CHKBXS);
-        pnl_cuisines  .setBorder    (PADDING_PANEL_CHKBXS);
+      pnl_btn_apply .setBackground(pnl_btns.getBackground());
+      pnl_btn_cancel.setBackground(pnl_btns.getBackground());
         
-        pnl_services  .setBackground(BG_PNL_CHKBXS);
-        pnl_services  .setBorder    (PADDING_PANEL_CHKBXS);
+      for (int i = 0; i < chkbx_cuisines.length; i++) 
+      {
+        chkbx_cuisines[i] = new JCheckBox(CHKBX_CUISINE_TXT[i]);
+        chkbx_cuisines[i].setFont(this.getFont());
+        pnl_cuisines.add(chkbx_cuisines[i]);
+      }
         
-        pnl_ratingBar .setBackground(BG_STAR_LBL);
+      for (int i = 0; i < chkbx_services.length; i++) 
+      {
+        chkbx_services[i] = new JCheckBox(CHKBX_SERVICE_TXT[i]);
+        chkbx_services[i].setFont(this.getFont());
+        pnl_services.add(chkbx_services[i]);
+      }
         
-        pnl_priceBar  .setBackground(BG_PRICE_LBL);
+      scrlPnl_filters .getVerticalScrollBar()      .setUI(new CustomJScrollBar());
+      scrlPnl_filters .getHorizontalScrollBar()    .setUI(new CustomJScrollBar());
+      scrlPnl_filters .setBorder                   (BorderFactory.createEmptyBorder());
         
-        pnl_btns      .setBackground(this.getBackground());
+      scrlPnl_cuisines.getVerticalScrollBar()      .setUI(new CustomJScrollBar());
+      scrlPnl_cuisines.getHorizontalScrollBar()    .setUI(new CustomJScrollBar());
+      scrlPnl_cuisines.setPreferredSize            (new Dimension(0, SCRLPNL_CUISINES_HEIGHT));
+      scrlPnl_cuisines.setBorder                   (BorderFactory.createEmptyBorder());
         
-        pnl_btn_apply .setBackground(pnl_btns.getBackground());
-        pnl_btn_cancel.setBackground(pnl_btns.getBackground());
+      lbl_title.setBackground           (this.getBackground());
+      lbl_title.setForeground           (FG_DEFAULT);
+      lbl_title.setHorizontalAlignment  (JLabel.CENTER);
+      lbl_title.setVerticalAlignment    (JLabel.CENTER);
+      lbl_title.setFont                 (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 48));
+      lbl_title.setOpaque               (true);
         
-        for (int i = 0; i < chkbx_cuisines.length; i++) {
-            chkbx_cuisines[i] = new JCheckBox(CHKBX_CUISINE_TXT[i]);
-            chkbx_cuisines[i].setFont(this.getFont());
-            pnl_cuisines.add(chkbx_cuisines[i]);
-        }
+      for (int i = 0; i < lbl_stars.length; i++) 
+      {
+        lbl_stars[i] = new CustomJLabel("", 'A');
+        lbl_stars[i].setBackground          (BG_STAR_LBL);
+        lbl_stars[i].setForeground          (FG_DEFAULT);
+        lbl_stars[i].setCharacterColor      (BG_STAR_CHAR);
+        lbl_stars[i].setHorizontalAlignment (JLabel.CENTER);
+        lbl_stars[i].setVerticalAlignment   (JLabel.CENTER);
+        lbl_stars[i].setFont                (this.getFont());
+        lbl_stars[i].setOpaque              (true);
+        pnl_ratingBar.add                   (lbl_stars[i]);
+      }
         
-        for (int i = 0; i < chkbx_services.length; i++) {
-            chkbx_services[i] = new JCheckBox(CHKBX_SERVICE_TXT[i]);
-            chkbx_services[i].setFont(this.getFont());
-            pnl_services.add(chkbx_services[i]);
-        }
+      for (int i = 0; i < lbl_prices.length; i++) 
+      {
+        lbl_prices[i] = new JLabel          (PRICE_TAGS[i]);
+        lbl_prices[i].setBackground         (BG_PRICE_LBL);
+        lbl_prices[i].setForeground         (FG_DEFAULT);
+        lbl_prices[i].setHorizontalAlignment(JLabel.CENTER);
+        lbl_prices[i].setVerticalAlignment  (JLabel.CENTER);
+        lbl_prices[i].setFont               (this.getFont());
+        lbl_prices[i].setOpaque             (true);
+        pnl_priceBar.add                    (lbl_prices[i]);
+      }
         
-        scrlPnl_filters .getVerticalScrollBar()      .setUI(new CustomJScrollBar());
-        scrlPnl_filters .getHorizontalScrollBar()    .setUI(new CustomJScrollBar());
-        scrlPnl_filters .setBorder                   (BorderFactory.createEmptyBorder());
+      txt_location.setBackground    (BG_TEXTFIELD);
+      txt_location.setForeground    (FG_PLACEHOLDER);
+      txt_location.setBorder        (PADDING_TEXTFIELD);
+      txt_location.setPreferredSize (new Dimension(this.getPreferredSize().width, 40));
+      txt_location.setFont          (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
         
-        scrlPnl_cuisines.getVerticalScrollBar()      .setUI(new CustomJScrollBar());
-        scrlPnl_cuisines.getHorizontalScrollBar()    .setUI(new CustomJScrollBar());
-        scrlPnl_cuisines.setPreferredSize            (new Dimension(0, SCRLPNL_CUISINES_HEIGHT));
-        scrlPnl_cuisines.setBorder                   (BorderFactory.createEmptyBorder());
+      btn_apply.setBackground           (BG_APPLY_BTN);
+      btn_apply.setForeground           (FG_DEFAULT);
+      btn_apply.setHorizontalAlignment  (JLabel.CENTER);
+      btn_apply.setVerticalAlignment    (JLabel.CENTER);
+      btn_apply.setFont                 (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
+      btn_apply.setOpaque               (true);
         
-        lbl_title.setBackground(this.getBackground());
-        lbl_title.setForeground(FG_DEFAULT);
-        lbl_title.setHorizontalAlignment(JLabel.CENTER);
-        lbl_title.setVerticalAlignment  (JLabel.CENTER);
-        lbl_title.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 48));
-        lbl_title.setOpaque(true);
+      btn_cancel.setBackground          (BG_CANCEL_BTN);
+      btn_cancel.setForeground          (FG_DEFAULT);
+      btn_cancel.setHorizontalAlignment (JLabel.CENTER);
+      btn_cancel.setVerticalAlignment   (JLabel.CENTER);
+      btn_cancel.setFont                (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
+      btn_cancel.setOpaque              (true);
+       
+      pnl_btn_apply .add(btn_applyRounded,  BorderLayout.CENTER);
+      pnl_btn_cancel.add(btn_cancelRounded, BorderLayout.CENTER);
+      
+      pnl_btns.setPreferredSize (new Dimension(this.getWidth(), PNL_BTNS_HEIGHT));
+      pnl_btns.add              (pnl_btn_apply,  BorderLayout.CENTER);
+      pnl_btns.add              (pnl_btn_cancel, BorderLayout.EAST);
+      
+      JLabel[] lbl_guides = new JLabel[LBL_GUIDE_TXT.length];
+      for (int i = 0; i < lbl_guides.length; i++) 
+      {
+        lbl_guides[i] = new JLabel          (LBL_GUIDE_TXT[i]);
+        lbl_guides[i].setBackground         (this.getBackground().darker());
+        lbl_guides[i].setHorizontalAlignment(JLabel.CENTER);
+        lbl_guides[i].setVerticalAlignment  (JLabel.CENTER);
+        lbl_guides[i].setFont               (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 36));
+        lbl_guides[i].setOpaque             (true);
+      }
         
-        for (int i = 0; i < lbl_stars.length; i++) {
-            lbl_stars[i] = new CustomJLabel("", 'A');
-            lbl_stars[i].setBackground(BG_STAR_LBL);
-            lbl_stars[i].setForeground(FG_DEFAULT);
-            lbl_stars[i].setCharacterColor(BG_STAR_CHAR);
-            lbl_stars[i].setHorizontalAlignment(JLabel.CENTER);
-            lbl_stars[i].setVerticalAlignment  (JLabel.CENTER);
-            lbl_stars[i].setFont(this.getFont());
-            lbl_stars[i].setOpaque(true);
-            pnl_ratingBar.add(lbl_stars[i]);
-        }
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.gridx     = 0;
+      gbc.gridy     = 0;
+      gbc.ipady     = 30;
+      gbc.weightx   = 0.3;
+      gbc.weighty   = 1;
+      gbc.gridwidth = 1;
+      gbc.fill      = GridBagConstraints.BOTH;
+      gbc.insets    = INSETS;
+      pnl_filters.add(lbl_guides[0], gbc);
         
-        for (int i = 0; i < lbl_prices.length; i++) {
-            lbl_prices[i] = new JLabel(PRICE_TAGS[i]);
-            lbl_prices[i].setBackground(BG_PRICE_LBL);
-            lbl_prices[i].setForeground(FG_DEFAULT);
-            lbl_prices[i].setHorizontalAlignment(JLabel.CENTER);
-            lbl_prices[i].setVerticalAlignment  (JLabel.CENTER);
-            lbl_prices[i].setFont(this.getFont());
-            lbl_prices[i].setOpaque(true);
-            pnl_priceBar.add(lbl_prices[i]);
-        }
+      gbc.gridx++;
+      gbc.weightx = 0.7;
+      pnl_filters.add(pnl_ratingBar, gbc);
         
-        txt_location.setBackground(BG_TEXTFIELD);
-        txt_location.setForeground(FG_PLACEHOLDER);
-        txt_location.setBorder    (PADDING_TEXTFIELD);
-        txt_location.setPreferredSize(new Dimension(this.getPreferredSize().width, 40));
-        txt_location.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
+      gbc.gridy++;
+      gbc.gridx--;
+      gbc.weightx = 1;
+      gbc.gridwidth++;
+      pnl_filters.add(lbl_guides[1], gbc);
         
-        btn_apply.setBackground(BG_APPLY_BTN);
-        btn_apply.setForeground(FG_DEFAULT);
-        btn_apply.setHorizontalAlignment(JLabel.CENTER);
-        btn_apply.setVerticalAlignment  (JLabel.CENTER);
-        btn_apply.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
-        btn_apply.setOpaque(true);
+      gbc.gridy++;
+      pnl_filters.add(txt_locationRounded, gbc);
         
-        btn_cancel.setBackground(BG_CANCEL_BTN);
-        btn_cancel.setForeground(FG_DEFAULT);
-        btn_cancel.setHorizontalAlignment(JLabel.CENTER);
-        btn_cancel.setVerticalAlignment  (JLabel.CENTER);
-        btn_cancel.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
-        btn_cancel.setOpaque(true);
+      gbc.gridy++;
+      gbc.gridwidth--;
+      gbc.weightx = 0.3;
+      pnl_filters.add(lbl_guides[2], gbc);
+       
+      gbc.gridx++;
+      gbc.weightx = 0.7;
+      pnl_filters.add(pnl_priceBar, gbc);
         
-        pnl_btn_apply .add(btn_applyRounded,  BorderLayout.CENTER);
-        pnl_btn_cancel.add(btn_cancelRounded, BorderLayout.CENTER);
+      gbc.gridy++;
+      gbc.gridx--;
+      gbc.weightx = 1;
+      gbc.gridwidth++;
+      pnl_filters.add(lbl_guides[3], gbc);
         
-        pnl_btns.setPreferredSize(new Dimension(this.getWidth(), PNL_BTNS_HEIGHT));
-        pnl_btns.add(pnl_btn_apply,  BorderLayout.CENTER);
-        pnl_btns.add(pnl_btn_cancel, BorderLayout.EAST);
+      gbc.gridy++;
+      pnl_filters.add(scrlPnl_cuisines, gbc);
+       
+      gbc.gridy++;
+      pnl_filters.add(lbl_guides[4], gbc);
         
-        JLabel[] lbl_guides = new JLabel[LBL_GUIDE_TXT.length];
-        for (int i = 0; i < lbl_guides.length; i++) {
-            lbl_guides[i] = new JLabel(LBL_GUIDE_TXT[i]);
-            lbl_guides[i].setBackground(this.getBackground().darker());
-            lbl_guides[i].setHorizontalAlignment(JLabel.CENTER);
-            lbl_guides[i].setVerticalAlignment  (JLabel.CENTER);
-            lbl_guides[i].setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 36));
-            lbl_guides[i].setOpaque(true);
-        }
+      gbc.gridy++;
+      pnl_filters.add(pnl_services, gbc);
         
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx     = 0;
-        gbc.gridy     = 0;
-        gbc.ipady     = 30;
-        gbc.weightx   = 0.3;
-        gbc.weighty   = 1;
-        gbc.gridwidth = 1;
-        gbc.fill      = GridBagConstraints.BOTH;
-        gbc.insets    = INSETS;
-        pnl_filters.add(lbl_guides[0], gbc);
-        
-        gbc.gridx++;
-        gbc.weightx = 0.7;
-        pnl_filters.add(pnl_ratingBar, gbc);
-        
-        gbc.gridy++;
-        gbc.gridx--;
-        gbc.weightx = 1;
-        gbc.gridwidth++;
-        pnl_filters.add(lbl_guides[1], gbc);
-        
-        gbc.gridy++;
-        pnl_filters.add(txt_locationRounded, gbc);
-        
-        gbc.gridy++;
-        gbc.gridwidth--;
-        gbc.weightx = 0.3;
-        pnl_filters.add(lbl_guides[2], gbc);
-        
-        gbc.gridx++;
-        gbc.weightx = 0.7;
-        pnl_filters.add(pnl_priceBar, gbc);
-        
-        gbc.gridy++;
-        gbc.gridx--;
-        gbc.weightx = 1;
-        gbc.gridwidth++;
-        pnl_filters.add(lbl_guides[3], gbc);
-        
-        gbc.gridy++;
-        pnl_filters.add(scrlPnl_cuisines, gbc);
-        
-        gbc.gridy++;
-        pnl_filters.add(lbl_guides[4], gbc);
-        
-        gbc.gridy++;
-        pnl_filters.add(pnl_services, gbc);
-        
-        this.add(lbl_title,              BorderLayout.NORTH);
-        this.add(scrlPnl_filtersRounded, BorderLayout.CENTER);
-        this.add(pnl_btns,               BorderLayout.SOUTH);
+      this.add(lbl_title,              BorderLayout.NORTH);
+      this.add(scrlPnl_filtersRounded, BorderLayout.CENTER);
+      this.add(pnl_btns,               BorderLayout.SOUTH);
         
     }
     
     /**
      * Sets up event listeners for user interaction.
      */
-    private void initEvents() {
+    private void initEvents() 
+    {
         this.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {
@@ -495,10 +506,12 @@ public final class AdvancedSearch extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_apply_MouseClicked(java.awt.event.MouseEvent e) {
-        txt_location.setText(PLACEHOLDER[0]);
-        txt_location.setForeground(FG_PLACEHOLDER);
-        controller.getPanelMain().showCard(Page.HOME);
+    private void btn_apply_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      txt_location.setText          (PLACEHOLDER[0]);
+      txt_location.setForeground    (FG_PLACEHOLDER);
+      controller  .advancedSearch   (starRating, txt_location.getText(), returnCuisineValues(), returnServicesValues());
+      controller  .getPanelMain     ().showCard(Page.HOME);
     }
     
     /**
@@ -631,6 +644,38 @@ public final class AdvancedSearch extends javax.swing.JPanel {
     }
     //</editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="Methods"> 
+    private boolean[] returnCuisineValues()
+    {
+      boolean[] cuisines= new boolean[chkbx_cuisines.length];
+      
+      boolean flag = false;
+      for(int i=0; i<chkbx_cuisines.length; i++)
+      {
+        cuisines[i] = chkbx_cuisines[i].isSelected();
+        if(chkbx_cuisines[i].isSelected())
+          flag = true;
+      }
+      
+      return (flag) ? cuisines:null;
+    }
+    
+    private boolean[] returnServicesValues()
+    {
+      boolean[] services = new boolean[chkbx_services.length];
+      
+      boolean flag = false;
+      for(int i=0; i<chkbx_services.length; i++)
+      {
+        services[i] = chkbx_services[i].isSelected();
+        if(chkbx_cuisines[i].isSelected())
+          flag = true;
+      }
+      
+      return (flag) ? services:null;
+    }
+    
+    //</editor-fold>
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

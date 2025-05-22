@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import simple.file.CSV;
 import simple.file.CSVFileNotFoundException;
 import simple.file.CSVRow;
@@ -83,6 +86,12 @@ public final class Controller
      */
     @JsonProperty("restaurateurs")
     private ListRestaurateur restaurateurs;
+    
+    private Map<String,  List<Restaurant>> byCity      = new HashMap<>();
+    private Map<Double,  List<Restaurant>> byRating    = new HashMap<>();
+    private Map<Integer, List<Restaurant>> byPrice     = new HashMap<>();
+    private Map<String,  List<Restaurant>> byCuisine   = new HashMap<>();
+    private Map<String,  List<Restaurant>> byServices  = new HashMap<>();
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     /**
@@ -158,57 +167,113 @@ public final class Controller
     
     private void        initLists           () 
     {
-        if (JSON_RESTAURANTS.exists())
-          this.setRestaurants    (JSON.read(JSON_RESTAURANTS, ListRestaurant.class));
-        else if (CSV_RESTAURANTS.exists()) 
+      if (JSON_RESTAURANTS.exists())
+        this.setRestaurants    (JSON.read(JSON_RESTAURANTS, ListRestaurant.class));
+      else if (CSV_RESTAURANTS.exists()) 
+      {
+        this.setRestaurants(new ListRestaurant());
+        List<CSVRow> csvContent = CSV.read(CSV_RESTAURANTS);
+        Restaurant restaurant;
+        int id = 0;
+        for (CSVRow row : csvContent) 
         {
-          this.setRestaurants(new ListRestaurant());
-          List<CSVRow> csvContent = CSV.read(CSV_RESTAURANTS);
-          Restaurant restaurant;
-          int id = 0;
-          for (CSVRow row : csvContent) 
-          {
-            id++;
-            restaurant = new Restaurant
-           (
-              id,
-              -1,
-              row.get("Name", String.class),
-              StringUtils.normalize(row.get("Name", String.class)),
-              row.get("Price", String.class).length(),
-              row.get("Price", String.class),
-              row.get("PhoneNumber", String.class),
-              row.get("Url", String.class),
-              row.get("WebsiteUrl", String.class),
-              row.get("Award", String.class).contains("Stars") ? row.get("Award", String.class).replace("Stars", "Michelin") : row.get("Award", String.class).contains(" Restaurants") ? row.get("Award", String.class).replace(" Restaurants", "") : row.get("Award", String.class), 
-              row.get("GreenStar", Boolean.class), 
-              row.get("FacilitiesAndServices", String.class), 
-              row.get("Description", String.class), 
-              0,
-              row.get("Location", String.class).split(",")[row.get("Location", String.class).split(",").length - 1].trim(), 
-              row.get("Location", String.class).split(",")[0], 
-              row.get("Address", String.class),
-              row.get("Latitude", Double.class), 
-              row.get("Longitude", Double.class)
-            );
-            this.getRestaurants().getList().add(restaurant);
-          }
-          FileUtils.create(JSON_RESTAURANTS);
-          JSON.writeToFile(JSON_RESTAURANTS, this.getRestaurants());
-        } 
-        else
-          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new CSVFileNotFoundException("Unable to get the restaurant file!"));
+          id++;
+          restaurant = new Restaurant
+          (
+            id,
+            -1,
+            row.get("Name", String.class),
+            StringUtils.normalize(row.get("Name", String.class)),
+            row.get("Price", String.class).length(),
+            row.get("Price", String.class),
+            row.get("PhoneNumber", String.class),
+            row.get("Url", String.class),
+            row.get("WebsiteUrl", String.class),
+            row.get("Award", String.class).contains("Stars") ? row.get("Award", String.class).replace("Stars", "Michelin") : (row.get("Award", String.class).contains("Star") ? row.get("Award", String.class).replace("Star", "Michelin") : (row.get("Award", String.class).contains(" Restaurants") ? row.get("Award", String.class).replace(" Restaurants", "") : row.get("Award", String.class))), 
+            row.get("GreenStar", Boolean.class), 
+            row.get("Cuisine", String.class),
+            row.get("FacilitiesAndServices", String.class), 
+            row.get("Description", String.class), 
+            0,
+            row.get("Location", String.class).split(",")[row.get("Location", String.class).split(",").length - 1].trim(), 
+            row.get("Location", String.class).split(",")[0], 
+            row.get("Address", String.class),
+            row.get("Latitude", Double.class), 
+            row.get("Longitude", Double.class)
+          );
+          this.getRestaurants().getList().add(restaurant);
+        }
+        FileUtils.create(JSON_RESTAURANTS);
+        JSON.writeToFile(JSON_RESTAURANTS, this.getRestaurants());
+      } 
+      else
+        LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new CSVFileNotFoundException("Unable to get the restaurant file!"));
       /*
-       if (JSON_CUSTOMERS.exists())
-         this.setCustomers    (JSON.read(JSON_CUSTOMERS,    ListCustomer.class));
-       else
-         LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the customers file!"));
+      if (JSON_CUSTOMERS.exists())
+        this.setCustomers    (JSON.read(JSON_CUSTOMERS,    ListCustomer.class));
+      else
+        LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the customers file!"));
            
-       if(JSON_RESTAURATEURS.exists())
-         this.setRestaurateurs(JSON.read(JSON_RESTAURATEURS, ListRestaurateur.class));
-       else
-         LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the restaurateurs file!"));
+      if(JSON_RESTAURATEURS.exists())
+        this.setRestaurateurs(JSON.read(JSON_RESTAURATEURS, ListRestaurateur.class));
+      else
+        LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the restaurateurs file!"));
        */
+      
+      for(Restaurant r : restaurants.getList())
+      {
+        List<Restaurant> lista = byCity.get(r.getCity());
+        if(lista == null) 
+        {
+          lista = new ArrayList<>();
+          byCity.put(r.getCity(), lista);
+        }
+        lista.add(r);
+      }
+     
+      for(Restaurant r : restaurants.getList())
+      {
+        List<Restaurant> lista = byRating.get(r.getRating());
+        if(lista == null) 
+        {
+          lista = new ArrayList<>();
+          byRating.put(r.getRating(), lista);
+        }
+        lista.add(r);
+      }
+      
+      for(Restaurant r : restaurants.getList())
+      {
+        List<Restaurant> lista = byPrice.get(r.getPrice());
+        if(lista == null) 
+        {
+          lista = new ArrayList<>();
+          byPrice.put(r.getPrice(), lista);
+        }
+        lista.add(r);
+      }
+      
+      for(Restaurant r : restaurants.getList())
+      {
+        List<Restaurant> lista = byCuisine.get(r.getCuisine());
+        if(lista == null) 
+        {
+          lista = new ArrayList<>();
+          byCuisine.put(r.getCuisine(), lista);
+        }
+        lista.add(r);
+      }
+      
+      for(Restaurant r : restaurants.getList())
+      {
+        List<Restaurant> lista = byServices.get(r.getServicesAvailable());
+        if(lista == null) 
+        {
+          lista = new ArrayList<>();
+          byServices.put(r.getServicesAvailable(), lista);
+        }
+        lista.add(r);
+      }
     }
     
     /**
@@ -348,19 +413,58 @@ public final class Controller
         return false;
     }
     
-    public final void        addRestaurant       ()
+    public final boolean     addRestaurant       (Restaurant restaurant)
     {
-        
+      return true;  
     }
     
-    public final void        searchRestaurant    ()
+    public final void        searchRestaurant    (String restaurant)
     {
-        
+      home.list_restaurants_searchRestaurants (restaurant);
     }
     
-    public final void        advancedSearch      ()
+    public final void        viewUserList        (String username, String role)
     {
+      home.list_restaurants_viewUserList      (username, role);
+    }
+    
+    public final void        advancedSearch      (Double rating, String city, boolean[] cuisines, boolean[] services)
+    {
+     /* List<Restaurant> ratingResult   = null;
+      List<Restaurant> locationResult = null;
+      List<Restaurant> cusisineResult = null;
+      List<Restaurant> servicesResult = null;
+      
+      if(rating!=0)
+        ratingResult   = byRating.get(rating);
+      
+      if(!city.isEmpty())
+        locationResult = byCity.get(city);
+      
+      if(cuisines != null)
+      {
+        ArrayList<String> selected = new ArrayList();
+        for(int i=0; i<cuisines.length; i++)
+          if(cuisines[i])
+            selected.add();
+      }
+      
+      if(cuisines != null)
+      {
+        ArrayList<String> selected = new ArrayList();
+        for(int i=0; i<cuisines.length; i++)
+          if(cuisines[i])
+            selected.add();
         
+        cusisineResult = byCuisine.get(selected.get(0));
+        
+        for(int i=1; i<selected.size(); i++)
+          if (r.byCuisine().equals(cittaInput)) 
+            risultato.add(r);
+    
+
+      }
+        cusisineResult = byCuisine.get(cuisine);*/
     }
     //</editor-fold>
 }

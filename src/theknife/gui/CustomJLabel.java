@@ -43,22 +43,23 @@ public final class CustomJLabel extends JLabel {
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Constructs a new {@code CustomJLabel} with default character and font.
-     * Attempts to load the custom font from application resources.
      * @param text - the text in the {@link JLabel}
      * @param character - the {@code char} used to display a certain caracter within the ttf file
      */
-    public CustomJLabel(String text, char character) {
-        super(text);
-        this.setCharacter(character);
-        this.setCharacterSpacing(DEFAULT_SPACING);
-        try {
-            File fontFile = AppPaths.getDataFile("img", "Stars.ttf");
-            this.setCustomFont(Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(24f));
-        } catch (FontFormatException | IOException e) {
-            LoggerUtils.logWarning("Unable to set a personalized font: {0}", e);
-            this.setCustomFont(this.getFont());
-        }
+    public CustomJLabel(String text, char character) 
+    {
+      super(text);
+      this.setCharacter(character);
+      setCustomFont();
     }
+    /**
+     * Constructs a new {@code CustomJLabel} with no default character and text
+     */
+    public CustomJLabel()
+    {
+      setCustomFont();
+    }
+
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
@@ -136,11 +137,31 @@ public final class CustomJLabel extends JLabel {
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
-    public final void setCustomFontSize(float size) {
-        if (this.getCustomFont() != null) {
-            this.setCustomFont(this.getCustomFont().deriveFont(size));
-            repaint();
-        }
+    public final void setCustomFontSize(float size) 
+    {
+      if (this.getCustomFont() != null) 
+      {
+        this.setCustomFont(this.getCustomFont().deriveFont(size));
+        repaint();
+      }
+    }
+        
+    /**
+     * Attempts to load the custom font from application resources. 
+     */
+    private void setCustomFont()
+    {
+      this.setCharacterSpacing(DEFAULT_SPACING);
+      try 
+      {
+        File fontFile = AppPaths.getDataFile("img", "Stars.ttf");
+        this.setCustomFont(Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(24f));
+      } 
+      catch (FontFormatException | IOException e) 
+      {
+        LoggerUtils.logWarning("Unable to set a personalized font: {0}", e);
+        this.setCustomFont(this.getFont());
+      }    
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Painting">

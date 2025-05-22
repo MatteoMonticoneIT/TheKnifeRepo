@@ -32,6 +32,7 @@ import theknife.obj.lists.ListReview;
     "webUrl", 
     "award", 
     "greenStar", 
+    "cuisine",
     "services", 
     "description", 
     "rating",
@@ -107,6 +108,12 @@ public final class Restaurant extends Location {
     private boolean greenStar;
     
     /**
+     * Indicates the type of cuisine.
+     */
+    @JsonProperty("cuisine")
+    private String cuisine;
+    
+    /**
      * A description of the services available at the restaurant.
      */
     @JsonProperty("services")
@@ -154,6 +161,7 @@ public final class Restaurant extends Location {
      * @param websiteUrl the website URL of the restaurant
      * @param award the award received by the restaurant
      * @param greenStar whether the restaurant has a green star (sustainability recognition)
+     * @param cuisine the type of cuisine
      * @param servicesAvailable the services available at the restaurant
      * @param description a brief description of the restaurant
      * @param rating the overall rating of the quality of the restaurant
@@ -163,7 +171,7 @@ public final class Restaurant extends Location {
      * @param latitude the latitude of the restaurant's location
      * @param longitude the longitude of the restaurant's location
      */
-    public Restaurant(int id, int ownerId, String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String servicesAvailable, String description, double rating,
+    public Restaurant(int id, int ownerId, String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String cuisine, String servicesAvailable, String description, double rating,
             String country, String city, String address, double latitude, double longitude) {
         super(country, city, address, latitude, longitude);
         this.setId(id);
@@ -177,6 +185,7 @@ public final class Restaurant extends Location {
         this.setWebsiteUrl(websiteUrl);
         this.setAward(award);
         this.setGreenStar(greenStar);
+        this.setCuisine(cuisine);
         this.setServicesAvailable(servicesAvailable);
         this.setDescription(description);
         this.setRating(rating);
@@ -379,6 +388,24 @@ public final class Restaurant extends Location {
      */
     public final void setGreenStar(boolean greenStar) {
         this.greenStar = greenStar;
+    }
+    
+        /**
+     * Returns the type of cuisine of the restaurant.
+     *
+     * @return the type of cuisine of the restaurant
+     */
+    public final String getCuisine() {
+        return cuisine;
+    }
+    
+    /**
+     * Sets the type of cuisine of the restaurant.
+     *
+     * @param cuisine the type of cuisine to set
+     */
+    public final void setCuisine(String cuisine) {
+        this.cuisine = cuisine;
     }
     
     /**

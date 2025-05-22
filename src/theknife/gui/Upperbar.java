@@ -26,8 +26,8 @@ import theknife.Controller;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class Upperbar extends javax.swing.JPanel {
-
+public final class Upperbar extends javax.swing.JPanel 
+{
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Creates a new {@code Upperbar} panel and initializes its components.
@@ -37,72 +37,77 @@ public final class Upperbar extends javax.swing.JPanel {
      *
      * @param controller the {@link Controller} class that manages the screen layout
      */
-    public Upperbar(Controller controller) {
-        initComponents();
-        this.controller = controller;
-        initGUI();
+    public Upperbar(Controller controller) 
+    {
+      initComponents();
+      this.controller = controller;
+      initGUI       ();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Initializes the graphical user interface (GUI) for the upper bar.
      */
-    private void initGUI() {
-        initFields();
-        initUpperbar();
-        initEvents();
+    private void initGUI() 
+    {
+      initFields    ();
+      initUpperbar  ();
+      initEvents    ();
     }
     
     /**
      * Initializes all the fields in the upper bar.
      */
-    private void initFields() {
-        pnls_upperbar             = new JPanel[3];
-        pnl_searchbar             = new JPanel(new BorderLayout());
-        txt_searchbar             = new JTextField();
-        btn_advancedSearch        = new JLabel();
-        btn_login                 = new JLabel(Page.LOGIN);
-        txt_searchbarRounded      = new JLayer<>(txt_searchbar,      LAYER_UI);
-        btn_advancedSearchRounded = new JLayer<>(btn_advancedSearch, LAYER_UI);
-        pnl_searchbarRounded      = new JLayer<>(pnl_searchbar,      LAYER_UI);
+    private void initFields()
+    {
+      pnls_upperbar             = new JPanel[3];
+      pnl_searchbar             = new JPanel(new BorderLayout());
+      txt_searchbar             = new JTextField();
+      btn_advancedSearch        = new JLabel();
+      btn_login                 = new JLabel(Page.LOGIN);
+      txt_searchbarRounded      = new JLayer<>(txt_searchbar,      LAYER_UI);
+      btn_advancedSearchRounded = new JLayer<>(btn_advancedSearch, LAYER_UI);
+      pnl_searchbarRounded      = new JLayer<>(pnl_searchbar,      LAYER_UI);
     }
     
     /**
      * Initializes the layout and appearance of the upper bar.
      * Adds the search bar, advanced search button, and login button to the upper bar.
      */
-    private void initUpperbar() {
-        txt_searchbar.setBorder(BorderFactory.createEmptyBorder(0, PADDING_SEARCHBAR, 0, PADDING_SEARCHBAR));
-        txt_searchbar.setFont(this.getFont());
+    private void initUpperbar() 
+    {
+      txt_searchbar.setBorder(BorderFactory.createEmptyBorder(0, PADDING_SEARCHBAR, 0, PADDING_SEARCHBAR));
+      txt_searchbar.setFont(this.getFont());
         
-        btn_advancedSearch.setBackground(BG_ADVANCED_SEARCH_BTN);
-        btn_advancedSearch.setPreferredSize(new Dimension(WIDTH_ADVANCED_SEARCH, pnl_searchbar.getPreferredSize().height));
-        btn_advancedSearch.setBorder(null);
-        btn_advancedSearch.setOpaque(true);
+      btn_advancedSearch.setBackground(BG_ADVANCED_SEARCH_BTN);
+      btn_advancedSearch.setPreferredSize(new Dimension(WIDTH_ADVANCED_SEARCH, pnl_searchbar.getPreferredSize().height));
+      btn_advancedSearch.setBorder(null);
+      btn_advancedSearch.setOpaque(true);
         
-        btn_login.setBackground(BG_LOGIN_BTN);
-        btn_login.setHorizontalAlignment(JLabel.CENTER);
-        btn_login.setVerticalAlignment  (JLabel.CENTER);
-        btn_login.setBorder(null);
-        btn_login.setOpaque(true);
+      btn_login.setBackground(BG_LOGIN_BTN);
+      btn_login.setHorizontalAlignment(JLabel.CENTER);
+      btn_login.setVerticalAlignment  (JLabel.CENTER);
+      btn_login.setBorder(null);
+      btn_login.setOpaque(true);
         
-        for (int i = 0; i < pnls_upperbar.length; i++) {
-            pnls_upperbar[i] = new JPanel(new BorderLayout());
-            pnls_upperbar[i].setPreferredSize(new Dimension(WIDTH_SIDEBUTTONS, this.getPreferredSize().height));
-            pnls_upperbar[i].setBackground   (this.getBackground());
-        }
+      for (int i = 0; i < pnls_upperbar.length; i++) 
+      {
+        pnls_upperbar[i] = new JPanel(new BorderLayout());
+        pnls_upperbar[i].setPreferredSize(new Dimension(WIDTH_SIDEBUTTONS, this.getPreferredSize().height));
+        pnls_upperbar[i].setBackground   (this.getBackground());
+      }
         
-        pnls_upperbar[1].setBorder(BorderFactory.createEmptyBorder(PADDING_UPPERBAR[1], PADDING_UPPERBAR[0], PADDING_UPPERBAR[1], PADDING_UPPERBAR[0]));
-        pnl_searchbar   .setBackground(Color.WHITE);
-        pnl_searchbar   .add(txt_searchbarRounded,      BorderLayout.CENTER);
-        pnl_searchbar   .add(btn_advancedSearchRounded, BorderLayout.EAST);
-        pnls_upperbar[1].add(pnl_searchbarRounded);
-        pnls_upperbar[2].add(btn_login);
-        
-        this.setLayout(new BorderLayout());
-        this.add(pnls_upperbar[0], BorderLayout.WEST);
-        this.add(pnls_upperbar[1], BorderLayout.CENTER);
-        this.add(pnls_upperbar[2], BorderLayout.EAST);
+      pnls_upperbar[1].setBorder(BorderFactory.createEmptyBorder(PADDING_UPPERBAR[1], PADDING_UPPERBAR[0], PADDING_UPPERBAR[1], PADDING_UPPERBAR[0]));
+      pnl_searchbar   .setBackground(Color.WHITE);
+      pnl_searchbar   .add(txt_searchbarRounded,      BorderLayout.CENTER);
+      pnl_searchbar   .add(btn_advancedSearchRounded, BorderLayout.EAST);
+      pnls_upperbar[1].add(pnl_searchbarRounded);
+      pnls_upperbar[2].add(btn_login);
+       
+      this.setLayout(new BorderLayout());
+      this.add(pnls_upperbar[0], BorderLayout.WEST);
+      this.add(pnls_upperbar[1], BorderLayout.CENTER);
+      this.add(pnls_upperbar[2], BorderLayout.EAST);
     }
     
     /**
@@ -111,7 +116,8 @@ public final class Upperbar extends javax.swing.JPanel {
      * Listens for mouse clicks on the advanced search button, login button, and text input in the search bar.
      * </p>
      */
-    private void initEvents() {
+    private void initEvents() 
+    {
         this.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {
@@ -285,14 +291,20 @@ public final class Upperbar extends javax.swing.JPanel {
      * 
      * @param e the key event triggered by releasing the key on the {@link JTextField}
      */
-    private void txt_searchbar_KeyReleased(java.awt.event.KeyEvent e) {        
-        if (ctrlA_pressed && (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
-            txt_searchbar.setText("");
-            ctrlA_pressed = false;
-        } else if (ctrlA_pressed && Character.isLetterOrDigit(e.getKeyChar())) {
-            txt_searchbar.setText(String.valueOf(e.getKeyChar()));
-            ctrlA_pressed = false;
-        }
+    private void txt_searchbar_KeyReleased(java.awt.event.KeyEvent e) 
+    {        
+      if      (ctrlA_pressed && (e.getKeyCode() == KeyEvent.VK_BACK_SPACE))
+      {
+        txt_searchbar.setText("");
+        ctrlA_pressed = false;
+      } 
+      else if (ctrlA_pressed && Character.isLetterOrDigit(e.getKeyChar())) 
+      {
+        txt_searchbar.setText(String.valueOf(e.getKeyChar()));
+        ctrlA_pressed = false;
+      }
+        
+      controller.searchRestaurant(txt_searchbar.getText());
     }
     //</editor-fold>
     

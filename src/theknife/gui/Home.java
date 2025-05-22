@@ -2,19 +2,25 @@ package theknife.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JList;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 import theknife.Controller;
 import theknife.obj.restaurant.Restaurant;
+import theknife.obj.user.Customer;
+import theknife.obj.user.Restaurateur;
 
 /**
  * The Home class represents the home screen of the application.
@@ -29,7 +35,8 @@ import theknife.obj.restaurant.Restaurant;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class Home extends javax.swing.JPanel {
+public final class Home extends javax.swing.JPanel 
+{
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
@@ -40,89 +47,122 @@ public final class Home extends javax.swing.JPanel {
      *
      * @param controller the {@link Controller} class that manages the screen layout
      */
-    public Home(Controller controller) {
-        initComponents();
-        this.controller = controller;
-        initGUI();
+    public Home(Controller controller) 
+    {
+      initComponents();
+      this.controller = controller;
+      initGUI       ();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Initializes the graphical user interface (GUI) for the home page.
      */
-    private void initGUI() {
-        initFields();
-        initHome();
-        initEvents();
+    private void initGUI() 
+    {
+      initFields();
+      initHome  ();
+      initEvents();
     }
-    
+
     /**
      * Initializes the basic fields of the {@code Home} panel.
      */
-    private void initFields() {
-        upperbar            = new Upperbar(controller);
-        pnl_home            = new CustomJPanel(new GridBagLayout());
-        pnl_restaurants     = new JPanel(new GridLayout(100, 1));
-        scrlPnl_restaurants = new JScrollPane(pnl_restaurants, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        lbl_title           = new JLabel(TITLE);
+    private void initFields() 
+    {
+      listModel = new DefaultListModel<>();
+    
+      for(Restaurant restaurant : controller.getRestaurants().getList())
+        listModel.addElement(restaurant);
+
+      list_restaurants = new JList<>(listModel);
+
+      list_restaurants.setCellRenderer(new ListCellRenderer<Restaurant>() 
+      {
+        private final PreviewRestaurant preview = new PreviewRestaurant(controller);
+
+        @Override
+        public Component getListCellRendererComponent(JList<? extends Restaurant> list, Restaurant value, int index, boolean isSelected, boolean cellHasFocus) 
+        {
+          Color bg = (index % 2 == 0) ? BG_RESTAURANT_PNL_EVEN : BG_RESTAURANT_PNL_ODD;
+          preview.updateWith(value, bg);
+          return preview;
+        }
+      }); 
+
+      upperbar              = new Upperbar      (controller);
+      pnl_home              = new CustomJPanel  (new GridBagLayout());
+      scrlPnl_restaurants   = new JScrollPane   (list_restaurants, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
+      lbl_title             = new JLabel        (TITLE);
     }
     
     /**
      * Initializes the layout and appearance of the home page.
      */
-    private void initHome() {
-        this.setLayout(new BorderLayout());
+    private void initHome() 
+    {
+      this.setLayout(new BorderLayout());
+      
+      //pnl_restaurants.setBackground(this.getBackground().darker());
+      pnl_home       .setBackground(this.getBackground());
         
-        pnl_restaurants.setBackground(this.getBackground().darker());
-        pnl_home       .setBackground(this.getBackground());
+      scrlPnl_restaurants.getVerticalScrollBar()      .setUI(new CustomJScrollBar());
+      scrlPnl_restaurants.getHorizontalScrollBar()    .setUI(new CustomJScrollBar());
+      scrlPnl_restaurants.setBorder                   (PADDING_SCROLLPANE);
+       
+      lbl_title.setBackground           (BG_TITLE);
+      lbl_title.setForeground           (FG_DEFAULT);
+      lbl_title.setHorizontalAlignment  (JLabel.CENTER);
+      lbl_title.setVerticalAlignment    (JLabel.CENTER);
+      lbl_title.setFont                 (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 48));
+      lbl_title.setOpaque               (true);
         
-        scrlPnl_restaurants.getVerticalScrollBar()      .setUI(new CustomJScrollBar());
-        scrlPnl_restaurants.getHorizontalScrollBar()    .setUI(new CustomJScrollBar());
-        scrlPnl_restaurants.setBorder                   (PADDING_SCROLLPANE);
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.gridx   = 0;
+      gbc.gridy   = 0;
+      gbc.weightx = 0.25;
+      gbc.ipadx   = 30;
+      gbc.insets  = INSETS;
+      gbc.anchor  = GridBagConstraints.CENTER;
+      gbc.fill    = GridBagConstraints.VERTICAL;
+      pnl_home.add(lbl_title, gbc);
         
-        lbl_title.setBackground(BG_TITLE);
-        lbl_title.setForeground(FG_DEFAULT);
-        lbl_title.setHorizontalAlignment(JLabel.CENTER);
-        lbl_title.setVerticalAlignment  (JLabel.CENTER);
-        lbl_title.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 48));
-        lbl_title.setOpaque(true);
-        
-        int i = 0;
-        for (Restaurant restaurant : controller.getRestaurants().getList()) {
-            i++;
-            if (i > 100)
-                break;
-            pnl_restaurants.add(new PreviewRestaurant(controller, restaurant, i % 2 == 0 ? BG_RESTAURANT_PNL_EVEN : BG_RESTAURANT_PNL_ODD));
-        }
-        
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx   = 0;
-        gbc.gridy   = 0;
-        gbc.weightx = 0.25;
-        gbc.ipadx   = 30;
-        gbc.insets  = INSETS;
-        gbc.anchor  = GridBagConstraints.CENTER;
-        gbc.fill    = GridBagConstraints.VERTICAL;
-        pnl_home.add(lbl_title, gbc);
-        
-        gbc.gridy++;
-        gbc.weighty = 0.75;
-        gbc.ipadx   = 0;
-        gbc.insets  = INSETS_ZERO;
-        gbc.fill    = GridBagConstraints.BOTH;
-        pnl_home.add(scrlPnl_restaurants, gbc);
-        
-        this.add(upperbar, BorderLayout.NORTH);
-        this.add(pnl_home, BorderLayout.CENTER);
+      gbc.gridy++;
+      gbc.weighty = 0.75;
+      gbc.ipadx   = 0;
+      gbc.insets  = INSETS_ZERO;
+      gbc.fill    = GridBagConstraints.BOTH;
+      pnl_home.add(scrlPnl_restaurants, gbc);
+       
+      this.add(upperbar, BorderLayout.NORTH);
+      this.add(pnl_home, BorderLayout.CENTER);
     }
     
     /**
      * Sets up event listeners for user interaction.
      */
-    private void initEvents() {
-        scrlPnl_restaurants.addMouseWheelListener((java.awt.event.MouseWheelEvent e) -> {
-            scrlPnl_restaurants_MouseWheelMoved(e);
-        });
+    private void initEvents() 
+    {
+      scrlPnl_restaurants.addMouseWheelListener((java.awt.event.MouseWheelEvent e) -> 
+      {
+        scrlPnl_restaurants_MouseWheelMoved(e);
+      });
+      
+      list_restaurants.addMouseListener(new MouseAdapter() 
+      {
+        @Override
+        public void mouseClicked(MouseEvent e) 
+        {
+          int index = list_restaurants.locationToIndex(e.getPoint());
+          if (index >= 0) 
+          {
+            Restaurant    selectedRestaurant    = listModel.getElementAt(index);
+            RestaurantGUI restaurantGUI         = new RestaurantGUI     (controller, selectedRestaurant);
+            controller.getPanelMain().getPanel().add(restaurantGUI, Page.RESTAURANT);
+            controller.getPanelMain().showCard(Page.RESTAURANT);
+          }
+        }
+      });
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
@@ -131,15 +171,68 @@ public final class Home extends javax.swing.JPanel {
      * 
      * @param e the component event triggered by wheel-scrolling using the mouse.
      */
-    private void scrlPnl_restaurants_MouseWheelMoved(java.awt.event.MouseWheelEvent e) {
-        int notches = e.getWheelRotation();
-        int fasterScroll = notches * 150;
+    private void scrlPnl_restaurants_MouseWheelMoved(java.awt.event.MouseWheelEvent e) 
+    {
+      int notches = e.getWheelRotation();
+      int fasterScroll = notches * 150;
 
-        JScrollBar vertical = scrlPnl_restaurants.getVerticalScrollBar();
-        vertical.setValue(vertical.getValue() + fasterScroll);
+      JScrollBar vertical = scrlPnl_restaurants.getVerticalScrollBar();
+      vertical.setValue(vertical.getValue() + fasterScroll);
     }
     //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    
+    /**
+     * Method that search restaurants by name
+     * @param name the name of the {@link Restaurant}
+     */
+    public void list_restaurants_searchRestaurants(String name)
+    {      
+      listModel.clear();
+      name = name.toLowerCase();
+      
+      for(Restaurant restaurant : controller.getRestaurants().getList()) 
+        if(restaurant.getNormalizedName().startsWith(name))
+          listModel.addElement(restaurant);
+      
+      list_restaurants.setModel(listModel);
+    }
+    
+    /**
+     * Let the user see his list(Favorite or Owned Restaurants)
+     * @param username
+     * @param role 
+     */
+    public void list_restaurants_viewUserList(String username, String role)
+    {      
+      listModel.clear();
+      
+      if(role.equals("customer"))  
+      {
+        for(Customer customer : controller.getCustomers().getList()) 
+          if(customer.getUsername().equals(username))
+          {
+            for(Restaurant restaurant : customer.getListFavorite().getList())
+              listModel.addElement(restaurant);
+            lbl_title.setText("Favorite Restaurant");
+            break;
+          }      
+      } 
+      else
+        for(Restaurateur restaurateur : controller.getRestaurateurs().getList()) 
+          if(restaurateur.getUsername().equals(username))
+          {
+            for(Restaurant restaurant : restaurateur.getListRestaurant().getList())
+              listModel.addElement(restaurant);
+            lbl_title.setText("Owned Restaurant");
+            break;
+          }
+      
+      list_restaurants.setModel(listModel);
+    }
+    //</editor-fold>
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,11 +268,12 @@ public final class Home extends javax.swing.JPanel {
     private final String TITLE                  = "All restaurants";  
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private Upperbar           upperbar;
-    private CustomJPanel       pnl_home;
-    private JPanel             pnl_restaurants;
-    private JScrollPane        scrlPnl_restaurants;
-    private JLabel             lbl_title;
+    private Upperbar                        upperbar;
+    private CustomJPanel                    pnl_home;
+    private DefaultListModel<Restaurant>    listModel;
+    private JList                           list_restaurants; 
+    private JScrollPane                     scrlPnl_restaurants;
+    private JLabel                          lbl_title;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final Controller controller;
