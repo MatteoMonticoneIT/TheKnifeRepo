@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -60,12 +61,14 @@ public final class AddResponse extends javax.swing.JPanel
     private void initFields() {
         pnl_btns                 = new JPanel(new GridLayout(1, 2, 10, 10));
         pnl_btn_add              = new JPanel(new BorderLayout());
-        pnl_btn_back             = new JPanel(new BorderLayout());
+        pnl_btn_cancel           = new JPanel(new BorderLayout());
         lbl_title                = new JLabel(TITLE);
         btn_add                  = new JLabel(ADD_RESPONSE);
-        btn_back                 = new JLabel(BACK);
+        btn_cancel               = new JLabel(CANCEL);
+        txt_content              = new JTextArea();
         btn_addRounded           = new JLayer<>(btn_add,  BTN_LAYERUI);
-        btn_backRounded          = new JLayer<>(btn_back, BTN_LAYERUI);
+        btn_cancelRounded        = new JLayer<>(btn_cancel, BTN_LAYERUI);
+        scrlPnl_content          = new JScrollPane(txt_content, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
     
     /**
@@ -78,7 +81,27 @@ public final class AddResponse extends javax.swing.JPanel
         pnl_btns.setBorder    (BorderFactory.createEmptyBorder());
         
         pnl_btn_add .setBackground(pnl_btns.getBackground());
-        pnl_btn_back.setBackground(pnl_btns.getBackground());
+        pnl_btn_cancel.setBackground(pnl_btns.getBackground());
+        
+        lbl_title.setBackground(BG_TITLE);
+        lbl_title.setForeground           (FG_DEFAULT);
+        lbl_title.setHorizontalAlignment  (JLabel.CENTER);
+        lbl_title.setVerticalAlignment    (JLabel.CENTER);
+        lbl_title.setFont                 (this.getFont());
+        lbl_title.setBorder               (PADDING_LBL);
+        lbl_title.setOpaque               (true);
+        lbl_title.setPreferredSize        (new Dimension(0, LBL_TITLE_HEIGHT));
+        
+        txt_content.setBackground   (this.getBackground());
+        txt_content.setBorder       (PADDING_TXT);
+        txt_content.setFont         (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 22));
+        txt_content.setLineWrap     (true);
+        txt_content.setWrapStyleWord(true);
+        
+        scrlPnl_content.setBackground                 (this.getBackground());
+        scrlPnl_content.setBorder                     (BORDER_PNL);
+        scrlPnl_content.getVerticalScrollBar()  .setUI(new CustomJScrollBar());
+        scrlPnl_content.getHorizontalScrollBar().setUI(new CustomJScrollBar());
         
         btn_add.setBackground         (BG_ADDRESPONSE_BTN);
         btn_add.setForeground         (FG_DEFAULT);
@@ -87,20 +110,22 @@ public final class AddResponse extends javax.swing.JPanel
         btn_add.setFont               (this.getFont());
         btn_add.setOpaque             (true);
         
-        btn_back.setBackground         (BG_BACK_BTN);
-        btn_back.setForeground         (FG_DEFAULT);
-        btn_back.setHorizontalAlignment(JLabel.CENTER);
-        btn_back.setVerticalAlignment  (JLabel.CENTER);
-        btn_back.setFont               (this.getFont());
-        btn_back.setOpaque             (true);
+        btn_cancel.setBackground         (BG_BACK_BTN);
+        btn_cancel.setForeground         (FG_DEFAULT);
+        btn_cancel.setHorizontalAlignment(JLabel.CENTER);
+        btn_cancel.setVerticalAlignment  (JLabel.CENTER);
+        btn_cancel.setFont               (this.getFont());
+        btn_cancel.setOpaque             (true);
         
         pnl_btn_add .add(btn_addRounded, BorderLayout.CENTER);
-        pnl_btn_back.add(btn_backRounded,        BorderLayout.CENTER);
+        pnl_btn_cancel.add(btn_cancelRounded,        BorderLayout.CENTER);
         
         pnl_btns.setPreferredSize(new Dimension(this.getWidth(), PNL_BTNS_HEIGHT));
         pnl_btns.add(pnl_btn_add,  BorderLayout.CENTER);
-        pnl_btns.add(pnl_btn_back, BorderLayout.EAST);
+        pnl_btns.add(pnl_btn_cancel, BorderLayout.EAST);
         
+        this.add(lbl_title, BorderLayout.NORTH);
+        this.add(scrlPnl_content, BorderLayout.CENTER);
         this.add(pnl_btns, BorderLayout.SOUTH);
     }
     
@@ -108,20 +133,27 @@ public final class AddResponse extends javax.swing.JPanel
      * Sets up event listeners for user interaction.
      */
     private void initEvents() {
-        btn_back.addMouseListener(new java.awt.event.MouseAdapter() {
+        this.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent e) {
+                addResponse_ComponentResized(e);
+            }
+        });
+        
+        btn_cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                btn_back_MouseClicked(e);
+                btn_cancel_MouseClicked(e);
             }
             
             @Override
             public void mouseEntered(java.awt.event.MouseEvent e) {
-                btn_back_MouseEntered(e);
+                btn_cancel_MouseEntered(e);
             }
             
             @Override
             public void mouseExited(java.awt.event.MouseEvent e) {
-                btn_back_MouseExited(e);
+                btn_cancel_MouseExited(e);
             }
         });
         
@@ -145,35 +177,50 @@ public final class AddResponse extends javax.swing.JPanel
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
     /**
-     * Handles the click event on the back button {@link JLabel}.
+     * Handles the resize event for the {@code RestaurantGUI} {@link JPanel}.
+     * <p>
+     * When resized, resizes the padding of the components.
+     * </p>
+     * 
+     * @param e the component event triggered by resizing the GUI application
+     */
+    private void addResponse_ComponentResized(java.awt.event.ComponentEvent e) 
+    {
+        final int PADDING_BTN = (int) (this.getWidth() * 0.01);
+        pnl_btn_add   .setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
+        pnl_btn_cancel.setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
+    }
+    
+    /**
+     * Handles the click event on the cancel button {@link JLabel}.
      * <p>
      * When the button is clicked, the view switches to the {@code Home} screen canceling the login procedure.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_back_MouseClicked(java.awt.event.MouseEvent e) {
+    private void btn_cancel_MouseClicked(java.awt.event.MouseEvent e) {
         controller.getPanelMain().showCard(Page.REVIEW);
         controller.getPanelMain().getPanel().remove(this);
     }
     
     /**
-     * Handles the hover event on the back button {@link JLabel}.
+     * Handles the hover event on the cancel button {@link JLabel}.
      * 
      * @param e the mouse event triggered by hovering to the button
      */
-    private void btn_back_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_back.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn_back.setBackground(btn_back.getBackground().darker());
+    private void btn_cancel_MouseEntered(java.awt.event.MouseEvent e) {
+        btn_cancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn_cancel.setBackground(btn_cancel.getBackground().darker());
     }
     
     /**
-     * Handles the exit hover event on the back button {@link JLabel}.
+     * Handles the exit hover event on the cancel button {@link JLabel}.
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_back_MouseExited(java.awt.event.MouseEvent e) {
-        btn_back.setBackground(BG_BACK_BTN);
+    private void btn_cancel_MouseExited(java.awt.event.MouseEvent e) {
+        btn_cancel.setBackground(BG_BACK_BTN);
     }
     
     /**
@@ -216,6 +263,7 @@ public final class AddResponse extends javax.swing.JPanel
     private void initComponents() {
 
         setBackground(new java.awt.Color(41, 197, 87));
+        setFont(new java.awt.Font("Consolas", 0, 28)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -231,34 +279,32 @@ public final class AddResponse extends javax.swing.JPanel
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
     private final Color              FG_DEFAULT                = Color.BLACK;
+    private final Color              BG_TITLE                  = new Color(157, 204, 49);
     private final Color              BG_ADDRESPONSE_BTN        = new Color(0, 255, 0, 192);
     private final Color              BG_BACK_BTN               = new Color(255, 64, 0, 192);
-    private final Color              BG_STAR                   = new Color(255, 215, 0);
     private final Color              BG_PNL_BTNS               = new Color(94, 168, 69);
-    private final Border             PADDING_LBL               = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+    private final Border             PADDING_LBL               = BorderFactory.createEmptyBorder(0, 5, 0, 5);
     private final Border             PADDING_TXT               = BorderFactory.createEmptyBorder(3, 3, 3, 3);
     private final Border             BORDER_PNL                = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
-    private final String             TITLE                     = "Response";
+    private final String             TITLE                     = "Your Response";
     private final String             ADD_RESPONSE              = "Add";
-    private final String             BACK                      = "Back";
-    private final char               FULL_STAR                 = 'C';
-    private final int                NORTH_CONTENT_HEIGHT      = 80;
+    private final String             CANCEL                    = "Cancel";
+    private final int                LBL_TITLE_HEIGHT          = 80;
     private final int                ARC                       = 50;
     private final int                PNL_BTNS_HEIGHT           = 80;
-    private final int                LBL_RATING_WIDTH          = 125;
     private final RoundedComponentUI BTN_LAYERUI               = new RoundedComponentUI(ARC);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private JPanel             pnl_btns;
     private JPanel             pnl_btn_add;
-    private JPanel             pnl_btn_back;
+    private JPanel             pnl_btn_cancel;
     private JScrollPane        scrlPnl_content;
     private JLabel             lbl_title;
     private JLabel             btn_add;
-    private JLabel             btn_back;
+    private JLabel             btn_cancel;
     private JTextArea          txt_content;
     private JLayer<JComponent> btn_addRounded;
-    private JLayer<JComponent> btn_backRounded;
+    private JLayer<JComponent> btn_cancelRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final Controller controller;

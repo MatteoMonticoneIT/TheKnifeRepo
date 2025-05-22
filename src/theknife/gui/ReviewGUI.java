@@ -264,7 +264,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
     /**
      * Handles the click event on the add response button {@link JLabel}.
      * <p>
-     * When the button is clicked, the filters will be applied and the view switches to the {@code Home} screen.
+     * When the button is clicked, the view switches to the {@link AddResponse} screen.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 

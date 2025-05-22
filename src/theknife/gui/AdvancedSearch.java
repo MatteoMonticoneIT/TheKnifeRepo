@@ -151,7 +151,7 @@ public final class AdvancedSearch extends javax.swing.JPanel
         
       for (int i = 0; i < lbl_stars.length; i++) 
       {
-        lbl_stars[i] = new CustomJLabel("", 'A');
+        lbl_stars[i] = new CustomJLabel("", EMPTY_STAR);
         lbl_stars[i].setBackground          (BG_STAR_LBL);
         lbl_stars[i].setForeground          (FG_DEFAULT);
         lbl_stars[i].setCharacterColor      (BG_STAR_CHAR);
@@ -547,11 +547,11 @@ public final class AdvancedSearch extends javax.swing.JPanel
         for (int i = 0; i < lbl_stars.length; i++) {
             if (lbl_stars[i].equals(e.getSource())) {
                 indexStar = i;
-                lbl_stars[i].setCharacter(e.getX() <= lbl_stars[i].getWidth() / 2 ? 'B' : 'C');
+                lbl_stars[i].setCharacter(e.getX() <= lbl_stars[i].getWidth() / 2 ? HALF_STAR : FULL_STAR);
                 starRating = e.getX() <= lbl_stars[i].getWidth() / 2 ? i + 0.5 : i + 1;
                 break;
             }
-            lbl_stars[i].setCharacter('C');
+            lbl_stars[i].setCharacter(FULL_STAR);
         }
     }
     
@@ -562,14 +562,14 @@ public final class AdvancedSearch extends javax.swing.JPanel
      */
     private void lbl_star_MouseMoved(java.awt.event.MouseEvent e) {
         for (CustomJLabel lbl : lbl_stars) 
-            lbl.setCharacter('A');
+            lbl.setCharacter(EMPTY_STAR);
             
         for (CustomJLabel lbl : lbl_stars) {
             if (lbl.equals(e.getSource())) {
-                lbl.setCharacter(e.getX() <= lbl.getWidth() / 2 ? 'B' : 'C');
+                lbl.setCharacter(e.getX() <= lbl.getWidth() / 2 ? HALF_STAR : FULL_STAR);
                 break;
             }
-            lbl.setCharacter('C');
+            lbl.setCharacter(FULL_STAR);
         }
     }
     
@@ -580,13 +580,13 @@ public final class AdvancedSearch extends javax.swing.JPanel
      */
     private void lbl_star_MouseExited(java.awt.event.MouseEvent e) {
         for (CustomJLabel lbl : lbl_stars) 
-            lbl.setCharacter('A');
+            lbl.setCharacter(EMPTY_STAR);
         
         if (starClicked) {
             for (int i = 0; i < indexStar + 1; i++) 
-                lbl_stars[i].setCharacter('C');
+                lbl_stars[i].setCharacter(FULL_STAR);
             if (starRating - indexStar == 0.5)
-                lbl_stars[indexStar].setCharacter('B');
+                lbl_stars[indexStar].setCharacter(HALF_STAR);
         }
     }
     
@@ -644,8 +644,12 @@ public final class AdvancedSearch extends javax.swing.JPanel
                 lbl_prices[indexPrice].setBackground(BG_PRICE_DARKER);
     }
     //</editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="Methods"> 
+    /**
+     * Returns all cuisines values whether they are selected or otherwise.
+     * 
+     * @return all cuisines {@code boolean} value based on selection (item selected)
+     */
     private boolean[] returnCuisineValues()
     {
       boolean[] cuisines= new boolean[chkbx_cuisines.length];
@@ -661,6 +665,11 @@ public final class AdvancedSearch extends javax.swing.JPanel
       return (flag) ? cuisines:null;
     }
     
+    /**
+     * Returns all services values whether they are selected or otherwise.
+     * 
+     * @return all services {@code boolean} value based on selection (item selected)
+     */
     private boolean[] returnServicesValues()
     {
       boolean[] services = new boolean[chkbx_services.length];
@@ -677,6 +686,7 @@ public final class AdvancedSearch extends javax.swing.JPanel
     }
     
     //</editor-fold>
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -732,6 +742,9 @@ public final class AdvancedSearch extends javax.swing.JPanel
     private final String             TITLE                   = "Filters";
     private final String             APPLY_FILTERS           = "Apply filters";
     private final String             CANCEL                  = "Cancel";
+    private final char               EMPTY_STAR              = 'A';
+    private final char               HALF_STAR               = 'B';
+    private final char               FULL_STAR               = 'C';
     private final int                ARC_PANEL               = 50;
     private final int                ARC_TEXTFIELD           = 50;
     private final int                ARC_BUTTON              = 50;

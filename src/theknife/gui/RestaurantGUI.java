@@ -23,6 +23,7 @@ import simple.file.CSV;
 import theknife.Controller;
 import theknife.obj.AppPaths;
 import theknife.obj.restaurant.Restaurant;
+import theknife.obj.review.Response;
 import theknife.obj.review.Review;
 
 /**
@@ -493,13 +494,15 @@ public class RestaurantGUI extends javax.swing.JPanel
     /**
      * Handles the click event on the add review button {@link JLabel}.
      * <p>
-     * When the button is clicked, the filters will be applied and the view switches to the {@code Home} screen.
+     * When the button is clicked, the view switches to the {@link AddReview} screen.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
      */
     private void btn_addReview_MouseClicked(java.awt.event.MouseEvent e) {
-        
+        addReview = new AddReview(controller, restaurant);
+        controller.getPanelMain().getPanel().add(addReview, Page.ADD_REVIEW);
+        controller.getPanelMain().showCard(Page.ADD_REVIEW);
     }
     
     /**
@@ -621,6 +624,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final  Controller controller;
     private final  Restaurant restaurant;
+    private        AddReview  addReview;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

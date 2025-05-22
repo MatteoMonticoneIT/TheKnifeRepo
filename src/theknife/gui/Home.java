@@ -176,13 +176,12 @@ public final class Home extends javax.swing.JPanel
     private void scrlPnl_restaurants_MouseWheelMoved(java.awt.event.MouseWheelEvent e) 
     {
       int notches = e.getWheelRotation();
-      int fasterScroll = notches * 150;
+      int fasterScroll = notches;
 
       JScrollBar vertical = scrlPnl_restaurants.getVerticalScrollBar();
       vertical.setValue(vertical.getValue() + fasterScroll);
     }
     //</editor-fold>
-
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
     /**
@@ -257,7 +256,7 @@ public final class Home extends javax.swing.JPanel
     private Upperbar                        upperbar;
     private CustomJPanel                    pnl_home;
     private DefaultListModel<Restaurant>    listModel;
-    private JList                           list_restaurants; 
+    private JList<Restaurant>               list_restaurants; 
     private JScrollPane                     scrlPnl_restaurants;
     private JLabel                          lbl_title;
     //</editor-fold>
