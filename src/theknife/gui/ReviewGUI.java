@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -64,22 +63,25 @@ public final class ReviewGUI extends javax.swing.JPanel {
      */
     private void initFields() 
     {
-        pnl_usernameRatingReview = new JPanel(new BorderLayout());
-        pnl_btns                 = new JPanel(new GridLayout(1, 2, 10, 10));
-        pnl_btn_addResponse      = new JPanel(new BorderLayout());
-        pnl_btn_back             = new JPanel(new BorderLayout());
-        lbl_usernameReview       = new JLabel(review.getUsername());
+        numResponses             = review.getResponses() == null ? 1 : review.getResponses().size();
+        pnl_usernameRatingReview = new JPanel      (new BorderLayout());
+        pnl_responses            = new JPanel      (new GridLayout(numResponses, 1));
+        pnl_btns                 = new JPanel      (new GridLayout(1, 2, 10, 10));
+        pnl_btn_addResponse      = new JPanel      (new BorderLayout());
+        pnl_btn_back             = new JPanel      (new BorderLayout());
+        lbl_usernameReview       = new JLabel      (review.getUsername());
         lbl_rating               = new CustomJLabel(String.valueOf(review.getRating()), FULL_STAR);
-        txt_reviewContent        = new JTextArea(review.getContent());
+        txt_reviewContent        = new JTextArea   (review.getContent());
         lbls                     = new JLabel[] {
             lbl_usernameReview,
             lbl_rating
         };
-        scrlPnl_reviewContent    = new JScrollPane(txt_reviewContent, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        btn_addResponse          = new JLabel     (ADD_RESPONSE);
-        btn_back                 = new JLabel     (BACK);
-        btn_addResponseRounded   = new JLayer<>   (btn_addResponse, BTN_LAYERUI);
-        btn_backRounded          = new JLayer<>   (btn_back,        BTN_LAYERUI);
+        scrlPnl_reviewContent    = new JScrollPane (txt_reviewContent, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrlPnl_responses        = new JScrollPane (pnl_responses, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        btn_addResponse          = new JLabel      (ADD_RESPONSE);
+        btn_back                 = new JLabel      (BACK);
+        btn_addResponseRounded   = new JLayer<>    (btn_addResponse, BTN_LAYERUI);
+        btn_backRounded          = new JLayer<>    (btn_back,        BTN_LAYERUI);
     }
     
     /**
@@ -92,6 +94,8 @@ public final class ReviewGUI extends javax.swing.JPanel {
         
         pnl_usernameRatingReview.setBackground(this.getBackground());
         pnl_usernameRatingReview.setPreferredSize(new Dimension(0, NORTH_CONTENT_HEIGHT));
+        
+        pnl_responses.setBackground(this.getBackground());
         
         pnl_btns.setBackground(BG_PNL_BTNS);
         pnl_btns.setBorder    (BorderFactory.createEmptyBorder());
@@ -117,6 +121,11 @@ public final class ReviewGUI extends javax.swing.JPanel {
         scrlPnl_reviewContent.setBorder                     (BORDER_PNL);
         scrlPnl_reviewContent.getVerticalScrollBar()  .setUI(new CustomJScrollBar());
         scrlPnl_reviewContent.getHorizontalScrollBar().setUI(new CustomJScrollBar());
+        
+        scrlPnl_responses.setBackground                 (this.getBackground());
+        scrlPnl_responses.setBorder                     (BORDER_PNL);
+        scrlPnl_responses.getVerticalScrollBar()  .setUI(new CustomJScrollBar());
+        scrlPnl_responses.getHorizontalScrollBar().setUI(new CustomJScrollBar());
         
         txt_reviewContent.setBackground   (this.getBackground());
         txt_reviewContent.setBorder       (PADDING_TXT);
@@ -151,6 +160,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
         
         this.add(pnl_usernameRatingReview, BorderLayout.NORTH);
         this.add(scrlPnl_reviewContent,    BorderLayout.CENTER);
+        this.add(scrlPnl_responses,        BorderLayout.EAST);
         this.add(pnl_btns,                 BorderLayout.SOUTH);
     }
     
@@ -215,10 +225,12 @@ public final class ReviewGUI extends javax.swing.JPanel {
         final int PADDING_BTN = (int) (this.getWidth() * 0.01);
         pnl_btn_addResponse.setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
         pnl_btn_back       .setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
+        
+        pnl_responses.setPreferredSize(new Dimension((int) (this.getWidth() * 0.4), 0));
     }
     
     /**
-     * Handles the click event on the cancel button {@link JLabel}.
+     * Handles the click event on the back button {@link JLabel}.
      * <p>
      * When the button is clicked, the view switches to the {@code Home} screen canceling the login procedure.
      * </p>
@@ -231,7 +243,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the hover event on the cancel button {@link JLabel}.
+     * Handles the hover event on the back button {@link JLabel}.
      * 
      * @param e the mouse event triggered by hovering to the button
      */
@@ -241,7 +253,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the exit hover event on the cancel button {@link JLabel}.
+     * Handles the exit hover event on the back button {@link JLabel}.
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
@@ -250,7 +262,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the click event on the apply button {@link JLabel}.
+     * Handles the click event on the add response button {@link JLabel}.
      * <p>
      * When the button is clicked, the filters will be applied and the view switches to the {@code Home} screen.
      * </p>
@@ -258,11 +270,13 @@ public final class ReviewGUI extends javax.swing.JPanel {
      * @param e the mouse event triggered by clicking the button 
      */
     private void btn_addResponse_MouseClicked(java.awt.event.MouseEvent e) {
-        
+        addResponse = new AddResponse(controller, review);
+        controller.getPanelMain().getPanel().add(addResponse, Page.ADD_RESPONSE);
+        controller.getPanelMain().showCard(Page.ADD_RESPONSE);
     }
     
     /**
-     * Handles the hover event on the apply button {@link JLabel}.
+     * Handles the hover event on the add response button {@link JLabel}.
      * 
      * @param e the mouse event triggered by hovering to the button
      */
@@ -272,7 +286,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the exit hover event on the apply button {@link JLabel}.
+     * Handles the exit hover event on the add response button {@link JLabel}.
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
@@ -322,12 +336,14 @@ public final class ReviewGUI extends javax.swing.JPanel {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private JPanel             pnl_usernameRatingReview;
+    private JPanel             pnl_responses;
     private JPanel             pnl_btns;
     private JPanel             pnl_btn_addResponse;
     private JPanel             pnl_btn_back;
     private JScrollPane        scrlPnl_reviewContent;
+    private JScrollPane        scrlPnl_responses;
     private JLabel             lbl_usernameReview;
-    private CustomJLabel        lbl_rating;
+    private CustomJLabel       lbl_rating;
     private JTextArea          txt_reviewContent;
     private JLabel[]           lbls;
     private JLabel             btn_addResponse;
@@ -336,11 +352,12 @@ public final class ReviewGUI extends javax.swing.JPanel {
     private JLayer<JComponent> btn_backRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
-    private final Controller controller;
-    private final Color      bg;
-    private final Review     review;
+    private final Controller  controller;
+    private       AddResponse addResponse;
+    private final Color       bg;
+    private final Review      review;
+    private       int         numResponses;
     //</editor-fold>
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

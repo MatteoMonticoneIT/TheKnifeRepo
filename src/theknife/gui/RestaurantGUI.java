@@ -459,7 +459,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     }
     
     /**
-     * Handles the click event on the cancel button {@link JLabel}.
+     * Handles the click event on the back button {@link JLabel}.
      * <p>
      * When the button is clicked, the view switches to the {@code Home} screen canceling the login procedure.
      * </p>
@@ -472,7 +472,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     }
     
     /**
-     * Handles the hover event on the cancel button {@link JLabel}.
+     * Handles the hover event on the back button {@link JLabel}.
      * 
      * @param e the mouse event triggered by hovering to the button
      */
@@ -482,7 +482,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     }
     
     /**
-     * Handles the exit hover event on the cancel button {@link JLabel}.
+     * Handles the exit hover event on the back button {@link JLabel}.
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
@@ -491,7 +491,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     }
     
     /**
-     * Handles the click event on the apply button {@link JLabel}.
+     * Handles the click event on the add review button {@link JLabel}.
      * <p>
      * When the button is clicked, the filters will be applied and the view switches to the {@code Home} screen.
      * </p>
@@ -503,7 +503,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     }
     
     /**
-     * Handles the hover event on the apply button {@link JLabel}.
+     * Handles the hover event on the add review button {@link JLabel}.
      * 
      * @param e the mouse event triggered by hovering to the button
      */
@@ -513,7 +513,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     }
     
     /**
-     * Handles the exit hover event on the apply button {@link JLabel}.
+     * Handles the exit hover event on the add review button {@link JLabel}.
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
