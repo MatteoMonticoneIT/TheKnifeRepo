@@ -224,7 +224,12 @@ public final class Controller
         this.setRestaurateurs(JSON.read(JSON_RESTAURATEURS, ListRestaurateur.class));
       else
         LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the restaurateurs file!"));
-       
+      
+      for(Customer c : customers.getList())
+        c.setRole("customer");
+      
+      for(Restaurateur r : restaurateurs.getList())
+        r.setRole("restaurateur");
       
       for(Restaurant r : restaurants.getList())
       {
@@ -381,12 +386,23 @@ public final class Controller
       JSON.writeToFile(JSON_RESTAURATEURS,  restaurateurs);
     }
     
+    public final void        logout()
+    {
+      loggedUser = null;   
+    }
+    
     public final boolean     LoginClient         (String user, String password)
     {
       if(InputPattern   .match    (InputPattern.USERNAME, user)     &&
          InputPattern   .match    (InputPattern.PASSWORD, password))
         loggedUser = customers      .checkUser(user, password);
-      return loggedUser!=null;       
+      
+      if(loggedUser!=null)
+      {
+        home.UILoggedUser("customer");
+        return true;
+      }
+      return false;       
     }
     
     public final boolean     LoginRestaurateur   (String user, String password)
@@ -394,7 +410,12 @@ public final class Controller
       if(InputPattern   .match      (InputPattern.USERNAME, user)     &&
          InputPattern   .match      (InputPattern.PASSWORD, password))
         loggedUser = restaurateurs  .checkUser(user, password); 
-      return loggedUser!=null;
+           if(loggedUser!=null)
+      {
+        home.UILoggedUser("restaurateur");
+        return true;
+      }
+      return false;
     }
     
     public final boolean     RegisterClient      (Customer customer)
