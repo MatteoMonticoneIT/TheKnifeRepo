@@ -214,9 +214,9 @@ public final class Controller
       } 
       else
         LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new CSVFileNotFoundException("Unable to get the restaurant file!"));
-      /*
+    
       if (JSON_CUSTOMERS.exists())
-        this.setCustomers    (JSON.read(JSON_CUSTOMERS,    ListCustomer.class));
+        this.setCustomers    (JSON.read(JSON_CUSTOMERS,     ListCustomer.class));
       else
         LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the customers file!"));
            
@@ -224,7 +224,7 @@ public final class Controller
         this.setRestaurateurs(JSON.read(JSON_RESTAURATEURS, ListRestaurateur.class));
       else
         LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the restaurateurs file!"));
-       */
+       
       
       for(Restaurant r : restaurants.getList())
       {
@@ -433,21 +433,21 @@ public final class Controller
     
     public final void        viewUserList        ()
     {
-      List<Restaurant>  restaurants;
-      Customer          customers;
-      Restaurateur      restaurateurs;
+      List<Integer>     restaurantsList;
+      Customer          customer;
+      Restaurateur      restaurateur;
       
       if(loggedUser instanceof Customer)
       {
-        customers       = (Customer)    loggedUser;
-        restaurants     = customers     .getListFavorite()  .getList();
+        customer            = (Customer)    loggedUser;
+        restaurantsList     = customer     .getListFavorite ()      .getList();
       }
       else
       {
-        restaurateurs   = (Restaurateur)loggedUser;
-        restaurants     = restaurateurs .getListRestaurant().getList();
+        restaurateur        = (Restaurateur)loggedUser;
+        restaurantsList     = restaurateur .getListOwned    ()      .getList();
       }
-      home.list_restaurants_viewUserList      (restaurants, loggedUser.getRole());
+      home.list_restaurants_viewUserList      (restaurantsList, loggedUser.getRole());
     }
     
     public final void        advancedSearch      (Double rating, String city, boolean[] cuisines, boolean[] services)

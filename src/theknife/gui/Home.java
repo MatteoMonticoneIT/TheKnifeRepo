@@ -206,12 +206,12 @@ public final class Home extends javax.swing.JPanel
      * @param restaurants gets user list
      * @param role gets user role
      */
-    public void list_restaurants_viewUserList(List<Restaurant> restaurants, String role)
+    public void list_restaurants_viewUserList(List<Integer> restaurants, String role)
     {      
       listModel.clear();
       
-      for(Restaurant restaurant : restaurants)
-        listModel.addElement(restaurant);
+      for(Integer index: restaurants)
+        listModel.addElement(controller.getRestaurants().getList().get(index-1));
   
       lbl_title.setText(role.equals("customer") ? "Favorite Restaurant":"Owned Restaurant");
   

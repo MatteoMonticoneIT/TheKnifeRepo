@@ -26,8 +26,9 @@ import theknife.obj.lists.ListFavorite;
     "password", 
     "favorites"
 })
-public final class Customer extends User {
-    
+public final class Customer extends User
+{
+   
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The list of favorite restaurants for the customer.
@@ -42,8 +43,7 @@ public final class Customer extends User {
      * Initializes a new {@code Client} object without any attributes set.
      * </p>
      */
-    public Customer() {
-    }
+    public Customer() {}
     
     /**
      * Constructor that initializes a {@code Client} object with the specified attributes.
@@ -64,15 +64,15 @@ public final class Customer extends User {
     
     public Customer(int id, ListFavorite listFavorite, String firstName, String lastName, String birthDate, String address, String username, String email, String password) 
     {
-        this                    (firstName, lastName, birthDate, address, username, email, password);
-        this.setListFavorite    (listFavorite);
-        this.setId              (id);
+      this                    (firstName, lastName, birthDate, address, username, email, password);
+      this.setListFavorite    (listFavorite);
+      this.setId              (id);
     }
     
     public Customer(String firstName, String lastName, String birthDate, String address, String username, String email, String password) 
     {
-        super           (firstName, lastName, birthDate, address, username, email, password);
-        this.setRole    ("customer");
+      super           (firstName, lastName, birthDate, address, username, email, password);
+      this.setRole    ("customer");
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
