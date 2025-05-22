@@ -42,7 +42,7 @@ public final class ListRestaurateur extends AbstractListWrapper<Restaurateur>
     /**
      * Checks if a restaurateur exists in the list by comparing the username and password.
      * <p>
-     * This method iterates through the list of restaurateur and checks if there is a client with the specified username and password.
+     * This method iterates through the list of restaurateur and checks if there is a restaurateur with the specified username and password.
      * </p>
      *
      * @param username the username of the restaurateur to check
@@ -52,11 +52,30 @@ public final class ListRestaurateur extends AbstractListWrapper<Restaurateur>
      */
     public boolean checkUser(String username, String password)
     {
-        for(Restaurateur user : super.getList())
-          if(user.getUsername().equals(username) && user.getPassword().equals(password))
-            return true;
+      for(Restaurateur user : super.getList())
+        if(user.getUsername().equals(username) && user.getPassword().equals(password))
+          return true;
         
-        return false;
+      return false;
+    }
+    
+    /**
+     * Checks if a restaurateur exists in the list by comparing the username.
+     * <p>
+     * This method iterates through the list of restaurateur and checks if there is a restaurateur with the specified username.
+     * </p>
+     *
+     * @param username the username of the restaurateur to check
+     * @return {@code true} if a restaurateur with the given username is found,
+     *         {@code false} otherwise
+     */
+    public boolean existUser(String username)
+    {
+      for(Restaurateur user : super.getList())
+        if(user.getUsername().equals(username))
+          return true;
+        
+      return false;
     }
     //</editor-fold>
 }

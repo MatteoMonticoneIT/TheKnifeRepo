@@ -2,7 +2,6 @@ package theknife.obj.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.time.LocalDate;
 import theknife.obj.lists.ListFavorite;
 
 /**

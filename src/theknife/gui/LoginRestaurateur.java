@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
@@ -335,13 +336,14 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the component event triggered by resizing the GUI application
      */
-    private void loginRestaurateur_ComponentResized(ComponentEvent e) {
-        int[] padding = {(int) (this.getWidth() * 0.2), (int) (this.getHeight() * 0.1)};
-        this.setBorder(BorderFactory.createEmptyBorder(padding[1], padding[0], padding[1], padding[0]));
+    private void loginRestaurateur_ComponentResized(ComponentEvent e) 
+    {
+      int[] padding = {(int) (this.getWidth() * 0.2), (int) (this.getHeight() * 0.1)};
+      this.setBorder(BorderFactory.createEmptyBorder(padding[1], padding[0], padding[1], padding[0]));
         
-        final int PADDING_BTN = (int) (this.getWidth() * 0.1);
-        pnl_btn_login .setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN, 0, PADDING_BTN));
-        pnl_btn_cancel.setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN, 0, PADDING_BTN));
+      final int PADDING_BTN = (int) (this.getWidth() * 0.1);
+      pnl_btn_login .setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN, 0, PADDING_BTN));
+      pnl_btn_cancel.setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN, 0, PADDING_BTN));
     }
     
     /**
@@ -349,11 +351,16 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_emailUsername_FocusGained(java.awt.event.FocusEvent e) {
-        if (txt_emailUsername.getText().equals(PLACEHOLDER[0])) {
-            txt_emailUsername.setText("");
-            txt_emailUsername.setForeground(FG_DEFAULT);
-        }
+    private void txt_emailUsername_FocusGained(java.awt.event.FocusEvent e) 
+    {
+      if(txt_emailUsername.getBackground() == Color.RED)
+        txt_emailUsername.setBackground (BG_TEXTFIELD);
+            
+      if(txt_emailUsername.getText().equals(PLACEHOLDER[0])) 
+      {
+        txt_emailUsername.setText       ("");
+        txt_emailUsername.setForeground (FG_DEFAULT);
+      }
     }
     
     /**
@@ -361,11 +368,13 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_emailUsername_FocusLost(java.awt.event.FocusEvent e) {
-        if (txt_emailUsername.getText().isEmpty()) {
-            txt_emailUsername.setText(PLACEHOLDER[0]);
-            txt_emailUsername.setForeground(FG_PLACEHOLDER);
-        }
+    private void txt_emailUsername_FocusLost(java.awt.event.FocusEvent e) 
+    {
+      if(txt_emailUsername.getText().isEmpty()) 
+      {
+        txt_emailUsername.setText       (PLACEHOLDER[0]);
+        txt_emailUsername.setForeground (FG_PLACEHOLDER);
+      }
     }
     
     /**
@@ -373,12 +382,17 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_password_FocusGained(java.awt.event.FocusEvent e) {
-        if (String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1])) {
-            txt_password.setText("");
-            txt_password.setEchoChar(DEFAULT_PASSWORD_ECHOCHAR);
-            txt_password.setForeground(FG_DEFAULT);
-        }
+    private void txt_password_FocusGained(java.awt.event.FocusEvent e) 
+    {
+      if(txt_password.getBackground() == Color.RED)
+        txt_password.setBackground  (BG_TEXTFIELD);
+      
+      if(String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1])) 
+      {
+        txt_password.setText        ("");
+        txt_password.setEchoChar    (DEFAULT_PASSWORD_ECHOCHAR);
+        txt_password.setForeground  (FG_DEFAULT);
+      }
     }
     
     /**
@@ -386,12 +400,14 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_password_FocusLost(java.awt.event.FocusEvent e) {
-        if (String.valueOf(txt_password.getPassword()).isEmpty()) {
-            txt_password.setText(PLACEHOLDER[1]);
-            txt_password.setEchoChar((char) 0);
-            txt_password.setForeground(FG_PLACEHOLDER);
-        }
+    private void txt_password_FocusLost(java.awt.event.FocusEvent e) 
+    {
+      if (String.valueOf(txt_password.getPassword()).isEmpty()) 
+      {
+        txt_password.setText        (PLACEHOLDER[1]);
+        txt_password.setEchoChar    ((char) 0);
+        txt_password.setForeground  (FG_PLACEHOLDER);
+      }
     }
     
     /**
@@ -399,14 +415,18 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the key event triggered by typing on it
      */
-    private void txt_password_KeyTyped(java.awt.event.KeyEvent e) {
-        if (ctrlA_pressed && (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
-            txt_password.setText("");
-            ctrlA_pressed = false;
-        } else if (ctrlA_pressed && Character.isLetterOrDigit(e.getKeyChar())) {
-            txt_password.setText(String.valueOf(e.getKeyChar()));
-            ctrlA_pressed = false;
-        }
+    private void txt_password_KeyTyped(java.awt.event.KeyEvent e) 
+    {
+      if     (ctrlA_pressed && (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) 
+      {
+        txt_password.setText("");
+        ctrlA_pressed = false;
+      } 
+      else if(ctrlA_pressed && Character.isLetterOrDigit(e.getKeyChar())) 
+      {
+        txt_password.setText(String.valueOf(e.getKeyChar()));
+        ctrlA_pressed = false;
+      }
     }
     
     /**
@@ -414,13 +434,15 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the key event triggered by pressing some keys  
      */
-    private void txt_password_KeyPressed(java.awt.event.KeyEvent e) {
-        if (txt_password.getEchoChar() == DEFAULT_PASSWORD_ECHOCHAR && !chkbx_seePassword.isSelected())
-            txt_password.setEchoChar((char) 0);
-        if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A) {
-            txt_password.selectAll();
-            ctrlA_pressed = true;
-        }
+    private void txt_password_KeyPressed(java.awt.event.KeyEvent e)
+    {
+      if (txt_password.getEchoChar() == DEFAULT_PASSWORD_ECHOCHAR && !chkbx_seePassword.isSelected())
+        txt_password.setEchoChar((char) 0);
+      if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A)
+      {
+        txt_password.selectAll();
+        ctrlA_pressed = true;
+      }
     }
     
     /**
@@ -428,8 +450,9 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the key event triggered by releasing a key  
      */
-    private void txt_password_KeyReleased(java.awt.event.KeyEvent e) {
-        System.out.println(String.valueOf(txt_password.getPassword()));
+    private void txt_password_KeyReleased(java.awt.event.KeyEvent e) 
+    {
+      System.out.println(String.valueOf(txt_password.getPassword()));
     }
     
     /**
@@ -439,8 +462,8 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      */
     private void chkbx_seePassword_ItemStateChanged(java.awt.event.ItemEvent e) 
     {
-        chkbx_seePassword.setCharacter(e.getStateChange() % 2 != 0 ? EYE_OFF : EYE);
-        if (!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1])) 
+      chkbx_seePassword.setCharacter(e.getStateChange() % 2 != 0 ? EYE_OFF : EYE);
+        if(!txt_password.getBackground().equals(FG_PLACEHOLDER) && !String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1])) 
           txt_password.setEchoChar(e.getStateChange() % 2 != 0 ? DEFAULT_PASSWORD_ECHOCHAR : (char) 0);
     }
     
@@ -458,8 +481,19 @@ public class LoginRestaurateur extends javax.swing.JPanel {
     {
       String user     =                txt_emailUsername.getText    ();
       String password = String.valueOf(txt_password     .getPassword());
-      if(controller.LoginRestaurateur(user, password))
-        controller.getPanelMain().showCard(Page.HOME);  
+      
+      KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
+      
+      if(!user.equals(PLACEHOLDER[0]) && !password.equals(PLACEHOLDER[1]) && controller.LoginRestaurateur(user, password))
+      {
+        resetPage();
+        controller.getPanelMain().showCard(Page.HOME);
+      }
+      else
+      {
+        txt_emailUsername.setBackground(Color.RED);
+        txt_password     .setBackground(Color.RED);
+      } 
     }
     
     /**
@@ -467,9 +501,10 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by hovering to the button
      */
-    private void btn_login_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_login.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn_login.setBackground(btn_login.getBackground().darker());
+    private void btn_login_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_login.setCursor       (new Cursor(Cursor.HAND_CURSOR));
+      btn_login.setBackground   (btn_login.getBackground().darker());
     }
     
     /**
@@ -477,8 +512,9 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_login_MouseExited(java.awt.event.MouseEvent e) {
-        btn_login.setBackground(BG_LOGIN_BTN);
+    private void btn_login_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_login.setBackground(BG_LOGIN_BTN);
     }
     
     /**
@@ -489,16 +525,10 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_cancel_MouseClicked(java.awt.event.MouseEvent e) {
-        txt_emailUsername.setText(PLACEHOLDER[0]);
-        txt_emailUsername.setForeground(FG_PLACEHOLDER);
-        
-        chkbx_seePassword.setSelected(true);
-        txt_password     .setText(PLACEHOLDER[1]);
-        txt_password     .setForeground(FG_PLACEHOLDER);
-        txt_password     .setEchoChar((char) 0);
-        
-        controller.getPanelMain().showCard(Page.HOME);
+    private void btn_cancel_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      resetPage();    
+      controller.getPanelMain().showCard(Page.HOME);
     }
     
     /**
@@ -506,9 +536,10 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by hovering to the button
      */
-    private void btn_cancel_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_cancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn_cancel.setBackground(btn_cancel.getBackground().darker());
+    private void btn_cancel_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_cancel.setCursor      (new Cursor(Cursor.HAND_CURSOR));
+      btn_cancel.setBackground  (btn_cancel.getBackground().darker());
     }
     
     /**
@@ -516,8 +547,9 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_cancel_MouseExited(java.awt.event.MouseEvent e) {
-        btn_cancel.setBackground(BG_CANCEL_BTN);
+    private void btn_cancel_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_cancel.setBackground(BG_CANCEL_BTN);
     }
     
     /**
@@ -528,16 +560,10 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the button
      */
-    private void btn_register_MouseClicked(java.awt.event.MouseEvent e) {
-        chkbx_seePassword.setSelected(true);
-        txt_emailUsername.setText(PLACEHOLDER[0]);
-        txt_password     .setText(PLACEHOLDER[1]);
-        
-        txt_emailUsername.setForeground(FG_PLACEHOLDER);
-        txt_password     .setForeground(FG_PLACEHOLDER);
-        txt_password     .setEchoChar((char) 0);
-        
-        controller.getPanelMain().showCard(Page.REGISTER_RESTAURATEUR);
+    private void btn_register_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      resetPage();
+      controller.getPanelMain().showCard(Page.REGISTER_RESTAURATEUR);
     }
     
     /**
@@ -545,9 +571,10 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by hovering to the button
      */
-    private void btn_register_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_register.setForeground(Color.BLUE);
-        btn_register.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    private void btn_register_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_register.setForeground(Color.BLUE);
+      btn_register.setCursor    (new Cursor(Cursor.HAND_CURSOR));
     }
     
     /**
@@ -555,8 +582,9 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_register_MouseExited(java.awt.event.MouseEvent e) {
-        btn_register.setForeground(FG_DEFAULT);
+    private void btn_register_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_register.setForeground(FG_DEFAULT);
     }
     
     /**
@@ -567,15 +595,10 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the button
      */
-    private void btn_loginAsCustomer_MouseClicked(java.awt.event.MouseEvent e) {
-        txt_emailUsername.setText(PLACEHOLDER[0]);
-        txt_emailUsername.setForeground(FG_PLACEHOLDER);
-        
-        txt_password.setText(PLACEHOLDER[1]);
-        txt_password.setForeground(FG_PLACEHOLDER);
-        txt_password.setEchoChar((char) 0);
-        
-        controller.getPanelMain().showCard(Page.LOGIN);
+    private void btn_loginAsCustomer_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      resetPage();        
+      controller.getPanelMain().showCard(Page.LOGIN);
     }
     
     /**
@@ -583,9 +606,10 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by hovering to the button
      */
-    private void btn_loginAsCustomer_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_loginAsCustomer.setForeground(Color.BLUE);
-        btn_loginAsCustomer.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    private void btn_loginAsCustomer_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_loginAsCustomer.setForeground (Color.BLUE);
+      btn_loginAsCustomer.setCursor     (new Cursor(Cursor.HAND_CURSOR));
     }
     
     /**
@@ -593,8 +617,24 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_loginAsCustomer_MouseExited(java.awt.event.MouseEvent e) {
-        btn_loginAsCustomer.setForeground(FG_DEFAULT);
+    private void btn_loginAsCustomer_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_loginAsCustomer.setForeground(FG_DEFAULT);
+    }
+    //</editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Methods">
+    /**
+     * Clears textfields of any previous data or state
+     */
+    private void resetPage                      ()
+    {
+      txt_emailUsername .setText        (PLACEHOLDER[0]);
+      txt_emailUsername .setForeground  (FG_PLACEHOLDER);
+
+      chkbx_seePassword .setSelected    (true);
+      txt_password      .setText        (PLACEHOLDER[1]);
+      txt_password      .setForeground  (FG_PLACEHOLDER);
+      txt_password      .setEchoChar    ((char) 0);   
     }
     //</editor-fold>
     

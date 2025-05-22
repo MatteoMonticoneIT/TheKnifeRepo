@@ -41,7 +41,8 @@ import theknife.obj.user.Restaurateur;
     "customers",
     "restaurateurs"
 })
-public final class Controller {
+public final class Controller 
+{
     
     //<editor-fold defaultstate="collapsed" desc="Consts">
     /**
@@ -197,16 +198,17 @@ public final class Controller {
         } 
         else
           LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new CSVFileNotFoundException("Unable to get the restaurant file!"));
-
-//        if (JSON_CUSTOMERS.exists())
-//          this.setCustomers    (JSON.readNodeAsObject(JSON_CUSTOMERS,     "Customers",     ListCustomer.class));
-//        else
-//          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the customers file!"));
-//            
-//        if(JSON_RESTAURATEURS.exists())
-//          this.setRestaurateurs(JSON.readNodeAsObject(JSON_RESTAURATEURS, "Restaurateurs", ListRestaurateur.class));
-//        else
-//          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the restaurateurs file!"));
+      /*
+       if (JSON_CUSTOMERS.exists())
+         this.setCustomers    (JSON.read(JSON_CUSTOMERS,    ListCustomer.class));
+       else
+         LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the customers file!"));
+           
+       if(JSON_RESTAURATEURS.exists())
+         this.setRestaurateurs(JSON.read(JSON_RESTAURATEURS, ListRestaurateur.class));
+       else
+         LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the restaurateurs file!"));
+       */
     }
     
     /**
@@ -322,16 +324,28 @@ public final class Controller {
               restaurateurs  .checkUser  (user,                  password);    
     }
     
-    public final void        RegisterClient      (Customer customer)
+    public final boolean     RegisterClient      (Customer customer)
     {
-      customer      .setId  (customers.size());
-      customers     .add    (customer);
+      if(!customers     .existUser  (customer.    getUsername()) && !restaurateurs .existUser   (customer    .getUsername()))
+      {
+        customer        .setId      (customers.size());
+        customers       .add        (customer);
+        return true;
+      }
+      else
+        return false;
     }
     
-    public final void        RegisterRestaurateur(Restaurateur restaurateur)
+    public final boolean     RegisterRestaurateur(Restaurateur restaurateur)
     {
-      restaurateur  .setId  (restaurateurs.size());
-      restaurateurs .add    (restaurateur);
+      if(!customers     .existUser  (restaurateur .getUsername()) && !restaurateurs .existUser  (restaurateur.getUsername()))
+      {
+        restaurateur    .setId      (restaurateurs.size());
+        restaurateurs   .add        (restaurateur);
+        return true;
+      }
+      else
+        return false;
     }
     
     public final void        addRestaurant       ()

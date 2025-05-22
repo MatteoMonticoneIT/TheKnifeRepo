@@ -59,5 +59,24 @@ public final class ListCustomer extends AbstractListWrapper<Customer>
       
       return false;
     }
+    
+    /**
+     * Checks if a client exists in the list by comparing the username.
+     * <p>
+     * This method iterates through the list of clients and checks if there is a client with the specified username.
+     * </p>
+     *
+     * @param username the username of the client to check
+     * @return {@code true} if a client with the given username is found,
+     *         {@code false} otherwise
+     */
+    public boolean existUser(String username)
+    {
+      for(Customer user : super.getList())
+        if(user.getUsername().equals(username))
+          return true;
+      
+      return false;
+    }
     //</editor-fold>
 }

@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
@@ -34,7 +35,6 @@ import theknife.Controller;
  */
 public final class Login extends javax.swing.JPanel 
 {
-
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Creates a new {@code Login} {@link JPanel} and initializes its
@@ -83,7 +83,7 @@ public final class Login extends javax.swing.JPanel
       btn_loginAsRestaurateur     = new JLabel            (LOGIN_AS_RESTAURATEUR);
       txt_emailUsername           = new JTextField        (PLACEHOLDER[0]);
       txt_password                = new JPasswordField    (PLACEHOLDER[1]);
-      chkbx_seePassword           = new CustomJCheckBox    ();
+      chkbx_seePassword           = new CustomJCheckBox   ();
       txt_emailUsernameRounded    = new JLayer<>          (txt_emailUsername, TXT_LAYER_UI);
       txt_passwordRounded         = new JLayer<>          (txt_password,      TXT_LAYER_UI);
       btn_loginRounded            = new JLayer<>          (btn_login,         BTN_LAYER_UI);
@@ -386,6 +386,9 @@ public final class Login extends javax.swing.JPanel
      */
     private void txt_emailUsername_FocusGained          (java.awt.event.FocusEvent e) 
     {
+      if(txt_emailUsername.getBackground() == Color.RED)
+        txt_emailUsername.setBackground (BG_TEXTFIELD);
+      
       if(txt_emailUsername.getText().equals(PLACEHOLDER[0])) 
       {
         txt_emailUsername.setText       ("");
@@ -415,6 +418,9 @@ public final class Login extends javax.swing.JPanel
      */
     private void txt_password_FocusGained               (java.awt.event.FocusEvent e) 
     {
+      if(txt_password.getBackground() == Color.RED)
+        txt_password.setBackground  (BG_TEXTFIELD);
+            
       if (String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[1])) 
       {
         txt_password.setText        ("");
@@ -512,8 +518,19 @@ public final class Login extends javax.swing.JPanel
     {
       String user     =                txt_emailUsername.getText    ();
       String password = String.valueOf(txt_password     .getPassword());
-      if(controller.LoginClient(user, password))
+      
+      KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
+      
+      if(!user.equals(PLACEHOLDER[0]) && !password.equals(PLACEHOLDER[1]) && controller.LoginClient(user, password))
+      {
+        resetPage();
         controller.getPanelMain().showCard(Page.HOME);
+      }
+      else
+      {
+        txt_emailUsername.setBackground(Color.RED);
+        txt_password     .setBackground(Color.RED);
+      }
     }
 
     /**
@@ -548,14 +565,7 @@ public final class Login extends javax.swing.JPanel
      */
     private void btn_cancel_MouseClicked                (java.awt.event.MouseEvent e) 
     {
-      txt_emailUsername .setText        (PLACEHOLDER[0]);
-      txt_emailUsername .setForeground  (FG_PLACEHOLDER);
-
-      chkbx_seePassword .setSelected    (true);
-      txt_password      .setText        (PLACEHOLDER[1]);
-      txt_password      .setForeground  (FG_PLACEHOLDER);
-      txt_password      .setEchoChar    ((char) 0);
-
+      resetPage();
       controller.getPanelMain().showCard(Page.HOME);
     }
 
@@ -591,14 +601,7 @@ public final class Login extends javax.swing.JPanel
      */
     private void btn_register_MouseClicked              (java.awt.event.MouseEvent e) 
     {
-      chkbx_seePassword .setSelected    (true);
-      txt_emailUsername .setText        (PLACEHOLDER[0]);
-      txt_emailUsername .setForeground  (FG_PLACEHOLDER);
-
-      txt_password      .setText        (PLACEHOLDER[1]);
-      txt_password      .setForeground  (FG_PLACEHOLDER);
-      txt_password      .setEchoChar    ((char) 0);
-
+      resetPage();
       controller.getPanelMain().showCard(Page.REGISTER);
     }
 
@@ -635,13 +638,7 @@ public final class Login extends javax.swing.JPanel
      */
     private void btn_loginAsRestaurateur_MouseClicked   (java.awt.event.MouseEvent e) 
     {
-      txt_emailUsername .setText        (PLACEHOLDER[0]);
-      txt_emailUsername .setForeground  (FG_PLACEHOLDER);
-
-      txt_password      .setText        (PLACEHOLDER[1]);
-      txt_password      .setForeground  (FG_PLACEHOLDER);
-      txt_password      .setEchoChar    ((char) 0);
-
+      resetPage();
       controller.getPanelMain().showCard(Page.LOGIN_RESTAURATEUR);
     }
 
@@ -666,6 +663,21 @@ public final class Login extends javax.swing.JPanel
       btn_loginAsRestaurateur.setForeground(FG_DEFAULT);
     }
 
+    //</editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Methods">
+    /**
+     * Clears textfields of any previous data or state
+     */
+    private void resetPage()
+    {
+      txt_emailUsername .setText        (PLACEHOLDER[0]);
+      txt_emailUsername .setForeground  (FG_PLACEHOLDER);
+
+      chkbx_seePassword .setSelected    (true);
+      txt_password      .setText        (PLACEHOLDER[1]);
+      txt_password      .setForeground  (FG_PLACEHOLDER);
+      txt_password      .setEchoChar    ((char) 0);   
+    }
     //</editor-fold>
     
     /**

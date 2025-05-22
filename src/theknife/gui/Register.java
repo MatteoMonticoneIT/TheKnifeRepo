@@ -7,8 +7,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
-import java.time.LocalDate;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -34,7 +34,8 @@ import theknife.obj.user.Customer;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class Register extends javax.swing.JPanel {
+public final class Register extends javax.swing.JPanel 
+{
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
@@ -45,51 +46,54 @@ public final class Register extends javax.swing.JPanel {
      *
      * @param controller the {@link Controller} class that manages the screen layout
      */
-    public Register(Controller controller) {
-        initComponents();
-        this.controller = controller;
-        initGUI();
+    public Register(Controller controller) 
+    {
+      initComponents();
+      this.controller = controller;
+      initGUI();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Initializes the graphical user interface (GUI) for the {@code Register} page.
      */
-    private void initGUI() {
-        initFields();
-        initRegister();
-        initEvents();
+    private void initGUI() 
+    {
+      initFields();
+      initRegister();
+      initEvents();
     }
     
     /**
      * Initializes the basic fields of the {@code Register} panel.
      */
-    private void initFields() {
-        pnl_grid              = new JPanel(new GridBagLayout());
-        pnl_password          = new JPanel(new GridBagLayout());
-        pnl_birthDateLocation = new JPanel(new GridBagLayout());
-        pnl_btn_register      = new JPanel(new BorderLayout());
-        pnl_btn_cancel        = new JPanel(new BorderLayout());
-        lbl_title             = new JLabel(Page.REGISTER);
-        btn_register          = new JLabel(Page.REGISTER);
-        btn_cancel            = new JLabel(CANCEL);
-        txt_firstName         = new JTextField(PLACEHOLDER[0]);
-        txt_lastName          = new JTextField(PLACEHOLDER[1]);
-        txt_birthDate         = new JTextField(PLACEHOLDER[2]);
-        txt_location          = new JTextField(PLACEHOLDER[3]);
-        txt_email             = new JTextField(PLACEHOLDER[4]);
-        txt_username          = new JTextField(PLACEHOLDER[5]);
-        txt_password          = new JPasswordField(PLACEHOLDER[6]);
-        chkbx_seePassword     = new CustomJCheckBox    ();
-        txt_firstNameRounded  = new JLayer<>(txt_firstName, TXT_LAYER_UI);
-        txt_lastNameRounded   = new JLayer<>(txt_lastName,  TXT_LAYER_UI);
-        txt_birthDateRounded  = new JLayer<>(txt_birthDate, TXT_LAYER_UI);
-        txt_locationRounded   = new JLayer<>(txt_location,  TXT_LAYER_UI);
-        txt_emailRounded      = new JLayer<>(txt_email,     TXT_LAYER_UI);
-        txt_usernameRounded   = new JLayer<>(txt_username,  TXT_LAYER_UI);
-        txt_passwordRounded   = new JLayer<>(txt_password,  TXT_LAYER_UI);
-        btn_registerRounded   = new JLayer<>(btn_register,  BTN_LAYER_UI);
-        btn_cancelRounded     = new JLayer<>(btn_cancel,    BTN_LAYER_UI);
+    private void initFields() 
+    {
+      pnl_grid              = new JPanel(new GridBagLayout());
+      pnl_password          = new JPanel(new GridBagLayout());
+      pnl_birthDateLocation = new JPanel(new GridBagLayout());
+      pnl_btn_register      = new JPanel(new BorderLayout());
+      pnl_btn_cancel        = new JPanel(new BorderLayout());
+      lbl_title             = new JLabel(Page.REGISTER);
+      btn_register          = new JLabel(Page.REGISTER);
+      btn_cancel            = new JLabel(CANCEL);
+      txt_firstName         = new JTextField(PLACEHOLDER[0]);
+      txt_lastName          = new JTextField(PLACEHOLDER[1]);
+      txt_birthDate         = new JTextField(PLACEHOLDER[2]);
+      txt_location          = new JTextField(PLACEHOLDER[3]);
+      txt_email             = new JTextField(PLACEHOLDER[4]);
+      txt_username          = new JTextField(PLACEHOLDER[5]);
+      txt_password          = new JPasswordField(PLACEHOLDER[6]);
+      chkbx_seePassword     = new CustomJCheckBox    ();
+      txt_firstNameRounded  = new JLayer<>(txt_firstName, TXT_LAYER_UI);
+      txt_lastNameRounded   = new JLayer<>(txt_lastName,  TXT_LAYER_UI);
+      txt_birthDateRounded  = new JLayer<>(txt_birthDate, TXT_LAYER_UI);
+      txt_locationRounded   = new JLayer<>(txt_location,  TXT_LAYER_UI);
+      txt_emailRounded      = new JLayer<>(txt_email,     TXT_LAYER_UI);
+      txt_usernameRounded   = new JLayer<>(txt_username,  TXT_LAYER_UI);
+      txt_passwordRounded   = new JLayer<>(txt_password,  TXT_LAYER_UI);
+      btn_registerRounded   = new JLayer<>(btn_register,  BTN_LAYER_UI);
+      btn_cancelRounded     = new JLayer<>(btn_cancel,    BTN_LAYER_UI);
     }
     
     /**
@@ -390,13 +394,14 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the component event triggered by resizing the GUI application
      */
-    private void login_ComponentResized(java.awt.event.ComponentEvent e) {
-        int[] padding = {(int) (this.getWidth() * 0.2), (int) (this.getHeight() * 0.0375)}; //0 = width; 1 = height;
-        this.setBorder(BorderFactory.createEmptyBorder(padding[1], padding[0], padding[1], padding[0]));
+    private void login_ComponentResized(java.awt.event.ComponentEvent e) 
+    {
+      int[] padding = {(int) (this.getWidth() * 0.2), (int) (this.getHeight() * 0.0375)}; //0 = width; 1 = height;
+      this.setBorder(BorderFactory.createEmptyBorder(padding[1], padding[0], padding[1], padding[0]));
         
-        final int PADDING_BTN = (int) (this.getWidth() * 0.1);
-        pnl_btn_register.setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN, 0, PADDING_BTN));
-        pnl_btn_cancel  .setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN, 0, PADDING_BTN));
+      final int PADDING_BTN = (int) (this.getWidth() * 0.1);
+      pnl_btn_register.setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN, 0, PADDING_BTN));
+      pnl_btn_cancel  .setBorder(BorderFactory.createEmptyBorder(0, PADDING_BTN, 0, PADDING_BTN));
     }
     
     /**
@@ -404,11 +409,16 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_firstName_FocusGained(java.awt.event.FocusEvent e) {
-        if (txt_firstName.getText().equals(PLACEHOLDER[0])) {
-            txt_firstName.setText("");
-            txt_firstName.setForeground(FG_DEFAULT);
-        }
+    private void txt_firstName_FocusGained(java.awt.event.FocusEvent e) 
+    {
+      if(txt_firstName.getBackground() == Color.RED)
+        txt_firstName.setBackground (BG_TEXTFIELD);
+      
+      if(txt_firstName.getText().equals(PLACEHOLDER[0])) 
+      {
+        txt_firstName.setText       ("");
+        txt_firstName.setForeground (FG_DEFAULT);
+      }   
     }
     
     /**
@@ -416,11 +426,13 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_firstName_FocusLost(java.awt.event.FocusEvent e) {
-        if (txt_firstName.getText().isEmpty()) {
-            txt_firstName.setText(PLACEHOLDER[0]);
-            txt_firstName.setForeground(FG_PLACEHOLDER);
-        }
+    private void txt_firstName_FocusLost(java.awt.event.FocusEvent e) 
+    {
+      if(txt_firstName.getText().isEmpty()) 
+      {
+        txt_firstName.setText       (PLACEHOLDER[0]);
+        txt_firstName.setForeground (FG_PLACEHOLDER);
+      }
     }
     
     /**
@@ -428,11 +440,16 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_lastName_FocusGained(java.awt.event.FocusEvent e) {
-        if (txt_lastName.getText().equals(PLACEHOLDER[1])) {
-            txt_lastName.setText("");
-            txt_lastName.setForeground(FG_DEFAULT);
-        }
+    private void txt_lastName_FocusGained(java.awt.event.FocusEvent e)
+    {
+      if(txt_lastName.getBackground() == Color.RED)
+        txt_lastName.setBackground  (BG_TEXTFIELD);
+      
+      if (txt_lastName.getText().equals(PLACEHOLDER[1])) 
+      {
+        txt_lastName.setText        ("");
+        txt_lastName.setForeground  (FG_DEFAULT);
+      }
     }
     
     /**
@@ -440,11 +457,13 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_lastName_FocusLost(java.awt.event.FocusEvent e) {
-        if (txt_lastName.getText().isEmpty()) {
-            txt_lastName.setText(PLACEHOLDER[1]);
-            txt_lastName.setForeground(FG_PLACEHOLDER);
-        }
+    private void txt_lastName_FocusLost(java.awt.event.FocusEvent e) 
+    {
+      if(txt_lastName.getText().isEmpty()) 
+      {
+        txt_lastName.setText        (PLACEHOLDER[1]);
+        txt_lastName.setForeground  (FG_PLACEHOLDER);
+      }
     }
     
     /**
@@ -452,11 +471,16 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_birthDate_FocusGained(java.awt.event.FocusEvent e) {
-        if (txt_birthDate.getText().equals(PLACEHOLDER[2])) {
-            txt_birthDate.setText("");
-            txt_birthDate.setForeground(FG_DEFAULT);
-        }
+    private void txt_birthDate_FocusGained(java.awt.event.FocusEvent e) 
+    {
+      if(txt_birthDate.getBackground() == Color.RED)
+        txt_birthDate.setBackground (BG_TEXTFIELD);
+      
+      if(txt_birthDate.getText().equals(PLACEHOLDER[2])) 
+      {
+        txt_birthDate.setText       ("");
+        txt_birthDate.setForeground (FG_DEFAULT);
+      }
     }
     
     /**
@@ -464,11 +488,13 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_birthDate_FocusLost(java.awt.event.FocusEvent e) {
-        if (txt_birthDate.getText().isEmpty()) {
-            txt_birthDate.setText(PLACEHOLDER[2]);
-            txt_birthDate.setForeground(FG_PLACEHOLDER);
-        }
+    private void txt_birthDate_FocusLost(java.awt.event.FocusEvent e)
+    {
+      if(txt_birthDate.getText().isEmpty()) 
+      {
+        txt_birthDate.setText       (PLACEHOLDER[2]);
+        txt_birthDate.setForeground (FG_PLACEHOLDER);
+      }
     }
     
     /**
@@ -476,11 +502,16 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_location_FocusGained(java.awt.event.FocusEvent e) {
-        if (txt_location.getText().equals(PLACEHOLDER[3])) {
-            txt_location.setText("");
-            txt_location.setForeground(FG_DEFAULT);
-        }
+    private void txt_location_FocusGained(java.awt.event.FocusEvent e) 
+    {
+      if(txt_location.getBackground() == Color.RED)
+        txt_location.setBackground  (BG_TEXTFIELD);
+            
+      if(txt_location.getText().equals(PLACEHOLDER[3])) 
+      {
+        txt_location.setText        ("");
+        txt_location.setForeground  (FG_DEFAULT);
+      }
     }
     
     /**
@@ -488,11 +519,13 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_location_FocusLost(java.awt.event.FocusEvent e) {
-        if (txt_location.getText().isEmpty()) {
-            txt_location.setText(PLACEHOLDER[3]);
-            txt_location.setForeground(FG_PLACEHOLDER);
-        }
+    private void txt_location_FocusLost(java.awt.event.FocusEvent e) 
+    {
+      if(txt_location.getText().isEmpty()) 
+      {
+        txt_location.setText        (PLACEHOLDER[3]);
+        txt_location.setForeground  (FG_PLACEHOLDER);
+      }
     }
     
     /**
@@ -500,11 +533,16 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_email_FocusGained(java.awt.event.FocusEvent e) {
-        if (txt_email.getText().equals(PLACEHOLDER[4])) {
-            txt_email.setText("");
-            txt_email.setForeground(FG_DEFAULT);
-        }
+    private void txt_email_FocusGained(java.awt.event.FocusEvent e) 
+    {
+      if(txt_email.getBackground() == Color.RED)
+        txt_email.setBackground (BG_TEXTFIELD);
+      
+      if(txt_email.getText().equals(PLACEHOLDER[4])) 
+      {
+        txt_email.setText       ("");
+        txt_email.setForeground (FG_DEFAULT);
+      }
     }
     
     /**
@@ -512,11 +550,13 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_email_FocusLost(java.awt.event.FocusEvent e) {
-        if (txt_email.getText().isEmpty()) {
-            txt_email.setText(PLACEHOLDER[4]);
-            txt_email.setForeground(FG_PLACEHOLDER);
-        }
+    private void txt_email_FocusLost(java.awt.event.FocusEvent e) 
+    {
+      if(txt_email.getText().isEmpty()) 
+      {
+        txt_email.setText       (PLACEHOLDER[4]);
+        txt_email.setForeground (FG_PLACEHOLDER);
+      }
     }
     
     /**
@@ -524,11 +564,16 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_username_FocusGained(java.awt.event.FocusEvent e) {
-        if (txt_username.getText().equals(PLACEHOLDER[5])) {
-            txt_username.setText("");
-            txt_username.setForeground(FG_DEFAULT);
-        }
+    private void txt_username_FocusGained(java.awt.event.FocusEvent e) 
+    {
+      if(txt_username.getBackground() == Color.RED)
+        txt_username.setBackground  (BG_TEXTFIELD);
+      
+      if(txt_username.getText().equals(PLACEHOLDER[5])) 
+      {
+        txt_username.setText        ("");
+        txt_username.setForeground  (FG_DEFAULT);
+      }
     }
     
     /**
@@ -536,11 +581,13 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_username_FocusLost(java.awt.event.FocusEvent e) {
-        if (txt_username.getText().isEmpty()) {
-            txt_username.setText(PLACEHOLDER[5]);
-            txt_username.setForeground(FG_PLACEHOLDER);
-        }
+    private void txt_username_FocusLost(java.awt.event.FocusEvent e)
+    {
+      if (txt_username.getText().isEmpty()) 
+      {
+        txt_username.setText        (PLACEHOLDER[5]);
+        txt_username.setForeground  (FG_PLACEHOLDER);
+      }
     }
     
     /**
@@ -548,12 +595,17 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_password_FocusGained(java.awt.event.FocusEvent e) {
-        if (String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[6])) {
-            txt_password.setText("");
-            txt_password.setEchoChar(DEFAULT_PASSWORD_ECHOCHAR);
-            txt_password.setForeground(FG_DEFAULT);
-        }
+    private void txt_password_FocusGained(java.awt.event.FocusEvent e) 
+    {
+      if(txt_password.getBackground() == Color.RED)
+        txt_password.setBackground  (BG_TEXTFIELD);
+      
+      if (String.valueOf(txt_password.getPassword()).equals(PLACEHOLDER[6])) 
+      {
+        txt_password.setText        ("");
+        txt_password.setEchoChar    (DEFAULT_PASSWORD_ECHOCHAR);
+        txt_password.setForeground  (FG_DEFAULT);
+      }
     }
     
     /**
@@ -561,12 +613,14 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_password_FocusLost(java.awt.event.FocusEvent e) {
-        if (String.valueOf(txt_password.getPassword()).isEmpty()) {
-            txt_password.setText(PLACEHOLDER[6]);
-            txt_password.setEchoChar((char) 0);
-            txt_password.setForeground(FG_PLACEHOLDER);
-        }
+    private void txt_password_FocusLost(java.awt.event.FocusEvent e) 
+    {
+      if (String.valueOf(txt_password.getPassword()).isEmpty()) 
+      {
+        txt_password.setText        (PLACEHOLDER[6]);
+        txt_password.setEchoChar    ((char) 0);
+        txt_password.setForeground  (FG_PLACEHOLDER);
+      }
     }
     
     /**
@@ -574,14 +628,18 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the key event triggered by typing on it
      */
-    private void txt_password_KeyTyped(java.awt.event.KeyEvent e) {
-        if (ctrlA_pressed && (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
-            txt_password.setText("");
-            ctrlA_pressed = false;
-        } else if (ctrlA_pressed && Character.isLetterOrDigit(e.getKeyChar())) {
-            txt_password.setText(String.valueOf(e.getKeyChar()));
-            ctrlA_pressed = false;
-        }
+    private void txt_password_KeyTyped(java.awt.event.KeyEvent e) 
+    {
+      if(ctrlA_pressed && (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) 
+      {
+        txt_password.setText("");
+        ctrlA_pressed = false;
+      } 
+      else if(ctrlA_pressed && Character.isLetterOrDigit(e.getKeyChar())) 
+      {
+        txt_password.setText(String.valueOf(e.getKeyChar()));
+        ctrlA_pressed = false;
+      }
     }
     
     /**
@@ -589,13 +647,16 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the key event triggered by pressing some keys  
      */
-    private void txt_password_KeyPressed(java.awt.event.KeyEvent e) {
-        if (txt_password.getEchoChar() == DEFAULT_PASSWORD_ECHOCHAR && !chkbx_seePassword.isSelected())
-            txt_password.setEchoChar((char) 0);
-        if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A) {
-            txt_password.selectAll();
-            ctrlA_pressed = true;
-        }
+    private void txt_password_KeyPressed(java.awt.event.KeyEvent e) 
+    {
+      if (txt_password.getEchoChar() == DEFAULT_PASSWORD_ECHOCHAR && !chkbx_seePassword.isSelected())
+        txt_password.setEchoChar((char) 0);
+      
+      if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A) 
+      {
+        txt_password.selectAll();
+        ctrlA_pressed = true;
+      }
     }
     
     /**
@@ -603,10 +664,10 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the key event triggered by releasing a key  
      */
-    private void txt_password_KeyReleased(java.awt.event.KeyEvent e) {
-        System.out.println(String.valueOf(txt_password.getPassword()));
+    private void txt_password_KeyReleased(java.awt.event.KeyEvent e) 
+    {
+      System.out.println(String.valueOf(txt_password.getPassword()));
     }
-    
        
     /**
      * Handles the item state when clicking the {@link JCheckBox}.
@@ -632,40 +693,42 @@ public final class Register extends javax.swing.JPanel {
     {
       boolean error = false;
       
-      if(                                       !InputPattern.match(InputPattern.FIRST_NAME,                txt_firstName.getText()))
+      KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
+      
+      if(                                        txt_firstName.getText().equals    (PLACEHOLDER[0])    || !InputPattern.match(InputPattern.FIRST_NAME,                txt_firstName.getText()))
       {
-        error = true;
-        txt_firstName.setBackground(Color.RED);
+           error = true;
+           txt_firstName.setBackground       (Color.RED);
       }
-      if(                                       !InputPattern.match(InputPattern.LAST_NAME,                 txt_lastName .getText()))
+      if(                                        txt_lastName .getText().equals    (PLACEHOLDER[1])    || !InputPattern.match(InputPattern.LAST_NAME,                 txt_lastName .getText()))
       {
-        error = true;
-        txt_lastName .setBackground(Color.RED);
+           error = true;
+           txt_lastName .setBackground       (Color.RED);
       }
-      if((!txt_birthDate.getText().isEmpty() || !InputPattern.match(InputPattern.BIRTH_DATE,                txt_birthDate.getText())))
+      if((!txt_birthDate.getText().isEmpty() && !txt_birthDate.getText().equals    (PLACEHOLDER[2])    && !InputPattern.match(InputPattern.BIRTH_DATE,                txt_birthDate.getText())))
       {
-        error = true;
-        txt_lastName .setBackground(Color.RED);
+           error = true;
+           txt_birthDate.setBackground        (Color.RED);
       }
-      if(                                       !InputPattern.match(InputPattern.ADDRESS,                   txt_location .getText()))
+      if(                                        txt_location .getText().equals    (PLACEHOLDER[3])    || !InputPattern.match(InputPattern.ADDRESS,                   txt_location .getText()))
       {
-        error = true;
-        txt_location .setBackground(Color.RED);
+           error = true;
+           txt_location .setBackground       (Color.RED);
       }
-      if(                                       !InputPattern.match(InputPattern.EMAIL,                     txt_email    .getText()))
+      if(                                        txt_email    .getText().equals    (PLACEHOLDER[4])    || !InputPattern.match(InputPattern.EMAIL,                     txt_email    .getText()))
       {
-        error = true;
-        txt_email .setBackground(Color.RED);
+           error = true;
+           txt_email    .setBackground       (Color.RED);
       }     
-      if(                                       !InputPattern.match(InputPattern.USERNAME,                  txt_username .getText()))
+      if(                                        txt_username .getText().equals    (PLACEHOLDER[5])    || !InputPattern.match(InputPattern.USERNAME,                  txt_username .getText()))
       {
-        error = true;
-        txt_username .setBackground(Color.RED);
+           error = true;
+           txt_username .setBackground       (Color.RED);
       }
-      if(                                       !InputPattern.match(InputPattern.PASSWORD,   String.valueOf(txt_password .getPassword())))
+      if(                                        txt_password .getPassword().equals(PLACEHOLDER[6])    || !InputPattern.match(InputPattern.PASSWORD,   String.valueOf(txt_password .getPassword())))
       {
-        error = true;
-        txt_password .setBackground(Color.RED);
+           error = true;
+           txt_password .setBackground       (Color.RED);
       }
          
       if(!error)
@@ -678,8 +741,13 @@ public final class Register extends javax.swing.JPanel {
                                          txt_email    .getText(),
                           String.valueOf(txt_password .getPassword()));  
         
-        controller.RegisterClient           (customer);
-        controller.getPanelMain().showCard  (Page.HOME);
+        if(controller .RegisterClient           (customer))
+        {      
+          resetPage();
+          controller  .getPanelMain().showCard  (Page.HOME);  
+        }
+        else
+          txt_username.setBackground            (Color.RED);
       }     
     }
     
@@ -688,9 +756,10 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by hovering to the button
      */
-    private void btn_register_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_register.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn_register.setBackground(btn_register.getBackground().darker());
+    private void btn_register_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_register.setCursor    (new Cursor(Cursor.HAND_CURSOR));
+      btn_register.setBackground(btn_register.getBackground().darker());
     }
     
     /**
@@ -698,8 +767,9 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_register_MouseExited(java.awt.event.MouseEvent e) {
-        btn_register.setBackground(BG_REGISTER_BTN);
+    private void btn_register_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_register.setBackground(BG_REGISTER_BTN);
     }
     
     /**
@@ -710,27 +780,10 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_cancel_MouseClicked(java.awt.event.MouseEvent e) {
-        JTextField[] fields = {
-            txt_firstName,
-            txt_lastName,
-            txt_birthDate,
-            txt_location,
-            txt_email,
-            txt_username
-        };
-        
-        for (int i = 0; i < fields.length; i++) {
-            fields[i].setText(PLACEHOLDER[i]);
-            fields[i].setForeground(FG_PLACEHOLDER);
-        }
-        
-        chkbx_seePassword.setSelected(true);
-        txt_password     .setText(PLACEHOLDER[PLACEHOLDER.length - 1]);
-        txt_password     .setForeground(FG_PLACEHOLDER);
-        txt_password     .setEchoChar((char) 0);
-        
-        controller.getPanelMain().showCard(Page.LOGIN);
+    private void btn_cancel_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      resetPage();
+      controller.getPanelMain().showCard(Page.LOGIN);
     }
     
     /**
@@ -738,9 +791,10 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by hovering to the button
      */
-    private void btn_cancel_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_cancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn_cancel.setBackground(btn_cancel.getBackground().darker());
+    private void btn_cancel_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_cancel.setCursor      (new Cursor(Cursor.HAND_CURSOR));
+      btn_cancel.setBackground  (btn_cancel.getBackground().darker());
     }
     
     /**
@@ -748,9 +802,41 @@ public final class Register extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_cancel_MouseExited(java.awt.event.MouseEvent e) {
-        btn_cancel.setBackground(BG_CANCEL_BTN);
+    private void btn_cancel_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_cancel.setBackground(BG_CANCEL_BTN);
     }
+    //</editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Methods">
+    /**
+     * Clears textfields of any previous data or state
+     */
+    private void resetPage()
+    {
+      JTextField[] fields = 
+      {
+        txt_firstName,
+        txt_lastName,
+        txt_birthDate,
+        txt_location,
+        txt_email,
+        txt_username
+      };
+        
+      for (int i = 0; i < fields.length; i++) 
+      {
+        fields[i].setText       (PLACEHOLDER[i]);
+        fields[i].setForeground (FG_PLACEHOLDER);
+        fields[i].setBackground (BG_TEXTFIELD);
+      }
+        
+      chkbx_seePassword.setSelected     (true);
+      txt_password     .setText         (PLACEHOLDER[PLACEHOLDER.length - 1]);
+      txt_password     .setForeground   (FG_PLACEHOLDER);
+      txt_password     .setBackground   (BG_TEXTFIELD);
+      txt_password     .setEchoChar     ((char) 0);      
+    }  
     //</editor-fold>
     
     /**
