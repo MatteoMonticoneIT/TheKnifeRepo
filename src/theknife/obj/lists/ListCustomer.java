@@ -61,6 +61,26 @@ public final class ListCustomer extends AbstractListWrapper<Customer>
     }
     
     /**
+     * Checks if a client exists in the list by comparing the email and password.
+     * <p>
+     * This method iterates through the list of clients and checks if there is a client with the specified email and password.
+     * </p>
+     *
+     * @param email the email of the client to check
+     * @param password the password of the client to check
+     * @return {@code true} if a client with the given email and password is found,
+     *         {@code false} otherwise
+     */
+    public Customer checkUserByEmail(String email, String password)
+    {
+      for(Customer user : super.getList())
+        if(user.getEmail().equals(email) && user.getPassword().equals(password))
+          return user;
+      
+      return null;
+    }
+    
+    /**
      * Checks if a client exists in the list by comparing the username.
      * <p>
      * This method iterates through the list of clients and checks if there is a client with the specified username.

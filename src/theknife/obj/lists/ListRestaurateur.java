@@ -58,6 +58,27 @@ public final class ListRestaurateur extends AbstractListWrapper<Restaurateur>
         
       return null;
     }
+ 
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    /**
+     * Checks if a restaurateur exists in the list by comparing the email and password.
+     * <p>
+     * This method iterates through the list of restaurateur and checks if there is a restaurateur with the specified email and password.
+     * </p>
+     *
+     * @param email the username of the restaurateur to check
+     * @param password the password of the restaurateur to check
+     * @return {@code true} if a restaurateur with the given email and password is found,
+     *         {@code false} otherwise
+     */
+    public Restaurateur checkUserByEmail(String email, String password)
+    {
+      for(Restaurateur user : super.getList())
+        if(user.getEmail().equals(email) && user.getPassword().equals(password))
+          return user;
+        
+      return null;
+    }
     
     /**
      * Checks if a restaurateur exists in the list by comparing the username.

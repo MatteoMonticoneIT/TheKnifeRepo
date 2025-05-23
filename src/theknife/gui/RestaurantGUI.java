@@ -63,7 +63,7 @@ public class RestaurantGUI extends javax.swing.JPanel
      * Initializes the graphical user interface (GUI) for the {@code RestaurantGUI} page.
      */
     private void initGUI() 
-    {
+    {/*
         controller.getRestaurants().getList().get(0).getListReview().getList().add(new Review(
                 1, 
                 controller.getRestaurants().getList().get(restaurant.getId() - 1).getId(),
@@ -117,7 +117,7 @@ public class RestaurantGUI extends javax.swing.JPanel
                 "username test 6", 
                 "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm",
                 2)
-        );
+        );*/
         initFields();
         initRestaurantGUI();
         initEvents();

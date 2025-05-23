@@ -393,9 +393,12 @@ public final class Controller
     
     public final boolean     LoginClient         (String user, String password)
     {
-      if(InputPattern   .match    (InputPattern.USERNAME, user)     &&
-         InputPattern   .match    (InputPattern.PASSWORD, password))
-        loggedUser = customers      .checkUser(user, password);
+      if(     InputPattern   .match    (InputPattern.USERNAME, user) && 
+              InputPattern   .match    (InputPattern.PASSWORD, password))         
+        loggedUser = customers         .checkUser        (user, password);
+      else if(InputPattern   .match    (InputPattern.EMAIL, user) && 
+              InputPattern   .match    (InputPattern.PASSWORD, password)) 
+        loggedUser = customers         .checkUserByEmail (user, password);
       
       if(loggedUser!=null)
       {
@@ -407,10 +410,14 @@ public final class Controller
     
     public final boolean     LoginRestaurateur   (String user, String password)
     {
-      if(InputPattern   .match      (InputPattern.USERNAME, user)     &&
-         InputPattern   .match      (InputPattern.PASSWORD, password))
-        loggedUser = restaurateurs  .checkUser(user, password); 
-           if(loggedUser!=null)
+      if(     InputPattern   .match      (InputPattern.USERNAME, user)     &&
+              InputPattern   .match      (InputPattern.PASSWORD, password))
+        loggedUser = restaurateurs       .checkUser          (user, password); 
+      else if(InputPattern   .match      (InputPattern.EMAIL, user) && 
+              InputPattern   .match      (InputPattern.PASSWORD, password)) 
+       loggedUser = restaurateurs        .checkUserByEmail   (user, password); 
+      
+      if(loggedUser!=null)
       {
         home.UILoggedUser("restaurateur");
         return true;
