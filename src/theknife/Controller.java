@@ -27,8 +27,10 @@ import theknife.gui.RegisterRestaurateur;
 import theknife.obj.AppPaths;
 import theknife.obj.InputPattern;
 import theknife.obj.lists.ListCustomer;
+import theknife.obj.lists.ListResponse;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.lists.ListRestaurateur;
+import theknife.obj.lists.ListReview;
 import theknife.obj.restaurant.Restaurant;
 import theknife.obj.user.Customer;
 import theknife.obj.user.Restaurateur;
@@ -93,11 +95,23 @@ public final class Controller
     @JsonProperty("restaurateurs")
     private ListRestaurateur restaurateurs;
     
-    private Map<String,  List<Restaurant>> byCity      = new HashMap<>();
-    private Map<Double,  List<Restaurant>> byRating    = new HashMap<>();
-    private Map<Integer, List<Restaurant>> byPrice     = new HashMap<>();
-    private Map<String,  List<Restaurant>> byCuisine   = new HashMap<>();
-    private Map<String,  List<Restaurant>> byServices  = new HashMap<>();
+    /**
+     * The list of {@link Review}.
+     */
+    @JsonProperty("reviews")
+    private ListReview reviews;
+    
+    /**
+     * The list of {@link Restaurateur}.
+     */
+    @JsonProperty("responses")
+    private ListResponse responses;
+    
+    private final Map<String,  List<Restaurant>> byCity      = new HashMap<>();
+    private final Map<Double,  List<Restaurant>> byRating    = new HashMap<>();
+    private final Map<Integer, List<Restaurant>> byPrice     = new HashMap<>();
+    private final Map<String,  List<Restaurant>> byCuisine   = new HashMap<>();
+    private final Map<String,  List<Restaurant>> byServices  = new HashMap<>();
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     /**
@@ -377,6 +391,42 @@ public final class Controller
     public final void setRestaurateurs(ListRestaurateur restaurateurs) {
         this.restaurateurs = restaurateurs;
     }
+
+    /**
+     * Returns the {@code ListReview} object.
+     * 
+     * @return the {@code ListReview} object.
+     */
+    public ListReview getReviews() {
+        return reviews;
+    }
+
+    /**
+     * Sets the {@code ListReview} object for the controller.
+     * 
+     * @param reviews the {@code ListReview} object to set.
+     */
+    public void setReviews(ListReview reviews) {
+        this.reviews = reviews;
+    }
+
+    /**
+     * Returns the {@code ListResponse} object.
+     * 
+     * @return the {@code ListResponse} object.
+     */
+    public ListResponse getResponses() {
+        return responses;
+    }
+
+    /**
+     * Sets the {@code ListResponse} object for the controller.
+     * 
+     * @param responses the {@code ListResponse} object to set.
+     */
+    public void setResponses(ListResponse responses) {
+        this.responses = responses;
+    }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
     public final void        saveData() 
@@ -389,6 +439,7 @@ public final class Controller
     public final void        logout()
     {
       loggedUser = null;   
+      home.removeSideBar();
     }
     
     public final boolean     LoginClient         (String user, String password)

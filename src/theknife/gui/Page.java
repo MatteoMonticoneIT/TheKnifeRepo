@@ -47,6 +47,11 @@ public final class Page {
     public static final String RESTAURANT            = "Restaurant";
     
     /**
+     * The {@link AddRestaurant} page.
+     */
+    public static final String ADD_RESTAURANT        = "Add restaurant";
+    
+    /**
      * The {@link ReviewGUI} page.
      */
     public static final String REVIEW                = "Review";

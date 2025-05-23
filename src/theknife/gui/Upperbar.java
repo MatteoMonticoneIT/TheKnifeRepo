@@ -36,6 +36,7 @@ public final class Upperbar extends javax.swing.JPanel
      * </p>
      *
      * @param controller the {@link Controller} class that manages the screen layout
+     * @param lbl_title the {@link JLabel} title
      */
     public Upperbar(Controller controller, JLabel lbl_title) 
     {
@@ -247,9 +248,8 @@ public final class Upperbar extends javax.swing.JPanel
         controller.getPanelMain().showCard(Page.LOGIN);
       else
       {
-        //revertUI();
-        //controller.logout();
-        controller.viewUserList();
+        revertUI();
+        controller.logout();
       }
     }
     

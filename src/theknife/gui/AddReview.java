@@ -19,6 +19,11 @@ import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 
 /**
+ * {@code AddReview} is the GUI page used for adding a {@link Review} to a {@Restaurant}.
+ * <p>
+ * This class also sets all the fields needed for adding a {@code Review}.
+ * </p>
+ * 
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
