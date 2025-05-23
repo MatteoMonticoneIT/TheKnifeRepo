@@ -256,9 +256,10 @@ public final class AddReview extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_cancel_MouseClicked(java.awt.event.MouseEvent e) {
-        controller.getPanelMain().showCard(Page.REVIEW);
-        controller.getPanelMain().getPanel().remove(this);
+    private void btn_cancel_MouseClicked(java.awt.event.MouseEvent e)
+    {
+      controller.getPanelMain().showCard(Page.REVIEW);
+      controller.getPanelMain().getPanel().remove(this);
     }
     
     /**
@@ -266,9 +267,10 @@ public final class AddReview extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by hovering to the button
      */
-    private void btn_cancel_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_cancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn_cancel.setBackground(btn_cancel.getBackground().darker());
+    private void btn_cancel_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_cancel.setCursor      (new Cursor(Cursor.HAND_CURSOR));
+      btn_cancel.setBackground  (btn_cancel.getBackground().darker());
     }
     
     /**
@@ -276,8 +278,9 @@ public final class AddReview extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_cancel_MouseExited(java.awt.event.MouseEvent e) {
-        btn_cancel.setBackground(BG_BACK_BTN);
+    private void btn_cancel_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_cancel.setBackground(BG_BACK_BTN);
     }
     
     /**
@@ -288,8 +291,20 @@ public final class AddReview extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_add_MouseClicked(java.awt.event.MouseEvent e) {
+    private void btn_add_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      if(starRating!=0 && !txt_content.getText().trim().isEmpty())
+      {
+        Review review = new Review(restaurant.getListReview().getList().size(),
+                                   restaurant.getId(),
+                                   controller.getLoggedUser().getUsername(),
+                                   txt_content.getText(),
+                                   starRating);                         
         
+        restaurant.getListReview().getList().add(review);
+        controller.restaurantRatingAverage(restaurant);
+      }
+
     }
     
     /**
@@ -297,9 +312,10 @@ public final class AddReview extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by hovering to the button
      */
-    private void btn_add_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_add.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn_add.setBackground(btn_add.getBackground().darker());
+    private void btn_add_MouseEntered(java.awt.event.MouseEvent e)
+    {
+      btn_add.setCursor       (new Cursor(Cursor.HAND_CURSOR));
+      btn_add.setBackground   (btn_add.getBackground().darker());
     }
     
     /**
@@ -307,8 +323,9 @@ public final class AddReview extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_add_MouseExited(java.awt.event.MouseEvent e) {
-        btn_add.setBackground(BG_ADDRESPONSE_BTN);
+    private void btn_add_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_add.setBackground(BG_ADDRESPONSE_BTN);
     }
     
     /**
@@ -319,17 +336,20 @@ public final class AddReview extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by clicking the label 
      */
-    private void lbl_star_MouseClicked(java.awt.event.MouseEvent e) {
-        starClicked = true;
-        for (int i = 0; i < lbl_stars.length; i++) {
-            if (lbl_stars[i].equals(e.getSource())) {
-                indexStar = i;
-                lbl_stars[i].setCharacter(e.getX() <= lbl_stars[i].getWidth() / 2 ? HALF_STAR : FULL_STAR);
-                starRating = e.getX() <= lbl_stars[i].getWidth() / 2 ? i + 0.5 : i + 1;
-                break;
-            }
-            lbl_stars[i].setCharacter(FULL_STAR);
+    private void lbl_star_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      starClicked = true;
+      for (int i = 0; i < lbl_stars.length; i++) 
+      {
+        if (lbl_stars[i].equals(e.getSource())) 
+        {
+          indexStar = i;
+          lbl_stars[i].setCharacter(e.getX() <= lbl_stars[i].getWidth() / 2 ? HALF_STAR : FULL_STAR);
+          starRating = e.getX() <= lbl_stars[i].getWidth() / 2 ? i + 0.5 : i + 1;
+           break;
         }
+        lbl_stars[i].setCharacter(FULL_STAR);
+      }
     }
     
     /**
@@ -337,17 +357,20 @@ public final class AddReview extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by hovering to the label
      */
-    private void lbl_star_MouseMoved(java.awt.event.MouseEvent e) {
-        for (CustomJLabel lbl : lbl_stars) 
-            lbl.setCharacter(EMPTY_STAR);
+    private void lbl_star_MouseMoved(java.awt.event.MouseEvent e) 
+    {
+      for (CustomJLabel lbl : lbl_stars) 
+        lbl.setCharacter(EMPTY_STAR);
             
-        for (CustomJLabel lbl : lbl_stars) {
-            if (lbl.equals(e.getSource())) {
-                lbl.setCharacter(e.getX() <= lbl.getWidth() / 2 ? HALF_STAR : FULL_STAR);
-                break;
-            }
-            lbl.setCharacter(FULL_STAR);
+      for (CustomJLabel lbl : lbl_stars) 
+      {
+        if (lbl.equals(e.getSource())) 
+        {
+          lbl.setCharacter(e.getX() <= lbl.getWidth() / 2 ? HALF_STAR : FULL_STAR);
+          break;
         }
+        lbl.setCharacter(FULL_STAR);
+      }
     }
     
     /**
@@ -355,16 +378,18 @@ public final class AddReview extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by leaving the cursor from the label
      */
-    private void lbl_star_MouseExited(java.awt.event.MouseEvent e) {
-        for (CustomJLabel lbl : lbl_stars) 
-            lbl.setCharacter(EMPTY_STAR);
+    private void lbl_star_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      for (CustomJLabel lbl : lbl_stars) 
+       lbl.setCharacter(EMPTY_STAR);
         
-        if (starClicked) {
-            for (int i = 0; i < indexStar + 1; i++) 
-                lbl_stars[i].setCharacter(FULL_STAR);
-            if (starRating - indexStar == 0.5)
-                lbl_stars[indexStar].setCharacter(HALF_STAR);
-        }
+      if (starClicked) 
+      {
+        for (int i = 0; i < indexStar + 1; i++) 
+          lbl_stars[i].setCharacter(FULL_STAR);
+        if (starRating - indexStar == 0.5)
+          lbl_stars[indexStar].setCharacter(HALF_STAR);
+      }
     }
     //</editor-fold>
     

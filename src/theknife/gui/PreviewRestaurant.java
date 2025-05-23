@@ -198,7 +198,7 @@ public class PreviewRestaurant extends javax.swing.JPanel
 
       lbl_name      .setText        (setMaxWidthContent(MAX_WIDTH, restaurant.getName()));
       lbl_address   .setText        (setMaxWidthContent(MAX_WIDTH * 2, restaurant.getAddress()));
-      lbl_rating    .setText        (OVERALL_RATING + String.valueOf(restaurant.getRating()));
+      lbl_rating    .setText        (OVERALL_RATING + String.format("%.2f", restaurant.getRating()));
       lbl_rating    .setCharacter   (FULL_STAR);
       lbl_award     .setText        (restaurant.getAward());
       lbl_award     .setCharacter   (FULL_STAR);

@@ -152,7 +152,7 @@ public class RestaurantGUI extends javax.swing.JPanel
         lbl_award             = new CustomJLabel(restaurant.getAward(), FULL_STAR);
         lbl_greenStar         = new CustomJLabel("", restaurant.isGreenStar() ? FULL_STAR : EMPTY_STAR);
         lbl_services          = new JLabel(wrapTextHTML(restaurant.getServicesAvailable()));
-        lbl_rating            = new CustomJLabel("Overall rating: " + String.valueOf(restaurant.getRating()), FULL_STAR);
+        lbl_rating            = new CustomJLabel("Overall rating: " + String.format("%.2f", restaurant.getRating()), FULL_STAR);
         lbls                  = new JLabel[] 
         {
             lbl_name,
@@ -227,6 +227,7 @@ public class RestaurantGUI extends javax.swing.JPanel
         lbl_name.setBackground          (BG_NAME);
         lbl_name.setHorizontalAlignment (JLabel.CENTER);
         lbl_name.setPreferredSize       (new Dimension(0, LBL_NAME_HEIGHT));
+        lbl_name.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 40));
         
         lbl_rating.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 34));
         lbl_rating.setHorizontalAlignment(JLabel.CENTER);

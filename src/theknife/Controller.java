@@ -30,6 +30,7 @@ import theknife.obj.lists.ListCustomer;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.lists.ListRestaurateur;
 import theknife.obj.restaurant.Restaurant;
+import theknife.obj.review.Review;
 import theknife.obj.user.Customer;
 import theknife.obj.user.Restaurateur;
 import theknife.obj.user.User;
@@ -231,6 +232,8 @@ public final class Controller
       for(Restaurateur r : restaurateurs.getList())
         r.setRole("restaurateur");
       
+      //calculateRatingAverage();
+      
       for(Restaurant r : restaurants.getList())
       {
         List<Restaurant> lista = byCity.get(r.getCity());
@@ -377,6 +380,16 @@ public final class Controller
     public final void setRestaurateurs(ListRestaurateur restaurateurs) {
         this.restaurateurs = restaurateurs;
     }
+    
+    /**
+     * Returns the {@code User} object.
+     * 
+     * @return the {@code User} object.
+     */
+    public final User getLoggedUser() {
+        return loggedUser;
+    }
+
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
     public final void        saveData() 
@@ -515,6 +528,26 @@ public final class Controller
 
       }
         cusisineResult = byCuisine.get(cuisine);*/
+    }
+    
+    public void calculateRatingAverage()
+    {
+      double ratingAverage;
+      for(Restaurant restaurant: restaurants.getList())
+      {
+        ratingAverage = 0;
+        for(Review review: restaurant.getListReview().getList())
+          ratingAverage += review.getRating();
+        restaurant.setRating(Math.round((ratingAverage/restaurant.getListReview().getList().size())*100.0)/100.0);  
+      }
+    }
+    
+    public void restaurantRatingAverage(Restaurant restaurant)
+    {
+      double ratingAverage = 0;
+      for(Review review: restaurant.getListReview().getList())
+        ratingAverage += review.getRating();
+      restaurant.setRating(Math.round((ratingAverage/restaurant.getListReview().getList().size())*100.0)/100.0);  
     }
     //</editor-fold>
 }
