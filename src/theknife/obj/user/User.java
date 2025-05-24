@@ -117,13 +117,15 @@ public class User {
     
     public User(String firstName, String lastName, String birthDate, String address, String username, String email, String password)
     {
+        this.setFirstName(firstName);
         this.setFirstNameNormalized(StringUtils.normalize(this.getFirstName()));
         this.setLastName(lastName);
         this.setLastNameNormalized(StringUtils.normalize(this.getLastName()));
-        this.setUsername(username);
-        this.setPassword(password);
         this.setBirthDate(birthDate);
         this.setAddress(address);        
+        this.setEmail(email);
+        this.setUsername(username);
+        this.setPassword(password);
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">

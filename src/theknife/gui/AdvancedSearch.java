@@ -714,7 +714,7 @@ public final class AdvancedSearch extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final File               programDataset          = AppPaths.getRequiredFile("data", "program_dataset.csv");
+    private final File               PROGRAM_DATASET         = AppPaths.getRequiredFile("data", "program_dataset.csv");
     private final Color              FG_DEFAULT              = Color.BLACK;
     private final Color              FG_PLACEHOLDER          = Color.GRAY;
     private final Color              BG_TEXTFIELD            = new Color(255, 255, 255, 192);
@@ -729,9 +729,9 @@ public final class AdvancedSearch extends javax.swing.JPanel
     private final Border             PADDING_TEXTFIELD       = BorderFactory.createEmptyBorder(0, 10, 0, 10);
     private final Border             PADDING_PANEL_CHKBXS    = BorderFactory.createEmptyBorder(20, 20, 20, 20);
     private final Insets             INSETS                  = new Insets(20, 10, 20, 10);
-    private final String[]           CHKBX_CUISINE_TXT       = CSV.read(programDataset, "CUISINES").toArray(new String[0]);
-    private final String[]           CHKBX_SERVICE_TXT       = CSV.read(programDataset, "SERVICES").toArray(new String[0]);
-    private final String[]           LBL_GUIDE_TXT           = CSV.read(programDataset, "GUIDES"  ).toArray(new String[0]);
+    private final String[]           CHKBX_CUISINE_TXT       = CSV.read(PROGRAM_DATASET, "CUISINES").toArray(new String[0]);
+    private final String[]           CHKBX_SERVICE_TXT       = CSV.read(PROGRAM_DATASET, "SERVICES").toArray(new String[0]);
+    private final String[]           LBL_GUIDE_TXT           = CSV.read(PROGRAM_DATASET, "GUIDES"  ).toArray(new String[0]);
     private final String[]           PLACEHOLDER             = new String[]{"Your location"};
     private final String[]           PRICE_TAGS              = new String[] {
         "Cheap",

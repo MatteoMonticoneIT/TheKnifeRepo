@@ -18,7 +18,9 @@ import theknife.obj.lists.ListOwned;
 @JsonPropertyOrder({
     "ID", 
     "firstName", 
+    "firstNameNormalized",
     "lastName", 
+    "lastNameNormalized",
     "birthDate", 
     "address", 
     "username", 
@@ -68,6 +70,21 @@ public final class Restaurateur extends User
       this.setId        (id);
     }
     
+    
+    /**
+     * Constructor that initializes a {@code Restaurateur} object with the specified attributes.
+     * <p>
+     * This constructor initializes the {@code Restaurateur} object's firstName, lastName, username, password, birthDate, address and the list of restaurants they manage.
+     * </p>
+     *
+     * @param firstName the restaurateur's firstName
+     * @param lastName the restaurateur's lastName
+     * @param birthDate the restaurateur's birthDate
+     * @param address the restaurateur's address
+     * @param username the restaurateur's username
+     * @param email the restaurateur's email
+     * @param password the restaurateur's password
+     */
     public Restaurateur(String firstName, String lastName, String birthDate, String address, String username, String email, String password) 
     {
       super         (firstName, lastName, birthDate, address, username, email, password);

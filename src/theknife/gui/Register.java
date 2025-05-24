@@ -737,7 +737,7 @@ public final class Register extends CustomJPanel
       {
         Customer customer = new Customer(txt_firstName.getText(),
                                          txt_lastName .getText(),
-                                         txt_birthDate.getText(),
+                                         txt_birthDate.getText().equals(PLACEHOLDER[2]) ? null : txt_birthDate.getText(),
                                          txt_location .getText(),
                                          txt_username .getText(),
                                          txt_email    .getText(),

@@ -18,7 +18,9 @@ import theknife.obj.lists.ListFavorite;
 @JsonPropertyOrder({
     "ID", 
     "firstName", 
+    "firstNameNormalized",
     "lastName", 
+    "lastNameNormalized",
     "birthDate", 
     "address", 
     "username", 
@@ -69,6 +71,20 @@ public final class Customer extends User
       this.setId              (id);
     }
     
+    /**
+     * Constructor that initializes a {@code Client} object with the specified attributes.
+     * <p>
+     * This constructor initializes the {@code Client} object's firstName, lastName, username, password, birthDate, address and favorite restaurants list.
+     * </p>
+     *
+     * @param firstName the customer's firstName
+     * @param lastName the customer's lastName
+     * @param birthDate the customer's birthDate
+     * @param address the customer's address
+     * @param username the customer's username
+     * @param email the customer's email
+     * @param password the customer's password
+     */
     public Customer(String firstName, String lastName, String birthDate, String address, String username, String email, String password) 
     {
       super           (firstName, lastName, birthDate, address, username, email, password);

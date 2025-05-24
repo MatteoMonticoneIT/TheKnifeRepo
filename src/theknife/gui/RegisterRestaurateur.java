@@ -242,7 +242,7 @@ public class RegisterRestaurateur extends CustomJPanel
         this.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {
-                login_ComponentResized(e);
+                registerRestaurateur_ComponentResized(e);
             }
         });
         
@@ -388,14 +388,14 @@ public class RegisterRestaurateur extends CustomJPanel
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
     /**
-     * Handles the resize event for the login {@link JPanel}.
+     * Handles the resize event for the {@code RegisterRestaurateur} {@link JPanel}.
      * <p>
      * When resized, resizes the padding of the components.
      * </p>
      * 
      * @param e the component event triggered by resizing the GUI application
      */
-    private void login_ComponentResized(java.awt.event.ComponentEvent e) 
+    private void registerRestaurateur_ComponentResized(java.awt.event.ComponentEvent e) 
     {
       int[] padding = {(int) (this.getWidth() * 0.2), (int) (this.getHeight() * 0.0375)}; //0 = width; 1 = height;
       this.setBorder(BorderFactory.createEmptyBorder(padding[1], padding[0], padding[1], padding[0]));
@@ -736,7 +736,7 @@ public class RegisterRestaurateur extends CustomJPanel
       {
         Restaurateur restaurateur = new Restaurateur(txt_firstName.getText(),
                                                      txt_lastName .getText(),
-                                                     txt_birthDate.getText(),
+                                                     txt_birthDate.getText().equals(PLACEHOLDER[2]) ? null : txt_birthDate.getText(),
                                                      txt_location .getText(),
                                                      txt_username .getText(),
                                                      txt_email    .getText(),
