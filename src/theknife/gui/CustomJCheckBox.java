@@ -41,7 +41,7 @@ public final class CustomJCheckBox extends JCheckBox {
      */
     public CustomJCheckBox() {
         try {
-            File fontFile = AppPaths.getDataFile("img", "Password.ttf");
+            File fontFile = AppPaths.getRequiredFile("img", "Password.ttf");
             this.setCustomFont(Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(24f));
         } catch (FontFormatException | IOException e) {
             LoggerUtils.logWarning("Unable to set a personalized font: {0}", e);

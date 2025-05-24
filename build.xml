@@ -77,5 +77,8 @@
         <copy todir="${dist.dir}/img">
             <fileset dir="img"/>
         </copy>
+        <copy todir="${dist.dir}/encrypted">
+            <fileset dir="encrypted"/>
+        </copy>
     </target>
 </project>

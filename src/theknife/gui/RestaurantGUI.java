@@ -561,7 +561,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final File               programDataset       = AppPaths.getDataFile("data", "program_dataset.csv");
+    private final File               programDataset       = AppPaths.getRequiredFile("data", "program_dataset.csv");
     private final Color              BG_NAME              = new Color(173, 199, 2);
     private final Color              BG_DEFAULT           = new Color(139, 232, 26);
     private final Color              FG_DEFAULT           = Color.BLACK;

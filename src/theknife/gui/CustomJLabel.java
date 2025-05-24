@@ -154,7 +154,7 @@ public final class CustomJLabel extends JLabel {
       this.setCharacterSpacing(DEFAULT_SPACING);
       try 
       {
-        File fontFile = AppPaths.getDataFile("img", "Stars.ttf");
+        File fontFile = AppPaths.getRequiredFile("img", "Stars.ttf");
         this.setCustomFont(Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(24f));
       } 
       catch (FontFormatException | IOException e) 

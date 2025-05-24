@@ -54,35 +54,41 @@ public final class Controller
     
     //<editor-fold defaultstate="collapsed" desc="Consts">
     /**
-     * JSON file restaurants
+     * JSON file restaurants.
      */
-    private static final File JSON_RESTAURANTS      = AppPaths.getDataFile("data", "restaurants.json");
+    private static final File JSON_RESTAURANTS      = AppPaths.getRequiredFile("data", "restaurants.json");
     
     /**
-     * JSON file customers
+     * JSON file customers.
      */
-    private static final File JSON_CUSTOMERS        = AppPaths.getDataFile("data", "customers.json");
+    private static final File JSON_CUSTOMERS        = AppPaths.getRequiredFile("data", "customers.json");
     
     /**
-     * JSON file restaurateurs
+     * JSON file restaurateurs.
      */
-    private static final File JSON_RESTAURATEURS    = AppPaths.getDataFile("data", "restaurateurs.json");
+    private static final File JSON_RESTAURATEURS    = AppPaths.getRequiredFile("data", "restaurateurs.json");
     
     /**
-     * CSV file dataset
+     * CSV file dataset.
      */
-    private static final File CSV_RESTAURANTS       = AppPaths.getDataFile("data", "restaurants.csv");
+    private static final File CSV_RESTAURANTS       = AppPaths.getRequiredFile("data", "restaurants.csv");
+    
+    /**
+     * KeyStore file for encryption.
+     */
+    private static final File KEYSTORE_FILE         = AppPaths.getOptionalFile("encrypted", "keystore.jks");
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    /**
+     * The {@link AES} which encrypt/decrypt data.
+     */
+    private AES             aes;
     
     /**
-     * The {@link AES} which encrypt/decrypt data
-     */
-    private  AES             aes;
-    /**
-     * The {@link User} who log in (either Restaurateur or Customer)
+     * The {@link User} who log in (either Restaurateur or Customer).
      */
     private User             loggedUser;
+    
     /**
      * The list of {@link Restaurant}.
      */
@@ -193,7 +199,7 @@ public final class Controller
     
     private void        initLists           () 
     {
-      aes = new AES();
+      aes = new AES(KEYSTORE_FILE);
 
       if (JSON_RESTAURANTS.exists())
         this.setRestaurants    (JSON.read(JSON_RESTAURANTS, ListRestaurant.class));
@@ -247,15 +253,15 @@ public final class Controller
       else
         LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException("Unable to get the restaurateurs file!"));
       
-      for(Customer c : customers.getList())
+      for(Customer c : this.getCustomers().getList())
         c.setRole("customer");
       
-      for(Restaurateur r : restaurateurs.getList())
+      for(Restaurateur r : this.getRestaurateurs().getList())
         r.setRole("restaurateur");
       
       //calculateRatingAverage();
       
-      for(Restaurant r : restaurants.getList())
+      for(Restaurant r : this.getRestaurants().getList())
       {
         List<Restaurant> lista = byCity.get(r.getCity());
         if(lista == null) 
@@ -266,7 +272,7 @@ public final class Controller
         lista.add(r);
       }
      
-      for(Restaurant r : restaurants.getList())
+      for(Restaurant r : this.getRestaurants().getList())
       {
         List<Restaurant> lista = byRating.get(r.getRating());
         if(lista == null) 
@@ -277,7 +283,7 @@ public final class Controller
         lista.add(r);
       }
       
-      for(Restaurant r : restaurants.getList())
+      for(Restaurant r : this.getRestaurants().getList())
       {
         List<Restaurant> lista = byPrice.get(r.getPrice());
         if(lista == null) 
@@ -288,7 +294,7 @@ public final class Controller
         lista.add(r);
       }
       
-      for(Restaurant r : restaurants.getList())
+      for(Restaurant r : this.getRestaurants().getList())
       {
         List<Restaurant> lista = byCuisine.get(r.getCuisine());
         if(lista == null) 
@@ -299,7 +305,7 @@ public final class Controller
         lista.add(r);
       }
       
-      for(Restaurant r : restaurants.getList())
+      for(Restaurant r : this.getRestaurants().getList())
       {
         List<Restaurant> lista = byServices.get(r.getServicesAvailable());
         if(lista == null) 
@@ -457,9 +463,9 @@ public final class Controller
      */
     public final void        saveData() 
     {
-      JSON.writeToFile(JSON_RESTAURANTS,    restaurants);
-      JSON.writeToFile(JSON_CUSTOMERS,      customers);
-      JSON.writeToFile(JSON_RESTAURATEURS,  restaurateurs);
+      JSON.writeToFile(JSON_RESTAURANTS,    this.getRestaurants());
+      JSON.writeToFile(JSON_CUSTOMERS,      this.getCustomers());
+      JSON.writeToFile(JSON_RESTAURATEURS,  this.getRestaurateurs());
     }
  
     /**
@@ -480,12 +486,12 @@ public final class Controller
      */
     public final boolean     LoginClient         (String user, String password)
     {
-      if(     InputPattern   .match    (InputPattern.USERNAME, user) && 
-              InputPattern   .match    (InputPattern.PASSWORD, password))         
-        loggedUser = customers         .checkUser        (user, password, aes);
-      else if(InputPattern   .match    (InputPattern.EMAIL, user)    && 
-              InputPattern   .match    (InputPattern.PASSWORD, password)) 
-        loggedUser = customers         .checkUserByEmail (user, password, aes);
+      if(     InputPattern   .match   (InputPattern.USERNAME, user) && 
+              InputPattern   .match   (InputPattern.PASSWORD, password))         
+        loggedUser = this.getCustomers().checkUser       (user, password, aes);
+      else if(InputPattern   .match   (InputPattern.EMAIL, user)    && 
+              InputPattern   .match   (InputPattern.PASSWORD, password)) 
+        loggedUser = this.getCustomers().checkUserByEmail(user, password, aes);
       
       if(loggedUser!=null)
       {
@@ -504,12 +510,12 @@ public final class Controller
      */
     public final boolean     LoginRestaurateur   (String user, String password)
     {
-      if(     InputPattern   .match      (InputPattern.USERNAME, user)     &&
-              InputPattern   .match      (InputPattern.PASSWORD, password))
-        loggedUser = restaurateurs       .checkUser          (user, password, aes); 
-      else if(InputPattern   .match      (InputPattern.EMAIL, user)        && 
-              InputPattern   .match      (InputPattern.PASSWORD, password)) 
-        loggedUser = restaurateurs       .checkUserByEmail   (user, password, aes); 
+      if(     InputPattern   .match       (InputPattern.USERNAME, user)     &&
+              InputPattern   .match       (InputPattern.PASSWORD, password))
+        loggedUser = this.getRestaurateurs().checkUser       (user, password, aes); 
+      else if(InputPattern   .match       (InputPattern.EMAIL, user)        && 
+              InputPattern   .match       (InputPattern.PASSWORD, password)) 
+        loggedUser = this.getRestaurateurs().checkUserByEmail(user, password, aes); 
       
       if(loggedUser!=null)
       {
@@ -527,7 +533,7 @@ public final class Controller
      */
     public final boolean     RegisterClient      (Customer customer)
     {
-      if(!customers     .existUser  (customer.    getUsername()) && !restaurateurs .existUser   (customer    .getUsername()))
+      if(!this.getCustomers().existUser  (customer.    getUsername()) && !this.getRestaurateurs() .existUser   (customer    .getUsername()))
       {
         try 
         {
@@ -537,8 +543,8 @@ public final class Controller
         {
           LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new Exception("Unable to encrypt password!", e));
         }
-        customer        .setId      (customers.size());
-        customers       .add        (customer);
+        customer           .setId      (this.getCustomers().size());
+        this.getCustomers().add        (customer);
         return true;
       }
       else
@@ -553,7 +559,7 @@ public final class Controller
      */
     public final boolean     RegisterRestaurateur(Restaurateur restaurateur)
     {
-      if(!customers     .existUser  (restaurateur .getUsername()) && !restaurateurs .existUser  (restaurateur.getUsername()))
+      if(!this.getCustomers()     .existUser  (restaurateur .getUsername()) && !this.getRestaurateurs() .existUser  (restaurateur.getUsername()))
       {
         try 
         {
@@ -563,8 +569,8 @@ public final class Controller
         {
           LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new Exception("Unable to encrypt password!", e));
         }
-        restaurateur    .setId      (restaurateurs.size());
-        restaurateurs   .add        (restaurateur);
+        restaurateur              .setId      (this.getRestaurateurs().size());
+        this.getRestaurateurs()   .add        (restaurateur);
         return true;
       }
       else
@@ -664,7 +670,7 @@ public final class Controller
     private void calculateRatingAverage()
     {
       double ratingAverage;
-      for(Restaurant restaurant: restaurants.getList())
+      for(Restaurant restaurant: this.getRestaurants().getList())
       {
         ratingAverage = 0;
         for(Review review: restaurant.getListReview().getList())
@@ -690,7 +696,7 @@ public final class Controller
      */
     private void encryptAllPassword()
     {
-      for(Customer customer: customers.getList())
+      for(Customer customer: this.getCustomers().getList())
         try 
         {
           customer.setPassword(aes.encrypt(customer.getPassword()));
@@ -700,7 +706,7 @@ public final class Controller
           LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new Exception("Unable to encrypt password!", e));
         }
       
-      for(Restaurateur restaurateur: restaurateurs.getList())
+      for(Restaurateur restaurateur: this.getRestaurateurs().getList())
         try 
         {
           restaurateur.setPassword(aes.encrypt(restaurateur.getPassword()));

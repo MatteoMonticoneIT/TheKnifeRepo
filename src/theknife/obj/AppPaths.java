@@ -35,22 +35,36 @@ public final class AppPaths {
             File dir = jarPath.getParentFile();
             return dir.getName().equals("build") ? new File(dir.getParentFile(), "dist") : dir;
         } catch (URISyntaxException e) {
-            throw new RuntimeException("Impossibile ottenere la directory del JAR", e);
+            throw new RuntimeException("Unable to get the JAR directory: ", e);
         }
+    }
+    
+    /**
+     * Returns a path to a required {@code File} in a specific subdirectory.
+     *
+     * @param folder - subdirectory name
+     * @param filename - file name
+     * @return File instance pointing to the file
+     * @throws RuntimeException if the file does not exist
+     */
+    public static File getRequiredFile(String folder, String filename) {
+        File file = new File(getJarDir(), folder + File.separator + filename);
+        if (!file.exists()) 
+            throw new RuntimeException("Required file does not exist: " + file.getAbsolutePath());
+        return file;
     }
 
     /**
-     * Returns a {@code File} pointing to a resource located in a subdirectory of the JAR's location.
-     * <p>
-     * Useful for accessing files located in folders like {@code data}, {@code config}, or similar,
-     * regardless of where the JAR is actually located.
-     * </p>
+     * Returns a path to a {@code File} that can be optionally created if missing.
      *
-     * @param folder the name of the folder inside the JAR's directory
-     * @param file the name of the file within the folder
-     * @return a {@link File} representing the full path to the desired file
+     * @param folder - subdirectory name
+     * @param filename - file name
+     * @return File instance pointing to the file (may not exist)
      */
-    public static File getDataFile(String folder, String file) {
-        return new File(new File(getJarDir(), folder), file);
+    public static File getOptionalFile(String folder, String filename) {
+        File dir = new File(getJarDir(), folder);
+        if (!dir.exists()) 
+            dir.mkdirs();
+        return new File(dir, filename);
     }
 }
