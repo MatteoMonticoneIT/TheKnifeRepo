@@ -310,10 +310,10 @@ public final class Controller
     private void        initFields          () 
     {
         home                 = new Home                (this);
-        login                = new Login               (this);
-        loginRestaurateur    = new LoginRestaurateur   (this);
-        register             = new Register            (this);
-        registerRestaurateur = new RegisterRestaurateur(this);
+        login                = new Login               (this, Page.LOGIN);
+        loginRestaurateur    = new LoginRestaurateur   (this, Page.LOGIN_RESTAURATEUR);
+        register             = new Register            (this, Page.REGISTER);
+        registerRestaurateur = new RegisterRestaurateur(this, Page.REGISTER_RESTAURATEUR);;
         advancedSearch       = new AdvancedSearch      (this);
     }
     

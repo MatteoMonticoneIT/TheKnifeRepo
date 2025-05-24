@@ -38,7 +38,8 @@ import theknife.Controller;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public class LoginRestaurateur extends javax.swing.JPanel {
+public class LoginRestaurateur extends CustomJPanel
+{
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
@@ -48,66 +49,72 @@ public class LoginRestaurateur extends javax.swing.JPanel {
      * </p>
      *
      * @param controller the {@link Controller} class that manages the screen layout
+     * @param page to let CustomJPanel know which page is it
      */
-    public LoginRestaurateur(Controller controller) {
-        initComponents();
-        this.controller = controller;
-        initGUI();
+    public LoginRestaurateur(Controller controller, String page)
+    {
+      super         (page);
+      initComponents();
+      this.controller = controller;
+      initGUI       ();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
      * Initializes the graphical user interface (GUI) for the {@code LoginRestaurateur} page.
      */
-    private void initGUI() {
-        initFields();
-        initLogin();
-        initEvents();
+    private void initGUI() 
+    {
+      initFields();
+      initLogin();
+      initEvents();
     }
     
     /**
      * Initializes the basic fields of the {@code LoginRestaurateur} panel.
      */
-    private void initFields() {
-        pnl_grid                 = new JPanel(new GridBagLayout());
-        pnl_password             = new JPanel(new GridBagLayout());
-        pnl_btn_login            = new JPanel(new BorderLayout());
-        pnl_btn_cancel           = new JPanel(new BorderLayout());
-        pnl_btn_register         = new JPanel(new BorderLayout());
-        pnl_btn_loginAsCustomer  = new JPanel(new BorderLayout());
-        lbl_title                = new JLabel(Page.LOGIN_RESTAURATEUR);
-        btn_login                = new JLabel(Page.LOGIN);
-        btn_cancel               = new JLabel(CANCEL);
-        btn_register             = new JLabel(REGISTER);
-        btn_loginAsCustomer      = new JLabel(LOGIN_AS_CUSTOMER);
-        txt_emailUsername        = new JTextField(PLACEHOLDER[0]);
-        txt_password             = new JPasswordField(PLACEHOLDER[1]);
-        chkbx_seePassword        = new CustomJCheckBox();
-        txt_emailUsernameRounded = new JLayer<>(txt_emailUsername, TXT_LAYER_UI);
-        txt_passwordRounded      = new JLayer<>(txt_password,      TXT_LAYER_UI);
-        btn_loginRounded         = new JLayer<>(btn_login,         BTN_LAYER_UI);
-        btn_cancelRounded        = new JLayer<>(btn_cancel,        BTN_LAYER_UI);
+    private void initFields() 
+    {
+      pnl_grid                 = new JPanel         (new GridBagLayout());
+      pnl_password             = new JPanel         (new GridBagLayout());
+      pnl_btn_login            = new JPanel         (new BorderLayout());
+      pnl_btn_cancel           = new JPanel         (new BorderLayout());
+      pnl_btn_register         = new JPanel         (new BorderLayout());
+      pnl_btn_loginAsCustomer  = new JPanel         (new BorderLayout());
+      lbl_title                = new JLabel         (Page.LOGIN_RESTAURATEUR);
+      btn_login                = new JLabel         (Page.LOGIN);
+      btn_cancel               = new JLabel         (CANCEL);
+      btn_register             = new JLabel         (REGISTER);
+      btn_loginAsCustomer      = new JLabel         (LOGIN_AS_CUSTOMER);
+      txt_emailUsername        = new JTextField     (PLACEHOLDER[0]);
+      txt_password             = new JPasswordField (PLACEHOLDER[1]);
+      chkbx_seePassword        = new CustomJCheckBox();
+      txt_emailUsernameRounded = new JLayer<>       (txt_emailUsername, TXT_LAYER_UI);
+      txt_passwordRounded      = new JLayer<>       (txt_password,      TXT_LAYER_UI);
+      btn_loginRounded         = new JLayer<>       (btn_login,         BTN_LAYER_UI);
+      btn_cancelRounded        = new JLayer<>       (btn_cancel,        BTN_LAYER_UI);
     }
     
     /**
      * Initializes the layout and appearance of the {@code LoginRestaurateur} page.
      */
-    private void initLogin() {
+    private void initLogin() 
+    {
         this.setLayout(new BorderLayout());
         
-        pnl_grid               .setBackground(this.getBackground());
-        pnl_password           .setBackground(this.getBackground());
-        pnl_btn_login          .setBackground(this.getBackground());
-        pnl_btn_cancel         .setBackground(this.getBackground());
-        pnl_btn_register       .setBackground(this.getBackground());
-        pnl_btn_loginAsCustomer.setBackground(this.getBackground());
+        pnl_grid               .setOpaque(false);
+        pnl_password           .setOpaque(false);
+        pnl_btn_login          .setOpaque(false);
+        pnl_btn_cancel         .setOpaque(false);
+        pnl_btn_register       .setOpaque(false);
+        pnl_btn_loginAsCustomer.setOpaque(false);
         
-        lbl_title.setBackground(this.getBackground());
-        lbl_title.setForeground(FG_DEFAULT);
+        lbl_title.setBackground         (this.getBackground());
+        lbl_title.setForeground         (FG_DEFAULT);
         lbl_title.setHorizontalAlignment(JLabel.CENTER);
         lbl_title.setVerticalAlignment  (JLabel.CENTER);
-        lbl_title.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 36));
-        lbl_title.setOpaque(true);
+        lbl_title.setFont               (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 36));
+        lbl_title.setOpaque             (false);
         
         txt_emailUsername.setBackground(BG_TEXTFIELD);
         txt_emailUsername.setForeground(FG_PLACEHOLDER);
@@ -118,34 +125,34 @@ public class LoginRestaurateur extends javax.swing.JPanel {
         txt_password     .setBorder    (PADDING_TEXTFIELD);
         txt_password     .setEchoChar  ((char) 0);
         
-        chkbx_seePassword.setSelected(true);
-        chkbx_seePassword.setCharacter(EYE_OFF);
+        chkbx_seePassword.setSelected   (true);
+        chkbx_seePassword.setCharacter  (EYE_OFF);
         
-        btn_login.setBackground(BG_LOGIN_BTN);
-        btn_login.setForeground(FG_DEFAULT);
+        btn_login.setBackground         (BG_LOGIN_BTN);
+        btn_login.setForeground         (FG_DEFAULT);
         btn_login.setHorizontalAlignment(JLabel.CENTER);
         btn_login.setVerticalAlignment  (JLabel.CENTER);
-        btn_login.setFont(this.getFont());
-        btn_login.setOpaque(true);
+        btn_login.setFont               (this.getFont());
+        btn_login.setOpaque             (true);
         
-        btn_cancel.setBackground(BG_CANCEL_BTN);
-        btn_cancel.setForeground(FG_DEFAULT);
-        btn_cancel.setHorizontalAlignment(JLabel.CENTER);
-        btn_cancel.setVerticalAlignment  (JLabel.CENTER);
-        btn_cancel.setFont(this.getFont());
-        btn_cancel.setOpaque(true);
+        btn_cancel.setBackground            (BG_CANCEL_BTN);
+        btn_cancel.setForeground            (FG_DEFAULT);
+        btn_cancel.setHorizontalAlignment   (JLabel.CENTER);
+        btn_cancel.setVerticalAlignment     (JLabel.CENTER);
+        btn_cancel.setFont                  (this.getFont());
+        btn_cancel.setOpaque                (true);
         
-        btn_register.setBackground(this.getBackground());
-        btn_register.setForeground(FG_DEFAULT);
-        btn_register.setVerticalAlignment(JLabel.CENTER);
-        btn_register.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 18));
-        btn_register.setOpaque(true);
+        btn_register.setBackground          (this.getBackground());
+        btn_register.setForeground          (FG_DEFAULT);
+        btn_register.setVerticalAlignment   (JLabel.CENTER);
+        btn_register.setFont                (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 18));
+        btn_register.setOpaque              (false);
         
-        btn_loginAsCustomer.setBackground(this.getBackground());
-        btn_loginAsCustomer.setForeground(FG_DEFAULT);
+        btn_loginAsCustomer.setBackground       (this.getBackground());
+        btn_loginAsCustomer.setForeground       (FG_DEFAULT);
         btn_loginAsCustomer.setVerticalAlignment(JLabel.CENTER);
-        btn_loginAsCustomer.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 18));
-        btn_loginAsCustomer.setOpaque(true);
+        btn_loginAsCustomer.setFont             (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 18));
+        btn_loginAsCustomer.setOpaque           (false);
         
         pnl_btn_login          .add(btn_loginRounded,        BorderLayout.CENTER);
         pnl_btn_cancel         .add(btn_cancelRounded,       BorderLayout.CENTER);
@@ -205,7 +212,8 @@ public class LoginRestaurateur extends javax.swing.JPanel {
     /**
      * Sets up event listeners for user interaction.
      */
-    private void initEvents() {
+    private void initEvents() 
+    {
         this.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {

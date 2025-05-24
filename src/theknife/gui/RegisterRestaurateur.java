@@ -34,7 +34,7 @@ import theknife.obj.user.Restaurateur;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public class RegisterRestaurateur extends javax.swing.JPanel 
+public class RegisterRestaurateur extends CustomJPanel 
 {
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
@@ -45,12 +45,14 @@ public class RegisterRestaurateur extends javax.swing.JPanel
      * </p>
      *
      * @param controller the {@link Controller} class that manages the screen layout
+     * @param page to let CustomJPanel know which page is it
      */
-    public RegisterRestaurateur(Controller controller) 
+    public RegisterRestaurateur(Controller controller, String page) 
     {
+      super         (page);
       initComponents();
       this.controller = controller;
-      initGUI();
+      initGUI       ();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
@@ -99,21 +101,22 @@ public class RegisterRestaurateur extends javax.swing.JPanel
     /**
      * Initializes the layout and appearance of the {@code Register} page.
      */
-    private void initRegister() {
+    private void initRegister() 
+    {
         this.setLayout(new BorderLayout());
         
-        pnl_grid             .setBackground(this.getBackground());
-        pnl_password         .setBackground(this.getBackground());
-        pnl_birthDateLocation.setBackground(this.getBackground());
-        pnl_btn_register     .setBackground(this.getBackground());
-        pnl_btn_cancel       .setBackground(this.getBackground());
+        pnl_grid               .setOpaque(false);
+        pnl_password           .setOpaque(false);
+        pnl_birthDateLocation  .setOpaque(false);
+        pnl_btn_cancel         .setOpaque(false);
+        pnl_btn_register       .setOpaque(false);
         
         lbl_title.setBackground(this.getBackground());
         lbl_title.setForeground(FG_DEFAULT);
         lbl_title.setHorizontalAlignment(JLabel.CENTER);
         lbl_title.setVerticalAlignment  (JLabel.CENTER);
         lbl_title.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 32));
-        lbl_title.setOpaque(true);
+        lbl_title.setOpaque(false);
         
         txt_firstName.setBackground(BG_TEXTFIELD);
         txt_firstName.setForeground(FG_PLACEHOLDER);
@@ -139,27 +142,27 @@ public class RegisterRestaurateur extends javax.swing.JPanel
         txt_username.setForeground(FG_PLACEHOLDER);
         txt_username.setBorder    (PADDING_TEXTFIELD);
         
-        chkbx_seePassword             .setSelected                (true);
-        chkbx_seePassword             .setCharacter(EYE_OFF);
+        chkbx_seePassword.setSelected   (true);
+        chkbx_seePassword.setCharacter  (EYE_OFF);
         
-        txt_password.setBackground(BG_TEXTFIELD);
-        txt_password.setForeground(FG_PLACEHOLDER);
-        txt_password.setBorder    (PADDING_TEXTFIELD);
-        txt_password.setEchoChar((char) 0);
+        txt_password.setBackground  (BG_TEXTFIELD);
+        txt_password.setForeground  (FG_PLACEHOLDER);
+        txt_password.setBorder      (PADDING_TEXTFIELD);
+        txt_password.setEchoChar    ((char) 0);
         
-        btn_register.setBackground(BG_REGISTER_BTN);
-        btn_register.setForeground(FG_DEFAULT);
-        btn_register.setHorizontalAlignment(JLabel.CENTER);
-        btn_register.setVerticalAlignment  (JLabel.CENTER);
-        btn_register.setFont(this.getFont());
-        btn_register.setOpaque(true);
+        btn_register.setBackground          (BG_REGISTER_BTN);
+        btn_register.setForeground          (FG_DEFAULT);
+        btn_register.setHorizontalAlignment (JLabel.CENTER);
+        btn_register.setVerticalAlignment   (JLabel.CENTER);
+        btn_register.setFont                (this.getFont());
+        btn_register.setOpaque              (true);
         
-        btn_cancel.setBackground(BG_CANCEL_BTN);
-        btn_cancel.setForeground(FG_DEFAULT);
-        btn_cancel.setHorizontalAlignment(JLabel.CENTER);
-        btn_cancel.setVerticalAlignment  (JLabel.CENTER);
-        btn_cancel.setFont(this.getFont());
-        btn_cancel.setOpaque(true);
+        btn_cancel.setBackground            (BG_CANCEL_BTN);
+        btn_cancel.setForeground            (FG_DEFAULT);
+        btn_cancel.setHorizontalAlignment   (JLabel.CENTER);
+        btn_cancel.setVerticalAlignment     (JLabel.CENTER);
+        btn_cancel.setFont                  (this.getFont());
+        btn_cancel.setOpaque                (true);
         
         pnl_btn_register.add(btn_registerRounded, BorderLayout.CENTER);
         pnl_btn_cancel  .add(btn_cancelRounded,   BorderLayout.CENTER);

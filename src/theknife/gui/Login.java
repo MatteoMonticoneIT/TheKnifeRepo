@@ -33,7 +33,7 @@ import theknife.Controller;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class Login extends javax.swing.JPanel 
+public final class Login extends CustomJPanel 
 {
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
@@ -45,12 +45,14 @@ public final class Login extends javax.swing.JPanel
      * </p>
      *
      * @param controller the {@link Controller} class that manages the screen layout
+     * @param page to let CustomJPanel know which page is it
      */
-    public       Login                                  (Controller controller)
+    public       Login                                  (Controller controller, String page)
     {
-        initComponents();
-        this.controller = controller;
-        initGUI();
+      super         (page);
+      initComponents();
+      this.controller = controller;
+      initGUI       ();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
@@ -97,19 +99,19 @@ public final class Login extends javax.swing.JPanel
     {
       this                          .setLayout                  (new BorderLayout());
 
-      pnl_grid                      .setBackground              (this.getBackground());
-      pnl_password                  .setBackground              (this.getBackground());
-      pnl_btn_login                 .setBackground              (this.getBackground());
-      pnl_btn_cancel                .setBackground              (this.getBackground());
-      pnl_btn_register              .setBackground              (this.getBackground());
-      pnl_btn_loginAsRestaurateur   .setBackground              (this.getBackground());
+      pnl_grid                      .setOpaque                  (false);
+      pnl_password                  .setOpaque                  (false);
+      pnl_btn_login                 .setOpaque                  (false);
+      pnl_btn_cancel                .setOpaque                  (false);
+      pnl_btn_register              .setOpaque                  (false);
+      pnl_btn_loginAsRestaurateur   .setOpaque                  (false);
 
       lbl_title                     .setBackground              (this.getBackground());
       lbl_title                     .setForeground              (FG_DEFAULT);
       lbl_title                     .setHorizontalAlignment     (JLabel.CENTER);
       lbl_title                     .setVerticalAlignment       (JLabel.CENTER);
       lbl_title                     .setFont                    (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 48));
-      lbl_title                     .setOpaque                  (true);
+      lbl_title                     .setOpaque                  (false);
 
       txt_emailUsername             .setBackground              (BG_TEXTFIELD);
       txt_emailUsername             .setForeground              (FG_PLACEHOLDER);
@@ -141,13 +143,13 @@ public final class Login extends javax.swing.JPanel
       btn_register                  .setForeground              (FG_DEFAULT);
       btn_register                  .setVerticalAlignment       (JLabel.CENTER);
       btn_register                  .setFont                    (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 18));
-      btn_register                  .setOpaque                  (true);
+      btn_register                  .setOpaque                  (false);
 
       btn_loginAsRestaurateur       .setBackground              (this.getBackground());
       btn_loginAsRestaurateur       .setForeground              (FG_DEFAULT);
       btn_loginAsRestaurateur       .setVerticalAlignment       (JLabel.CENTER);
       btn_loginAsRestaurateur       .setFont                    (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 18));
-      btn_loginAsRestaurateur       .setOpaque                  (true);
+      btn_loginAsRestaurateur       .setOpaque                  (false);
 
       pnl_btn_login                 .add                        (btn_loginRounded, BorderLayout.CENTER);
       pnl_btn_cancel                .add                        (btn_cancelRounded, BorderLayout.CENTER);
@@ -746,7 +748,7 @@ public final class Login extends javax.swing.JPanel
     private       JLabel             btn_loginAsRestaurateur;
     private       JTextField         txt_emailUsername;
     private       JPasswordField     txt_password;
-    private       CustomJCheckBox     chkbx_seePassword;
+    private       CustomJCheckBox    chkbx_seePassword;
     private       JLayer<JComponent> txt_emailUsernameRounded;
     private       JLayer<JComponent> txt_passwordRounded;
     private       JLayer<JComponent> btn_loginRounded;

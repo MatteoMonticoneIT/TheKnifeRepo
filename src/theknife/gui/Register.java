@@ -34,9 +34,8 @@ import theknife.obj.user.Customer;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class Register extends javax.swing.JPanel 
+public final class Register extends CustomJPanel
 {
-
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Creates a new {@code Register} {@link JPanel} and initializes its components.
@@ -45,12 +44,14 @@ public final class Register extends javax.swing.JPanel
      * </p>
      *
      * @param controller the {@link Controller} class that manages the screen layout
+     * @param page to let CustomJPanel know which page is it
      */
-    public Register(Controller controller) 
+    public Register(Controller controller, String page) 
     {
+      super         (page);
       initComponents();
       this.controller = controller;
-      initGUI();
+      initGUI       ();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
@@ -99,139 +100,140 @@ public final class Register extends javax.swing.JPanel
     /**
      * Initializes the layout and appearance of the {@code Register} page.
      */
-    private void initRegister() {
-        this.setLayout(new BorderLayout());
+    private void initRegister() 
+    {
+      this.setLayout(new BorderLayout());
         
-        pnl_grid             .setBackground(this.getBackground());
-        pnl_password         .setBackground(this.getBackground());
-        pnl_birthDateLocation.setBackground(this.getBackground());
-        pnl_btn_register     .setBackground(this.getBackground());
-        pnl_btn_cancel       .setBackground(this.getBackground());
+      pnl_grid               .setOpaque(false);
+      pnl_password           .setOpaque(false);
+      pnl_birthDateLocation  .setOpaque(false);
+      pnl_btn_cancel         .setOpaque(false);
+      pnl_btn_register       .setOpaque(false);
         
-        lbl_title.setBackground(this.getBackground());
-        lbl_title.setForeground(FG_DEFAULT);
-        lbl_title.setHorizontalAlignment(JLabel.CENTER);
-        lbl_title.setVerticalAlignment  (JLabel.CENTER);
-        lbl_title.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 48));
-        lbl_title.setOpaque(true);
+      lbl_title.setBackground           (this.getBackground());
+      lbl_title.setForeground           (FG_DEFAULT);
+      lbl_title.setHorizontalAlignment  (JLabel.CENTER);
+      lbl_title.setVerticalAlignment    (JLabel.CENTER);
+      lbl_title.setFont                 (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 48));
+      lbl_title.setOpaque               (false);
+       
+      txt_firstName.setBackground(BG_TEXTFIELD);
+      txt_firstName.setForeground(FG_PLACEHOLDER);
+      txt_firstName.setBorder    (PADDING_TEXTFIELD);
         
-        txt_firstName.setBackground(BG_TEXTFIELD);
-        txt_firstName.setForeground(FG_PLACEHOLDER);
-        txt_firstName.setBorder    (PADDING_TEXTFIELD);
+      txt_lastName.setBackground(BG_TEXTFIELD);
+      txt_lastName.setForeground(FG_PLACEHOLDER);
+      txt_lastName.setBorder    (PADDING_TEXTFIELD);
         
-        txt_lastName.setBackground(BG_TEXTFIELD);
-        txt_lastName.setForeground(FG_PLACEHOLDER);
-        txt_lastName.setBorder    (PADDING_TEXTFIELD);
+      txt_birthDate.setBackground(BG_TEXTFIELD);
+      txt_birthDate.setForeground(FG_PLACEHOLDER);
+      txt_birthDate.setBorder    (PADDING_TEXTFIELD);
         
-        txt_birthDate.setBackground(BG_TEXTFIELD);
-        txt_birthDate.setForeground(FG_PLACEHOLDER);
-        txt_birthDate.setBorder    (PADDING_TEXTFIELD);
+      txt_location.setBackground(BG_TEXTFIELD);
+      txt_location.setForeground(FG_PLACEHOLDER);
+      txt_location.setBorder    (PADDING_TEXTFIELD);
         
-        txt_location.setBackground(BG_TEXTFIELD);
-        txt_location.setForeground(FG_PLACEHOLDER);
-        txt_location.setBorder    (PADDING_TEXTFIELD);
+      txt_email.setBackground(BG_TEXTFIELD);
+      txt_email.setForeground(FG_PLACEHOLDER);
+      txt_email.setBorder    (PADDING_TEXTFIELD);
         
-        txt_email.setBackground(BG_TEXTFIELD);
-        txt_email.setForeground(FG_PLACEHOLDER);
-        txt_email.setBorder    (PADDING_TEXTFIELD);
+      txt_username.setBackground(BG_TEXTFIELD);
+      txt_username.setForeground(FG_PLACEHOLDER);
+      txt_username.setBorder    (PADDING_TEXTFIELD);
         
-        txt_username.setBackground(BG_TEXTFIELD);
-        txt_username.setForeground(FG_PLACEHOLDER);
-        txt_username.setBorder    (PADDING_TEXTFIELD);
+      txt_password.setBackground(BG_TEXTFIELD);
+      txt_password.setForeground(FG_PLACEHOLDER);
+      txt_password.setBorder    (PADDING_TEXTFIELD);
+      txt_password.setEchoChar  ((char) 0);
         
-        txt_password.setBackground(BG_TEXTFIELD);
-        txt_password.setForeground(FG_PLACEHOLDER);
-        txt_password.setBorder    (PADDING_TEXTFIELD);
-        txt_password.setEchoChar  ((char) 0);
+      chkbx_seePassword.setSelected (true);
+      chkbx_seePassword.setCharacter(EYE_OFF);
         
-        chkbx_seePassword.setSelected                (true);
-        chkbx_seePassword.setCharacter(EYE_OFF);
+      btn_register.setBackground            (BG_REGISTER_BTN);
+      btn_register.setForeground            (FG_DEFAULT);
+      btn_register.setHorizontalAlignment   (JLabel.CENTER);
+      btn_register.setVerticalAlignment     (JLabel.CENTER);
+      btn_register.setFont                  (this.getFont());
+      btn_register.setOpaque                (true);
         
-        btn_register.setBackground(BG_REGISTER_BTN);
-        btn_register.setForeground(FG_DEFAULT);
-        btn_register.setHorizontalAlignment(JLabel.CENTER);
-        btn_register.setVerticalAlignment  (JLabel.CENTER);
-        btn_register.setFont(this.getFont());
-        btn_register.setOpaque(true);
+      btn_cancel.setBackground          (BG_CANCEL_BTN);
+      btn_cancel.setForeground          (FG_DEFAULT);
+      btn_cancel.setHorizontalAlignment (JLabel.CENTER);
+      btn_cancel.setVerticalAlignment   (JLabel.CENTER);
+      btn_cancel.setFont                (this.getFont());
+      btn_cancel.setOpaque              (true);
         
-        btn_cancel.setBackground(BG_CANCEL_BTN);
-        btn_cancel.setForeground(FG_DEFAULT);
-        btn_cancel.setHorizontalAlignment(JLabel.CENTER);
-        btn_cancel.setVerticalAlignment  (JLabel.CENTER);
-        btn_cancel.setFont(this.getFont());
-        btn_cancel.setOpaque(true);
+      pnl_btn_register.add(btn_registerRounded, BorderLayout.CENTER);
+      pnl_btn_cancel  .add(btn_cancelRounded,   BorderLayout.CENTER);
         
-        pnl_btn_register.add(btn_registerRounded, BorderLayout.CENTER);
-        pnl_btn_cancel  .add(btn_cancelRounded,   BorderLayout.CENTER);
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.gridx     = 0;
+      gbc.gridy     = 0;
+      gbc.gridwidth = 2;
+      gbc.weightx   = 1;
+      gbc.fill      = GridBagConstraints.HORIZONTAL;
+      pnl_grid.add(lbl_title, gbc);
         
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx     = 0;
-        gbc.gridy     = 0;
-        gbc.gridwidth = 2;
-        gbc.weightx   = 1;
-        gbc.fill      = GridBagConstraints.HORIZONTAL;
-        pnl_grid.add(lbl_title, gbc);
+      gbc.gridy++;
+      gbc.ipady = 30;
+      gbc.gridwidth--;
+      gbc.insets = INSETS;
+      pnl_grid.add(txt_firstNameRounded, gbc);
         
-        gbc.gridy++;
-        gbc.ipady = 30;
-        gbc.gridwidth--;
-        gbc.insets = INSETS;
-        pnl_grid.add(txt_firstNameRounded, gbc);
+      gbc.gridx++;
+      pnl_grid.add(txt_lastNameRounded, gbc);
         
-        gbc.gridx++;
-        pnl_grid.add(txt_lastNameRounded, gbc);
+      GridBagConstraints gbc1 = new GridBagConstraints();
+      gbc1.gridx     = 0;
+      gbc1.gridy     = 0;
+      gbc1.weightx   = 0.1;
+      gbc1.weighty   = 1;
+      gbc1.fill      = GridBagConstraints.BOTH;
+      pnl_birthDateLocation.add(txt_birthDateRounded, gbc1);
         
-        GridBagConstraints gbc1 = new GridBagConstraints();
-        gbc1.gridx     = 0;
-        gbc1.gridy     = 0;
-        gbc1.weightx   = 0.1;
-        gbc1.weighty   = 1;
-        gbc1.fill      = GridBagConstraints.BOTH;
-        pnl_birthDateLocation.add(txt_birthDateRounded, gbc1);
+      gbc1.gridx++;
+      gbc1.weightx = 0.9;
+      pnl_birthDateLocation.add(txt_locationRounded, gbc1);
         
-        gbc1.gridx++;
-        gbc1.weightx = 0.9;
-        pnl_birthDateLocation.add(txt_locationRounded, gbc1);
+      gbc.gridy++;
+      gbc.gridx--;
+      gbc.gridwidth++;
+      pnl_grid.add(pnl_birthDateLocation, gbc);
         
-        gbc.gridy++;
-        gbc.gridx--;
-        gbc.gridwidth++;
-        pnl_grid.add(pnl_birthDateLocation, gbc);
+      gbc.gridy++;
+      pnl_grid.add(txt_emailRounded, gbc);
         
-        gbc.gridy++;
-        pnl_grid.add(txt_emailRounded, gbc);
+      gbc.gridy++;
+      pnl_grid.add(txt_usernameRounded, gbc);
+      
+      GridBagConstraints gbc2 = new GridBagConstraints();
+      gbc2.gridx     = 0;
+      gbc2.gridy     = 0;
+      gbc2.weightx   = 1;
+      gbc2.weighty   = 1;
+      gbc2.fill      = GridBagConstraints.BOTH;
+      gbc2.ipadx     = 40;
+      pnl_password.add(txt_passwordRounded, gbc2);
         
-        gbc.gridy++;
-        pnl_grid.add(txt_usernameRounded, gbc);
+      gbc2.gridx++;
+      gbc2.weightx = 0;
+      gbc2.insets  = new Insets(0, -15, 0, 0);
+      pnl_password.add(chkbx_seePassword, gbc2);
         
-        GridBagConstraints gbc2 = new GridBagConstraints();
-        gbc2.gridx     = 0;
-        gbc2.gridy     = 0;
-        gbc2.weightx   = 1;
-        gbc2.weighty   = 1;
-        gbc2.fill      = GridBagConstraints.BOTH;
-        gbc2.ipadx     = 40;
-        pnl_password.add(txt_passwordRounded, gbc2);
+      gbc.gridy++;
+      pnl_grid.add(pnl_password, gbc);
         
-        gbc2.gridx++;
-        gbc2.weightx = 0;
-        gbc2.insets  = new Insets(0, -15, 0, 0);
-        pnl_password.add(chkbx_seePassword, gbc2);
+      gbc.gridy++;
+      gbc.gridx--;
+      gbc.weightx = 1;
+      gbc.gridwidth++;
+      gbc.ipady = 5; 
+      pnl_grid.add(pnl_btn_register, gbc);
         
-        gbc.gridy++;
-        pnl_grid.add(pnl_password, gbc);
+      gbc.gridy++;
+      pnl_grid.add(pnl_btn_cancel, gbc);
         
-        gbc.gridy++;
-        gbc.gridx--;
-        gbc.weightx = 1;
-        gbc.gridwidth++;
-        gbc.ipady = 5; 
-        pnl_grid.add(pnl_btn_register, gbc);
-        
-        gbc.gridy++;
-        pnl_grid.add(pnl_btn_cancel, gbc);
-        
-        this.add(pnl_grid,  BorderLayout.CENTER);
+      this.add(pnl_grid,  BorderLayout.CENTER);
     }
     
     /**

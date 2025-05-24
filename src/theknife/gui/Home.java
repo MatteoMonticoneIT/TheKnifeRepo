@@ -98,7 +98,7 @@ public final class Home extends javax.swing.JPanel
       btn_favorite          = new JLabel        (FAVORITE);
       btn_restaurantOwned   = new JLabel        (wrapTextHTML(OWNED_RESTAURANTS));
       upperbar              = new Upperbar      (controller, lbl_title);
-      pnl_home              = new CustomJPanel  (new GridBagLayout());
+      pnl_home              = new CustomJPanel  (new GridBagLayout(), Page.HOME);
       pnl_sideBar           = new JPanel        (new GridLayout(8, 1, 10, 0));
       scrlPnl_restaurants   = new JScrollPane   (list_restaurants, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
       btns                  = new JLabel[] {

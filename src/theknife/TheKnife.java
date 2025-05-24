@@ -73,18 +73,6 @@ public final class TheKnife extends javax.swing.JFrame
       });  
     }
     
-    //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Event Listeners">
-    /**
-     * When closing {@code TheKnife} application (from the "X"), all data will be saved.
-     */
-    public void WindowClosing() 
-    {
-      controller.saveData();    
-    }
-    
-    //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Methods">
     /**
      * Registers a keyboard event dispatcher that listens for the F11 key press
      * to toggle the fullscreen mode of the main application window.
@@ -104,6 +92,16 @@ public final class TheKnife extends javax.swing.JFrame
       });
     }
     
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Event Listeners">
+    /**
+     * When closing {@code TheKnife} application (from the "X"), all data will be saved.
+     */
+    public void WindowClosing() 
+    {
+      controller.saveData();    
+    }
+
     /**
      * Toggles the fullscreen mode of the main application window.
      * <p>
@@ -134,6 +132,7 @@ public final class TheKnife extends javax.swing.JFrame
           isFullscreen                = true;
       }
     }
+    
     //</editor-fold>
     
     /**
