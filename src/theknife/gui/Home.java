@@ -95,15 +95,16 @@ public final class Home extends javax.swing.JPanel
 
       lbl_title             = new JLabel        (TITLE);
       btn_addRestaurant     = new JLabel        (wrapTextHTML(ADD_RESTAURANT));
-      btn_favorite          = new JLabel        (FAVORITE);
+      btn_favourite         = new JLabel        (FAVOURITE);
       btn_restaurantOwned   = new JLabel        (wrapTextHTML(OWNED_RESTAURANTS));
       upperbar              = new Upperbar      (controller, lbl_title);
       pnl_home              = new CustomJPanel  (new GridBagLayout(), Page.HOME);
       pnl_sideBar           = new JPanel        (new GridLayout(8, 1, 10, 0));
       scrlPnl_restaurants   = new JScrollPane   (list_restaurants, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
-      btns                  = new JLabel[] {
+      btns                  = new JLabel[] 
+      {
           btn_addRestaurant,
-          btn_favorite,
+          btn_favourite,
           btn_restaurantOwned
       };
     }
@@ -118,7 +119,7 @@ public final class Home extends javax.swing.JPanel
       //pnl_restaurants.setBackground(this.getBackground().darker());
       pnl_home        .setBackground(this.getBackground());           
       
-      pnl_sideBar     .setBackground(this.getBackground());
+      pnl_sideBar     .setBackground(new Color(153, 255, 153));
       
       list_restaurants.setBackground(BG_RESTAURANT_PNL_ODD);  
       
@@ -131,7 +132,7 @@ public final class Home extends javax.swing.JPanel
       lbl_title.setHorizontalAlignment  (JLabel.CENTER);
       lbl_title.setVerticalAlignment    (JLabel.CENTER);
       lbl_title.setFont                 (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 48));
-      lbl_title.setOpaque               (true);
+      lbl_title.setOpaque               (false);
       
       for (int i = 0; i < btns.length; i++) {
         btns[i].setBackground         (i % 2 == 0 ? BG_SIDEBAR_BTN_EVEN : BG_SIDEBAR_BTN_ODD);
@@ -189,7 +190,7 @@ public final class Home extends javax.swing.JPanel
           }
         }
       });
-      
+
       btn_addRestaurant.addMouseListener(new MouseAdapter() 
       {
         @Override
@@ -208,6 +209,44 @@ public final class Home extends javax.swing.JPanel
           btn_addRestaurant_MouseExited(e);
         }
       });
+            
+      btn_favourite.addMouseListener(new MouseAdapter() 
+      {
+        @Override
+        public void mouseClicked(MouseEvent e) 
+        {
+          btn_favourite_MouseClicked(e);
+        }
+        @Override
+        public void mouseEntered(MouseEvent e) 
+        {
+          btn_favourite_MouseEntered(e);
+        }
+        @Override
+        public void mouseExited(MouseEvent e) 
+        {
+          btn_favourite_MouseExited(e);
+        }
+      });
+      
+      btn_restaurantOwned.addMouseListener(new MouseAdapter() 
+      {
+        @Override
+        public void mouseClicked(MouseEvent e) 
+        {
+          btn_restaurantOwned_MouseClicked(e);
+        }
+        @Override
+        public void mouseEntered(MouseEvent e) 
+        {
+          btn_restaurantOwned_MouseEntered(e);
+        }
+        @Override
+        public void mouseExited(MouseEvent e) 
+        {
+          btn_restaurantOwned_MouseExited(e);
+        }
+      });
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
@@ -224,29 +263,109 @@ public final class Home extends javax.swing.JPanel
 //      JScrollBar vertical = scrlPnl_restaurants.getVerticalScrollBar();
 //      vertical.setValue(vertical.getValue() + fasterScroll);
 //    }
-    private void btn_addRestaurant_MouseClicked(MouseEvent e) {
-        addRestaurant = new AddRestaurant(controller);
-        controller.getPanelMain().getPanel().add(addRestaurant, Page.ADD_RESTAURANT);
-        controller.getPanelMain().showCard(Page.ADD_RESTAURANT);
-    }
     
     /**
-     * Handles the hover event on the cancel button {@link JLabel}.
+     * Handles the click event for the addRestaurant button.
+     * <p>
+     * When clicked, it switches to the "Add Restaurant" screen.
+     * </p>
      * 
-     * @param e the mouse event triggered by hovering to the button
+     * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_addRestaurant_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_addRestaurant.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn_addRestaurant.setBackground(btn_addRestaurant.getBackground().darker());
+    private void btn_addRestaurant_MouseClicked(MouseEvent e) 
+    {
+      addRestaurant = new AddRestaurant(controller);
+      controller.getPanelMain().getPanel().add(addRestaurant, Page.ADD_RESTAURANT);
+      controller.getPanelMain().showCard(Page.ADD_RESTAURANT);
     }
     
     /**
-     * Handles the exit hover event on the cancel button {@link JLabel}.
+     * Handles the hover event on the addRestaurant button {@link JButton}.
+     * 
+     * @param e the mouse event triggered by hovering to the button.
+     */
+    private void btn_addRestaurant_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_addRestaurant.setCursor       (new Cursor(Cursor.HAND_CURSOR));
+      btn_addRestaurant.setBackground   (btn_addRestaurant.getBackground().darker());
+    }
+    
+    /**
+     * Handles the exit hover event on the addRestaurant button {@link JButton}.
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_addRestaurant_MouseExited(java.awt.event.MouseEvent e) {
-        btn_addRestaurant.setBackground(BG_SIDEBAR_BTN_ODD);
+    private void btn_addRestaurant_MouseExited(java.awt.event.MouseEvent e)
+    {
+      btn_addRestaurant.setBackground(BG_SIDEBAR_BTN_ODD);
+    }
+    
+    /**
+     * Handles the click event for the favourite button.
+     * <p>
+     * When clicked, it loads the favourite list of logged customer.
+     * </p>
+     * 
+     * @param e the mouse event triggered by clicking the button 
+     */
+    private void btn_favourite_MouseClicked(MouseEvent e) 
+    {
+      controller.viewUserList();
+    }
+    
+    /**
+     * Handles the hover event on the favourite button {@link JButton}.
+     * 
+     * @param e the mouse event triggered by hovering to the button.
+     */
+    private void btn_favourite_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_favourite.setCursor       (new Cursor(Cursor.HAND_CURSOR));
+      btn_favourite.setBackground   (btn_addRestaurant.getBackground().darker());
+    }
+    
+     /**
+     * Handles the exit hover event on the favourite button {@link JButton}.
+     * 
+     * @param e the mouse event triggered by leaving the cursor from the button
+     */
+    private void btn_favourite_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_favourite.setBackground(BG_SIDEBAR_BTN_ODD);
+    }
+    
+     /**
+     * Handles the click event for the Owned Restaurant button.
+     * <p>
+     * When clicked, it loads the Owned list of logged restaurateur.
+     * </p>
+     * 
+     * @param e the mouse event triggered by clicking the button 
+     */
+    private void btn_restaurantOwned_MouseClicked(MouseEvent e) 
+    {
+      controller.viewUserList();
+    }
+    
+    /**
+     * Handles the hover event on the Owned Restaurant {@link JButton}.
+     * 
+     * @param e the mouse event triggered by hovering to the button.
+     */
+    private void btn_restaurantOwned_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_restaurantOwned.setCursor       (new Cursor(Cursor.HAND_CURSOR));
+      btn_restaurantOwned.setBackground   (btn_addRestaurant.getBackground().darker());
+    }
+    
+    /**
+     * Handles the exit hover event on the Owned Restaurant button {@link JButton}.
+     * 
+     * @param e the mouse event triggered by leaving the cursor from the button
+     */
+    private void btn_restaurantOwned_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_restaurantOwned.setBackground(BG_SIDEBAR_BTN_ODD);
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
@@ -293,9 +412,10 @@ public final class Home extends javax.swing.JPanel
       upperbar.changeUI(role);
       pnl_sideBar.setPreferredSize(new Dimension(SIDEBAR_WIDTH, 0));
       pnl_sideBar.removeAll();
-      switch (role) {
+      switch (role) 
+      {
         case "customer":
-          pnl_sideBar.add(btn_favorite);
+          pnl_sideBar.add(btn_favourite);
           break;
         case "restaurateur":
           pnl_sideBar.add(btn_restaurantOwned);
@@ -304,9 +424,10 @@ public final class Home extends javax.swing.JPanel
       }
     }
     
-    public void removeSideBar() {
-        pnl_sideBar.removeAll();
-        pnl_sideBar.setPreferredSize(null);
+    public void removeSideBar() 
+    {
+      pnl_sideBar.removeAll();
+      pnl_sideBar.setPreferredSize(null);
     }
     
     /**
@@ -315,8 +436,9 @@ public final class Home extends javax.swing.JPanel
      * @param text - the {@code JComponent}'s text
      * @return the {@code JComponent}'s text wrapped in HTML and basic CSS
      */
-    private String wrapTextHTML(String text) {
-        return "<html>" + text + "</html>";
+    private String wrapTextHTML(String text) 
+    {
+      return "<html>" + text + "</html>";
     }
     //</editor-fold>
     
@@ -356,7 +478,7 @@ public final class Home extends javax.swing.JPanel
     private final Insets INSETS_ZERO            = new Insets(0, 0, 0, 0);  
     private final String TITLE                  = "All restaurants";  
     private final String ADD_RESTAURANT         = "Add restaurant";  
-    private final String FAVORITE               = "Favorites";  
+    private final String FAVOURITE              = "Favourites";  
     private final String OWNED_RESTAURANTS      = "Owned restaurants";  
     private final int    SIDEBAR_WIDTH          = 100;
     //</editor-fold>
@@ -368,7 +490,7 @@ public final class Home extends javax.swing.JPanel
     private JList<Restaurant>               list_restaurants; 
     private JScrollPane                     scrlPnl_restaurants;
     private JLabel                          lbl_title;
-    private JLabel                          btn_favorite;
+    private JLabel                          btn_favourite;
     private JLabel                          btn_restaurantOwned;
     private JLabel                          btn_addRestaurant;
     private JLabel[]                        btns;

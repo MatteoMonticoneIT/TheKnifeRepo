@@ -242,7 +242,8 @@ public final class Upperbar extends javax.swing.JPanel
      */
     private void btn_login_MouseClicked(java.awt.event.MouseEvent e) 
     {
-      txt_searchbar.setText("");
+      if(!lbl_title.getText().equals("All restaurants") || !txt_searchbar .getText().trim().isEmpty())
+        resetSearch();
       
       if(btn_login.getText().equals("Login"))
         controller.getPanelMain().showCard(Page.LOGIN);
@@ -254,7 +255,7 @@ public final class Upperbar extends javax.swing.JPanel
     }
     
     /**
-     * Handles the hover event on the login button {@link JLabel}.
+     * Handles the hover event on the login button {@link JButton}.
      * 
      * @param e the mouse event triggered by hovering to the button.
      */
@@ -265,7 +266,7 @@ public final class Upperbar extends javax.swing.JPanel
     }
     
     /**
-     * Handles the exit hover event on the login button {@link JLabel}.
+     * Handles the exit hover event on the login button {@link JButton}.
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
@@ -337,7 +338,14 @@ public final class Upperbar extends javax.swing.JPanel
     
     private void revertUI()
     {
-      btn_login.setText("Login");
+      btn_login     .setText            ("Login");
+    }
+    
+    private void resetSearch()
+    {
+      txt_searchbar .setText            ("");
+      lbl_title     .setText            ("All Restaurants");
+      controller    .searchRestaurant   (txt_searchbar.getText());        
     }
     //</editor-fold>
     /**
