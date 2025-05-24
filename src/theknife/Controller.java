@@ -5,9 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import simple.crypto.AES;
 import simple.file.CSV;
 import simple.file.CSVFileNotFoundException;
@@ -56,7 +60,7 @@ public final class Controller
     /**
      * JSON file restaurants.
      */
-    private static final File JSON_RESTAURANTS      = AppPaths.getRequiredFile("data", "restaurants.json");
+    private static final File JSON_RESTAURANTS      = AppPaths.getOptionalFile("data", "restaurants.json");
     
     /**
      * JSON file customers.
@@ -119,11 +123,315 @@ public final class Controller
     @JsonProperty("responses")
     private ListResponse responses;
     
-    private final Map<String,  List<Restaurant>> byCity      = new HashMap<>();
-    private final Map<Double,  List<Restaurant>> byRating    = new HashMap<>();
-    private final Map<Integer, List<Restaurant>> byPrice     = new HashMap<>();
-    private final Map<String,  List<Restaurant>> byCuisine   = new HashMap<>();
-    private final Map<String,  List<Restaurant>> byServices  = new HashMap<>();
+    private final String[] cuisines = 
+    {
+        "Afghan",
+        "African",
+        "Alpine",
+        "Alsatian",
+        "American",
+        "American Contemporary",
+        "Andalusian",
+        "Apulian",
+        "Argentinian",
+        "Armenian",
+        "Asian",
+        "Asian Contemporary",
+        "Asian Influences",
+        "Asian and Western",
+        "Asturian",
+        "Australian Contemporary",
+        "Austrian",
+        "Bakery",
+        "Balinese",
+        "Balkan",
+        "Barbecue",
+        "Basque",
+        "Bavarian",
+        "Beef",
+        "Beijing Cuisine",
+        "Belgian",
+        "Brazilian",
+        "Breton",
+        "British Contemporary",
+        "Bulgogi",
+        "Burgundian",
+        "Burmese",
+        "Cajun",
+        "Calabrian",
+        "Californian",
+        "Cambodian",
+        "Campanian",
+        "Cantonese",
+        "Cantonese Roast Meats",
+        "Caribbean",
+        "Castilian",
+        "Catalan",
+        "Central Asian",
+        "Chao Zhou",
+        "Cheese",
+        "Chicken Specialities",
+        "Chinese",
+        "Chinese Contemporary",
+        "Chiu Chow",
+        "Chueotang",
+        "Classic Cuisine",
+        "Classic French",
+        "Colombian",
+        "Congee",
+        "Contemporary",
+        "Corsican",
+        "Country cooking",
+        "Crab Specialities",
+        "Creative",
+        "Creative British",
+        "Creative French",
+        "Creole",
+        "Croatian",
+        "Cuban",
+        "Cuisine from Abruzzo",
+        "Cuisine from Basilicata",
+        "Cuisine from Franche-Comté",
+        "Cuisine from Lazio",
+        "Cuisine from Romagna",
+        "Cuisine from South West France",
+        "Cuisine from Valtellina",
+        "Cuisine from the Aosta Valley",
+        "Cuisine from the Marches",
+        "Curry",
+        "Czech",
+        "Danish",
+        "Deli",
+        "Dim Sum",
+        "Doganitang",
+        "Dongbei",
+        "Dubu",
+        "Duck Specialities",
+        "Dumplings",
+        "Dwaeji-gukbap",
+        "Eastern European",
+        "Egyptian",
+        "Emilian",
+        "Emirati Cuisine",
+        "English",
+        "Ethiopian",
+        "European",
+        "European Contemporary",
+        "Farm to table",
+        "Filipino",
+        "Finnish",
+        "Fish and Chips",
+        "Flemish",
+        "Fondue and Raclette",
+        "French",
+        "French Contemporary",
+        "Friulian",
+        "Fugu / Pufferfish",
+        "Fujian",
+        "Fusion",
+        "Galician",
+        "Gastropub",
+        "Gejang",
+        "German",
+        "Gomtang",
+        "Greek",
+        "Grills",
+        "Hainanese",
+        "Hakkanese",
+        "Hang Zhou",
+        "Home Cooking",
+        "Hotpot",
+        "Huaiyang",
+        "Hubei",
+        "Hui Cuisine",
+        "Hunanese",
+        "Hunanese and Sichuan",
+        "Hungarian",
+        "Indian",
+        "Indian Vegetarian",
+        "Indonesian",
+        "Innovative",
+        "International",
+        "Irish",
+        "Isan",
+        "Israeli",
+        "Italian",
+        "Italian Contemporary",
+        "Italian and Japanese",
+        "Italian-American",
+        "Izakaya",
+        "Jamaican",
+        "Japan",
+        "Japanese",
+        "Japanese Contemporary",
+        "Japanese Steakhouse",
+        "Jiangzhe",
+        "Jokbal",
+        "Kalguksu",
+        "Korean",
+        "Korean Contemporary",
+        "Kushiage",
+        "Kyoto",
+        "Lamb Specialities",
+        "Lao",
+        "Latin American",
+        "Lebanese",
+        "Ligurian",
+        "Lombardian",
+        "Lyonnaise",
+        "Macanese",
+        "Malaysian",
+        "Mandu",
+        "Mantuan",
+        "Meats and Grills",
+        "Meats and Seafood",
+        "Mediterranean Cuisine",
+        "Memil-guksu",
+        "Mexican",
+        "Middle Eastern",
+        "Milanese",
+        "Modern British",
+        "Modern Cuisine",
+        "Modern French",
+        "Moroccan",
+        "Naengmyeon",
+        "Nakagyo-ku",
+        "Nepali",
+        "Ningbo",
+        "Noodles",
+        "Noodles and Congee",
+        "North African",
+        "North American",
+        "Northern Thai",
+        "Norwegian",
+        "Obanzai",
+        "Oden",
+        "Okonomiyaki",
+        "Onigiri",
+        "Organic",
+        "Oyster Specialities",
+        "Pakistani",
+        "Peranakan",
+        "Persian",
+        "Peruvian",
+        "Piedmontese",
+        "Pizza",
+        "Polish",
+        "Pork",
+        "Portuguese",
+        "Provençal",
+        "Puerto Rican",
+        "Ramen",
+        "Regional Cuisine",
+        "Regional European",
+        "Rice Dishes",
+        "Roman",
+        "Russian",
+        "Sardinian",
+        "Savoyard",
+        "Scandinavian",
+        "Scottish",
+        "Seafood",
+        "Seasonal Cuisine",
+        "Seolleongtang",
+        "Shaanxi",
+        "Shabu-shabu",
+        "Shandong",
+        "Shanghainese",
+        "Sharing",
+        "Shellfish Specialities",
+        "Shojin",
+        "Shun Tak",
+        "Sichuan",
+        "Sicilian",
+        "Singaporean",
+        "Singaporean and Malaysian",
+        "Small eats",
+        "Smørrebrød",
+        "Soba",
+        "South African",
+        "South American",
+        "South East Asian",
+        "South Indian",
+        "South Tyrolean",
+        "Southern",
+        "Southern Thai",
+        "Spanish",
+        "Spanish Contemporary",
+        "Sri Lankan",
+        "Steakhouse",
+        "Street Food",
+        "Sujebi",
+        "Sukiyaki",
+        "Sushi",
+        "Swabian",
+        "Swedish",
+        "Swiss",
+        "Taiwanese",
+        "Taiwanese contemporary",
+        "Taizhou",
+        "Tempura",
+        "Teochew",
+        "Teppanyaki",
+        "Tex-Mex",
+        "Thai",
+        "Thai and Vietnamese",
+        "Thai contemporary",
+        "Thai-Chinese",
+        "Tibetan",
+        "Tonkatsu",
+        "Traditional British",
+        "Traditional Cuisine",
+        "Turkish",
+        "Tuscan",
+        "Udon",
+        "Umbrian",
+        "Unagi / Freshwater Eel",
+        "Vegan",
+        "Vegetarian",
+        "Venetian",
+        "Venezuelan",
+        "Vietnamese",
+        "Vietnamese Contemporary",
+        "World Cuisine",
+        "Xibei",
+        "Xinjiang",
+        "Yakitori",
+        "Yoshoku",
+        "Yukhoe",
+        "Yunnanese",
+        "Zhejiang"
+    };
+    
+    private final String[] services = 
+    {
+        "Air conditioning",
+        "Booking essential",
+        "Booking essential - dinner",
+        "Brunch",
+        "Bring your own bottle",
+        "Car park",
+        "Cash only",
+        "Cash only - lunch",
+        "Counter dining",
+        "Credit cards not accepted",
+        "Foreign credit cards not accepted",
+        "Garden or park",
+        "Great view",
+        "Interesting wine list",
+        "Notable sake list",
+        "Restaurant offering vegetarian menus",
+        "Shoes must be removed",
+        "Terrace",
+        "Valet parking",
+        "Wheelchair access"
+    };
+    
+    private final Map<String,  List<Restaurant>> byCity             = new HashMap<>();
+    private final Map<Double,  List<Restaurant>> byRating           = new HashMap<>();
+    private final Map<Integer, List<Restaurant>> byPrice            = new HashMap<>();
+    private final Map<String,  List<Restaurant>> byCuisineSingle    = new HashMap<>();
+    private final Map<String,  List<Restaurant>> byServiceSingle    = new HashMap<>();
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     /**
@@ -259,8 +567,6 @@ public final class Controller
       for(Restaurateur r : this.getRestaurateurs().getList())
         r.setRole("restaurateur");
       
-      //calculateRatingAverage();
-      
       for(Restaurant r : this.getRestaurants().getList())
       {
         List<Restaurant> lista = byCity.get(r.getCity());
@@ -294,29 +600,28 @@ public final class Controller
         lista.add(r);
       }
       
-      for(Restaurant r : this.getRestaurants().getList())
+      for (Restaurant r : restaurants.getList()) 
       {
-        List<Restaurant> lista = byCuisine.get(r.getCuisine());
-        if(lista == null) 
-        {
-          lista = new ArrayList<>();
-          byCuisine.put(r.getCuisine(), lista);
+        if (r.getCuisine() == null || r.getCuisine().isEmpty()) continue;
+
+        String[] cuisineArr = r.getCuisine().split(",\\s*");
+        for (String cuisine : cuisineArr) {
+            byCuisineSingle.computeIfAbsent(cuisine, k -> new ArrayList<>()).add(r);
         }
-        lista.add(r);
       }
       
-      for(Restaurant r : this.getRestaurants().getList())
+      for (Restaurant r : restaurants.getList()) 
       {
-        List<Restaurant> lista = byServices.get(r.getServicesAvailable());
-        if(lista == null) 
-        {
-          lista = new ArrayList<>();
-          byServices.put(r.getServicesAvailable(), lista);
-        }
-        lista.add(r);
-      }
+        if (r.getServicesAvailable() == null || r.getServicesAvailable().isEmpty()) 
+          continue;
+
+        String[] servicesArr = r.getServicesAvailable().split(",\\s*");
+        for (String service : servicesArr)
+            byServiceSingle.computeIfAbsent(service, k -> new ArrayList<>()).add(r);
+       }
       
       //encryptAllPassword();
+      //calculateRatingAverage();    
     }
     
     /**
@@ -622,46 +927,54 @@ public final class Controller
      * Method to search a restaurant using filters
      * @param rating
      * @param city
-     * @param cuisines
-     * @param services
+     * @param price
+     * @param booleanCuisines
+     * @param booleanServices
      */
-    public final void        advancedSearch      (Double rating, String city, boolean[] cuisines, boolean[] services)
-    {
-     /* List<Restaurant> ratingResult   = null;
-      List<Restaurant> locationResult = null;
-      List<Restaurant> cusisineResult = null;
-      List<Restaurant> servicesResult = null;
+    public final void        advancedSearch      (String city, Double rating, Integer price, boolean[] booleanCuisines, boolean[] booleanServices)
+    { 
+      List<Restaurant> result       = new ArrayList<>(restaurants.getList());
+      List<String> selectedCuisines = new ArrayList<>();
+      List<String> selectedServices = new ArrayList<>();
+                  
+      if (city != null) 
+        result.retainAll(byCity.getOrDefault(city, Collections.emptyList()));
       
-      if(rating!=0)
-        ratingResult   = byRating.get(rating);
+      if (rating != null)      
+        result.removeIf(r -> r.getRating() < rating);
       
-      if(!city.isEmpty())
-        locationResult = byCity.get(city);
+      if (price != null)
+        result.removeIf(r -> r.getPrice() > price);
       
-      if(cuisines != null)
+     if (booleanCuisines != null)
       {
-        ArrayList<String> selected = new ArrayList();
-        for(int i=0; i<cuisines.length; i++)
-          if(cuisines[i])
-            selected.add();
+        for(int i=0; i<booleanCuisines.length; i++)
+          if(booleanCuisines[i])
+            selectedCuisines.add(cuisines[i]);
+        Set<Restaurant> filteredByCuisine = new HashSet<>(byCuisineSingle.getOrDefault(selectedCuisines.get(0), Collections.emptyList()));
+        for (int i = 1; i < selectedCuisines.size(); i++)
+        {
+          List<Restaurant> currentList = byCuisineSingle.getOrDefault(selectedCuisines.get(i), Collections.emptyList());
+          filteredByCuisine.retainAll(currentList);
+        }
+        result.retainAll(filteredByCuisine);
+      }
+      if (booleanServices != null) 
+      {
+        for(int i=0; i<booleanServices.length; i++)
+          if(booleanServices[i])
+            selectedServices.add(services[i]);
+        
+        Set<Restaurant> filteredByServices = new HashSet<>(byServiceSingle.getOrDefault(selectedServices.get(0), Collections.emptyList()));
+        for (int i = 1; i < selectedServices.size(); i++) 
+        {
+          List<Restaurant> currentList = byServiceSingle.getOrDefault(selectedServices.get(i), Collections.emptyList());
+          filteredByServices.retainAll(currentList);
+        }
+        result.retainAll(filteredByServices);
       }
       
-      if(cuisines != null)
-      {
-        ArrayList<String> selected = new ArrayList();
-        for(int i=0; i<cuisines.length; i++)
-          if(cuisines[i])
-            selected.add();
-        
-        cusisineResult = byCuisine.get(selected.get(0));
-        
-        for(int i=1; i<selected.size(); i++)
-          if (r.byCuisine().equals(cittaInput)) 
-            risultato.add(r);
-    
-
-      }
-        cusisineResult = byCuisine.get(cuisine);*/
+      home.visualizeAdvancedSearchResult(result);
     }
     
      /**

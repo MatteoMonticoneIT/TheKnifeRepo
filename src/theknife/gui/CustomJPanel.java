@@ -47,24 +47,24 @@ public class CustomJPanel extends JPanel
     switch(page)
     {
       case "Home":
-        setColor    =schemes[0];  
-        setPosition =pos    [0];
+        setColor    = schemes[0];  
+        setPosition = pos    [0];
         break;
       case "Login":
-        setColor    =schemes[1];  
-        setPosition =pos    [1];
+        setColor    = schemes[1];  
+        setPosition = pos    [1];
         break;
       case "Login as a restaurateur":
-        setColor    =schemes[1];  
-        setPosition =pos    [1];
+        setColor    = schemes[1];  
+        setPosition = pos    [1];
         break;
       case "Register":
-        setColor    =schemes[1];  
-        setPosition =pos    [1];
+        setColor    = schemes[1];  
+        setPosition = pos    [1];
         break;   
       case "Register as a restaurateur":
-        setColor    =schemes[1];  
-        setPosition =pos    [1];
+        setColor    = schemes[1];  
+        setPosition = pos    [1];
         break;   
       case "Advanced search":
     

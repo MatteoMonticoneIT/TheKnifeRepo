@@ -511,7 +511,7 @@ public final class AdvancedSearch extends javax.swing.JPanel
     {
       txt_location.setText          (PLACEHOLDER[0]);
       txt_location.setForeground    (FG_PLACEHOLDER);
-      controller  .advancedSearch   (starRating, txt_location.getText(), returnCuisineValues(), returnServicesValues());
+      controller  .advancedSearch   ((txt_location.getText().trim().isEmpty()) ? null:(txt_location.getText().equals(PLACEHOLDER[0])) ? null:txt_location.getText(), (starClicked) ? starRating:null, (priceClicked) ? indexPrice+1:null, returnCuisineValues(), returnServicesValues());
       controller  .getPanelMain     ().showCard(Page.HOME);
     }
     
@@ -678,7 +678,7 @@ public final class AdvancedSearch extends javax.swing.JPanel
       for(int i=0; i<chkbx_services.length; i++)
       {
         services[i] = chkbx_services[i].isSelected();
-        if(chkbx_cuisines[i].isSelected())
+        if(chkbx_services[i].isSelected())
           flag = true;
       }
       
@@ -785,8 +785,8 @@ public final class AdvancedSearch extends javax.swing.JPanel
     private       boolean    starClicked;
     private       boolean    priceClicked;
     private       double     starRating;
-    private       int        indexStar;
-    private       int        indexPrice;
+    private       int        indexStar  = -1;
+    private       int        indexPrice = -1;
     private       int        prevIndexPrice;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables

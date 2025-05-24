@@ -370,6 +370,16 @@ public final class Home extends javax.swing.JPanel
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
+    public void visualizeAdvancedSearchResult(List<Restaurant> restaurants)
+    {
+      listModel.clear();  
+      for(Restaurant restaurant : restaurants) 
+        listModel.addElement(restaurant);
+      
+      list_restaurants.setModel(listModel);
+      
+      lbl_title.setText("Results...");
+    }
     /**
      * Method that search restaurants by name
      * @param name the name of the {@link Restaurant}
