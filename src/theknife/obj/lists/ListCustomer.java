@@ -2,6 +2,8 @@ package theknife.obj.lists;
 
 import java.util.LinkedList;
 import java.util.List;
+import simple.crypto.AES;
+import simple.logging.LoggerUtils;
 import theknife.obj.user.Customer;
 
 /**
@@ -48,14 +50,23 @@ public final class ListCustomer extends AbstractListWrapper<Customer>
      *
      * @param username the username of the client to check
      * @param password the password of the client to check
+     * @param aes the decypher of the password
      * @return {@code true} if a client with the given username and password is found,
      *         {@code false} otherwise
      */
-    public Customer checkUser(String username, String password)
+    public Customer checkUser(String username, String password, AES aes)
     {
       for(Customer user : super.getList())
-        if(user.getUsername().equals(username) && user.getPassword().equals(password))
-          return user;
+          try 
+          {
+            String s = aes.decrypt(user.getPassword());
+            if(user.getUsername().equals(username) && s.equals(password))
+              return user;
+          }
+          catch (Exception e) 
+          {
+            LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new Exception("Unable to decrypt password!", e));
+          }
       
       return null;
     }
@@ -68,14 +79,23 @@ public final class ListCustomer extends AbstractListWrapper<Customer>
      *
      * @param email the email of the client to check
      * @param password the password of the client to check
+     * @param aes the decypher of the password
      * @return {@code true} if a client with the given email and password is found,
      *         {@code false} otherwise
      */
-    public Customer checkUserByEmail(String email, String password)
+    public Customer checkUserByEmail(String email, String password, AES aes)
     {
       for(Customer user : super.getList())
-        if(user.getEmail().equals(email) && user.getPassword().equals(password))
-          return user;
+        try
+        {
+          String s = aes.decrypt(user.getPassword());
+          if(user.getEmail().equals(email) && s.equals(password))
+            return user;
+        }
+        catch (Exception e) 
+        {
+          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new Exception("Unable to decrypt password!", e));
+        }
       
       return null;
     }

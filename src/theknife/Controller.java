@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import simple.crypto.AES;
 import simple.file.CSV;
 import simple.file.CSVFileNotFoundException;
 import simple.file.CSVRow;
@@ -74,6 +75,10 @@ public final class Controller
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
+    /**
+     * The {@link AES} which encrypt/decrypt data
+     */
+    private  AES             aes;
     /**
      * The {@link User} who log in (either Restaurateur or Customer)
      */
@@ -188,6 +193,8 @@ public final class Controller
     
     private void        initLists           () 
     {
+      aes = new AES();
+
       if (JSON_RESTAURANTS.exists())
         this.setRestaurants    (JSON.read(JSON_RESTAURANTS, ListRestaurant.class));
       else if (CSV_RESTAURANTS.exists()) 
@@ -302,6 +309,8 @@ public final class Controller
         }
         lista.add(r);
       }
+      
+      //encryptAllPassword();
     }
     
     /**
@@ -442,27 +451,41 @@ public final class Controller
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
+    
+    /**
+     * Save Restaurants, Customers and Restaurateurs lists to their jsons
+     */
     public final void        saveData() 
     {
       JSON.writeToFile(JSON_RESTAURANTS,    restaurants);
       JSON.writeToFile(JSON_CUSTOMERS,      customers);
       JSON.writeToFile(JSON_RESTAURATEURS,  restaurateurs);
     }
-    
+ 
+    /**
+     * Method to log out user from application
+     */
     public final void        logout()
     {
       loggedUser = null;   
       home.removeSideBar();
     }
     
+    /**
+     * Method to log in a client 
+     * @param user username or email given
+     * @param password password given
+     * @return true if loggedUser exist
+     *         false if it doesn't
+     */
     public final boolean     LoginClient         (String user, String password)
     {
       if(     InputPattern   .match    (InputPattern.USERNAME, user) && 
               InputPattern   .match    (InputPattern.PASSWORD, password))         
-        loggedUser = customers         .checkUser        (user, password);
-      else if(InputPattern   .match    (InputPattern.EMAIL, user) && 
+        loggedUser = customers         .checkUser        (user, password, aes);
+      else if(InputPattern   .match    (InputPattern.EMAIL, user)    && 
               InputPattern   .match    (InputPattern.PASSWORD, password)) 
-        loggedUser = customers         .checkUserByEmail (user, password);
+        loggedUser = customers         .checkUserByEmail (user, password, aes);
       
       if(loggedUser!=null)
       {
@@ -472,14 +495,21 @@ public final class Controller
       return false;       
     }
     
+    /**
+     * Method to log in a restaurateurs
+     * @param user username or email given
+     * @param password password given
+     * @return true if loggedUser exist
+     *         false if it doesn't
+     */
     public final boolean     LoginRestaurateur   (String user, String password)
     {
       if(     InputPattern   .match      (InputPattern.USERNAME, user)     &&
               InputPattern   .match      (InputPattern.PASSWORD, password))
-        loggedUser = restaurateurs       .checkUser          (user, password); 
-      else if(InputPattern   .match      (InputPattern.EMAIL, user) && 
+        loggedUser = restaurateurs       .checkUser          (user, password, aes); 
+      else if(InputPattern   .match      (InputPattern.EMAIL, user)        && 
               InputPattern   .match      (InputPattern.PASSWORD, password)) 
-       loggedUser = restaurateurs        .checkUserByEmail   (user, password); 
+        loggedUser = restaurateurs       .checkUserByEmail   (user, password, aes); 
       
       if(loggedUser!=null)
       {
@@ -489,10 +519,24 @@ public final class Controller
       return false;
     }
     
+    /**
+     * Method to register a client
+     * @param customer all information given in the register page
+     * @return true if there's any other user (either Customer or Restaurateur) with the same username exist
+     *         false if it there isnt't
+     */
     public final boolean     RegisterClient      (Customer customer)
     {
       if(!customers     .existUser  (customer.    getUsername()) && !restaurateurs .existUser   (customer    .getUsername()))
       {
+        try 
+        {
+          customer.setPassword(aes.encrypt(customer.getPassword()));
+        }
+        catch(Exception e) 
+        {
+          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new Exception("Unable to encrypt password!", e));
+        }
         customer        .setId      (customers.size());
         customers       .add        (customer);
         return true;
@@ -501,10 +545,24 @@ public final class Controller
         return false;
     }
     
+     /**
+     * Method to register a client
+     * @param restaurateur all information given in the register page
+     * @return true if there's any other user (either Customer or Restaurateur) with the same username exist
+     *         false if it there isnt't
+     */
     public final boolean     RegisterRestaurateur(Restaurateur restaurateur)
     {
       if(!customers     .existUser  (restaurateur .getUsername()) && !restaurateurs .existUser  (restaurateur.getUsername()))
       {
+        try 
+        {
+          restaurateur.setPassword(aes.encrypt(restaurateur.getPassword()));
+        }
+        catch(Exception e) 
+        {
+          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new Exception("Unable to encrypt password!", e));
+        }
         restaurateur    .setId      (restaurateurs.size());
         restaurateurs   .add        (restaurateur);
         return true;
@@ -513,16 +571,28 @@ public final class Controller
         return false;
     }
     
+    /**
+     * Method to add a new Restaurant as a restaurateur
+     * @param restaurant
+     * @return 
+     */
     public final boolean     addRestaurant       (Restaurant restaurant)
     {
       return true;  
     }
     
+    /**
+     * Method to search a restaurant by name
+     * @param restaurant partial name of the restaurant
+     */
     public final void        searchRestaurant    (String restaurant)
     {
       home.list_restaurants_searchRestaurants (restaurant);
     }
     
+    /**
+     * Method to view user list (either favourite list of Customer or owned list of Restaurateur)
+     */
     public final void        viewUserList        ()
     {
       List<Integer>     restaurantsList;
@@ -542,6 +612,13 @@ public final class Controller
       home.list_restaurants_viewUserList      (restaurantsList, loggedUser.getRole());
     }
     
+    /**
+     * Method to search a restaurant using filters
+     * @param rating
+     * @param city
+     * @param cuisines
+     * @param services
+     */
     public final void        advancedSearch      (Double rating, String city, boolean[] cuisines, boolean[] services)
     {
      /* List<Restaurant> ratingResult   = null;
@@ -581,7 +658,10 @@ public final class Controller
         cusisineResult = byCuisine.get(cuisine);*/
     }
     
-    public void calculateRatingAverage()
+     /**
+     * Method to calculate all restaurant rating average 
+     */
+    private void calculateRatingAverage()
     {
       double ratingAverage;
       for(Restaurant restaurant: restaurants.getList())
@@ -593,6 +673,10 @@ public final class Controller
       }
     }
     
+    /**
+     * Method to calculate a restaurant rating average after inserting a new review
+     * @param restaurant the restaurant which needs to recalculate rating average
+     */
     public void restaurantRatingAverage(Restaurant restaurant)
     {
       double ratingAverage = 0;
@@ -600,5 +684,32 @@ public final class Controller
         ratingAverage += review.getRating();
       restaurant.setRating(Math.round((ratingAverage/restaurant.getListReview().getList().size())*100.0)/100.0);  
     }
+    
+    /**
+     * Method to calculate all password of both Customers and Restaurateurs
+     */
+    private void encryptAllPassword()
+    {
+      for(Customer customer: customers.getList())
+        try 
+        {
+          customer.setPassword(aes.encrypt(customer.getPassword()));
+        }
+        catch(Exception e) 
+        {
+          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new Exception("Unable to encrypt password!", e));
+        }
+      
+      for(Restaurateur restaurateur: restaurateurs.getList())
+        try 
+        {
+          restaurateur.setPassword(aes.encrypt(restaurateur.getPassword()));
+        }
+        catch(Exception e) 
+        {
+          LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new Exception("Unable to encrypt password!", e));
+        }
+    }
+
     //</editor-fold>
 }
