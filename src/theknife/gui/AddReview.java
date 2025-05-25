@@ -298,6 +298,11 @@ public final class AddReview extends javax.swing.JPanel
      */
     private void btn_add_MouseClicked(java.awt.event.MouseEvent e) 
     {
+      if (controller.getLoggedUser() == null) {
+        controller.getPanelMain().showCard(Page.LOGIN);
+        controller.getPanelMain().getPanel().remove(this);
+        return;
+      }
       if(starRating!=0 && !txt_content.getText().trim().isEmpty())
       {
         Review review = new Review(restaurant.getListReview().getList().size(),

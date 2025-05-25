@@ -574,8 +574,8 @@ public class RestaurantGUI extends javax.swing.JPanel
     private final Border             PADDING_LBL          = BorderFactory.createEmptyBorder(0, 5, 0, 5);
     private final Border             PADDING_TXT          = BorderFactory.createEmptyBorder(3, 3, 3, 3);
     private final Border             BORDER_PNL           = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
-    private final String[]           GUIDES_LEFT_SECTION  = CSV.read(programDataset, "GUIDES_LEFT_SECTION").toArray(new String[0]);
-    private final String[]           GUIDES_SECTION       = CSV.read(programDataset, "GUIDES_SECTION"     ).toArray(new String[0]);
+    private final String[]           GUIDES_LEFT_SECTION  = CSV.read(programDataset, "GUIDES_RESTAURANTGUI_LEFT_SECTION").toArray(new String[0]);
+    private final String[]           GUIDES_SECTION       = CSV.read(programDataset, "GUIDES_RESTAURANTGUI_SECTION"     ).toArray(new String[0]);
     private final String             ADD_REVIEW           = "Add review";
     private final String             BACK                 = "Back";
     private final char               FULL_STAR            = 'C';

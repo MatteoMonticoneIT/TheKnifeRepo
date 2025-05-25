@@ -178,7 +178,7 @@ public final class AdvancedSearch extends javax.swing.JPanel
       txt_location.setBackground    (BG_TEXTFIELD);
       txt_location.setForeground    (FG_PLACEHOLDER);
       txt_location.setBorder        (PADDING_TEXTFIELD);
-      txt_location.setPreferredSize (new Dimension(this.getPreferredSize().width, 40));
+      txt_location.setPreferredSize (new Dimension(this.getPreferredSize().width, TEXTFIELD_HEIGHT));
       txt_location.setFont          (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 28));
         
       btn_apply.setBackground           (BG_APPLY_BTN);
@@ -286,18 +286,6 @@ public final class AdvancedSearch extends javax.swing.JPanel
         scrlPnl_cuisines.addMouseWheelListener((java.awt.event.MouseWheelEvent e) -> {
             scrlPnl_cuisines_MouseWheelMoved(e);
         });
-        
-        for (JCheckBox chkbx : chkbx_cuisines) {
-            chkbx.addItemListener((java.awt.event.ItemEvent e) -> {
-                chkbx_ItemStateChanged(e);
-            });
-        }
-        
-        for (JCheckBox chkbx : chkbx_services) {
-            chkbx.addItemListener((java.awt.event.ItemEvent e) -> {
-                chkbx_ItemStateChanged(e);
-            });
-        }
         
         btn_cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -431,15 +419,6 @@ public final class AdvancedSearch extends javax.swing.JPanel
 
         JScrollBar vertical = scrlPnl_cuisines.getVerticalScrollBar();
         vertical.setValue(vertical.getValue() + fasterScroll);
-    }
-    
-    /**
-     * Handles the item state when clicking the {@link JCheckBox}.
-     * 
-     * @param e the item event triggered by clicking the checkbox
-     */
-    private void chkbx_ItemStateChanged(java.awt.event.ItemEvent e) {
-        System.out.println(e.getStateChange() % 2 != 0);
     }
     
     /**
@@ -684,7 +663,6 @@ public final class AdvancedSearch extends javax.swing.JPanel
       
       return (flag) ? services:null;
     }
-    
     //</editor-fold>
     
     /**
@@ -729,16 +707,11 @@ public final class AdvancedSearch extends javax.swing.JPanel
     private final Border             PADDING_TEXTFIELD       = BorderFactory.createEmptyBorder(0, 10, 0, 10);
     private final Border             PADDING_PANEL_CHKBXS    = BorderFactory.createEmptyBorder(20, 20, 20, 20);
     private final Insets             INSETS                  = new Insets(20, 10, 20, 10);
-    private final String[]           CHKBX_CUISINE_TXT       = CSV.read(PROGRAM_DATASET, "CUISINES").toArray(new String[0]);
-    private final String[]           CHKBX_SERVICE_TXT       = CSV.read(PROGRAM_DATASET, "SERVICES").toArray(new String[0]);
-    private final String[]           LBL_GUIDE_TXT           = CSV.read(PROGRAM_DATASET, "GUIDES"  ).toArray(new String[0]);
+    private final String[]           CHKBX_CUISINE_TXT       = CSV.read(PROGRAM_DATASET, "CUISINES")             .toArray(new String[0]);
+    private final String[]           CHKBX_SERVICE_TXT       = CSV.read(PROGRAM_DATASET, "SERVICES")             .toArray(new String[0]);
+    private final String[]           LBL_GUIDE_TXT           = CSV.read(PROGRAM_DATASET, "GUIDES_ADVANCEDSEARCH").toArray(new String[0]);
+    private final String[]           PRICE_TAGS              = CSV.read(PROGRAM_DATASET, "PRICE_TAGS")           .toArray(new String[0]);
     private final String[]           PLACEHOLDER             = new String[]{"Your location"};
-    private final String[]           PRICE_TAGS              = new String[] {
-        "Cheap",
-        "Moderate",
-        "Expensive",
-        "Luxury"
-    };
     private final String             TITLE                   = "Filters";
     private final String             APPLY_FILTERS           = "Apply filters";
     private final String             CANCEL                  = "Cancel";
@@ -750,6 +723,7 @@ public final class AdvancedSearch extends javax.swing.JPanel
     private final int                ARC_BUTTON              = 50;
     private final int                PRICES                  = 4;
     private final int                RATINGS                 = 5;
+    private final int                TEXTFIELD_HEIGHT        = 40;
     private final int                SCRLPNL_CUISINES_HEIGHT = 600;
     private final int                PNL_BTNS_HEIGHT         = 80;
     private final RoundedComponentUI TXT_LAYER_UI            = new RoundedComponentUI(ARC_TEXTFIELD);
