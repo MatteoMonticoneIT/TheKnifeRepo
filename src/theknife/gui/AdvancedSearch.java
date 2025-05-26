@@ -596,7 +596,6 @@ public final class AdvancedSearch extends javax.swing.JPanel
             lbl_prices[indexPrice].setBackground(BG_PRICE_DARKER);
         }
         priceClicked = true;
-        System.out.println(lbl_prices[indexPrice].getText());
     }
     
     /**

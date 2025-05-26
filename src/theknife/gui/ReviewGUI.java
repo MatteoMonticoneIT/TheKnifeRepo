@@ -63,9 +63,8 @@ public final class ReviewGUI extends javax.swing.JPanel {
      */
     private void initFields() 
     {
-        numResponses             = review.getResponses() == null ? 1 : review.getResponses().size();
         pnl_usernameRatingReview = new JPanel      (new BorderLayout());
-        pnl_responses            = new JPanel      (new GridLayout(numResponses, 1));
+        pnl_responses            = new JPanel      (new GridLayout(review.getResponses() == null ? 1 : review.getResponses().size(), 1));
         pnl_btns                 = new JPanel      (new GridLayout(1, 2, 10, 10));
         pnl_btn_addResponse      = new JPanel      (new BorderLayout());
         pnl_btn_back             = new JPanel      (new BorderLayout());
@@ -322,6 +321,8 @@ public final class ReviewGUI extends javax.swing.JPanel {
     private final Color              BG_BACK_BTN               = new Color(255, 64, 0, 192);
     private final Color              BG_STAR                   = new Color(255, 215, 0);
     private final Color              BG_PNL_BTNS               = new Color(94, 168, 69);
+    private final Color              BG_RESPONSE_ODD           = new Color(16, 167, 103);
+    private final Color              BG_RESPONSE_EVEN          = new Color(16, 153, 103);
     private final Border             PADDING_LBL               = BorderFactory.createEmptyBorder(5, 5, 5, 5);
     private final Border             PADDING_TXT               = BorderFactory.createEmptyBorder(3, 3, 3, 3);
     private final Border             BORDER_PNL                = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
@@ -356,7 +357,6 @@ public final class ReviewGUI extends javax.swing.JPanel {
     private       AddResponse addResponse;
     private final Color       bg;
     private final Review      review;
-    private       int         numResponses;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

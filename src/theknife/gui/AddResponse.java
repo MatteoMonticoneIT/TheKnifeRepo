@@ -15,9 +15,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import theknife.Controller;
+import theknife.obj.review.Response;
 import theknife.obj.review.Review;
 
 /**
+ * The {@code AddResponse} class is a panel for adding a {@link Response}.
+ * <p>
+ * This class is part of the GUI layer of the {@link ReviewGUI} and it is used for adding a {@code Response} filling all parameters.
+ * </p>
+ * 
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
@@ -77,13 +83,14 @@ public final class AddResponse extends javax.swing.JPanel
     private void initAddResponse() {
         this.setLayout(new BorderLayout());
         
+        
         pnl_btns.setBackground(BG_PNL_BTNS);
         pnl_btns.setBorder    (BorderFactory.createEmptyBorder());
         
         pnl_btn_add .setBackground(pnl_btns.getBackground());
         pnl_btn_cancel.setBackground(pnl_btns.getBackground());
         
-        lbl_title.setBackground(BG_TITLE);
+        lbl_title.setBackground           (BG_TITLE);
         lbl_title.setForeground           (FG_DEFAULT);
         lbl_title.setHorizontalAlignment  (JLabel.CENTER);
         lbl_title.setVerticalAlignment    (JLabel.CENTER);
@@ -117,16 +124,16 @@ public final class AddResponse extends javax.swing.JPanel
         btn_cancel.setFont               (this.getFont());
         btn_cancel.setOpaque             (true);
         
-        pnl_btn_add .add(btn_addRounded, BorderLayout.CENTER);
-        pnl_btn_cancel.add(btn_cancelRounded,        BorderLayout.CENTER);
+        pnl_btn_add   .add(btn_addRounded,    BorderLayout.CENTER);
+        pnl_btn_cancel.add(btn_cancelRounded, BorderLayout.CENTER);
         
         pnl_btns.setPreferredSize(new Dimension(this.getWidth(), PNL_BTNS_HEIGHT));
-        pnl_btns.add(pnl_btn_add,  BorderLayout.CENTER);
+        pnl_btns.add(pnl_btn_add,    BorderLayout.CENTER);
         pnl_btns.add(pnl_btn_cancel, BorderLayout.EAST);
         
-        this.add(lbl_title, BorderLayout.NORTH);
+        this.add(lbl_title,       BorderLayout.NORTH);
         this.add(scrlPnl_content, BorderLayout.CENTER);
-        this.add(pnl_btns, BorderLayout.SOUTH);
+        this.add(pnl_btns,        BorderLayout.SOUTH);
     }
     
     /**

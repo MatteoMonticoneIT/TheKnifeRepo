@@ -24,6 +24,7 @@ import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import simple.file.CSV;
@@ -99,6 +100,7 @@ public class AddRestaurant extends javax.swing.JPanel
       txt_phoneNo           = new JTextField(PLACEHOLDER[7]);
       txt_url               = new JTextField(PLACEHOLDER[8]);
       txt_webUrl            = new JTextField(PLACEHOLDER[9]);
+      txt_award             = new JTextField(PLACEHOLDER[10]);
       txts                  = new JTextField[] {
         txt_name,
         txt_address,
@@ -109,8 +111,12 @@ public class AddRestaurant extends javax.swing.JPanel
         txt_currency,
         txt_phoneNo,
         txt_url,
-        txt_webUrl
+        txt_webUrl,
+        txt_award
       };
+      txt_description       = new JTextArea();
+      scrlPnl_description   = new JScrollPane(txt_description, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+      chkbx_greenStar       = new CustomJCheckBox(AppPaths.getRequiredFile("img", "Stars.ttf"));
       chkbx_cuisines        = new JCheckBox[CHKBX_CUISINE_TXT.length];
       chkbx_services        = new JCheckBox[CHKBX_SERVICE_TXT.length];
       scrlPnl_gridRounded   = new JLayer<>(scrlPnl_grid,  PNL_LAYER_UI);
@@ -162,6 +168,10 @@ public class AddRestaurant extends javax.swing.JPanel
           pnl_services.add(chkbx_services[i]);
         }
         
+        chkbx_greenStar.setForeground              (Color.GREEN);
+        chkbx_greenStar.setSelected                (true);
+        chkbx_greenStar.setCharacter               (EMPTY_STAR);
+        
         scrlPnl_grid.getVerticalScrollBar()      .setUI(new CustomJScrollBar());
         scrlPnl_grid.getHorizontalScrollBar()    .setUI(new CustomJScrollBar());
         scrlPnl_grid.setBorder                   (BorderFactory.createEmptyBorder());
@@ -170,6 +180,11 @@ public class AddRestaurant extends javax.swing.JPanel
         scrlPnl_cuisines.getHorizontalScrollBar()    .setUI(new CustomJScrollBar());
         scrlPnl_cuisines.setPreferredSize            (new Dimension(0, SCRLPNL_CUISINES_HEIGHT));
         scrlPnl_cuisines.setBorder                   (BorderFactory.createEmptyBorder());
+        
+        scrlPnl_description.getVerticalScrollBar()      .setUI(new CustomJScrollBar());
+        scrlPnl_description.getHorizontalScrollBar()    .setUI(new CustomJScrollBar());
+        scrlPnl_description.setPreferredSize            (new Dimension(0, TEXTAREA_HEIGHT));
+        scrlPnl_description.setBorder                   (BorderFactory.createEmptyBorder());
         
         lbl_title.setBackground(this.getBackground());
         lbl_title.setForeground(FG_DEFAULT);
@@ -198,6 +213,11 @@ public class AddRestaurant extends javax.swing.JPanel
             txt.setFont(this.getFont());
             txt.setPreferredSize(new Dimension(0, TEXTFIELD_HEIGHT));
         }
+        
+        txt_description.setBackground(BG_TEXTAREA);
+        txt_description.setForeground(FG_DEFAULT);
+        txt_description.setBorder(PADDING_TEXTAREA);
+        txt_description.setFont(this.getFont());
         
         btn_add.setBackground(BG_REGISTER_BTN);
         btn_add.setForeground(FG_DEFAULT);
@@ -279,6 +299,12 @@ public class AddRestaurant extends javax.swing.JPanel
         pnl_grid.add(pnl_priceBar, gbc);
         
         gbc.gridy++;
+        pnl_grid.add(txt_award, gbc);
+        
+        gbc.gridy++;
+        pnl_grid.add(chkbx_greenStar, gbc);
+        
+        gbc.gridy++;
         pnl_grid.add(lbl_guides[0], gbc);
         
         gbc.gridy++;
@@ -290,9 +316,15 @@ public class AddRestaurant extends javax.swing.JPanel
         gbc.gridy++;
         pnl_grid.add(pnl_services, gbc);
         
-        this.add(lbl_title,    BorderLayout.NORTH);
+        gbc.gridy++;
+        pnl_grid.add(lbl_guides[2], gbc);
+        
+        gbc.gridy++;
+        pnl_grid.add(scrlPnl_description, gbc);
+        
+        this.add(lbl_title,           BorderLayout.NORTH);
         this.add(scrlPnl_gridRounded, BorderLayout.CENTER);
-        this.add(pnl_btns,     BorderLayout.SOUTH);
+        this.add(pnl_btns,            BorderLayout.SOUTH);
     }
     
     /**
@@ -305,6 +337,11 @@ public class AddRestaurant extends javax.swing.JPanel
             public void componentResized(java.awt.event.ComponentEvent e) {
                 addRestaurant_ComponentResized(e);
             }
+        });
+
+        chkbx_greenStar         .addItemListener        ((java.awt.event.ItemEvent e) -> 
+        {
+          chkbx_greenStar_ItemStateChanged              (e);
         });
         
         scrlPnl_grid.addMouseWheelListener((java.awt.event.MouseWheelEvent e) -> {
@@ -403,6 +440,16 @@ public class AddRestaurant extends javax.swing.JPanel
       pnl_btn_add   .setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
       pnl_btn_cancel.setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
     }
+
+    /**
+     * Handles the item state when clicking the {@link JCheckBox}.
+     *
+     * @param e the item event triggered by clicking the checkbox
+     */
+    private void chkbx_greenStar_ItemStateChanged     (java.awt.event.ItemEvent e) 
+    {
+      chkbx_greenStar.setCharacter(e.getStateChange() % 2 != 0 ? EMPTY_STAR : FULL_STAR);
+    }
     
     /**
      * Handles the {@link JScrollPane} {@link JScrollBar}.
@@ -433,7 +480,7 @@ public class AddRestaurant extends javax.swing.JPanel
     }
     
     /**
-     * Handles the gaining focus event on the location {@link JTextField}.
+     * Handles the gaining focus event on the {@link JTextField}.
      * 
      * @param e the mouse event triggered by gaining focus
      */
@@ -450,7 +497,7 @@ public class AddRestaurant extends javax.swing.JPanel
     }
     
     /**
-     * Handles the losing focus event on the location {@link JTextField}.
+     * Handles the losing focus event on the {@link JTextField}.
      * 
      * @param e the mouse event triggered by gaining focus
      */
@@ -662,7 +709,6 @@ public class AddRestaurant extends javax.swing.JPanel
       else 
         lbl_prices[indexPrice].setBackground(BG_PRICE_DARKER);
       priceClicked = true;
-      System.out.println(lbl_prices[indexPrice].getText());
     }
     
     /**
@@ -796,8 +842,10 @@ public class AddRestaurant extends javax.swing.JPanel
     private final Color              BG_PNL_GRID               = new Color(95, 199, 40);
     private final Color              BG_PNL_CHKBXS             = new Color(61, 166, 5);
     private final Color              BG_TEXTFIELD              = new Color(255, 255, 255, 192);
+    private final Color              BG_TEXTAREA               = new Color(29, 158, 14);
     private final Color              BG_PRICE_DARKER           = new Color(74, 150, 36);
     private final Border             PADDING_TEXTFIELD         = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+    private final Border             PADDING_TEXTAREA          = BorderFactory.createEmptyBorder(10, 10, 10, 10);
     private final Border             PADDING_PANEL_CHKBXS      = BorderFactory.createEmptyBorder(20, 20, 20, 20);
     private final Insets             INSETS                    = new Insets(5, 5, 5, 5);
     private final String[]           CHKBX_CUISINE_TXT         = CSV.read(PROGRAM_DATASET, "CUISINES")            .toArray(new String[0]);
@@ -814,16 +862,20 @@ public class AddRestaurant extends javax.swing.JPanel
         "Currency",
         "Phone number",
         "Url",
-        "Website url"
+        "Website url",
+        "Award"
     };
     private final String             TITLE                     = "Add Restaurant";
     private final String             ADD                       = "Add";
     private final String             CANCEL                    = "Cancel";
+    private final char               EMPTY_STAR                = 'A';
+    private final char               FULL_STAR                 = 'C';
     private final int                SCRLPNL_CUISINES_HEIGHT   = 600;
     private final int                ARC_BUTTON                = 50;
     private final int                ARC_TEXTFIELD             = 50;
     private final int                ARC_PANEL                 = 50;
     private final int                TEXTFIELD_HEIGHT          = 30;
+    private final int                TEXTAREA_HEIGHT           = 240;
     private final int                PRICES                    = 4;
     private final int                PNL_BTNS_HEIGHT           = 80;
     private final RoundedComponentUI TXT_LAYER_UI              = new RoundedComponentUI(ARC_TEXTFIELD);
@@ -840,6 +892,7 @@ public class AddRestaurant extends javax.swing.JPanel
     private JPanel             pnl_services;
     private JScrollPane        scrlPnl_grid;
     private JScrollPane        scrlPnl_cuisines;
+    private JScrollPane        scrlPnl_description;
     private JLabel             lbl_title;
     private JLabel[]           lbl_prices;
     private JLabel             btn_add;
@@ -854,7 +907,10 @@ public class AddRestaurant extends javax.swing.JPanel
     private JTextField         txt_phoneNo;
     private JTextField         txt_url;
     private JTextField         txt_webUrl;
+    private JTextField         txt_award;
     private JTextField[]       txts;
+    private JTextArea          txt_description;
+    private CustomJCheckBox    chkbx_greenStar;
     private JCheckBox[]        chkbx_cuisines; 
     private JCheckBox[]        chkbx_services; 
     private JLayer<JComponent> scrlPnl_gridRounded;

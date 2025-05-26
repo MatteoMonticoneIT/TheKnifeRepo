@@ -48,6 +48,22 @@ public final class CustomJCheckBox extends JCheckBox {
             this.setCustomFont(this.getFont());
         }
     }
+    
+    /**
+     * Constructs a new {@code CustomJCheckBox} with default character and font.
+     * Attempts to load the custom font from application resources.
+     * 
+     * @param file - font file
+     */
+    public CustomJCheckBox(File file) {
+        try {
+            File fontFile = file;
+            this.setCustomFont(Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(24f));
+        } catch (FontFormatException | IOException e) {
+            LoggerUtils.logWarning("Unable to set a personalized font: {0}", e);
+            this.setCustomFont(this.getFont());
+        }
+    }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**

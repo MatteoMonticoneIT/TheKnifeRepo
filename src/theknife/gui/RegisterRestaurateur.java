@@ -340,11 +340,6 @@ public class RegisterRestaurateur extends CustomJPanel
             public void keyPressed(java.awt.event.KeyEvent e) {
                 txt_password_KeyPressed(e);
             }
-            
-            @Override
-            public void keyReleased(java.awt.event.KeyEvent e) {
-                txt_password_KeyReleased(e);
-            }
         });
         
         chkbx_seePassword.addItemListener((java.awt.event.ItemEvent e) -> {
@@ -658,16 +653,6 @@ public class RegisterRestaurateur extends CustomJPanel
         txt_password.selectAll();
         ctrlA_pressed = true;
       }
-    }
-    
-    /**
-     * Handles the password field text.
-     * 
-     * @param e the key event triggered by releasing a key  
-     */
-    private void txt_password_KeyReleased(java.awt.event.KeyEvent e) 
-    {
-      System.out.println(String.valueOf(txt_password.getPassword()));
     }
           
     /**
