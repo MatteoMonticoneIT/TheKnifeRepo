@@ -372,13 +372,18 @@ public final class Home extends javax.swing.JPanel
     
     public void visualizeAdvancedSearchResult(List<Restaurant> restaurants)
     {
-      listModel.clear();  
-      for(Restaurant restaurant : restaurants) 
-        listModel.addElement(restaurant);
+      listModel.clear(); 
+      if(!restaurants.isEmpty())
+      {
+        for(Restaurant restaurant : restaurants) 
+          listModel.addElement(restaurant);
       
-      list_restaurants.setModel(listModel);
+        list_restaurants.setModel(listModel);
       
-      lbl_title.setText("Results...");
+        lbl_title.setText("Results...");
+      }
+      else
+        lbl_title.setText("No results found!");
     }
     /**
      * Method that search restaurants by name

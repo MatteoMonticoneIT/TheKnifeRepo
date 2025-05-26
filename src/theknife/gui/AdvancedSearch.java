@@ -490,7 +490,11 @@ public final class AdvancedSearch extends javax.swing.JPanel
     {
       txt_location.setText          (PLACEHOLDER[0]);
       txt_location.setForeground    (FG_PLACEHOLDER);
-      controller  .advancedSearch   ((txt_location.getText().trim().isEmpty()) ? null:(txt_location.getText().equals(PLACEHOLDER[0])) ? null:txt_location.getText(), (starClicked) ? starRating:null, (priceClicked) ? indexPrice+1:null, returnCuisineValues(), returnServicesValues());
+      controller  .advancedSearch   ((txt_location.getText().trim().isEmpty()) ? null:(txt_location.getText().equals(PLACEHOLDER[0])) ? null:txt_location.getText(), 
+                                     (starClicked)  ? starRating    :null, 
+                                     (priceClicked) ? indexPrice+1  :null, 
+                                     returnCuisineValues    (), 
+                                     returnServicesValues   ());
       controller  .getPanelMain     ().showCard(Page.HOME);
     }
     
