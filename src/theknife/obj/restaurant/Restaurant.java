@@ -174,43 +174,43 @@ public final class Restaurant extends Location
     public Restaurant(int id, int ownerId, String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String cuisine, String servicesAvailable, String description, double rating,
             String country, String city, String address, double latitude, double longitude) 
     {
-        super(country, city, address, latitude, longitude);
-        this.setId(id);
-        this.setOwnerId(ownerId);
-        this.setName(name);
-        this.setNormalizedName(normalizedName);
-        this.setPrice(price);
-        this.setCurrency(currency);
-        this.setPhoneNumber(phoneNumber);
-        this.setUrl(url);
-        this.setWebsiteUrl(websiteUrl);
-        this.setAward(award);
-        this.setGreenStar(greenStar);
-        this.setCuisine(cuisine);
-        this.setServicesAvailable(servicesAvailable);
-        this.setDescription(description);
-        this.setRating(rating);
-        this.setListReview(new ListReview());
+        super                       (country, city, address, latitude, longitude);
+        this.setId                  (id);
+        this.setOwnerId             (ownerId);
+        this.setName                (name);
+        this.setNormalizedName      (normalizedName);
+        this.setPrice               (price);
+        this.setCurrency            (currency);
+        this.setPhoneNumber         (phoneNumber);
+        this.setUrl                 (url);
+        this.setWebsiteUrl          (websiteUrl);
+        this.setAward               (award);
+        this.setGreenStar           (greenStar);
+        this.setCuisine             (cuisine);
+        this.setServicesAvailable   (servicesAvailable);
+        this.setDescription         (description);
+        this.setRating              (rating);
+        this.setListReview          (new ListReview());
     }
     
     public Restaurant(String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, /*String award, boolean greenStar, */String cuisine, String servicesAvailable, /*String description, double rating,*/
             String country, String city, String address, double latitude, double longitude) 
     {
-        super(country, city, address, latitude, longitude);
-        this.setName(name);
-        this.setNormalizedName(normalizedName);
-        this.setPrice(price);
-        this.setCurrency(currency);
-        this.setPhoneNumber(phoneNumber);
-        this.setUrl(url);
-        this.setWebsiteUrl(websiteUrl);
-        /*this.setAward(award);
-        this.setGreenStar(greenStar);*/
-        this.setCuisine(cuisine);
-        this.setServicesAvailable(servicesAvailable);
-        /*this.setDescription(description);
-        this.setRating(rating);*/
-        this.setListReview(new ListReview());
+        super                       (country, city, address, latitude, longitude);
+        this.setName                (name);
+        this.setNormalizedName      (normalizedName);
+        this.setPrice               (price);
+        this.setCurrency            (currency);
+        this.setPhoneNumber         (phoneNumber);
+        this.setUrl                 (url);
+        this.setWebsiteUrl          (websiteUrl);
+        //this.setAward               (award);
+        //this.setGreenStar           (greenStar);
+        this.setCuisine             (cuisine);
+        this.setServicesAvailable   (servicesAvailable);
+        //this.setDescription       (description);
+        //this.setRating              (rating);
+        this.setListReview          (new ListReview());
     }
     
     
