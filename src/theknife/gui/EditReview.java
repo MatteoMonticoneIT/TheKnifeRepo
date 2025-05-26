@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -19,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import theknife.Controller;
+import theknife.obj.lists.ListReview;
 import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 
@@ -37,7 +39,7 @@ public final class EditReview extends javax.swing.JPanel {
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
-     * Creates a new {@code ReviewGUI} panel and initializes its components.
+     * Creates a new {@code EditReview} panel and initializes its components.
      * <p>
      * This constructor also sets the review to insert the data needed to have a graphical interface of the review itself.
      * </p>
@@ -45,14 +47,12 @@ public final class EditReview extends javax.swing.JPanel {
      * @param restaurant the {@link Restaurant} class that represents the restaurant
      * @param controller the {@link Controller} class that manages the screen layout
      * @param review the {@link Review} class that represents the review
-     * @param bg the {@code Color} of the background for the {@code ReviewGUI}
      */
-    public EditReview(Restaurant restaurant, Controller controller, Review review, Color bg) {
+    public EditReview(Controller controller, Restaurant restaurant, Review review) {
         initComponents();
-        this.restaurant = restaurant;
         this.controller = controller;
+        this.restaurant = restaurant;
         this.review     = review;
-        this.bg         = bg;
         initGUI();
     }
     //</editor-fold>
@@ -62,9 +62,9 @@ public final class EditReview extends javax.swing.JPanel {
      */
     private void initGUI() 
     {
-      initFields            ();
-      initPreviewReviewGUI  ();
-      initEvents            ();
+      initFields    ();
+      initEditReview();
+      initEvents    ();
     }
     
     /**
@@ -72,105 +72,119 @@ public final class EditReview extends javax.swing.JPanel {
      */
     private void initFields() 
     {
-        numResponses             = review.getResponses() == null ? 1 : review.getResponses().size();
-        pnl_usernameRatingReview = new JPanel      (new BorderLayout());
-        pnl_responses            = new JPanel      (new GridLayout(numResponses, 1));
-        pnl_btns                 = new JPanel      (new GridLayout(1, 2, 10, 10));
-        pnl_btn_addResponse      = new JPanel      (new BorderLayout());
-        pnl_btn_back             = new JPanel      (new BorderLayout());
-        lbl_usernameReview       = new JLabel      (review.getUsername());
-        lbl_rating               = new CustomJLabel(String.valueOf(review.getRating()), FULL_STAR);
-        txt_reviewContent        = new JTextArea   (review.getContent());
-        lbls                     = new JLabel[] {
-            lbl_usernameReview,
-            lbl_rating
-        };
-        scrlPnl_reviewContent    = new JScrollPane (txt_reviewContent, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrlPnl_responses        = new JScrollPane (pnl_responses, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        btn_addResponse          = new JLabel      (ADD_RESPONSE);
-        btn_back                 = new JLabel      (BACK);
-        btn_addResponseRounded   = new JLayer<>    (btn_addResponse, BTN_LAYERUI);
-        btn_backRounded          = new JLayer<>    (btn_back,        BTN_LAYERUI);
+        pnl_btns            = new JPanel(new GridLayout(1, 2, 10, 10));
+        pnl_btn_edit        = new JPanel(new BorderLayout());
+        pnl_btn_cancel      = new JPanel(new BorderLayout());
+        pnl_ratingBar       = new JPanel(new GridLayout(1, RATINGS));
+        pnl_content         = new JPanel(new BorderLayout());
+        pnl_nameRating      = new JPanel(new GridLayout(1, 2));
+        lbl_title           = new JLabel(TITLE);
+        lbl_stars           = new CustomJLabel[RATINGS];
+        lbl_restaurantName  = new JLabel(restaurant.getName());
+        btn_edit            = new JLabel(EDIT_REVIEW);
+        btn_cancel          = new JLabel(CANCEL);
+        txt_content         = new JTextArea(review.getContent());
+        btn_editRounded     = new JLayer<>(btn_edit,   BTN_LAYERUI);
+        btn_cancelRounded   = new JLayer<>(btn_cancel, BTN_LAYERUI);
+        scrlPnl_content     = new JScrollPane(txt_content, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
     
     /**
      * Initializes the layout and appearance of the home page.
      */
-    private void initPreviewReviewGUI() 
+    private void initEditReview() 
     {
-        this.setBackground(bg);
         this.setLayout(new BorderLayout());
-        
-        pnl_usernameRatingReview.setBackground(this.getBackground());
-        pnl_usernameRatingReview.setPreferredSize(new Dimension(0, NORTH_CONTENT_HEIGHT));
-        
-        pnl_responses.setBackground(this.getBackground());
         
         pnl_btns.setBackground(BG_PNL_BTNS);
         pnl_btns.setBorder    (BorderFactory.createEmptyBorder());
         
-        pnl_btn_addResponse.setBackground(pnl_btns.getBackground());
-        pnl_btn_back       .setBackground(pnl_btns.getBackground());
+        pnl_nameRating.setPreferredSize(new Dimension(0, PNL_NAMERATING_HEIGHT));
         
-        for (JLabel lbl : lbls) {
-            lbl.setBackground(this.getBackground());
-            lbl.setForeground(FG_DEFAULT);
-            lbl.setHorizontalAlignment  (JLabel.LEFT);
-            lbl.setVerticalAlignment    (JLabel.CENTER);
-            lbl.setFont                 (this.getFont());
-            lbl.setBorder               (PADDING_LBL);
-            lbl.setOpaque               (true);
+        pnl_ratingBar .setBackground(BG_STAR_LBL);
+        
+        pnl_btn_edit   .setBackground(pnl_btns.getBackground());
+        pnl_btn_cancel.setBackground(pnl_btns.getBackground());
+        
+        lbl_title.setBackground         (BG_TITLE);
+        lbl_title.setForeground         (FG_DEFAULT);
+        lbl_title.setHorizontalAlignment(JLabel.CENTER);
+        lbl_title.setVerticalAlignment  (JLabel.CENTER);
+        lbl_title.setFont               (this.getFont());
+        lbl_title.setBorder             (PADDING_LBL);
+        lbl_title.setOpaque             (true);
+        lbl_title.setPreferredSize      (new Dimension(0, LBL_TITLE_HEIGHT));
+        
+        lbl_restaurantName.setBackground         (this.getBackground());
+        lbl_restaurantName.setHorizontalAlignment(JLabel.CENTER);
+        lbl_restaurantName.setVerticalAlignment  (JLabel.CENTER);
+        lbl_restaurantName.setFont               (this.getFont());
+        lbl_restaurantName.setBorder             (BorderFactory.createCompoundBorder(BORDER_LBL, PADDING_LBL));
+        lbl_restaurantName.setOpaque             (true);
+        
+        for (int i = 0; i < lbl_stars.length; i++) 
+        {
+            lbl_stars[i] = new CustomJLabel("", EMPTY_STAR);
+            lbl_stars[i].setBackground          (BG_STAR_LBL);
+            lbl_stars[i].setForeground          (FG_DEFAULT);
+            lbl_stars[i].setCharacterColor      (BG_STAR_CHAR);
+            lbl_stars[i].setHorizontalAlignment (JLabel.CENTER);
+            lbl_stars[i].setVerticalAlignment   (JLabel.CENTER);
+            lbl_stars[i].setFont                (this.getFont());
+            lbl_stars[i].setCustomFontSize      (64f);
+            lbl_stars[i].setOpaque              (true);
+            pnl_ratingBar.add                   (lbl_stars[i]);
         }
-        lbl_rating.setPreferredSize(new Dimension(LBL_RATING_WIDTH, 0));
-        lbl_rating.setCharacterColor(BG_STAR);
-        lbl_rating.setCharacterSpacing(15);
-        lbl_rating.setCustomFontSize(50f);
         
-        scrlPnl_reviewContent.setBackground                 (this.getBackground());
-        scrlPnl_reviewContent.setBorder                     (BORDER_PNL);
-        scrlPnl_reviewContent.getVerticalScrollBar()  .setUI(new CustomJScrollBar());
-        scrlPnl_reviewContent.getHorizontalScrollBar().setUI(new CustomJScrollBar());
+        starClicked = true;
+        starRating  = review.getRating();
+        indexStar   = (int) starRating;
+        for (int i = 0; i < (int) starRating; i++)
+            lbl_stars[i].setCharacter(FULL_STAR);
+        if (starRating - (int) starRating == 0.5)
+            lbl_stars[(int) starRating].setCharacter(starRating - (int) starRating == 0.5 ? HALF_STAR : EMPTY_STAR);
         
-        scrlPnl_responses.setBackground                 (this.getBackground());
-        scrlPnl_responses.setBorder                     (BORDER_PNL);
-        scrlPnl_responses.getVerticalScrollBar()  .setUI(new CustomJScrollBar());
-        scrlPnl_responses.getHorizontalScrollBar().setUI(new CustomJScrollBar());
+        txt_content.setBackground   (this.getBackground());
+        txt_content.setBorder       (PADDING_TXT);
+        txt_content.setFont         (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 22));
+        txt_content.setLineWrap     (true);
+        txt_content.setWrapStyleWord(true);
         
-        txt_reviewContent.setBackground   (this.getBackground());
-        txt_reviewContent.setBorder       (PADDING_TXT);
-        txt_reviewContent.setLineWrap     (true);
-        txt_reviewContent.setWrapStyleWord(true);
-        txt_reviewContent.setEditable     (false);
-        txt_reviewContent.setFocusable    (false);
+        scrlPnl_content.setBackground                 (this.getBackground());
+        scrlPnl_content.setBorder                     (BORDER_PNL);
+        scrlPnl_content.getVerticalScrollBar()  .setUI(new CustomJScrollBar());
+        scrlPnl_content.getHorizontalScrollBar().setUI(new CustomJScrollBar());
         
-        btn_addResponse.setBackground         (BG_ADDRESPONSE_BTN);
-        btn_addResponse.setForeground         (FG_DEFAULT);
-        btn_addResponse.setHorizontalAlignment(JLabel.CENTER);
-        btn_addResponse.setVerticalAlignment  (JLabel.CENTER);
-        btn_addResponse.setFont               (this.getFont());
-        btn_addResponse.setOpaque             (true);
+        btn_edit.setBackground         (BG_ADDRESPONSE_BTN);
+        btn_edit.setForeground         (FG_DEFAULT);
+        btn_edit.setHorizontalAlignment(JLabel.CENTER);
+        btn_edit.setVerticalAlignment  (JLabel.CENTER);
+        btn_edit.setFont               (this.getFont());
+        btn_edit.setOpaque             (true);
         
-        btn_back.setBackground                (BG_BACK_BTN);
-        btn_back.setForeground                (FG_DEFAULT);
-        btn_back.setHorizontalAlignment       (JLabel.CENTER);
-        btn_back.setVerticalAlignment         (JLabel.CENTER);
-        btn_back.setFont                      (this.getFont());
-        btn_back.setOpaque                    (true);
+        btn_cancel.setBackground         (BG_BACK_BTN);
+        btn_cancel.setForeground         (FG_DEFAULT);
+        btn_cancel.setHorizontalAlignment(JLabel.CENTER);
+        btn_cancel.setVerticalAlignment  (JLabel.CENTER);
+        btn_cancel.setFont               (this.getFont());
+        btn_cancel.setOpaque             (true);
         
-        pnl_usernameRatingReview.add(lbl_usernameReview, BorderLayout.CENTER);
-        pnl_usernameRatingReview.add(lbl_rating,         BorderLayout.EAST);
-        
-        pnl_btn_addResponse.add(btn_addResponseRounded, BorderLayout.CENTER);
-        pnl_btn_back       .add(btn_backRounded,        BorderLayout.CENTER);
+        pnl_btn_edit .add(btn_editRounded,      BorderLayout.CENTER);
+        pnl_btn_cancel.add(btn_cancelRounded, BorderLayout.CENTER);
         
         pnl_btns.setPreferredSize(new Dimension(this.getWidth(), PNL_BTNS_HEIGHT));
-        pnl_btns.add(pnl_btn_addResponse, BorderLayout.CENTER);
-        pnl_btns.add(pnl_btn_back,        BorderLayout.EAST);
+        pnl_btns.add(pnl_btn_edit,    BorderLayout.CENTER);
+        pnl_btns.add(pnl_btn_cancel, BorderLayout.EAST);
         
-        this.add(pnl_usernameRatingReview, BorderLayout.NORTH);
-        this.add(scrlPnl_reviewContent,    BorderLayout.CENTER);
-        this.add(scrlPnl_responses,        BorderLayout.EAST);
-        this.add(pnl_btns,                 BorderLayout.SOUTH);
+        pnl_nameRating.add(lbl_restaurantName);
+        pnl_nameRating.add(pnl_ratingBar);
+        
+        pnl_content.add(pnl_nameRating,  BorderLayout.NORTH);
+        pnl_content.add(scrlPnl_content, BorderLayout.CENTER);
+        
+        this.add(lbl_title,       BorderLayout.NORTH);
+        this.add(pnl_content,     BorderLayout.CENTER);
+        this.add(pnl_btns,        BorderLayout.SOUTH);
     }
     
     /**
@@ -181,43 +195,65 @@ public final class EditReview extends javax.swing.JPanel {
         this.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {
-                reviewGUI_ComponentResized(e);
+                editReview_ComponentResized(e);
             }
         });
         
-        btn_back.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                btn_back_MouseClicked(e);
+                btn_cancel_MouseClicked(e);
             }
             
             @Override
             public void mouseEntered(java.awt.event.MouseEvent e) {
-                btn_back_MouseEntered(e);
+                btn_cancel_MouseEntered(e);
             }
             
             @Override
             public void mouseExited(java.awt.event.MouseEvent e) {
-                btn_back_MouseExited(e);
+                btn_cancel_MouseExited(e);
             }
         });
         
-        btn_addResponse.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_edit.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                btn_addResponse_MouseClicked(e);
+                btn_edit_MouseClicked(e);
             }
             
             @Override
             public void mouseEntered(java.awt.event.MouseEvent e) {
-                btn_addResponse_MouseEntered(e);
+                btn_edit_MouseEntered(e);
             }
             
             @Override
             public void mouseExited(java.awt.event.MouseEvent e) {
-                btn_addResponse_MouseExited(e);
+                btn_edit_MouseExited(e);
             }
         });
+        
+        for (JLabel lbl : lbl_stars) {
+            lbl.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    lbl_star_MouseClicked(e);
+                }
+
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent e) {
+                    lbl_star_MouseExited(e);
+                }
+            
+            });
+            
+            lbl.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+                @Override
+                public void mouseMoved(java.awt.event.MouseEvent e) {
+                    lbl_star_MouseMoved(e);
+                }
+            });
+        }
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
@@ -229,71 +265,75 @@ public final class EditReview extends javax.swing.JPanel {
      * 
      * @param e the component event triggered by resizing the GUI application
      */
-    private void reviewGUI_ComponentResized(java.awt.event.ComponentEvent e) 
+    private void editReview_ComponentResized(java.awt.event.ComponentEvent e) 
     {
         final int PADDING_BTN = (int) (this.getWidth() * 0.01);
-        pnl_btn_addResponse.setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
-        pnl_btn_back       .setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
-        
-        pnl_responses.setPreferredSize(new Dimension((int) (this.getWidth() * 0.4), 0));
+        pnl_btn_edit   .setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
+        pnl_btn_cancel.setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
     }
     
     /**
-     * Handles the click event on the back button {@link JLabel}.
+     * Handles the click event on the cancel button {@link JLabel}.
      * <p>
      * When the button is clicked, the view switches to the {@code Home} screen canceling the login procedure.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_back_MouseClicked(java.awt.event.MouseEvent e) {
-        controller.getPanelMain().showCard(Page.RESTAURANT);
-        controller.getPanelMain().getPanel().remove(this);
+    private void btn_cancel_MouseClicked(java.awt.event.MouseEvent e)
+    {
+      controller.getPanelMain().showCard(Page.REVIEW);
+      controller.getPanelMain().getPanel().remove(this);
     }
     
     /**
-     * Handles the hover event on the back button {@link JLabel}.
+     * Handles the hover event on the cancel button {@link JLabel}.
      * 
      * @param e the mouse event triggered by hovering to the button
      */
-    private void btn_back_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_back.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn_back.setBackground(btn_back.getBackground().darker());
+    private void btn_cancel_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_cancel.setCursor      (new Cursor(Cursor.HAND_CURSOR));
+      btn_cancel.setBackground  (btn_cancel.getBackground().darker());
     }
     
     /**
-     * Handles the exit hover event on the back button {@link JLabel}.
+     * Handles the exit hover event on the cancel button {@link JLabel}.
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_back_MouseExited(java.awt.event.MouseEvent e) {
-        btn_back.setBackground(BG_BACK_BTN);
+    private void btn_cancel_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_cancel.setBackground(BG_BACK_BTN);
     }
     
     /**
      * Handles the click event on the add response button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@link AddResponse} screen.
+     * When the button is clicked, the filters will be applied and the view switches to the {@code Home} screen.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_addResponse_MouseClicked(java.awt.event.MouseEvent e) 
+    private void btn_edit_MouseClicked(java.awt.event.MouseEvent e) 
     {
-      if(controller.getLoggedUser() != null)
+      if(starRating!=0 && !txt_content.getText().trim().isEmpty())
       {
-        if(controller.getLoggedUser().getRole().equals("restaurateur") && controller.getLoggedUser().getId() == restaurant.getOwnerId())
-        {
-          addResponse = new AddResponse(controller, review);
-          controller.getPanelMain().getPanel().add(addResponse, Page.ADD_RESPONSE);
-          controller.getPanelMain().showCard(Page.ADD_RESPONSE);
-        }
-      }
-      else
-      {
-        controller.getPanelMain().showCard(Page.LOGIN_RESTAURATEUR);
+
+        Review newReview = new Review(review.getID(),
+                                      restaurant.getId(),
+                                      controller.getLoggedUser().getUsername(),
+                                      txt_content.getText(),
+                                      starRating);   
+        
+        restaurant.getListReview().getList().remove(newReview.getID() - 1);
+        restaurant.getListReview().getList().add   (newReview.getID() - 1, newReview);
+        controller.restaurantRatingAverage(restaurant);
+        
+        controller.getPanelMain().showCard(Page.CUSTOMER_REVIEWS);
         controller.getPanelMain().getPanel().remove(this);
       }
+
     }
     
     /**
@@ -301,9 +341,10 @@ public final class EditReview extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by hovering to the button
      */
-    private void btn_addResponse_MouseEntered(java.awt.event.MouseEvent e) {
-        btn_addResponse.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn_addResponse.setBackground(btn_addResponse.getBackground().darker());
+    private void btn_edit_MouseEntered(java.awt.event.MouseEvent e)
+    {
+      btn_edit.setCursor       (new Cursor(Cursor.HAND_CURSOR));
+      btn_edit.setBackground   (btn_edit.getBackground().darker());
     }
     
     /**
@@ -311,8 +352,73 @@ public final class EditReview extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
-    private void btn_addResponse_MouseExited(java.awt.event.MouseEvent e) {
-        btn_addResponse.setBackground(BG_ADDRESPONSE_BTN);
+    private void btn_edit_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_edit.setBackground(BG_ADDRESPONSE_BTN);
+    }
+    
+    /**
+     * Handles the click event on the star {@link JLabel}.
+     * <p>
+     * When the label is clicked, it checks if the rating given has a half star or not.
+     * </p>
+     * 
+     * @param e the mouse event triggered by clicking the label 
+     */
+    private void lbl_star_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      starClicked = true;
+      for (int i = 0; i < lbl_stars.length; i++) 
+      {
+        if (lbl_stars[i].equals(e.getSource())) 
+        {
+          indexStar = i;
+          lbl_stars[i].setCharacter(e.getX() <= lbl_stars[i].getWidth() / 2 ? HALF_STAR : FULL_STAR);
+          starRating = e.getX() <= lbl_stars[i].getWidth() / 2 ? i + 0.5 : i + 1;
+           break;
+        }
+        lbl_stars[i].setCharacter(FULL_STAR);
+      }
+    }
+    
+    /**
+     * Handles the hover event on the stars {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by hovering to the label
+     */
+    private void lbl_star_MouseMoved(java.awt.event.MouseEvent e) 
+    {
+      for (CustomJLabel lbl : lbl_stars) 
+        lbl.setCharacter(EMPTY_STAR);
+            
+      for (CustomJLabel lbl : lbl_stars) 
+      {
+        if (lbl.equals(e.getSource())) 
+        {
+          lbl.setCharacter(e.getX() <= lbl.getWidth() / 2 ? HALF_STAR : FULL_STAR);
+          break;
+        }
+        lbl.setCharacter(FULL_STAR);
+      }
+    }
+    
+    /**
+     * Handles the exit hover event on the stars {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by leaving the cursor from the label
+     */
+    private void lbl_star_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      for (CustomJLabel lbl : lbl_stars) 
+       lbl.setCharacter(EMPTY_STAR);
+        
+      if (starClicked) 
+      {
+        for (int i = 0; i < indexStar + 1; i++) 
+          lbl_stars[i].setCharacter(FULL_STAR);
+        if (starRating - indexStar == 0.5)
+          lbl_stars[indexStar].setCharacter(HALF_STAR);
+      }
     }
     //</editor-fold>
 
@@ -322,6 +428,9 @@ public final class EditReview extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        setBackground(new java.awt.Color(119, 186, 71));
+        setFont(new java.awt.Font("Consolas", 0, 28)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -336,49 +445,54 @@ public final class EditReview extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final Color              FG_DEFAULT                = Color.BLACK;
-    private final Color              BG_ADDRESPONSE_BTN        = new Color(0, 255, 0, 192);
-    private final Color              BG_BACK_BTN               = new Color(255, 64, 0, 192);
-    private final Color              BG_STAR                   = new Color(255, 215, 0);
-    private final Color              BG_PNL_BTNS               = new Color(94, 168, 69);
-    private final Color              BG_RESPONSE_ODD           = new Color(16, 167, 103);
-    private final Color              BG_RESPONSE_EVEN          = new Color(16, 153, 103);
-    private final Border             PADDING_LBL               = BorderFactory.createEmptyBorder(5, 5, 5, 5);
-    private final Border             PADDING_TXT               = BorderFactory.createEmptyBorder(3, 3, 3, 3);
-    private final Border             BORDER_PNL                = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
-    private final String             ADD_RESPONSE              = "Add response";
-    private final String             BACK                      = "Back";
-    private final char               FULL_STAR                 = 'C';
-    private final int                NORTH_CONTENT_HEIGHT      = 80;
-    private final int                ARC                       = 50;
-    private final int                PNL_BTNS_HEIGHT           = 80;
-    private final int                LBL_RATING_WIDTH          = 125;
-    private final RoundedComponentUI BTN_LAYERUI               = new RoundedComponentUI(ARC);
+    private final Color              FG_DEFAULT            = Color.BLACK;
+    private final Color              BG_TITLE              = new Color(157, 204, 49);
+    private final Color              BG_ADDRESPONSE_BTN    = new Color(0, 255, 0, 192);
+    private final Color              BG_BACK_BTN           = new Color(255, 64, 0, 192);
+    private final Color              BG_PNL_BTNS           = new Color(94, 168, 69);
+    private final Color              BG_STAR_LBL           = new Color(85, 191, 33);
+    private final Color              BG_STAR_CHAR          = new Color(255, 215, 0);
+    private final Border             PADDING_LBL           = BorderFactory.createEmptyBorder(0, 5, 0, 5);
+    private final Border             PADDING_TXT           = BorderFactory.createEmptyBorder(3, 3, 3, 3);
+    private final Border             BORDER_LBL            = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
+    private final Border             BORDER_PNL            = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK);
+    private final String             TITLE                 = "Edit Review";
+    private final String             EDIT_REVIEW           = "Edit";
+    private final String             CANCEL                = "Cancel";
+    private final char               EMPTY_STAR            = 'A';
+    private final char               HALF_STAR             = 'B';
+    private final char               FULL_STAR             = 'C';
+    private final int                LBL_TITLE_HEIGHT      = 80;
+    private final int                ARC                   = 50;
+    private final int                PNL_BTNS_HEIGHT       = 80;
+    private final int                RATINGS               = 5;
+    private final int                PNL_NAMERATING_HEIGHT = 80;
+    private final RoundedComponentUI BTN_LAYERUI           = new RoundedComponentUI(ARC);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private JPanel             pnl_usernameRatingReview;
-    private JPanel             pnl_responses;
+    private JPanel             pnl_content;
+    private JPanel             pnl_nameRating;
+    private JPanel             pnl_ratingBar;
     private JPanel             pnl_btns;
-    private JPanel             pnl_btn_addResponse;
-    private JPanel             pnl_btn_back;
-    private JScrollPane        scrlPnl_reviewContent;
-    private JScrollPane        scrlPnl_responses;
-    private JLabel             lbl_usernameReview;
-    private CustomJLabel       lbl_rating;
-    private JTextArea          txt_reviewContent;
-    private JLabel[]           lbls;
-    private JLabel             btn_addResponse;
-    private JLabel             btn_back;
-    private JLayer<JComponent> btn_addResponseRounded;
-    private JLayer<JComponent> btn_backRounded;
+    private JPanel             pnl_btn_edit;
+    private JPanel             pnl_btn_cancel;
+    private JScrollPane        scrlPnl_content;
+    private CustomJLabel[]     lbl_stars;
+    private JLabel             lbl_title;
+    private JLabel             lbl_restaurantName;
+    private JLabel             btn_edit;
+    private JLabel             btn_cancel;
+    private JTextArea          txt_content;
+    private JLayer<JComponent> btn_editRounded;
+    private JLayer<JComponent> btn_cancelRounded;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
-    private final Controller  controller;
-    private       AddResponse addResponse;
-    private final Color       bg;
-    private final Review      review;
-    private       int         numResponses;
-    private final Restaurant  restaurant;
+    private final Controller controller;
+    private final Restaurant restaurant;
+    private final Review     review;
+    private       boolean    starClicked;
+    private       double     starRating;
+    private       int        indexStar;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -53,17 +53,17 @@ public final class ReviewGUI extends javax.swing.JPanel {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
-     * Initializes the graphical user interface (GUI) for the {@code PreviewReviewGUI} page.
+     * Initializes the graphical user interface (GUI) for the {@code ReviewGUI} page.
      */
     private void initGUI() 
     {
-      initFields            ();
-      initPreviewReviewGUI  ();
-      initEvents            ();
+      initFields   ();
+      initReviewGUI();
+      initEvents   ();
     }
     
     /**
-     * Initializes the basic fields of the {@code PreviewReviewGUI} panel.
+     * Initializes the basic fields of the {@code ReviewGUI} panel.
      */
     private void initFields() 
     {
@@ -81,7 +81,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
             lbl_rating
         };
         scrlPnl_reviewContent    = new JScrollPane (txt_reviewContent, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrlPnl_responses        = new JScrollPane (pnl_responses, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrlPnl_responses        = new JScrollPane (pnl_responses,     JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         btn_addResponse          = new JLabel      (ADD_RESPONSE);
         btn_back                 = new JLabel      (BACK);
         btn_addResponseRounded   = new JLayer<>    (btn_addResponse, BTN_LAYERUI);
@@ -91,7 +91,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
     /**
      * Initializes the layout and appearance of the home page.
      */
-    private void initPreviewReviewGUI() 
+    private void initReviewGUI() 
     {
         this.setBackground(bg);
         this.setLayout(new BorderLayout());

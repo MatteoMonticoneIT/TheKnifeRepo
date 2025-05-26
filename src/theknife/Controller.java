@@ -85,7 +85,7 @@ public final class Controller
     /**
      * CSV file program dataset.
      */
-    private static final File PROGRAM_DATASET       = AppPaths.getOptionalFile("data", "program_dataset.csv");
+    private static final File PROGRAM_DATASET       = AppPaths.getRequiredFile("data", "program_dataset.csv");
     
     /**
      * KeyStore file for encryption.

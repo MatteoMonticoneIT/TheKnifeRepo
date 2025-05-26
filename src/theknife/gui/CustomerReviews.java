@@ -285,9 +285,10 @@ public final class CustomerReviews extends javax.swing.JPanel {
         if (controller.getSelectedReview() == null) 
             JOptionPane.showMessageDialog(null, "You must select a review to edit!", "No review is selected!", JOptionPane.WARNING_MESSAGE);
         else {
-            int restaurantIDIndex = controller.getSelectedReview().getRestaurantID() - 1;
-            int reviewIDIndex     = controller.getSelectedReview().getID() - 1;
-            Review review         = controller.getRestaurants   ().getList().get(restaurantIDIndex).getListReview().getList().get(reviewIDIndex);
+            int        restaurantIDIndex = controller.getSelectedReview().getRestaurantID() - 1;
+            int        reviewIDIndex     = controller.getSelectedReview().getID()           - 1;
+            Restaurant restaurant        = controller.getRestaurants   ().getList().get(restaurantIDIndex);
+            Review     review            = restaurant.getListReview    ().getList().get(reviewIDIndex);
             controller.getRestaurants().getList().get(restaurantIDIndex).getListReview().remove(review);
             reviews.remove(review);
             updatePanelReviews();
@@ -326,7 +327,13 @@ public final class CustomerReviews extends javax.swing.JPanel {
         if (controller.getSelectedReview() == null) 
             JOptionPane.showMessageDialog(null, "You must select a review to edit!", "No review is selected!", JOptionPane.WARNING_MESSAGE);
         else {
-            
+            int        restaurantIDIndex = controller.getSelectedReview().getRestaurantID() - 1;
+            int        reviewIDIndex     = controller.getSelectedReview().getID()           - 1;
+            Restaurant restaurant        = controller.getRestaurants   ().getList().get(restaurantIDIndex);
+            Review     review            = restaurant.getListReview    ().getList().get(reviewIDIndex);
+            EditReview editReview = new EditReview(controller, restaurant, review);
+            controller.getPanelMain().getPanel().add(editReview, Page.EDIT_REVIEW);
+            controller.getPanelMain().showCard(Page.EDIT_REVIEW);
         }
     }
     
