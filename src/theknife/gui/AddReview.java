@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import theknife.Controller;
+import theknife.obj.lists.ListReview;
 import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 
@@ -298,21 +299,23 @@ public final class AddReview extends javax.swing.JPanel
      */
     private void btn_add_MouseClicked(java.awt.event.MouseEvent e) 
     {
-      if (controller.getLoggedUser() == null) {
-        controller.getPanelMain().showCard(Page.LOGIN);
-        controller.getPanelMain().getPanel().remove(this);
-        return;
-      }
       if(starRating!=0 && !txt_content.getText().trim().isEmpty())
       {
+
         Review review = new Review(restaurant.getListReview().getList().size(),
                                    restaurant.getId(),
                                    controller.getLoggedUser().getUsername(),
                                    txt_content.getText(),
-                                   starRating);                         
+                                   starRating);      
+        
+        if(restaurant.getListReview()==null)
+          restaurant.setListReview(new ListReview());
         
         restaurant.getListReview().getList().add(review);
         controller.restaurantRatingAverage(restaurant);
+        
+        controller.getPanelMain().showCard(Page.REVIEW);
+        controller.getPanelMain().getPanel().remove(this);
       }
 
     }

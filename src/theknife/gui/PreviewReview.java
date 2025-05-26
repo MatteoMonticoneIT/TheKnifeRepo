@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import theknife.Controller;
+import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 
 /**
@@ -33,11 +34,13 @@ public final class PreviewReview extends javax.swing.JPanel {
      * </p>
      *
      * @param controller the {@link Controller} class that manages the screen layout
+     * @param restaurant
      * @param review the {@link Review} class that represents the review
      * @param bg the {@code Color} of the background for the {@code PreviewReview}
      */
-    public PreviewReview(Controller controller, Review review, Color bg) {
+    public PreviewReview(Controller controller, Restaurant restaurant, Review review, Color bg) {
         initComponents();
+        this.restaurant = restaurant;
         this.controller = controller;
         this.review     = review;
         this.bg         = bg;
@@ -48,10 +51,11 @@ public final class PreviewReview extends javax.swing.JPanel {
     /**
      * Initializes the graphical user interface (GUI) for the {@code PreviewReview} page.
      */
-    private void initGUI() {
-        initFields();
-        initPreviewReview();
-        initEvents();
+    private void initGUI() 
+    {
+      initFields();
+      initPreviewReview();
+      initEvents();
     }
     
     /**
@@ -155,7 +159,7 @@ public final class PreviewReview extends javax.swing.JPanel {
      * @param e the mouse event triggered by clicking the button
      */
     private void previewReviewGUI_MouseClicked(java.awt.event.MouseEvent e) {
-        reviewGUI = new ReviewGUI(controller, review, bg);
+        reviewGUI = new ReviewGUI(restaurant, controller, review, bg);
         controller.getPanelMain().getPanel().add(reviewGUI, Page.REVIEW);
         controller.getPanelMain().showCard(Page.REVIEW);
         
@@ -210,6 +214,7 @@ public final class PreviewReview extends javax.swing.JPanel {
     private final Controller controller;
     private final Color      bg;
     private final Review     review;
+    private final Restaurant restaurant;
     private       int        numResponses;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables

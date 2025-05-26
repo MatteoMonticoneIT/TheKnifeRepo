@@ -23,7 +23,6 @@ import simple.file.CSV;
 import theknife.Controller;
 import theknife.obj.AppPaths;
 import theknife.obj.restaurant.Restaurant;
-import theknife.obj.review.Response;
 import theknife.obj.review.Review;
 
 /**
@@ -307,7 +306,7 @@ public class RestaurantGUI extends javax.swing.JPanel
         int i = 0;
         for (Review review : restaurant.getListReview().getList()) {
             i++;
-            pnl_reviews.add(new PreviewReview(controller, review, i % 2 == 0 ? BG_REVIEW_PNL_EVEN : BG_REVIEW_PNL_ODD), BorderLayout.CENTER);
+            pnl_reviews.add(new PreviewReview(controller, restaurant, review, i % 2 == 0 ? BG_REVIEW_PNL_EVEN : BG_REVIEW_PNL_ODD), BorderLayout.CENTER);
         }
         
         GridBagConstraints gbc_leftSection = new GridBagConstraints();
@@ -500,10 +499,22 @@ public class RestaurantGUI extends javax.swing.JPanel
      * 
      * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_addReview_MouseClicked(java.awt.event.MouseEvent e) {
-        addReview = new AddReview(controller, restaurant);
-        controller.getPanelMain().getPanel().add(addReview, Page.ADD_REVIEW);
-        controller.getPanelMain().showCard(Page.ADD_REVIEW);
+    private void btn_addReview_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      if(controller.getLoggedUser() != null)
+      {
+        if(controller.getLoggedUser().getRole().equals("customer"))
+        {
+          addReview = new AddReview(controller, restaurant);
+          controller.getPanelMain().getPanel().add(addReview, Page.ADD_REVIEW);
+          controller.getPanelMain().showCard(Page.ADD_REVIEW);
+        }
+      }
+      else
+      {
+        controller.getPanelMain().showCard(Page.LOGIN);
+        controller.getPanelMain().getPanel().remove(this);
+      }
     }
     
     /**

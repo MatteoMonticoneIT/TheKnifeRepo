@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import theknife.Controller;
+import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 
 /**
@@ -36,12 +37,14 @@ public final class ReviewGUI extends javax.swing.JPanel {
      * This constructor also sets the review to insert the data needed to have a graphical interface of the review itself.
      * </p>
      *
+     * @param restaurant
      * @param controller the {@link Controller} class that manages the screen layout
      * @param review the {@link Review} class that represents the review
      * @param bg the {@code Color} of the background for the {@code ReviewGUI}
      */
-    public ReviewGUI(Controller controller, Review review, Color bg) {
+    public ReviewGUI(Restaurant restaurant, Controller controller, Review review, Color bg) {
         initComponents();
+        this.restaurant = restaurant;
         this.controller = controller;
         this.review     = review;
         this.bg         = bg;
@@ -52,10 +55,11 @@ public final class ReviewGUI extends javax.swing.JPanel {
     /**
      * Initializes the graphical user interface (GUI) for the {@code PreviewReviewGUI} page.
      */
-    private void initGUI() {
-        initFields();
-        initPreviewReviewGUI();
-        initEvents();
+    private void initGUI() 
+    {
+      initFields            ();
+      initPreviewReviewGUI  ();
+      initEvents            ();
     }
     
     /**
@@ -63,8 +67,9 @@ public final class ReviewGUI extends javax.swing.JPanel {
      */
     private void initFields() 
     {
+        numResponses             = review.getResponses() == null ? 1 : review.getResponses().size();
         pnl_usernameRatingReview = new JPanel      (new BorderLayout());
-        pnl_responses            = new JPanel      (new GridLayout(review.getResponses() == null ? 1 : review.getResponses().size(), 1));
+        pnl_responses            = new JPanel      (new GridLayout(numResponses, 1));
         pnl_btns                 = new JPanel      (new GridLayout(1, 2, 10, 10));
         pnl_btn_addResponse      = new JPanel      (new BorderLayout());
         pnl_btn_back             = new JPanel      (new BorderLayout());
@@ -268,10 +273,22 @@ public final class ReviewGUI extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the button 
      */
-    private void btn_addResponse_MouseClicked(java.awt.event.MouseEvent e) {
-        addResponse = new AddResponse(controller, review);
-        controller.getPanelMain().getPanel().add(addResponse, Page.ADD_RESPONSE);
-        controller.getPanelMain().showCard(Page.ADD_RESPONSE);
+    private void btn_addResponse_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      if(controller.getLoggedUser() != null)
+      {
+        if(controller.getLoggedUser().getRole().equals("restaurateur") && controller.getLoggedUser().getId() == restaurant.getOwnerId())
+        {
+          addResponse = new AddResponse(controller, review);
+          controller.getPanelMain().getPanel().add(addResponse, Page.ADD_RESPONSE);
+          controller.getPanelMain().showCard(Page.ADD_RESPONSE);
+        }
+      }
+      else
+      {
+        controller.getPanelMain().showCard(Page.LOGIN_RESTAURATEUR);
+        controller.getPanelMain().getPanel().remove(this);
+      }
     }
     
     /**
@@ -357,6 +374,8 @@ public final class ReviewGUI extends javax.swing.JPanel {
     private       AddResponse addResponse;
     private final Color       bg;
     private final Review      review;
+    private       int         numResponses;
+    private final Restaurant  restaurant;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

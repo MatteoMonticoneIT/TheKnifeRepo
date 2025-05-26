@@ -20,8 +20,8 @@ import theknife.obj.review.Response;
  * @author Mattia Tamburo       761743 (CO)
  */
 
-public final class ListResponse extends AbstractListWrapper<Response> {
-    
+public final class ListResponse extends AbstractListWrapper<Response> 
+{   
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
@@ -29,17 +29,13 @@ public final class ListResponse extends AbstractListWrapper<Response> {
      * Initializes the list as a new empty {@link LinkedList}.
      * </p>
      */
-    public ListResponse() {
-        super(new LinkedList<Response>());
-    }
+    public ListResponse ()                      {super(new LinkedList<Response>());}
 
     /**
      * Constructor that initializes the list with an existing list of {@link Response} objects.
      *
      * @param list the list of responses to be used
      */
-    public ListResponse(List<Response> list) {
-        super(list);
-    }
+    public ListResponse (List<Response> list)   {super(list);}
     //</editor-fold>
 }

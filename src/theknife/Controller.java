@@ -34,10 +34,10 @@ import theknife.gui.ResponseGUI;
 import theknife.obj.AppPaths;
 import theknife.obj.InputPattern;
 import theknife.obj.lists.ListCustomer;
-import theknife.obj.lists.ListResponse;
+//import theknife.obj.lists.ListResponse;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.lists.ListRestaurateur;
-import theknife.obj.lists.ListReview;
+//import theknife.obj.lists.ListReview;
 import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Response;
 import theknife.obj.review.Review;
@@ -430,19 +430,19 @@ public final class Controller
      */
     @JsonProperty("restaurateurs")
     private ListRestaurateur restaurateurs;
-    
-    /**
+/*    
+    **
      * The list of {@link Review}.
-     */
+     *
     @JsonProperty("reviews")
     private ListReview reviews;
     
-    /**
+    **
      * The list of {@link Restaurateur}.
-     */
+     *
     @JsonProperty("responses")
     private ListResponse responses;
-    
+*/    
     /**
      * A {@link HashMap} mapping city names to lists of {@link Restaurant} objects.
      */  
@@ -670,21 +670,21 @@ public final class Controller
      * @return the {@code ListRestaurateur} object.
      */
     public final ListRestaurateur   getRestaurateurs    ()                                  {return restaurateurs;}
-    
-    /**
+/*    
+    **
      * Returns the {@code ListReview} object.
      * 
      * @return the {@code ListReview} object.
-     */
+     *
     public       ListReview         getReviews          ()                                  {return reviews;}
     
-    /**
+    **
      * Returns the {@code ListResponse} object.
      * 
      * @return the {@code ListResponse} object.
-     */
+     *
     public       ListResponse       getResponses        ()                                  {return responses;}
-    
+*/    
     /**
      * Returns the {@code User} object.
      * 
@@ -713,20 +713,21 @@ public final class Controller
      * @param restaurateurs the {@code ListRestaurateur} object to set.
      */
     public final void               setRestaurateurs    (ListRestaurateur restaurateurs)    {this.restaurateurs = restaurateurs;}
-
-    /**
+/*
+    **
      * Sets the {@code ListReview} object for the controller.
      * 
      * @param reviews the {@code ListReview} object to set.
-     */
+     *
     public       void               setReviews          (ListReview reviews)                {this.reviews       = reviews; }
 
-    /**
+    **
      * Sets the {@code ListResponse} object for the controller.
      * 
      * @param responses the {@code ListResponse} object to set.
-     */
+     *
     public       void               setResponses        (ListResponse responses)            {this.responses     = responses; }
+*/    
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
     /**

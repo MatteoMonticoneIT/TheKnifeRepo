@@ -20,8 +20,8 @@ import theknife.obj.restaurant.Restaurant;
  * @author Mattia Tamburo       761743 (CO)
  */
 
-public final class ListRestaurant extends AbstractListWrapper<Restaurant> {
-
+public final class ListRestaurant extends AbstractListWrapper<Restaurant> 
+{
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
@@ -29,17 +29,13 @@ public final class ListRestaurant extends AbstractListWrapper<Restaurant> {
      * Initializes the list as a new empty {@link ArrayList}.
      * </p>
      */
-    public ListRestaurant() {
-        super(new ArrayList<Restaurant>());
-    }
+    public ListRestaurant   ()                      {super(new ArrayList<Restaurant>());}
     
     /**
      * Constructor that initializes the list with an existing list of {@link Restaurant} objects.
      *
      * @param list the list of restaurants to be used
      */
-    public ListRestaurant(List<Restaurant> list) {
-        this.setList(list);
-    }
+    public ListRestaurant   (List<Restaurant> list) {this.setList(list);}
     //</editor-fold>
 }

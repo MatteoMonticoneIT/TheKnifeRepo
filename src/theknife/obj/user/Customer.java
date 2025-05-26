@@ -15,7 +15,8 @@ import theknife.obj.lists.ListFavorite;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-@JsonPropertyOrder({
+@JsonPropertyOrder(
+{
     "ID", 
     "firstName", 
     "firstNameNormalized",
@@ -29,8 +30,7 @@ import theknife.obj.lists.ListFavorite;
     "favorites"
 })
 public final class Customer extends User
-{
-   
+{  
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The list of favorite restaurants for the customer.
