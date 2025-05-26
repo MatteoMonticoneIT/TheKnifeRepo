@@ -46,97 +46,97 @@ public final class Restaurant extends Location
      * The restaurant id.
      */
     @JsonProperty("ID")
-    private int id;
+    private int         id;
     
     /**
      * The restaurant's owner id.
      */
     @JsonProperty("ownerID")
-    private int ownerId;
+    private int         ownerId;
     
     /**
      * The name of the restaurant.
      */
     @JsonProperty("name")
-    private String name;
+    private String      name;
     
     /**
      * The normalized name of the restaurant (no accents and other characters that may interfere)
      */
     @JsonProperty("normName")
-    private String normalizedName;
+    private String      normalizedName;
     
     /**
      * The price category of the restaurant.
      */
     @JsonProperty("price")
-    private int price;
+    private int         price;
     
     /**
      * The price category of the restaurant.
      */
     @JsonProperty("currency")
-    private String currency;
+    private String      currency;
     
     /**
      * The phone number of the restaurant.
      */
     @JsonProperty("phoneNo")
-    private String phoneNumber;
+    private String      phoneNumber;
     
     /**
      * The URL for the restaurant.
      */
     @JsonProperty("url")
-    private String url;
+    private String      url;
     
     /**
      * The website URL of the restaurant.
      */
     @JsonProperty("webUrl")
-    private String websiteUrl;
+    private String      websiteUrl;
     
     /**
      * The award received by the restaurant.
      */
     @JsonProperty("award")
-    private String award;
+    private String      award;
     
     /**
      * Indicates if the restaurant has a green star (sustainability recognition).
      */
     @JsonProperty("greenStar")
-    private boolean greenStar;
+    private boolean     greenStar;
     
     /**
      * Indicates the type of cuisine.
      */
     @JsonProperty("cuisine")
-    private String cuisine;
+    private String      cuisine;
     
     /**
      * A description of the services available at the restaurant.
      */
     @JsonProperty("services")
-    private String servicesAvailable;
+    private String      servicesAvailable;
     
     /**
      * A brief description of the restaurant.
      */
     @JsonProperty("description")
-    private String description;
+    private String      description;
     
     /**
      * A brief description of the restaurant.
      */
     @JsonProperty("rating")
-    private double rating;
+    private double      rating;
     
     /**
      * The list of reviews associated with the restaurant.
      */
     @JsonProperty("reviews")
-    private ListReview listReview;
+    private ListReview  listReview;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
@@ -221,286 +221,222 @@ public final class Restaurant extends Location
      *
      * @return the id of the restaurant
      */
-    public final int getId() {
-        return id;
-    }
-    
-    /**
-     * Sets the id of the restaurant.
-     *
-     * @param id the id to set for the restaurant
-     */
-    public final void setId(int id) {
-        this.id = id;
-    }
+    public final int        getId                  ()                           {return id;}
     
     /**
      * Return the id of the restaurant's owner.
      *
      * @return the id of the restaurant's owner
      */
-    public final int getOwnerId() {
-        return ownerId;
-    }
-    
-    /**
-     * Sets the id of the restaurant's owner.
-     *
-     * @param ownerId the id to set for the restaurant's owner
-     */
-    public final void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
-    }
+    public final int        getOwnerId             ()                           {return ownerId;}
     
     /**
      * Returns the name of the restaurant.
      *
      * @return the name of the restaurant
      */
-    public final String getName() {
-        return name;
-    }
-    
-    /**
-     * Sets the name of the restaurant.
-     *
-     * @param name the name to set for the restaurant
-     */
-    public final void setName(String name) {
-        this.name = name;
-    }
+    public final String     getName                 ()                          {return name;}
     
     /**
      * Returns the normalized name of the name of the restaurant.
      *
      * @return the normalized name of the name of the restaurant
      */
-    public final String getNormalizedName() {
-        return normalizedName;
-    }
-    
-    /**
-     * Sets the name normalized removing accents to prevent search issues
-     *
-     * @param normalizedName the normalized name to set
-     */
-    public final void setNormalizedName(String normalizedName) {
-        this.normalizedName = normalizedName;
-    }
+    public final String     getNormalizedName       ()                          {return normalizedName;}
     
     /**
      * Returns the price category of the restaurant.
      *
      * @return the price category of the restaurant
      */
-    public final int getPrice() {
-        return price;
-    }
+    public final int        getPrice                ()                          {return price;}
     
-    /**
-     * Sets the price category of the restaurant.
-     *
-     * @param price the price category to set
-     */
-    public final void setPrice(int price) {
-        this.price = price;
-    }
-
     /**
      * Returns the currency of the restaurant.
      * 
      * @return the currency of the restaurant
      */
-    public String getCurrency() {
-        return currency;
-    }
-
-    /**
-     * Sets the currency of the restaurant
-     * @param currency the currency to set
-     */
-    public void setCurrency(String currency) {
-        this.currency = currency.substring(0, 1);
-    }
+    public       String     getCurrency             ()                          {return currency;}
     
     /**
      * Returns the phone number of the restaurant.
      *
      * @return the phone number of the restaurant
      */
-    public final String getPhoneNumber() {
-        return phoneNumber;
-    }
-    
-    /**
-     * Sets the phone number of the restaurant.
-     *
-     * @param phoneNumber the phone number to set
-     */
-    public final void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+    public final String     getPhoneNumber          ()                          {return phoneNumber;}
     
     /**
      * Returns the URL for the restaurant.
      *
      * @return the URL for the restaurant
      */
-    public final String getUrl() {
-        return url;
-    }
-    
-    /**
-     * Sets the URL for the restaurant.
-     *
-     * @param url the URL to set
-     */
-    public final void setUrl(String url) {
-        this.url = url;
-    }
+    public final String     getUrl                  ()                          {return url;}
     
     /**
      * Returns the website URL of the restaurant.
      *
      * @return the website URL of the restaurant
      */
-    public final String getWebsiteUrl() {
-        return websiteUrl;
-    }
-    
-    /**
-     * Sets the website URL of the restaurant.
-     *
-     * @param websiteUrl the website URL to set
-     */
-    public final void setWebsiteUrl(String websiteUrl) {
-        this.websiteUrl = websiteUrl;
-    }
-    
+    public final String     getWebsiteUrl           ()                          {return websiteUrl;}
+  
     /**
      * Returns the award received by the restaurant.
      *
      * @return the award received by the restaurant
      */
-    public final String getAward() {
-        return award;
-    }
-    
-    /**
-     * Sets the award received by the restaurant.
-     *
-     * @param award the award to set
-     */
-    public final void setAward(String award) {
-        this.award = award;
-    }
+    public final String     getAward                ()                          {return award;}
     
     /**
      * Returns whether the restaurant has a green star (sustainability recognition).
      *
      * @return true if the restaurant has a green star, false otherwise
      */
-    public final boolean isGreenStar() {
-        return greenStar;
-    }
+    public final boolean    isGreenStar             ()                          {return greenStar;}
     
     /**
-     * Sets whether the restaurant has a green star (sustainability recognition).
-     *
-     * @param greenStar the green star status to set
-     */
-    public final void setGreenStar(boolean greenStar) {
-        this.greenStar = greenStar;
-    }
-    
-        /**
      * Returns the type of cuisine of the restaurant.
      *
      * @return the type of cuisine of the restaurant
      */
-    public final String getCuisine() {
-        return cuisine;
-    }
-    
-    /**
-     * Sets the type of cuisine of the restaurant.
-     *
-     * @param cuisine the type of cuisine to set
-     */
-    public final void setCuisine(String cuisine) {
-        this.cuisine = cuisine;
-    }
-    
+    public final String     getCuisine              ()                          {return cuisine;}
+          
     /**
      * Returns the services available at the restaurant.
      *
      * @return the services available at the restaurant
      */
-    public final String getServicesAvailable() {
-        return servicesAvailable;
-    }
-    
-    /**
-     * Sets the services available at the restaurant.
-     *
-     * @param servicesAvailable the services available to set
-     */
-    public final void setServicesAvailable(String servicesAvailable) {
-        this.servicesAvailable = servicesAvailable;
-    }
+    public final String     getServicesAvailable    ()                          {return servicesAvailable;}
     
     /**
      * Returns a brief description of the restaurant.
      *
      * @return the description of the restaurant
      */
-    public final String getDescription() {
-        return description;
-    }
-    
-    /**
-     * Sets the description of the restaurant.
-     *
-     * @param description the description to set
-     */
-    public final void setDescription(String description) {
-        this.description = description;
-    }
+    public final String     getDescription          ()                          {return description;}
     
     /**
      * Returns the rating of the restaurant.
      *
      * @return the rating of the restaurant
      */
-    public double getRating() {
-        return rating;
-    }
-    
-    /**
-     * Sets the rating of the restaurant.
-     *
-     * @param rating the rating to set
-     */
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
+    public       double     getRating               ()                          {return rating;}
     
     /**
      * Returns the list of reviews associated with the restaurant.
      *
      * @return the list of reviews for the restaurant
      */
-    public final ListReview getListReview() {
-        return listReview;
-    }
+    public final ListReview getListReview           ()                          {return listReview;}
     
+    /**
+     * Sets the id of the restaurant.
+     *
+     * @param id the id to set for the restaurant
+     */
+    public final void       setId                   (int id)                    {this.id                = id;}
+    
+    /**
+     * Sets the id of the restaurant's owner.
+     *
+     * @param ownerId the id to set for the restaurant's owner
+     */
+    public final void       setOwnerId              (int ownerId)               {this.ownerId           = ownerId; }
+    
+    /**
+     * Sets the name of the restaurant.
+     *
+     * @param name the name to set for the restaurant
+     */
+    public final void       setName                 (String name)               {this.name              = name;}
+    
+    /**
+     * Sets the name normalized removing accents to prevent search issues
+     *
+     * @param normalizedName the normalized name to set
+     */
+    public final void       setNormalizedName       (String normalizedName)     {this.normalizedName    = normalizedName;}
+     
+    /**
+     * Sets the price category of the restaurant.
+     *
+     * @param price the price category to set
+     */
+    public final void       setPrice                (int price)                 {this.price             = price;}
+
+    /**
+     * Sets the currency of the restaurant
+     * @param currency the currency to set
+     */
+    public       void       setCurrency             (String currency)           {this.currency          = currency.substring(0, 1);}
+ 
+    /**
+     * Sets the phone number of the restaurant.
+     *
+     * @param phoneNumber the phone number to set
+     */
+    public final void       setPhoneNumber          (String phoneNumber)        {this.phoneNumber       = phoneNumber;}
+    
+    /**
+     * Sets the URL for the restaurant.
+     *
+     * @param url the URL to set
+     */
+    public final void       setUrl                  (String url)                {this.url               = url;}
+
+    /**
+     * Sets the website URL of the restaurant.
+     *
+     * @param websiteUrl the website URL to set
+     */
+    public final void       setWebsiteUrl           (String websiteUrl)         {this.websiteUrl        = websiteUrl;}
+   
+    /**
+     * Sets the award received by the restaurant.
+     *
+     * @param award the award to set
+     */
+    public final void       setAward                (String award)              {this.award             = award;}
+
+    /**
+     * Sets whether the restaurant has a green star (sustainability recognition).
+     *
+     * @param greenStar the green star status to set
+     */
+    public final void       setGreenStar            (boolean greenStar)         {this.greenStar         = greenStar;}
+
+    /**
+     * Sets the type of cuisine of the restaurant.
+     *
+     * @param cuisine the type of cuisine to set
+     */
+    public final void       setCuisine              (String cuisine)            {this.cuisine           = cuisine; }
+
+    /**
+     * Sets the services available at the restaurant.
+     *
+     * @param servicesAvailable the services available to set
+     */
+    public final void       setServicesAvailable    (String servicesAvailable)  {this.servicesAvailable = servicesAvailable;}
+ 
+    /**
+     * Sets the description of the restaurant.
+     *
+     * @param description the description to set
+     */
+    public final void       setDescription          (String description)        {this.description       = description;}
+ 
+    /**
+     * Sets the rating of the restaurant.
+     *
+     * @param rating the rating to set
+     */
+    public       void       setRating               (double rating)             {this.rating            = rating;}
+
     /**
      * Sets the list of reviews for the restaurant.
      *
      * @param listReview the list of reviews to set
      */
-    public final void setListReview(ListReview listReview) {
-        this.listReview = listReview;
-    }
+    public final void       setListReview           (ListReview listReview)     {this.listReview        = listReview;}
     //</editor-fold>
 }

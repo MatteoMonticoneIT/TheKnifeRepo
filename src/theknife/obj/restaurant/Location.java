@@ -15,8 +15,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Mattia Tamburo       761743 (CO)
  */
 
-public class Location extends Coordinate {
-    
+public class Location extends Coordinate 
+{
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The country of the location.
@@ -43,8 +43,7 @@ public class Location extends Coordinate {
      * Initializes a {@code Location} with no country, city or address.
      * </p>
      */
-    public Location() {
-    }
+    public Location() {}
     
     /**
      * Constructor that initializes the {@code Location} object with the specified country, city, address, and geographic coordinates (latitude and longitude).
@@ -55,11 +54,12 @@ public class Location extends Coordinate {
      * @param latitude the latitude of the location
      * @param longitude the longitude of the location
      */
-    public Location(String country, String city, String address, double latitude, double longitude) {
-        super(latitude, longitude);
-        setCountry(country);
-        setCity(city);
-        setAddress(address);
+    public Location(String country, String city, String address, double latitude, double longitude) 
+    {
+      super     (latitude, longitude);
+      setCountry(country);
+      setCity   (city);
+      setAddress(address);
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
@@ -68,53 +68,41 @@ public class Location extends Coordinate {
      *
      * @return the country of the location
      */
-    public final String getCountry() {
-        return country;
-    }
-    
-    /**
-     * Sets the country of the location.
-     *
-     * @param country the new country to set
-     */
-    public final void setCountry(String country) {
-        this.country = country;
-    }
+    public final String getCountry      ()                  {return country;}
     
     /**
      * Returns the city of the location.
      *
      * @return the city of the location
      */
-    public final String getCity() {
-        return city;
-    }
-    
-    /**
-     * Sets the city of the location.
-     *
-     * @param city the new city to set
-     */
-    public final void setCity(String city) {
-        this.city = city;
-    }
+    public final String getCity         ()                  {return city;}
     
     /**
      * Returns the address of the location.
      *
      * @return the address of the location
      */
-    public final String getAddress() {
-        return address;
-    }
+    public final String getAddress      ()                  {return address;}
     
+    /**
+     * Sets the country of the location.
+     *
+     * @param country the new country to set
+     */
+    public final void   setCountry      (String country)    {this.country   = country;}
+      
+    /**
+     * Sets the city of the location.
+     *
+     * @param city the new city to set
+     */
+    public final void   setCity         (String city)       {this.city      = city; }
+     
     /**
      * Sets the address of the location.
      *
      * @param address the new address to set
      */
-    public final void setAddress(String address) {
-        this.address = address;
-    }
+    public final void   setAddress      (String address)    {this.address   = address;}
     //</editor-fold>
 }

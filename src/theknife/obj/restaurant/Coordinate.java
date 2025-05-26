@@ -15,8 +15,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Mattia Tamburo       761743 (CO)
  */
 
-public class Coordinate {
-    
+public class Coordinate 
+{  
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The latitude of the geographic location.
@@ -37,8 +37,7 @@ public class Coordinate {
      * Initializes the {@code Coordinate} object with default values (latitude = 0, longitude = 0).
      * </p>
      */
-    public Coordinate() {
-    }
+    public Coordinate() {}
     
     /**
      * Constructor that initializes the {@code Coordinate} object with the specified latitude and longitude.
@@ -46,9 +45,10 @@ public class Coordinate {
      * @param latitude the latitude of the geographic location
      * @param longitude the longitude of the geographic location
      */
-    public Coordinate(double latitude, double longitude) {
-        setLatitude(latitude);
-        setLongitude(longitude);
+    public Coordinate(double latitude, double longitude) 
+    {
+      setLatitude   (latitude);
+      setLongitude  (longitude);
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
@@ -57,35 +57,26 @@ public class Coordinate {
      *
      * @return the latitude
      */
-    public final double getLatitude() {
-        return latitude;
-    }
-    
-    /**
-     * Sets the latitude of the geographic location.
-     *
-     * @param latitude the new latitude to set
-     */
-    public final void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
+    public final double getLatitude     ()                  {return latitude;}
     
     /**
      * Returns the longitude of the geographic location.
      *
      * @return the longitude
      */
-    public final double getLongitude() {
-        return longitude;
-    }
-    
+    public final double getLongitude    ()                  {return longitude;}
+    /**
+     * Sets the latitude of the geographic location.
+     *
+     * @param latitude the new latitude to set
+     */
+    public final void setLatitude       (double latitude)   {this.latitude = latitude;}
+  
     /**
      * Sets the longitude of the geographic location.
      *
      * @param longitude the new longitude to set
      */
-    public final void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
+    public final void setLongitude      (double longitude)  {this.longitude = longitude;}
     //</editor-fold>
 }
