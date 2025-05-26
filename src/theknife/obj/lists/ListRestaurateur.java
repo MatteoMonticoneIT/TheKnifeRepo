@@ -2,8 +2,6 @@ package theknife.obj.lists;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import simple.crypto.AES;
 import simple.logging.LoggerUtils;
 import theknife.obj.user.Restaurateur;
@@ -41,7 +39,7 @@ public final class ListRestaurateur extends AbstractListWrapper<Restaurateur>
      * @param list the list of restaurateurs to be used
      */
     public ListRestaurateur (List<Restaurateur> list)   {super(list); }
-    
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
     /**
      * Checks if a restaurateur exists in the list by comparing the username and password.

@@ -137,7 +137,7 @@ public final class TheKnife extends JFrame
     private boolean     isFullscreen;
     private Rectangle   windowResolution;
     //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Java Auto Generated Code">
+    //<editor-fold defaultstate="collapsed" desc="Java Swing Auto Generated Code">
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

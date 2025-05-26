@@ -20,8 +20,8 @@ import theknife.obj.review.Review;
  * @author Mattia Tamburo       761743 (CO)
  */
 
-public final class ListReview extends AbstractListWrapper<Review> {
-
+public final class ListReview extends AbstractListWrapper<Review> 
+{
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor
@@ -29,17 +29,13 @@ public final class ListReview extends AbstractListWrapper<Review> {
      * Initializes the list as a new empty {@link LinkedList}.
      * </p>
      */
-    public ListReview() {
-        super(new LinkedList<Review>());
-    }
+    public ListReview   ()                  {super(new LinkedList<Review>());}
     
     /**
      * Constructor that initializes the list with an existing list of {@link Review} objects.
      *
      * @param list the list of reviews to be used
      */
-    public ListReview(List<Review> list) {
-        super(list);
-    }
+    public ListReview   (List<Review> list) {super(list);}
     //</editor-fold>
 }

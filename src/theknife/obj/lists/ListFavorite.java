@@ -21,8 +21,7 @@ import theknife.obj.restaurant.Restaurant;
  */
 
 public final class ListFavorite extends AbstractListWrapper<Integer> 
-{
-    
+{    
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
      * Default constructor.
@@ -30,19 +29,13 @@ public final class ListFavorite extends AbstractListWrapper<Integer>
      * Initializes the list as a new empty {@link LinkedList}.
      * </p>
      */
-    public ListFavorite() 
-    {
-      super(new LinkedList<Integer>());
-    }
+    public ListFavorite ()                      {super(new LinkedList<Integer>());}
     
     /**
      * Constructor that initializes the list with an existing list of {@link Restaurant} IDs.
      *
      * @param list the list of restaurants to be used as favorites
      */
-    public ListFavorite(List<Integer> list) 
-    {
-      super(list);
-    }
+    public ListFavorite (List<Integer> list)    {super(list);}
     //</editor-fold>
 }

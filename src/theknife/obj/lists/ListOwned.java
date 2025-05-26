@@ -29,19 +29,13 @@ public final class ListOwned extends AbstractListWrapper<Integer>
      * Initializes the list as a new empty {@link LinkedList}.
      * </p>
      */
-    public ListOwned() 
-    {
-      super(new LinkedList<Integer>());
-    }
+    public ListOwned    ()                      {super(new LinkedList<Integer>());}
     
     /**
      * Constructor that initializes the list with an existing list of {@link Restaurant} IDs.
      *
      * @param list the list of restaurants to be used as owned
      */
-    public ListOwned(List<Integer> list) 
-    {
-      super(list);
-    }
+    public ListOwned    (List<Integer> list)    {super(list);}
     //</editor-fold>
 }

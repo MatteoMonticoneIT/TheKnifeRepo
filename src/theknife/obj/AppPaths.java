@@ -16,8 +16,9 @@ import java.net.URISyntaxException;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class AppPaths {
-
+public final class AppPaths 
+{
+    //<editor-fold defaultstate="collapsed" desc="Methods">
     /**
      * Returns the directory where the JAR file is located.
      * <p>
@@ -29,14 +30,18 @@ public final class AppPaths {
      * @return a {@link File} representing the directory containing the JAR
      * @throws RuntimeException if the path cannot be determined
      */
-    public static File getJarDir() {
-        try {
-            File jarPath = new File(AppPaths.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-            File dir = jarPath.getParentFile();
-            return dir.getName().equals("build") ? new File(dir.getParentFile(), "dist") : dir;
-        } catch (URISyntaxException e) {
-            throw new RuntimeException("Unable to get the JAR directory: ", e);
-        }
+    public static File getJarDir        () 
+    {
+      try 
+      {
+        File jarPath = new File(AppPaths.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+        File dir     = jarPath.getParentFile();
+        return dir.getName().equals("build") ? new File(dir.getParentFile(), "dist") : dir;
+      } 
+      catch (URISyntaxException e)
+      {
+        throw new RuntimeException("Unable to get the JAR directory: ", e);
+      }
     }
     
     /**
@@ -47,11 +52,12 @@ public final class AppPaths {
      * @return File instance pointing to the file
      * @throws RuntimeException if the file does not exist
      */
-    public static File getRequiredFile(String folder, String filename) {
-        File file = new File(getJarDir(), folder + File.separator + filename);
-        if (!file.exists()) 
-            throw new RuntimeException("Required file does not exist: " + file.getAbsolutePath());
-        return file;
+    public static File getRequiredFile  (String folder, String filename) 
+    {
+      File file = new File(getJarDir(), folder + File.separator + filename);
+      if (!file.exists()) 
+        throw new RuntimeException("Required file does not exist: " + file.getAbsolutePath());
+      return file;
     }
 
     /**
@@ -61,10 +67,12 @@ public final class AppPaths {
      * @param filename - file name
      * @return File instance pointing to the file (may not exist)
      */
-    public static File getOptionalFile(String folder, String filename) {
-        File dir = new File(getJarDir(), folder);
-        if (!dir.exists()) 
-            dir.mkdirs();
-        return new File(dir, filename);
+    public static File getOptionalFile  (String folder, String filename) 
+    {
+      File dir = new File(getJarDir(), folder);
+      if (!dir.exists()) 
+        dir.mkdirs();
+      return new File(dir, filename);
     }
+    //</editor-fold>
 }
