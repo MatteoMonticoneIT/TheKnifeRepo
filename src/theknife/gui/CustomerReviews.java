@@ -292,6 +292,7 @@ public final class CustomerReviews extends javax.swing.JPanel {
             controller.getRestaurants().getList().get(restaurantIDIndex).getListReview().remove(review);
             reviews.remove(review);
             updatePanelReviews();
+            controller.restaurantRatingAverage(restaurant);
         }
     }
     
@@ -334,6 +335,7 @@ public final class CustomerReviews extends javax.swing.JPanel {
             EditReview editReview = new EditReview(controller, restaurant, review);
             controller.getPanelMain().getPanel().add(editReview, Page.EDIT_REVIEW);
             controller.getPanelMain().showCard(Page.EDIT_REVIEW);
+            controller.getPanelMain().getPanel().remove(this);
         }
     }
     

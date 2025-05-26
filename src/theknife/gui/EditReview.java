@@ -282,7 +282,9 @@ public final class EditReview extends javax.swing.JPanel {
      */
     private void btn_cancel_MouseClicked(java.awt.event.MouseEvent e)
     {
-      controller.getPanelMain().showCard(Page.REVIEW);
+      CustomerReviews customerReviews = new CustomerReviews(controller);
+      controller.getPanelMain().getPanel().add(customerReviews, Page.CUSTOMER_REVIEWS);
+      controller.getPanelMain().showCard(Page.CUSTOMER_REVIEWS);
       controller.getPanelMain().getPanel().remove(this);
     }
     
@@ -330,6 +332,8 @@ public final class EditReview extends javax.swing.JPanel {
         restaurant.getListReview().getList().add   (newReview.getID() - 1, newReview);
         controller.restaurantRatingAverage(restaurant);
         
+        CustomerReviews customerReviews = new CustomerReviews(controller);
+        controller.getPanelMain().getPanel().add(customerReviews, Page.CUSTOMER_REVIEWS);
         controller.getPanelMain().showCard(Page.CUSTOMER_REVIEWS);
         controller.getPanelMain().getPanel().remove(this);
       }
