@@ -22,8 +22,10 @@ import javax.swing.border.Border;
 import simple.file.CSV;
 import theknife.Controller;
 import theknife.obj.AppPaths;
+import theknife.obj.lists.ListFavorite;
 import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
+import theknife.obj.user.Customer;
 
 /**
  * The {@code RestaurantGUI} class represents the graphical interface panel for displaying information about a specific {@link Restaurant}.
@@ -51,10 +53,14 @@ public class RestaurantGUI extends javax.swing.JPanel
      */
     public RestaurantGUI(Controller controller, Restaurant restaurant) 
     {
-        initComponents();
-        this.controller = controller;
-        this.restaurant = restaurant;
-        initGUI();
+      initComponents();
+      this.controller = controller;
+      this.restaurant = restaurant;
+      if(controller.getLoggedUser() != null)
+        if(controller.getLoggedUser().getRole().equals("customer"))
+          customer = (Customer)controller.getLoggedUser();
+      
+      initGUI();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
@@ -130,52 +136,60 @@ public class RestaurantGUI extends javax.swing.JPanel
      */
     private void initFields() 
     {
-        pnl_content           = new JPanel(new GridBagLayout());
-        pnl_leftContent       = new JPanel(new GridBagLayout());
-        pnl_leftSection       = new JPanel(new GridBagLayout());
-        pnl_section           = new JPanel(new GridBagLayout());
-        pnl_reviews           = new JPanel(new GridLayout(restaurant.getListReview().getList().size(), 1));
-        pnl_btns              = new JPanel(new GridLayout(1, 2, 10, 10));
-        pnl_btn_addReview     = new JPanel(new BorderLayout());
-        pnl_btn_back          = new JPanel(new BorderLayout());
-        lbl_name              = new JLabel(restaurant.getName());
-        lbl_price             = new JLabel(String.valueOf(restaurant.getPrice()));
-        lbl_currency          = new JLabel(restaurant.getCurrency());
-        lbl_phoneNo           = new JLabel(restaurant.getPhoneNumber());
-        lbl_location          = new JLabel(restaurant.getCountry() + ", " + restaurant.getCity());
-        lbl_address           = new JLabel(wrapTextHTML(restaurant.getAddress()));
-        lbl_latitude          = new JLabel(String.valueOf(restaurant.getLatitude()));
-        lbl_longitude         = new JLabel(String.valueOf(restaurant.getLongitude()));
-        lbl_url               = new JLabel(restaurant.getUrl());
-        lbl_webUrl            = new JLabel(restaurant.getWebsiteUrl());
-        lbl_award             = new CustomJLabel(restaurant.getAward(), FULL_STAR);
-        lbl_greenStar         = new CustomJLabel("", restaurant.isGreenStar() ? FULL_STAR : EMPTY_STAR);
-        lbl_services          = new JLabel(wrapTextHTML(restaurant.getServicesAvailable()));
-        lbl_rating            = new CustomJLabel("Overall rating: " + String.format("%.2f", restaurant.getRating()), FULL_STAR);
-        lbls                  = new JLabel[] 
-        {
-            lbl_name,
-            lbl_price,
-            lbl_currency,
-            lbl_phoneNo,
-            lbl_location,
-            lbl_address,
-            lbl_latitude,
-            lbl_longitude,
-            lbl_url,
-            lbl_webUrl,
-            lbl_award,
-            lbl_greenStar,
-            lbl_services,
-            lbl_rating
-        };
-        lbls_leftSection      = new JLabel[] 
-        {
-            lbl_price,
-            lbl_location,
-            lbl_phoneNo,
-            lbl_award,
-            lbl_greenStar
+      char star = EMPTY_STAR;
+      
+      if(customer!= null && customer.getListFavorite().getList()!=null)
+        for(Integer integer: customer.getListFavorite().getList())
+          if(integer==restaurant.getId())
+            star = FULL_STAR;
+          
+      pnl_content           = new JPanel(new GridBagLayout());
+      pnl_leftContent       = new JPanel(new GridBagLayout());
+      pnl_leftSection       = new JPanel(new GridBagLayout());
+      pnl_section           = new JPanel(new GridBagLayout());
+      pnl_reviews           = new JPanel(new GridLayout(restaurant.getListReview().getList().size(), 1));
+      pnl_btns              = new JPanel(new GridLayout(1, 2, 10, 10));
+      pnl_btn_addReview     = new JPanel(new BorderLayout());
+      pnl_btn_back          = new JPanel(new BorderLayout());
+      pnl_upperbar          = new JPanel(new GridBagLayout());
+      lbl_name              = new JLabel(restaurant.getName());
+      lbl_price             = new JLabel(String.valueOf(restaurant.getPrice()));
+      lbl_currency          = new JLabel(restaurant.getCurrency());
+      lbl_phoneNo           = new JLabel(restaurant.getPhoneNumber());
+      lbl_location          = new JLabel(restaurant.getCountry() + ", " + restaurant.getCity());
+      lbl_address           = new JLabel(wrapTextHTML(restaurant.getAddress()));
+      lbl_latitude          = new JLabel(String.valueOf(restaurant.getLatitude()));
+      lbl_longitude         = new JLabel(String.valueOf(restaurant.getLongitude()));
+      lbl_url               = new JLabel(restaurant.getUrl());
+      lbl_webUrl            = new JLabel(restaurant.getWebsiteUrl());
+      lbl_award             = new CustomJLabel(restaurant.getAward(), FULL_STAR);
+      lbl_greenStar         = new CustomJLabel("", restaurant.isGreenStar() ? FULL_STAR : EMPTY_STAR);
+      lbl_services          = new JLabel(wrapTextHTML(restaurant.getServicesAvailable()));
+      lbl_rating            = new CustomJLabel("Overall rating: " + String.format("%.2f", restaurant.getRating()), FULL_STAR);
+      lbls                  = new JLabel[] 
+      {
+        lbl_name,
+        lbl_price,
+        lbl_currency,
+        lbl_phoneNo,
+        lbl_location,
+        lbl_address,
+        lbl_latitude,
+        lbl_longitude,
+        lbl_url,
+        lbl_webUrl,
+        lbl_award,
+        lbl_greenStar,
+        lbl_services,
+        lbl_rating
+      };
+      lbls_leftSection      = new JLabel[] 
+      {
+                lbl_price,
+                lbl_location,
+                lbl_phoneNo,
+                lbl_award,
+                lbl_greenStar
         };
         lbls_section          = new JLabel[] 
         {
@@ -186,6 +200,7 @@ public class RestaurantGUI extends javax.swing.JPanel
         };
         btn_addReview         = new JLabel     (ADD_REVIEW);
         btn_back              = new JLabel     (BACK);
+        btn_addFavourite      = new CustomJLabel("",star);
         btn_addReviewRounded  = new JLayer<>   (btn_addReview, BTN_LAYERUI);
         btn_backRounded       = new JLayer<>   (btn_back,      BTN_LAYERUI);
         txt_description       = new JTextArea  (restaurant.getDescription());
@@ -222,11 +237,21 @@ public class RestaurantGUI extends javax.swing.JPanel
             lbl.setFont                 (this.getFont());
             lbl.setBorder               (PADDING_LBL);
             lbl.setOpaque               (true);
-        }
-        lbl_name.setBackground          (BG_NAME);
+        }     
+        
         lbl_name.setHorizontalAlignment (JLabel.CENTER);
-        lbl_name.setPreferredSize       (new Dimension(0, LBL_NAME_HEIGHT));
+        lbl_name.setPreferredSize       (new Dimension(this.getWidth(), LBL_NAME_HEIGHT));
         lbl_name.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 40));
+        lbl_name.setOpaque(false);
+        
+        btn_addFavourite.setOpaque(true);
+        btn_addFavourite.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 40));
+        btn_addFavourite.setCustomFontSize(72f);
+        btn_addFavourite.setBackground(BG_NAME);
+        btn_addFavourite.setCharacterColor(BG_STAR_DEFAULT);
+  
+        pnl_upperbar.setPreferredSize(new Dimension(0, LBL_NAME_HEIGHT));
+        pnl_upperbar.setBackground          (BG_NAME);
         
         lbl_rating.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 34));
         lbl_rating.setHorizontalAlignment(JLabel.CENTER);
@@ -309,6 +334,20 @@ public class RestaurantGUI extends javax.swing.JPanel
             pnl_reviews.add(new PreviewReview(controller, restaurant, review, i % 2 == 0 ? BG_REVIEW_PNL_EVEN : BG_REVIEW_PNL_ODD), BorderLayout.CENTER);
         }
         
+        GridBagConstraints gbc_upperbar = new GridBagConstraints();
+        gbc_upperbar.gridx     = 0;
+        gbc_upperbar.gridy     = 0;
+        gbc_upperbar.weightx   = 0.9;
+        gbc_upperbar.gridwidth = 1;
+        gbc_upperbar.fill      = GridBagConstraints.BOTH;
+
+        pnl_upperbar.add(lbl_name, gbc_upperbar);
+        
+        gbc_upperbar.gridx++;
+        gbc_upperbar.anchor = GridBagConstraints.EAST;
+        gbc_upperbar.weightx = 0.1;
+        pnl_upperbar.add(btn_addFavourite, gbc_upperbar);
+        
         GridBagConstraints gbc_leftSection = new GridBagConstraints();
         gbc_leftSection.gridx     = 0;
         gbc_leftSection.gridy     = 0;
@@ -372,8 +411,8 @@ public class RestaurantGUI extends javax.swing.JPanel
         gbc_content.weighty = 1;
         gbc_content.gridy++;
         pnl_content.add(scrlPnl_reviews, gbc_content);
-        
-        this.add(lbl_name,        BorderLayout.NORTH);
+
+        this.add(pnl_upperbar,    BorderLayout.NORTH);
         this.add(pnl_content,     BorderLayout.CENTER);
         this.add(pnl_leftContent, BorderLayout.WEST);
         this.add(pnl_btns,        BorderLayout.SOUTH);
@@ -426,6 +465,23 @@ public class RestaurantGUI extends javax.swing.JPanel
             @Override
             public void mouseExited(java.awt.event.MouseEvent e) {
                 btn_addReview_MouseExited(e);
+            }
+        });
+        
+        btn_addFavourite.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                btn_addFavourite_MouseClicked(e);
+            }
+            
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                btn_addFavourite_MouseEntered(e);
+            }
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                btn_addFavourite_MouseExited(e);
             }
         });
     }
@@ -535,6 +591,57 @@ public class RestaurantGUI extends javax.swing.JPanel
     private void btn_addReview_MouseExited(java.awt.event.MouseEvent e) {
         btn_addReview.setBackground(BG_ADDREVIEW_BTN);
     }
+    
+        /**
+     * Handles the click event on the add review button {@link JLabel}.
+     * <p>
+     * When the button is clicked, the view switches to the {@link AddReview} screen.
+     * </p>
+     * 
+     * @param e the mouse event triggered by clicking the button 
+     */
+    private void btn_addFavourite_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      if(customer != null)
+      {
+        if(btn_addFavourite.getCharacter() == EMPTY_STAR)
+        {          
+          if(customer.getListFavorite()==null)
+            customer.setListFavorite(new ListFavorite());
+          customer.getListFavorite().add(restaurant.getId());
+          btn_addFavourite.setCharacter(FULL_STAR);
+        }
+        else
+        {
+          customer.getListFavorite().remove(restaurant.getId());
+          btn_addFavourite.setCharacter(EMPTY_STAR);
+        }
+      }
+      else
+      {
+        controller.getPanelMain().showCard(Page.LOGIN);
+        controller.getPanelMain().getPanel().remove(this);
+      }
+    }
+    
+    /**
+     * Handles the hover event on the add review button {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by hovering to the button
+     */
+    private void btn_addFavourite_MouseEntered(java.awt.event.MouseEvent e) {
+        btn_addFavourite.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn_addFavourite.setCharacter(btn_addFavourite.getCharacter()==FULL_STAR ? EMPTY_STAR:FULL_STAR);
+    }
+    
+    /**
+     * Handles the exit hover event on the add review button {@link JLabel}.
+     * 
+     * @param e the mouse event triggered by leaving the cursor from the button
+     */
+    private void btn_addFavourite_MouseExited(java.awt.event.MouseEvent e) {
+        btn_addFavourite.setCharacter(btn_addFavourite.getCharacter()==FULL_STAR ? EMPTY_STAR:FULL_STAR);
+    }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
     /**
@@ -606,6 +713,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     private JPanel             pnl_content;
     private JPanel             pnl_reviews;
     private JPanel             pnl_btns;
+    private JPanel             pnl_upperbar;
     private JPanel             pnl_btn_addReview;
     private JPanel             pnl_btn_back;
     private JScrollPane        scrlPnl_description;
@@ -621,13 +729,14 @@ public class RestaurantGUI extends javax.swing.JPanel
     private JLabel             lbl_longitude;
     private JLabel             lbl_url;
     private JLabel             lbl_webUrl;
-    private CustomJLabel        lbl_award;
-    private CustomJLabel        lbl_greenStar;
+    private CustomJLabel       lbl_award;
+    private CustomJLabel       lbl_greenStar;
     private JLabel             lbl_services;
-    private CustomJLabel        lbl_rating;
+    private CustomJLabel       lbl_rating;
     private JLabel[]           lbls;
     private JLabel[]           lbls_leftSection;
     private JLabel[]           lbls_section;
+    private CustomJLabel       btn_addFavourite;
     private JLabel             btn_addReview;
     private JLabel             btn_back;
     private JLayer<JComponent> btn_addReviewRounded;
@@ -637,6 +746,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     private final  Controller controller;
     private final  Restaurant restaurant;
     private        AddReview  addReview;
+    private        Customer   customer;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
