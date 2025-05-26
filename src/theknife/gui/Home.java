@@ -96,6 +96,7 @@ public final class Home extends javax.swing.JPanel
       lbl_title             = new JLabel        (TITLE);
       btn_addRestaurant     = new JLabel        (wrapTextHTML(ADD_RESTAURANT));
       btn_favourite         = new JLabel        (FAVOURITE);
+      btn_reviews           = new JLabel        (REVIEWS);
       btn_restaurantOwned   = new JLabel        (wrapTextHTML(OWNED_RESTAURANTS));
       upperbar              = new Upperbar      (controller, lbl_title);
       pnl_home              = new CustomJPanel  (new GridBagLayout(), Page.HOME);
@@ -105,6 +106,7 @@ public final class Home extends javax.swing.JPanel
       {
           btn_addRestaurant,
           btn_favourite,
+          btn_reviews,
           btn_restaurantOwned
       };
     }
@@ -228,6 +230,25 @@ public final class Home extends javax.swing.JPanel
           btn_favourite_MouseExited(e);
         }
       });
+            
+      btn_reviews.addMouseListener(new MouseAdapter() 
+      {
+        @Override
+        public void mouseClicked(MouseEvent e) 
+        {
+          btn_reviews_MouseClicked(e);
+        }
+        @Override
+        public void mouseEntered(MouseEvent e) 
+        {
+          btn_reviews_MouseEntered(e);
+        }
+        @Override
+        public void mouseExited(MouseEvent e) 
+        {
+          btn_reviews_MouseExited(e);
+        }
+      });
       
       btn_restaurantOwned.addMouseListener(new MouseAdapter() 
       {
@@ -334,6 +355,42 @@ public final class Home extends javax.swing.JPanel
       btn_favourite.setBackground(BG_SIDEBAR_BTN_ODD);
     }
     
+    /**
+     * Handles the click event for the reviews button.
+     * <p>
+     * When clicked, it loads the favourite list of logged customer.
+     * </p>
+     * 
+     * @param e the mouse event triggered by clicking the button 
+     */
+    private void btn_reviews_MouseClicked(MouseEvent e) 
+    {
+        CustomerReviews customerReviews = new CustomerReviews(controller);
+        controller.getPanelMain().getPanel().add(customerReviews, Page.CUSTOMER_REVIEWS);
+        controller.getPanelMain().showCard(Page.CUSTOMER_REVIEWS);
+    }
+    
+    /**
+     * Handles the hover event on the reviews button {@link JButton}.
+     * 
+     * @param e the mouse event triggered by hovering to the button.
+     */
+    private void btn_reviews_MouseEntered(java.awt.event.MouseEvent e) 
+    {
+      btn_reviews.setCursor       (new Cursor(Cursor.HAND_CURSOR));
+      btn_reviews.setBackground   (btn_reviews.getBackground().darker());
+    }
+    
+     /**
+     * Handles the exit hover event on the reviews button {@link JButton}.
+     * 
+     * @param e the mouse event triggered by leaving the cursor from the button
+     */
+    private void btn_reviews_MouseExited(java.awt.event.MouseEvent e) 
+    {
+      btn_reviews.setBackground(BG_SIDEBAR_BTN_ODD);
+    }
+    
      /**
      * Handles the click event for the Owned Restaurant button.
      * <p>
@@ -431,6 +488,7 @@ public final class Home extends javax.swing.JPanel
       {
         case "customer":
           pnl_sideBar.add(btn_favourite);
+          pnl_sideBar.add(btn_reviews);
           break;
         case "restaurateur":
           pnl_sideBar.add(btn_restaurantOwned);
@@ -494,6 +552,7 @@ public final class Home extends javax.swing.JPanel
     private final String TITLE                  = "All restaurants";  
     private final String ADD_RESTAURANT         = "Add restaurant";  
     private final String FAVOURITE              = "Favourites";  
+    private final String REVIEWS                = "Reviews";  
     private final String OWNED_RESTAURANTS      = "Owned restaurants";  
     private final int    SIDEBAR_WIDTH          = 100;
     //</editor-fold>
@@ -506,6 +565,7 @@ public final class Home extends javax.swing.JPanel
     private JScrollPane                     scrlPnl_restaurants;
     private JLabel                          lbl_title;
     private JLabel                          btn_favourite;
+    private JLabel                          btn_reviews;
     private JLabel                          btn_restaurantOwned;
     private JLabel                          btn_addRestaurant;
     private JLabel[]                        btns;

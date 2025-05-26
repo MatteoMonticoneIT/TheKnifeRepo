@@ -84,7 +84,7 @@ public final class Review
      */
     public Review(int id, int restaurantID, String username, String content, double rating) 
     {
-      setId             (id);
+      setID             (id);
       setRestaurantID   (restaurantID);
       setUsername       (username);
       setContent        (content);
@@ -97,7 +97,7 @@ public final class Review
      *
      * @return the review's id
      */
-    public final int            getId           ()                          {return id;}
+    public final int            getID           ()                          {return id;}
     
     /**
      * Returns the restaurant's id.
@@ -139,7 +139,7 @@ public final class Review
      *
      * @param id the new id to set
      */
-    public final void           setId           (int id)                    {this.id            = id;}
+    public final void           setID           (int id)                    {this.id            = id;}
 
     /**
      * Sets the restaurant's id.

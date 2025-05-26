@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package theknife.gui;
 
 import java.awt.BorderLayout;
@@ -18,9 +23,9 @@ import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 
 /**
- * The {@code ReviewGUI} class represents a graphical panel component for displaying the {@link Review} object.
+ * {@code EditReview} is a panel used to edit a review made by a {@link Customer}.
  * <p>
- * This class is part of the GUI layer of the {@link PreviewRestaurantGUI} and is typically used to have a graphical interface of the review itself.
+ * This panel is present in {@link CustomerReviews}, it is used to display the {@link Review} itself and able to change some values.
  * </p>
  * 
  * @author Damiano De Mutiis    761348 (CO)
@@ -28,7 +33,7 @@ import theknife.obj.review.Review;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class ReviewGUI extends javax.swing.JPanel {
+public final class EditReview extends javax.swing.JPanel {
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
@@ -42,7 +47,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
      * @param review the {@link Review} class that represents the review
      * @param bg the {@code Color} of the background for the {@code ReviewGUI}
      */
-    public ReviewGUI(Restaurant restaurant, Controller controller, Review review, Color bg) {
+    public EditReview(Restaurant restaurant, Controller controller, Review review, Color bg) {
         initComponents();
         this.restaurant = restaurant;
         this.controller = controller;
@@ -317,8 +322,6 @@ public final class ReviewGUI extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        setFont(new java.awt.Font("Consolas", 0, 28)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

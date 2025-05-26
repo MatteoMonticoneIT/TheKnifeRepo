@@ -65,5 +65,15 @@ public final class Page {
      * The {@link AddResponse} page.
      */
     public static final String ADD_RESPONSE          = "Add Response";
+    
+    /**
+     * The {@link CustomerReviews} page.
+     */
+    public static final String CUSTOMER_REVIEWS      = "Customer Reviews";
+    
+    /**
+     * The {@link EditReview} page.
+     */
+    public static final String EDIT_REVIEW           = "Edit Review";
     //</editor-fold>
 }

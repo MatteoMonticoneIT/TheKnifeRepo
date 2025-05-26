@@ -6,17 +6,17 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import theknife.Controller;
-import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 
 /**
- * The {@code PreviewReview} class represents a graphical panel component for displaying a single {@link Review} object.
+ * {@code CustomerReview} is a panel used to display a review made by a {@link Customer}.
  * <p>
- * This class is part of the GUI layer of the {@link RestaurantGUI} and is typically used to have a graphical interface of the review itself.
+ * This panel is present in {@link CustomerReviews}, it is used to display the {@link Review} itself.
  * </p>
  * 
  * @author Damiano De Mutiis    761348 (CO)
@@ -24,23 +24,21 @@ import theknife.obj.review.Review;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class PreviewReview extends javax.swing.JPanel {
-    
+public final class CustomerReview extends javax.swing.JPanel {
+
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
-     * Creates a new {@code PreviewReview} panel and initializes its components.
+     * Creates a new {@code CustomerReview} panel and initializes its components.
      * <p>
-     * This constructor also sets the review to insert the data needed to have a preview of the review itself.
+     * This constructor also sets the {@link Review} used to display.
      * </p>
      *
      * @param controller the {@link Controller} class that manages the screen layout
-     * @param restaurant the {@link Restaurant} class that represents the restaurant
-     * @param review the {@link Review} class that represents the review
-     * @param bg the {@code Color} of the background for the {@code PreviewReview}
+     * @param review the {@link Controller} class that manages the screen layout
+     * @param bg the {@code Color} background
      */
-    public PreviewReview(Controller controller, Restaurant restaurant, Review review, Color bg) {
+    public CustomerReview(Controller controller, Review review, Color bg) {
         initComponents();
-        this.restaurant = restaurant;
         this.controller = controller;
         this.review     = review;
         this.bg         = bg;
@@ -49,23 +47,21 @@ public final class PreviewReview extends javax.swing.JPanel {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
-     * Initializes the graphical user interface (GUI) for the {@code PreviewReview} page.
+     * Initializes the graphical user interface (GUI) for the {@code CustomerReviews} page.
      */
-    private void initGUI() 
-    {
-      initFields();
-      initPreviewReview();
-      initEvents();
+    private void initGUI() {
+        initFields();
+        initCustomerReviews();
+        initEvents();
     }
-    
+
     /**
-     * Initializes the basic fields of the {@code PreviewReview} panel.
+     * Initializes the basic fields of the {@code Home} panel.
      */
-    private void initFields() 
-    {
+    private void initFields() {
         numResponses       = review.getResponses() == null ? 0 : review.getResponses().getList().isEmpty() ? 0 : review.getResponses().getList().size();
         pnl_usernameRating = new JPanel(new BorderLayout());
-        lbl_username       = new JLabel(review.getUsername());
+        lbl_username       = new JLabel(review.getUsername() + " - " + controller.getRestaurants().getList().get(review.getRestaurantID() - 1).getName());
         lbl_rating         = new CustomJLabel(String.valueOf(review.getRating()), FULL_STAR);
         lbl_responses      = new JLabel((numResponses == 0 ? "No" : numResponses) + RESPONSES);
         txt_content        = new JTextArea((review.getContent().length() > MAX_CONTENT_LENGTH ? review.getContent().substring(0, MAX_CONTENT_LENGTH) + "..." : review.getContent()).trim());
@@ -77,13 +73,12 @@ public final class PreviewReview extends javax.swing.JPanel {
     }
     
     /**
-     * Initializes the layout and appearance of the home page.
+     * Initializes the layout and appearance of the {@code CustomerReviews} page.
      */
-    private void initPreviewReview() 
-    {
+    private void initCustomerReviews() {
         this.setBackground(bg);
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(0, PREVIEWREVIEW_HEIGHT));
+        this.setPreferredSize(new Dimension(0, CUSTOMER_REVIEW_HEIGHT));
         
         pnl_usernameRating.setBackground(bg);
         pnl_usernameRating.setBorder(BORDER_NORTH_PNL);
@@ -124,33 +119,62 @@ public final class PreviewReview extends javax.swing.JPanel {
     /**
      * Sets up event listeners for user interaction.
      */
-    private void initEvents() 
-    {
+    private void initEvents() {
         this.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                previewReviewGUI_MouseClicked(e);
+                customerReviewGUI_MouseClicked(e);
+            }
+            
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                customerReviewGUI_MouseEntered(e);
+            }
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                customerReviewGUI_MouseExited(e);
             }
         });
         
         pnl_usernameRating.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                previewReviewGUI_MouseClicked(e);
+                customerReviewGUI_MouseClicked(e);
+            }
+            
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                customerReviewGUI_MouseEntered(e);
+            }
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                customerReviewGUI_MouseExited(e);
             }
         });
         
         txt_content.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                previewReviewGUI_MouseClicked(e);
+                customerReviewGUI_MouseClicked(e);
+            }
+            
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                customerReviewGUI_MouseEntered(e);
+            }
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                customerReviewGUI_MouseExited(e);
             }
         });
     }
     //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Event Listeners">ù
+    //<editor-fold defaultstate="collapsed" desc="Event Listeners">
     /**
-     * Handles the click event on the {@code PreviewReview} {@link JPanel}.
+     * Handles the click event on the {@code CustomerReview} {@link JPanel}.
      * <p>
      * When the button is clicked, the {@link Review} given to this object will be passed to the {@link RestaurantGUI} page.
      * It is necessary to pass in order to handle the GUI page giving the restaurant's fields to the components.
@@ -158,22 +182,49 @@ public final class PreviewReview extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the button
      */
-    private void previewReviewGUI_MouseClicked(java.awt.event.MouseEvent e) {
-        reviewGUI = new ReviewGUI(restaurant, controller, review, bg);
-        controller.getPanelMain().getPanel().add(reviewGUI, Page.REVIEW);
-        controller.getPanelMain().showCard(Page.REVIEW);
-        
+    private void customerReviewGUI_MouseClicked(java.awt.event.MouseEvent e) {
+        controller.setSelectedReview(review);
+        JOptionPane.showMessageDialog(
+                null, 
+                "The review: " + controller.getSelectedReview().getUsername() + 
+                " - " + 
+                controller.getRestaurants().getList().get(controller.getSelectedReview().getRestaurantID()).getName() +
+                " is now selected!",
+                "Review selected!",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    /**
+     * Handles the hover event on the {@code CustomerReview} {@link JPanel}.
+     * 
+     * @param e the mouse event triggered by clicking the button
+     */
+    private void customerReviewGUI_MouseEntered(java.awt.event.MouseEvent e) {
+        this.setBackground(BG_HOVER_REVIEW);
+        for (JLabel lbl : lbls)
+            lbl.setBackground(BG_HOVER_REVIEW);
+        txt_content.setBackground(BG_HOVER_REVIEW);
+    }
+    
+    /**
+     * Handles the exit hover event on the {@code CustomerReview} {@link JPanel}.
+     * 
+     * @param e the mouse event triggered by clicking the button
+     */
+    private void customerReviewGUI_MouseExited(java.awt.event.MouseEvent e) {
+        this.setBackground(bg);
+        for (JLabel lbl : lbls)
+            lbl.setBackground(bg);
+        txt_content.setBackground(bg);
     }
     //</editor-fold>
-    
+
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -186,35 +237,34 @@ public final class PreviewReview extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
     //<editor-fold defaultstate="collapsed" desc="Consts">
-    private final Color              FG_DEFAULT           = Color.BLACK;
-    private final Border             PADDING_LBL          = BorderFactory.createEmptyBorder(5, 5, 5, 5);
-    private final Border             PADDING_TXT          = BorderFactory.createEmptyBorder(3, 3, 3, 3);
-    private final Border             BORDER_NORTH_PNL     = BorderFactory.createMatteBorder(1, 0, 1, 0, Color.BLACK);
-    private final Color              STAR_BG_DEFAULT      = new Color(255, 215, 0);
-    private final String             RESPONSES            = " users have responded to this review";
-    private final char               FULL_STAR            = 'C';
-    private final int                NORTH_CONTENT_HEIGHT = 30;
-    private final int                MAX_CONTENT_LENGTH   = 140;
-    private final int                PREVIEWREVIEW_HEIGHT = 100;
-    private final int                RATING_HEIGHT        = 70;
-    private final int                RESPONSES_HEIGHT     = 20;
+    private final Color              FG_DEFAULT             = Color.BLACK;
+    private final Color              BG_HOVER_REVIEW     = new Color(118, 158, 89);
+    private final Color              STAR_BG_DEFAULT        = new Color(255, 215, 0);
+    private final Border             PADDING_LBL            = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+    private final Border             PADDING_TXT            = BorderFactory.createEmptyBorder(3, 3, 3, 3);
+    private final Border             BORDER_NORTH_PNL       = BorderFactory.createMatteBorder(1, 0, 1, 0, Color.BLACK);
+    private final String             RESPONSES              = " users have responded to this review";
+    private final char               FULL_STAR              = 'C';
+    private final int                NORTH_CONTENT_HEIGHT   = 30;
+    private final int                MAX_CONTENT_LENGTH     = 140;
+    private final int                CUSTOMER_REVIEW_HEIGHT = 100;
+    private final int                RATING_HEIGHT          = 70;
+    private final int                RESPONSES_HEIGHT       = 20;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
-    private ReviewGUI   reviewGUI;
-    private JPanel      pnl_usernameRating;
-    private JLabel      lbl_username;
-    private JLabel      lbl_responses;
+    private JPanel       pnl_usernameRating;
+    private JLabel       lbl_username;
+    private JLabel       lbl_responses;
     private CustomJLabel lbl_rating;
-    private JTextArea   txt_content;
-    private JLabel[]    lbls;
+    private JTextArea    txt_content;
+    private JLabel[]     lbls;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final Controller controller;
     private final Color      bg;
     private final Review     review;
-    private final Restaurant restaurant;
     private       int        numResponses;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -467,6 +467,12 @@ public final class Controller
      * A {@link HashMap} mapping services to lists of {@link Restaurant} objects.
      */
     private final Map<String,  List<Restaurant>> byServiceSingle    = new HashMap<>();
+    
+    /**
+     * Review selected from the {@link CustomerReviews} page.
+     */
+    @JsonIgnore
+    private Review selectedReview;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     /**
@@ -728,6 +734,17 @@ public final class Controller
      *
     public       void               setResponses        (ListResponse responses)            {this.responses     = responses; }
 */    
+    /**
+     * Sets the {@code Review} selected from the {@link CustomerReviews} page.
+     * @param review 
+     */
+    public final void               setSelectedReview   (Review review)                     {this.selectedReview = review; }
+    
+    /**
+     * Returns the {@link Review} selected from the {@link CustomerReviews} page.
+     * @return the {@link Review} selected
+     */
+    public final Review             getSelectedReview   ()                                  {return this.selectedReview;}
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
     /**

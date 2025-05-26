@@ -248,7 +248,7 @@ public final class AddResponse extends javax.swing.JPanel
         if(review.getResponses()==null)
           review.setResponses(new ListResponse());
         review.getResponses().getList().add(new Response(review     .getResponses().getList().size()+1,
-                                                         review     .getId(),
+                                                         review     .getID(),
                                                          controller .getLoggedUser().getUsername(),
                                                          txt_content.getText()));
         controller.getPanelMain().showCard            (Page.REVIEW);
