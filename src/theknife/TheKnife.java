@@ -22,9 +22,8 @@ import theknife.gui.PanelMain;
  * @author Mattia Tamburo       761743 (CO)
  */
 
-public final class TheKnife extends javax.swing.JFrame 
-{
-    
+public final class TheKnife extends JFrame 
+{   
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Creates a new instance of {@code TheKnife} {@link JFrame} and initializes its components.<br>
@@ -97,7 +96,7 @@ public final class TheKnife extends javax.swing.JFrame
     /**
      * When closing {@code TheKnife} application (from the "X"), all data will be saved.
      */
-    public void WindowClosing() 
+    public  void WindowClosing      () 
     {
       controller.saveData();    
     }
@@ -105,8 +104,7 @@ public final class TheKnife extends javax.swing.JFrame
     /**
      * Toggles the fullscreen mode of the main application window.
      * <p>
-     * If the application is currently in fullscreen mode, it will
-     * restore the window to its previous size and decorations. 
+     * If the application is currently in fullscreen mode, it will restore the window to its previous size and decorations. <br>
      * Otherwise, it will enter fullscreen mode.
      * </p>
      */
@@ -116,25 +114,30 @@ public final class TheKnife extends javax.swing.JFrame
         
       if(isFullscreen)
       {
-          this.dispose                ();
-          this.setUndecorated         (false);
-          this.setBounds              (windowResolution);
-          this.setVisible             (true);
-          isFullscreen                = false;
+        this.dispose                ();
+        this.setUndecorated         (false);
+        this.setBounds              (windowResolution);
+        this.setVisible             (true);
+        isFullscreen                = false;
       }
       else
       {
-          windowResolution            = this.getBounds();
-          this.dispose                ();
-          this.setUndecorated         (true);
-          this.setVisible             (true);
-          device.setFullScreenWindow  (this);
-          isFullscreen                = true;
+        windowResolution            = this.getBounds();
+        this.dispose                ();
+        this.setUndecorated         (true);
+        this.setVisible             (true);
+        device.setFullScreenWindow  (this);
+        isFullscreen                = true;
       }
-    }
-    
+    }    
+    //</editor-fold>  
+    //<editor-fold defaultstate="collapsed" desc="Components">
+    private PanelMain   pnl_main;
+    private Controller  controller;
+    private boolean     isFullscreen;
+    private Rectangle   windowResolution;
     //</editor-fold>
-    
+    //<editor-fold defaultstate="collapsed" desc="Java Auto Generated Code">
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -189,14 +192,8 @@ public final class TheKnife extends javax.swing.JFrame
         java.awt.EventQueue.invokeLater(() -> {
             new TheKnife().setVisible(true);
         });
-    }
-    
-    //<editor-fold defaultstate="collapsed" desc="Components">
-    private PanelMain   pnl_main;
-    private Controller  controller;
-    private boolean     isFullscreen;
-    private Rectangle   windowResolution;
-    //</editor-fold>
+    }  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    //</editor-fold>
 }
