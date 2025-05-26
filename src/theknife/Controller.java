@@ -3,7 +3,6 @@ package theknife;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import simple.crypto.AES;
 import simple.file.CSV;
 import simple.file.CSVFileNotFoundException;
@@ -30,16 +29,12 @@ import theknife.gui.Page;
 import theknife.gui.PanelMain;
 import theknife.gui.Register;
 import theknife.gui.RegisterRestaurateur;
-import theknife.gui.ResponseGUI;
 import theknife.obj.AppPaths;
 import theknife.obj.InputPattern;
 import theknife.obj.lists.ListCustomer;
-//import theknife.obj.lists.ListResponse;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.lists.ListRestaurateur;
-//import theknife.obj.lists.ListReview;
 import theknife.obj.restaurant.Restaurant;
-import theknife.obj.review.Response;
 import theknife.obj.review.Review;
 import theknife.obj.user.Customer;
 import theknife.obj.user.Restaurateur;
@@ -95,312 +90,12 @@ public final class Controller
     /**
      * Cuisines list.
      */
-    private final String[] cuisines = //CSV.read(PROGRAM_DATASET, "CUISINES").toArray(new String[0]);
-    {
-        "Afghan",
-        "African",
-        "Alpine",
-        "Alsatian",
-        "American",
-        "American Contemporary",
-        "Andalusian",
-        "Apulian",
-        "Argentinian",
-        "Armenian",
-        "Asian",
-        "Asian Contemporary",
-        "Asian Influences",
-        "Asian and Western",
-        "Asturian",
-        "Australian Contemporary",
-        "Austrian",
-        "Bakery",
-        "Balinese",
-        "Balkan",
-        "Barbecue",
-        "Basque",
-        "Bavarian",
-        "Beef",
-        "Beijing Cuisine",
-        "Belgian",
-        "Brazilian",
-        "Breton",
-        "British Contemporary",
-        "Bulgogi",
-        "Burgundian",
-        "Burmese",
-        "Cajun",
-        "Calabrian",
-        "Californian",
-        "Cambodian",
-        "Campanian",
-        "Cantonese",
-        "Cantonese Roast Meats",
-        "Caribbean",
-        "Castilian",
-        "Catalan",
-        "Central Asian",
-        "Chao Zhou",
-        "Cheese",
-        "Chicken Specialities",
-        "Chinese",
-        "Chinese Contemporary",
-        "Chiu Chow",
-        "Chueotang",
-        "Classic Cuisine",
-        "Classic French",
-        "Colombian",
-        "Congee",
-        "Contemporary",
-        "Corsican",
-        "Country cooking",
-        "Crab Specialities",
-        "Creative",
-        "Creative British",
-        "Creative French",
-        "Creole",
-        "Croatian",
-        "Cuban",
-        "Cuisine from Abruzzo",
-        "Cuisine from Basilicata",
-        "Cuisine from Franche-Comté",
-        "Cuisine from Lazio",
-        "Cuisine from Romagna",
-        "Cuisine from South West France",
-        "Cuisine from Valtellina",
-        "Cuisine from the Aosta Valley",
-        "Cuisine from the Marches",
-        "Curry",
-        "Czech",
-        "Danish",
-        "Deli",
-        "Dim Sum",
-        "Doganitang",
-        "Dongbei",
-        "Dubu",
-        "Duck Specialities",
-        "Dumplings",
-        "Dwaeji-gukbap",
-        "Eastern European",
-        "Egyptian",
-        "Emilian",
-        "Emirati Cuisine",
-        "English",
-        "Ethiopian",
-        "European",
-        "European Contemporary",
-        "Farm to table",
-        "Filipino",
-        "Finnish",
-        "Fish and Chips",
-        "Flemish",
-        "Fondue and Raclette",
-        "French",
-        "French Contemporary",
-        "Friulian",
-        "Fugu / Pufferfish",
-        "Fujian",
-        "Fusion",
-        "Galician",
-        "Gastropub",
-        "Gejang",
-        "German",
-        "Gomtang",
-        "Greek",
-        "Grills",
-        "Hainanese",
-        "Hakkanese",
-        "Hang Zhou",
-        "Home Cooking",
-        "Hotpot",
-        "Huaiyang",
-        "Hubei",
-        "Hui Cuisine",
-        "Hunanese",
-        "Hunanese and Sichuan",
-        "Hungarian",
-        "Indian",
-        "Indian Vegetarian",
-        "Indonesian",
-        "Innovative",
-        "International",
-        "Irish",
-        "Isan",
-        "Israeli",
-        "Italian",
-        "Italian Contemporary",
-        "Italian and Japanese",
-        "Italian-American",
-        "Izakaya",
-        "Jamaican",
-        "Japan",
-        "Japanese",
-        "Japanese Contemporary",
-        "Japanese Steakhouse",
-        "Jiangzhe",
-        "Jokbal",
-        "Kalguksu",
-        "Korean",
-        "Korean Contemporary",
-        "Kushiage",
-        "Kyoto",
-        "Lamb Specialities",
-        "Lao",
-        "Latin American",
-        "Lebanese",
-        "Ligurian",
-        "Lombardian",
-        "Lyonnaise",
-        "Macanese",
-        "Malaysian",
-        "Mandu",
-        "Mantuan",
-        "Meats and Grills",
-        "Meats and Seafood",
-        "Mediterranean Cuisine",
-        "Memil-guksu",
-        "Mexican",
-        "Middle Eastern",
-        "Milanese",
-        "Modern British",
-        "Modern Cuisine",
-        "Modern French",
-        "Moroccan",
-        "Naengmyeon",
-        "Nakagyo-ku",
-        "Nepali",
-        "Ningbo",
-        "Noodles",
-        "Noodles and Congee",
-        "North African",
-        "North American",
-        "Northern Thai",
-        "Norwegian",
-        "Obanzai",
-        "Oden",
-        "Okonomiyaki",
-        "Onigiri",
-        "Organic",
-        "Oyster Specialities",
-        "Pakistani",
-        "Peranakan",
-        "Persian",
-        "Peruvian",
-        "Piedmontese",
-        "Pizza",
-        "Polish",
-        "Pork",
-        "Portuguese",
-        "Provençal",
-        "Puerto Rican",
-        "Ramen",
-        "Regional Cuisine",
-        "Regional European",
-        "Rice Dishes",
-        "Roman",
-        "Russian",
-        "Sardinian",
-        "Savoyard",
-        "Scandinavian",
-        "Scottish",
-        "Seafood",
-        "Seasonal Cuisine",
-        "Seolleongtang",
-        "Shaanxi",
-        "Shabu-shabu",
-        "Shandong",
-        "Shanghainese",
-        "Sharing",
-        "Shellfish Specialities",
-        "Shojin",
-        "Shun Tak",
-        "Sichuan",
-        "Sicilian",
-        "Singaporean",
-        "Singaporean and Malaysian",
-        "Small eats",
-        "Smørrebrød",
-        "Soba",
-        "South African",
-        "South American",
-        "South East Asian",
-        "South Indian",
-        "South Tyrolean",
-        "Southern",
-        "Southern Thai",
-        "Spanish",
-        "Spanish Contemporary",
-        "Sri Lankan",
-        "Steakhouse",
-        "Street Food",
-        "Sujebi",
-        "Sukiyaki",
-        "Sushi",
-        "Swabian",
-        "Swedish",
-        "Swiss",
-        "Taiwanese",
-        "Taiwanese contemporary",
-        "Taizhou",
-        "Tempura",
-        "Teochew",
-        "Teppanyaki",
-        "Tex-Mex",
-        "Thai",
-        "Thai and Vietnamese",
-        "Thai contemporary",
-        "Thai-Chinese",
-        "Tibetan",
-        "Tonkatsu",
-        "Traditional British",
-        "Traditional Cuisine",
-        "Turkish",
-        "Tuscan",
-        "Udon",
-        "Umbrian",
-        "Unagi / Freshwater Eel",
-        "Vegan",
-        "Vegetarian",
-        "Venetian",
-        "Venezuelan",
-        "Vietnamese",
-        "Vietnamese Contemporary",
-        "World Cuisine",
-        "Xibei",
-        "Xinjiang",
-        "Yakitori",
-        "Yoshoku",
-        "Yukhoe",
-        "Yunnanese",
-        "Zhejiang"
-    };
+    private final String[] cuisines = CSV.read(PROGRAM_DATASET, "CUISINES").toArray(new String[0]);
     
     /**
      * Service list.
      */
-    private final String[] services = //CSV.read(PROGRAM_DATASET, "SERVICES").toArray(new String[0]);
-    {
-        "Air conditioning",
-        "Booking essential",
-        "Booking essential - dinner",
-        "Brunch",
-        "Bring your own bottle",
-        "Car park",
-        "Cash only",
-        "Cash only - lunch",
-        "Counter dining",
-        "Credit cards not accepted",
-        "Foreign credit cards not accepted",
-        "Garden or park",
-        "Great view",
-        "Interesting wine list",
-        "Notable sake list",
-        "Restaurant offering vegetarian menus",
-        "Shoes must be removed",
-        "Terrace",
-        "Valet parking",
-        "Wheelchair access"
-    };
+    private final String[] services = CSV.read(PROGRAM_DATASET, "SERVICES").toArray(new String[0]);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
@@ -957,11 +652,19 @@ public final class Controller
       if(loggedUser instanceof Customer)
       {
         customer            = (Customer)    loggedUser;
+        if (customer.getListFavorite() == null) {
+            JOptionPane.showMessageDialog(null, "You must have a favourite restaurant first! (You can remove it later!)", "No favorite restaurants yet!", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         restaurantsList     = customer     .getListFavorite ()      .getList();
       }
       else
       {
         restaurateur        = (Restaurateur)loggedUser;
+        if (restaurateur.getListOwned() == null) {
+            JOptionPane.showMessageDialog(null, "You must have an owned restaurant first! (You can remove it later!)", "No owned restaurants yet!", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         restaurantsList     = restaurateur .getListOwned    ()      .getList();
       }
       home.list_restaurants_viewUserList      (restaurantsList, loggedUser.getRole());

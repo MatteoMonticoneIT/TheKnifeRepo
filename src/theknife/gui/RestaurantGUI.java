@@ -97,7 +97,7 @@ public class RestaurantGUI extends javax.swing.JPanel
       pnl_btns              = new JPanel(new GridLayout(1, 2, 10, 10));
       pnl_btn_addReview     = new JPanel(new BorderLayout());
       pnl_btn_back          = new JPanel(new BorderLayout());
-      pnl_upperbar          = new JPanel(new GridBagLayout());
+      pnl_upperbar          = new JPanel(new BorderLayout());
       lbl_name              = new JLabel(restaurant.getName());
       lbl_price             = new JLabel(String.valueOf(restaurant.getPrice()));
       lbl_currency          = new JLabel(restaurant.getCurrency());
@@ -194,6 +194,7 @@ public class RestaurantGUI extends javax.swing.JPanel
         btn_addFavourite.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 40));
         btn_addFavourite.setCustomFontSize(72f);
         btn_addFavourite.setBackground(BG_NAME);
+        btn_addFavourite.setPreferredSize(new Dimension(LBL_NAME_HEIGHT, LBL_NAME_HEIGHT));
         btn_addFavourite.setCharacterColor(BG_STAR_DEFAULT);
   
         pnl_upperbar.setPreferredSize(new Dimension(0, LBL_NAME_HEIGHT));
@@ -280,19 +281,8 @@ public class RestaurantGUI extends javax.swing.JPanel
             pnl_reviews.add(new PreviewReview(controller, restaurant, review, i % 2 == 0 ? BG_REVIEW_PNL_EVEN : BG_REVIEW_PNL_ODD), BorderLayout.CENTER);
         }
         
-        GridBagConstraints gbc_upperbar = new GridBagConstraints();
-        gbc_upperbar.gridx     = 0;
-        gbc_upperbar.gridy     = 0;
-        gbc_upperbar.weightx   = 0.9;
-        gbc_upperbar.gridwidth = 1;
-        gbc_upperbar.fill      = GridBagConstraints.BOTH;
-
-        pnl_upperbar.add(lbl_name, gbc_upperbar);
-        
-        gbc_upperbar.gridx++;
-        gbc_upperbar.anchor = GridBagConstraints.EAST;
-        gbc_upperbar.weightx = 0.1;
-        pnl_upperbar.add(btn_addFavourite, gbc_upperbar);
+        pnl_upperbar.add(lbl_name, BorderLayout.CENTER);
+        pnl_upperbar.add(btn_addFavourite, BorderLayout.EAST);
         
         GridBagConstraints gbc_leftSection = new GridBagConstraints();
         gbc_leftSection.gridx     = 0;

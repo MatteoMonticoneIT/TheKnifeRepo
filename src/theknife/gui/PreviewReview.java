@@ -193,7 +193,7 @@ public final class PreviewReview extends javax.swing.JPanel {
     private final Border             PADDING_TXT          = BorderFactory.createEmptyBorder(3, 3, 3, 3);
     private final Border             BORDER_NORTH_PNL     = BorderFactory.createMatteBorder(1, 0, 1, 0, Color.BLACK);
     private final Color              STAR_BG_DEFAULT      = new Color(255, 215, 0);
-    private final String             RESPONSES            = " users have responded to this review";
+    private final String             RESPONSES            = " responses to this review";
     private final char               FULL_STAR            = 'C';
     private final int                NORTH_CONTENT_HEIGHT = 30;
     private final int                MAX_CONTENT_LENGTH   = 140;

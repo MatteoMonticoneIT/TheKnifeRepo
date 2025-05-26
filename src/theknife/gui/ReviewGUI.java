@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -15,6 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import theknife.Controller;
 import theknife.obj.restaurant.Restaurant;
+import theknife.obj.review.Response;
 import theknife.obj.review.Review;
 
 /**
@@ -28,7 +30,8 @@ import theknife.obj.review.Review;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public final class ReviewGUI extends javax.swing.JPanel {
+public final class ReviewGUI extends javax.swing.JPanel 
+{
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
@@ -37,39 +40,40 @@ public final class ReviewGUI extends javax.swing.JPanel {
      * This constructor also sets the review to insert the data needed to have a graphical interface of the review itself.
      * </p>
      *
-     * @param restaurant the {@link Restaurant} class that represents the restaurant
+     * @param restaurant
      * @param controller the {@link Controller} class that manages the screen layout
      * @param review the {@link Review} class that represents the review
      * @param bg the {@code Color} of the background for the {@code ReviewGUI}
      */
-    public ReviewGUI(Restaurant restaurant, Controller controller, Review review, Color bg) {
-        initComponents();
-        this.restaurant = restaurant;
-        this.controller = controller;
-        this.review     = review;
-        this.bg         = bg;
-        initGUI();
+    public ReviewGUI(Restaurant restaurant, Controller controller, Review review, Color bg) 
+    {
+      initComponents();
+      this.restaurant = restaurant;
+      this.controller = controller;
+      this.review     = review;
+      this.bg         = bg;
+      initGUI();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
-     * Initializes the graphical user interface (GUI) for the {@code ReviewGUI} page.
+     * Initializes the graphical user interface (GUI) for the {@code PreviewReviewGUI} page.
      */
     private void initGUI() 
     {
-      initFields   ();
-      initReviewGUI();
-      initEvents   ();
+      initFields            ();
+      initPreviewReviewGUI  ();
+      initEvents            ();
     }
     
     /**
-     * Initializes the basic fields of the {@code ReviewGUI} panel.
+     * Initializes the basic fields of the {@code PreviewReviewGUI} panel.
      */
     private void initFields() 
     {
         numResponses             = review.getResponses() == null ? 1 : review.getResponses().size();
         pnl_usernameRatingReview = new JPanel      (new BorderLayout());
-        pnl_responses            = new JPanel      (new GridLayout(numResponses, 1));
+        pnl_responses            = new JPanel      (new GridLayout((review.getResponses()!=null) ? review.getResponses().getList().size():1, 1));
         pnl_btns                 = new JPanel      (new GridLayout(1, 2, 10, 10));
         pnl_btn_addResponse      = new JPanel      (new BorderLayout());
         pnl_btn_back             = new JPanel      (new BorderLayout());
@@ -81,7 +85,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
             lbl_rating
         };
         scrlPnl_reviewContent    = new JScrollPane (txt_reviewContent, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrlPnl_responses        = new JScrollPane (pnl_responses,     JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrlPnl_responses        = new JScrollPane (pnl_responses, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         btn_addResponse          = new JLabel      (ADD_RESPONSE);
         btn_back                 = new JLabel      (BACK);
         btn_addResponseRounded   = new JLayer<>    (btn_addResponse, BTN_LAYERUI);
@@ -91,7 +95,7 @@ public final class ReviewGUI extends javax.swing.JPanel {
     /**
      * Initializes the layout and appearance of the home page.
      */
-    private void initReviewGUI() 
+    private void initPreviewReviewGUI() 
     {
         this.setBackground(bg);
         this.setLayout(new BorderLayout());
@@ -107,7 +111,8 @@ public final class ReviewGUI extends javax.swing.JPanel {
         pnl_btn_addResponse.setBackground(pnl_btns.getBackground());
         pnl_btn_back       .setBackground(pnl_btns.getBackground());
         
-        for (JLabel lbl : lbls) {
+        for (JLabel lbl : lbls) 
+        {
             lbl.setBackground(this.getBackground());
             lbl.setForeground(FG_DEFAULT);
             lbl.setHorizontalAlignment  (JLabel.LEFT);
@@ -116,6 +121,10 @@ public final class ReviewGUI extends javax.swing.JPanel {
             lbl.setBorder               (PADDING_LBL);
             lbl.setOpaque               (true);
         }
+        
+        if(review.getResponses()!=null)
+          reloadResponses();
+
         lbl_rating.setPreferredSize(new Dimension(LBL_RATING_WIDTH, 0));
         lbl_rating.setCharacterColor(BG_STAR);
         lbl_rating.setCharacterSpacing(15);
@@ -311,6 +320,33 @@ public final class ReviewGUI extends javax.swing.JPanel {
     }
     //</editor-fold>
 
+    public void reloadResponses()
+    {
+      pnl_responses.removeAll();
+      
+      boolean flag=true;
+      for (Response response : review.getResponses().getList()) 
+      {
+        JPanel reviewPanel = new JPanel();
+        reviewPanel.setLayout(new BorderLayout());
+        reviewPanel.setBackground((flag) ? BG_RESPONSE_ODD:BG_RESPONSE_EVEN);
+
+        JLabel userLabel        = new JLabel(response.getUsername());
+        JLabel responseLabel    = new JLabel(response.getContent ());
+        
+        userLabel       .setOpaque(false);
+        userLabel       .setBorder(BORDER_PNL);
+        responseLabel   .setOpaque(false);
+        responseLabel   .setBorder(BORDER_PNL);
+
+        reviewPanel     .add(userLabel,      BorderLayout.NORTH);
+        reviewPanel     .add(responseLabel,  BorderLayout.CENTER);
+        pnl_responses   .add(reviewPanel);
+        flag=!flag;
+      }   
+      
+      scrlPnl_responses.setViewportView(pnl_responses);
+    }
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
      */

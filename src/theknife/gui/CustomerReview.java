@@ -245,7 +245,7 @@ public final class CustomerReview extends javax.swing.JPanel {
     private final Border             PADDING_LBL            = BorderFactory.createEmptyBorder(5, 5, 5, 5);
     private final Border             PADDING_TXT            = BorderFactory.createEmptyBorder(3, 3, 3, 3);
     private final Border             BORDER_NORTH_PNL       = BorderFactory.createMatteBorder(1, 0, 1, 0, Color.BLACK);
-    private final String             RESPONSES              = " users have responded to this review";
+    private final String             RESPONSES              = " responses to this review";
     private final char               FULL_STAR              = 'C';
     private final int                NORTH_CONTENT_HEIGHT   = 30;
     private final int                MAX_CONTENT_LENGTH     = 140;
