@@ -24,7 +24,7 @@ public final class InputPattern
     /**
      * The last name regex.
      */
-    public static final Pattern LAST_NAME                           = Pattern.compile("^[\\\\p{L}'-]+( [\\\\p{L}'-]+)*$");
+    public static final Pattern LAST_NAME                           = Pattern.compile("^[\\p{L}'-]+( [\\p{L}'-]+)*$");
     
     /**
      * The birth date regex.
