@@ -592,9 +592,11 @@ public final class Controller
      * @param restaurant
      * @return 
      */
-    public final boolean     addRestaurant       (Restaurant restaurant)
+    public final void        addRestaurant       (Restaurant restaurant)
     {
-      return true;  
+      restaurant    .setId      (restaurants.getList().size()+1);
+      restaurant    .setOwnerId (loggedUser .getId());
+      restaurants   .add        (restaurant);
     }
     
     /**
@@ -639,8 +641,8 @@ public final class Controller
     public final void        advancedSearch      (String city, Double rating, Integer price, boolean[] booleanCuisines, boolean[] booleanServices)
     { 
       List<Restaurant> result       = new ArrayList<>(restaurants.getList());
-      List<String> selectedCuisines = new ArrayList<>();
-      List<String> selectedServices = new ArrayList<>();
+      List<String> selectedCuisines;
+      List<String> selectedServices;
                   
       if (city != null) 
         result.retainAll(byCity.getOrDefault(city, Collections.emptyList()));
@@ -653,9 +655,7 @@ public final class Controller
       
      if (booleanCuisines != null)
       {
-        for(int i=0; i<booleanCuisines.length; i++)
-          if(booleanCuisines[i])
-            selectedCuisines.add(cuisines[i]);
+        selectedCuisines = getListCuisines(booleanCuisines);
         Set<Restaurant> filteredByCuisine = new HashSet<>(byCuisineSingle.getOrDefault(selectedCuisines.get(0), Collections.emptyList()));
         for (int i = 1; i < selectedCuisines.size(); i++)
         {
@@ -665,11 +665,8 @@ public final class Controller
         result.retainAll(filteredByCuisine);
       }
       if (booleanServices != null) 
-      {
-        for(int i=0; i<booleanServices.length; i++)
-          if(booleanServices[i])
-            selectedServices.add(services[i]);
-        
+      {      
+        selectedServices = getListServices(booleanServices);
         Set<Restaurant> filteredByServices = new HashSet<>(byServiceSingle.getOrDefault(selectedServices.get(0), Collections.emptyList()));
         for (int i = 1; i < selectedServices.size(); i++) 
         {
@@ -734,6 +731,28 @@ public final class Controller
           LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new Exception("Unable to encrypt password!", e));
         }
     }
-
+ 
+    public List<String> getListCuisines(boolean[] booleanCuisines)
+    {
+      List<String> selectedCuisines = new ArrayList<>();
+      
+      for(int i=0; i<booleanCuisines.length; i++)
+        if(booleanCuisines[i])
+          selectedCuisines.add(cuisines[i]);
+      
+      return selectedCuisines;
+    }
+    
+    public List<String> getListServices(boolean[] booleanServices)
+    {
+      List<String> selectedServices = new ArrayList<>();
+      
+      for(int i=0; i<booleanServices.length; i++)
+          if(booleanServices[i])
+            selectedServices.add(services[i]);
+      
+      return selectedServices;
+    }
+    
     //</editor-fold>
 }

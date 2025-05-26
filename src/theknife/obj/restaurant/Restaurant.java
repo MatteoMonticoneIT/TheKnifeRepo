@@ -15,7 +15,8 @@ import theknife.obj.lists.ListReview;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-@JsonPropertyOrder({
+@JsonPropertyOrder(
+{
     "ID", 
     "ownerID",
     "name", 
@@ -38,8 +39,8 @@ import theknife.obj.lists.ListReview;
     "rating",
     "reviews"
 })
-public final class Restaurant extends Location {
-    
+public final class Restaurant extends Location 
+{    
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The restaurant id.
@@ -144,8 +145,7 @@ public final class Restaurant extends Location {
      * Initializes the {@code Restaurant} object with no name, price, phoneNumber and other parameters.
      * </p>
      */
-    public Restaurant() {
-    }
+    public Restaurant() {}
     
     /**
      * Constructor that initializes the {@code Restaurant} object with the provided details.
@@ -172,7 +172,8 @@ public final class Restaurant extends Location {
      * @param longitude the longitude of the restaurant's location
      */
     public Restaurant(int id, int ownerId, String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String cuisine, String servicesAvailable, String description, double rating,
-            String country, String city, String address, double latitude, double longitude) {
+            String country, String city, String address, double latitude, double longitude) 
+    {
         super(country, city, address, latitude, longitude);
         this.setId(id);
         this.setOwnerId(ownerId);
@@ -191,6 +192,28 @@ public final class Restaurant extends Location {
         this.setRating(rating);
         this.setListReview(new ListReview());
     }
+    
+    public Restaurant(String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, /*String award, boolean greenStar, */String cuisine, String servicesAvailable, /*String description, double rating,*/
+            String country, String city, String address, double latitude, double longitude) 
+    {
+        super(country, city, address, latitude, longitude);
+        this.setName(name);
+        this.setNormalizedName(normalizedName);
+        this.setPrice(price);
+        this.setCurrency(currency);
+        this.setPhoneNumber(phoneNumber);
+        this.setUrl(url);
+        this.setWebsiteUrl(websiteUrl);
+        /*this.setAward(award);
+        this.setGreenStar(greenStar);*/
+        this.setCuisine(cuisine);
+        this.setServicesAvailable(servicesAvailable);
+        /*this.setDescription(description);
+        this.setRating(rating);*/
+        this.setListReview(new ListReview());
+    }
+    
+    
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**

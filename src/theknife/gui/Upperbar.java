@@ -263,7 +263,10 @@ public final class Upperbar extends javax.swing.JPanel
      */
     private void btn_login_MouseClicked(java.awt.event.MouseEvent e) 
     {
-      if(!lbl_title.getText().equals("All restaurants") || !txt_searchbar .getText().trim().isEmpty())
+      AddRestaurant addRestaurant = new AddRestaurant(controller);
+      controller.getPanelMain().getPanel().add(addRestaurant, Page.ADD_RESTAURANT);
+      controller.getPanelMain().showCard(Page.ADD_RESTAURANT);
+      /*if(!lbl_title.getText().equals("All restaurants") || !txt_searchbar .getText().trim().isEmpty())
         resetSearch();
       
       if(btn_login.getText().equals("Login"))
@@ -272,7 +275,7 @@ public final class Upperbar extends javax.swing.JPanel
       {
         revertUI();
         controller.logout();
-      }
+      }*/
     }
     
     /**

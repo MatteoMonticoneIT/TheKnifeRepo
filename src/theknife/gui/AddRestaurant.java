@@ -27,8 +27,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import simple.file.CSV;
+import simple.util.StringUtils;
 import theknife.Controller;
 import theknife.obj.AppPaths;
+import theknife.obj.InputPattern;
 import theknife.obj.restaurant.Restaurant;
 
 /**
@@ -39,7 +41,8 @@ import theknife.obj.restaurant.Restaurant;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-public class AddRestaurant extends javax.swing.JPanel {
+public class AddRestaurant extends javax.swing.JPanel 
+{
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
@@ -50,10 +53,11 @@ public class AddRestaurant extends javax.swing.JPanel {
      *
      * @param controller the {@link Controller} class that manages the screen layout
      */
-    public AddRestaurant(Controller controller) {
-        initComponents();
-        this.controller = controller;
-        initGUI();
+    public AddRestaurant(Controller controller) 
+    {
+      initComponents();
+      this.controller = controller;
+      initGUI();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
@@ -127,7 +131,8 @@ public class AddRestaurant extends javax.swing.JPanel {
     /**
      * Initializes the layout and appearance of the {@code AddRestaurant} page.
      */
-    private void initRegister() {
+    private void initRegister() 
+    {
         this.setLayout(new BorderLayout());
        
         pnl_grid      .setBackground(BG_PNL_GRID);
@@ -185,7 +190,8 @@ public class AddRestaurant extends javax.swing.JPanel {
           pnl_priceBar.add                    (lbl_prices[i]);
         }
         
-        for (JTextField txt : txts) {
+        for (JTextField txt : txts) 
+        {
             txt.setBackground(BG_TEXTFIELD);
             txt.setForeground(FG_PLACEHOLDER);
             txt.setBorder(PADDING_TEXTFIELD);
@@ -292,7 +298,8 @@ public class AddRestaurant extends javax.swing.JPanel {
     /**
      * Sets up event listeners for user interaction.
      */
-    private void initEvents() {
+    private void initEvents() 
+    {
         this.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {
@@ -402,7 +409,8 @@ public class AddRestaurant extends javax.swing.JPanel {
      * 
      * @param e the component event triggered by wheel-scrolling using the mouse.
      */
-    private void scrlPnl_grid_MouseWheelMoved(java.awt.event.MouseWheelEvent e) {
+    private void scrlPnl_grid_MouseWheelMoved(java.awt.event.MouseWheelEvent e) 
+    {
         int notches = e.getWheelRotation();
         int fasterScroll = notches * 40;
 
@@ -415,7 +423,8 @@ public class AddRestaurant extends javax.swing.JPanel {
      * 
      * @param e the component event triggered by wheel-scrolling using the mouse.
      */
-    private void scrlPnl_cuisines_MouseWheelMoved(java.awt.event.MouseWheelEvent e) {
+    private void scrlPnl_cuisines_MouseWheelMoved(java.awt.event.MouseWheelEvent e) 
+    {
         int notches = e.getWheelRotation();
         int fasterScroll = notches * 40;
 
@@ -428,16 +437,16 @@ public class AddRestaurant extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_FocusGained(java.awt.event.FocusEvent e) {
-        for (int i = 0; i < txts.length; i++) {
-            if (txts[i].equals(e.getSource())) {
-                if (txts[i].getText().equals(PLACEHOLDER[i])) {
-                    txts[i].setText("");
-                    txts[i].setForeground(FG_DEFAULT);
-                    break;
-                }
-            }
-        }
+    private void txt_FocusGained(java.awt.event.FocusEvent e) 
+    {
+      for (int i = 0; i < txts.length; i++) 
+        if (txts[i].equals(e.getSource())) 
+          if (txts[i].getText().equals(PLACEHOLDER[i])) 
+          {
+            txts[i].setText("");
+            txts[i].setForeground(FG_DEFAULT);
+            break;
+          }      
     }
     
     /**
@@ -445,16 +454,16 @@ public class AddRestaurant extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by gaining focus
      */
-    private void txt_FocusLost(java.awt.event.FocusEvent e) {
-        for (int i = 0; i < txts.length; i++) {
-            if (txts[i].equals(e.getSource())) {
-                if (txts[i].getText().isEmpty()) {
-                    txts[i].setText(PLACEHOLDER[i]);
-                    txts[i].setForeground(FG_PLACEHOLDER);
-                    break;
-                }
-            }
-        }
+    private void txt_FocusLost(java.awt.event.FocusEvent e) 
+    {
+      for (int i = 0; i < txts.length; i++) 
+        if (txts[i].equals(e.getSource())) 
+          if (txts[i].getText().isEmpty()) 
+          {
+            txts[i].setText(PLACEHOLDER[i]);
+            txts[i].setForeground(FG_PLACEHOLDER);
+            break;
+          }      
     }
     
     /**
@@ -468,19 +477,105 @@ public class AddRestaurant extends javax.swing.JPanel {
     private void btn_add_MouseClicked(java.awt.event.MouseEvent e) 
     {
       boolean error = false;
+      boolean[] booleanCuisines = returnCuisinesValues  ();
+      boolean[] booleanServices = returnServicesValues  ();
+      String cuisines = "";
+      String services = "";
       
-      KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
+      KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();      
+
+      if(txt_name       .getText().equals(PLACEHOLDER[0])   || !InputPattern.match(InputPattern.RESTAURANT_NAME,                    txt_name        .getText()))
+      {
+        error = true;
+        txt_name        .setBackground   (Color.RED);
+      }
+      if(txt_address    .getText().equals(PLACEHOLDER[1])   || !InputPattern.match(InputPattern.RESTAURANT_ADDRESS,                 txt_address     .getText()))
+      {
+        error = true;
+        txt_address     .setBackground   (Color.RED);
+      }
+      if(txt_country    .getText().equals(PLACEHOLDER[2])   || !InputPattern.match(InputPattern.RESTAURANT_COUNTRY,                 txt_country     .getText()))
+      {
+        error = true;
+        txt_country     .setBackground   (Color.RED);
+      }
+      if(txt_city       .getText().equals(PLACEHOLDER[3])   || !InputPattern.match(InputPattern.RESTAURANT_CITY,                    txt_city        .getText()))
+      {
+        error = true;
+        txt_city        .setBackground   (Color.RED);
+      }
+      if(txt_latitude   .getText().equals(PLACEHOLDER[4])   || !InputPattern.match(InputPattern.RESTAURANT_LATITUDE_AND_LONGITUDE,  txt_latitude    .getText()))
+      {
+        error = true;
+        txt_latitude    .setBackground   (Color.RED);
+      }     
+      if(txt_longitude  .getText().equals(PLACEHOLDER[5])   || !InputPattern.match(InputPattern.RESTAURANT_LATITUDE_AND_LONGITUDE,  txt_longitude   .getText()))
+      {
+        error = true;
+        txt_longitude   .setBackground   (Color.RED);
+      }
+      if(txt_currency   .getText().equals(PLACEHOLDER[6])   || !InputPattern.match(InputPattern.RESTAURANT_CURRENCY,                txt_currency    .getText()))
+      {
+        error = true;
+        txt_currency    .setBackground   (Color.RED);
+      }   
+      if(txt_phoneNo    .getText().equals(PLACEHOLDER[7])   || !InputPattern.match(InputPattern.RESTAURANT_PHONE_NUMBER,            txt_phoneNo     .getText()))
+      {
+        error = true;
+        txt_phoneNo     .setBackground   (Color.RED);
+      } 
+      if(txt_url        .getText().equals(PLACEHOLDER[8])   || !InputPattern.match(InputPattern.RESTAURANT_URL,                     txt_url          .getText()))
+      {
+        error = true;
+        txt_url         .setBackground   (Color.RED);
+      }
+      if(txt_webUrl     .getText().equals(PLACEHOLDER[9])   || !InputPattern.match(InputPattern.RESTAURANT_WEBURL,                  txt_webUrl       .getText()))
+      {
+        error = true;
+        txt_webUrl      .setBackground   (Color.RED);
+      }  
+      if(booleanCuisines == null)
+      {
+        error = true;  
+        
+      }
+      else
+        cuisines = String.join(", ", controller.getListCuisines(booleanCuisines));
       
-         
+      if(booleanServices == null)
+      {
+        error = true;  
+        
+      }
+      else
+        services = String.join(", ", controller.getListServices(booleanServices));
+      
+      if(indexPrice!=0)
+      {
+        error = true;
+      }
+      
       if(!error)
       {
-        Restaurant restaurant = new Restaurant();
+        Restaurant restaurant = new Restaurant(                       txt_name      .getText(),
+                                                StringUtils.normalize(txt_name      .getText()),
+                                                                      indexPrice,
+                                                                      txt_currency  .getText(),
+                                                                      txt_phoneNo   .getText(),
+                                                                      txt_url       .getText(),
+                                                                      txt_webUrl    .getText(),
+                                                                      cuisines,
+                                                                      services,
+                                                                      txt_country   .getText(),
+                                                                      txt_city      .getText(),
+                                                                      txt_address   .getText(),
+                                                Double      .valueOf (txt_latitude  .getText()),
+                                                Double      .valueOf (txt_latitude  .getText())
+                                              );
         
-        if(controller .addRestaurant(restaurant))
-        {      
-          resetPage();
-          controller  .getPanelMain().showCard  (Page.HOME);  
-        }
+        controller.addRestaurant            (restaurant);     
+        resetPage                           ();
+        controller.getPanelMain().showCard  (Page.HOME);         
       }     
     }
     
@@ -549,22 +644,25 @@ public class AddRestaurant extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the label 
      */
-    private void lbl_price_MouseClicked(java.awt.event.MouseEvent e) {
-        prevIndexPrice = indexPrice;
-        for (int i = 0; i < lbl_prices.length; i++) {
-            if (lbl_prices[i].equals(e.getSource())) {
-                indexPrice = i;
-                break;
-            }
+    private void lbl_price_MouseClicked(java.awt.event.MouseEvent e) 
+    {
+      prevIndexPrice = indexPrice;
+      for (int i = 0; i < lbl_prices.length; i++) 
+        if (lbl_prices[i].equals(e.getSource())) 
+        {
+          indexPrice = i;
+           break;
         }
-        if (priceClicked) {
-            if (prevIndexPrice != indexPrice)
-                lbl_prices[prevIndexPrice].setBackground(BG_PRICE_LBL);
-        } else {
-            lbl_prices[indexPrice].setBackground(BG_PRICE_DARKER);
-        }
-        priceClicked = true;
-        System.out.println(lbl_prices[indexPrice].getText());
+    
+      if (priceClicked) 
+      {       
+        if (prevIndexPrice != indexPrice)
+          lbl_prices[prevIndexPrice].setBackground(BG_PRICE_LBL);
+      } 
+      else 
+        lbl_prices[indexPrice].setBackground(BG_PRICE_DARKER);
+      priceClicked = true;
+      System.out.println(lbl_prices[indexPrice].getText());
     }
     
     /**
@@ -572,13 +670,14 @@ public class AddRestaurant extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by hovering to the label
      */
-    private void lbl_price_MouseMoved(java.awt.event.MouseEvent e) {
-        for (JLabel lbl : lbl_prices) {
-            if (lbl.equals(e.getSource())) {
-                lbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                lbl.setBackground(BG_PRICE_DARKER);
-            }
-        }
+    private void lbl_price_MouseMoved(java.awt.event.MouseEvent e)
+    {
+      for (JLabel lbl : lbl_prices) 
+        if (lbl.equals(e.getSource())) 
+        {
+          lbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+          lbl.setBackground(BG_PRICE_DARKER);
+        }      
     }
     
     /**
@@ -586,13 +685,14 @@ public class AddRestaurant extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by leaving the cursor from the label
      */
-    private void lbl_price_MouseExited(java.awt.event.MouseEvent e) {
-        for (JLabel lbl : lbl_prices) 
-            lbl.setBackground(BG_PRICE_LBL);
+    private void lbl_price_MouseExited(java.awt.event.MouseEvent e)
+    {
+      for (JLabel lbl : lbl_prices) 
+        lbl.setBackground(BG_PRICE_LBL);
         
-        if (priceClicked)
-            for (int i = 0; i < indexPrice; i++) 
-                lbl_prices[indexPrice].setBackground(BG_PRICE_DARKER);
+      if (priceClicked)
+        for (int i = 0; i < indexPrice; i++) 
+          lbl_prices[indexPrice].setBackground(BG_PRICE_DARKER);
     }
     //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Methods">
@@ -603,7 +703,16 @@ public class AddRestaurant extends javax.swing.JPanel {
     {
       JTextField[] fields = 
       {
-        txt_name
+        txt_name,
+        txt_address,
+        txt_country,
+        txt_city,
+        txt_latitude,
+        txt_longitude,
+        txt_currency,
+        txt_phoneNo,
+        txt_url,
+        txt_webUrl
       };
         
       for (int i = 0; i < fields.length; i++) 
@@ -619,7 +728,7 @@ public class AddRestaurant extends javax.swing.JPanel {
      * 
      * @return all cuisines {@code boolean} value based on selection (item selected)
      */
-    private boolean[] returnCuisineValues()
+    private boolean[] returnCuisinesValues()
     {
       boolean[] cuisines= new boolean[chkbx_cuisines.length];
       
