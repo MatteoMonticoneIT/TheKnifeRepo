@@ -15,7 +15,8 @@ import theknife.obj.lists.ListOwned;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-@JsonPropertyOrder({
+@JsonPropertyOrder(
+{
     "ID", 
     "firstName", 
     "firstNameNormalized",
@@ -69,8 +70,7 @@ public final class Restaurateur extends User
       this.setListOwned (listOwned);
       this.setId        (id);
     }
-    
-    
+      
     /**
      * Constructor that initializes a {@code Restaurateur} object with the specified attributes.
      * <p>
@@ -98,19 +98,13 @@ public final class Restaurateur extends User
      *
      * @return the list of managed restaurants
      */
-    public final ListOwned getListOwned()
-    {
-      return listOwned;
-    }
+    public final ListOwned  getListOwned    ()                          {return listOwned;}
     
     /**
      * Sets the list of restaurants managed by the restaurateur.
      *
      * @param listRestaurant the new list of restaurants to be managed
      */
-    public final void setListOwned(ListOwned listRestaurant) 
-    {
-      this.listOwned = listRestaurant;
-    }
+    public final void       setListOwned    (ListOwned listRestaurant)  {this.listOwned = listRestaurant;}
     //</editor-fold>
 }
