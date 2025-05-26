@@ -45,18 +45,19 @@ public abstract class AbstractListWrapper<T>
      * Add a new element in the list
      * @param t generic type
      */
-    public void add     (T t)   {list.add(t);}
+    public       void       add     (T t)           {list.add(t);}
     
     /**
      * Remove a given element in the list
      * @param t generic type
      */
-    public void remove  (T t)   {list.remove(t);}
+    public       void       remove  (T t)           {list.remove(t);}
     
     /**
+     * Get size of the list
      * @return Returns size of the list
      */
-    public int  size    ()      {return list.size();}
+    public       int        size    ()              {return list.size();}
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**
