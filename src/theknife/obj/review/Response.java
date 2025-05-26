@@ -19,23 +19,22 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "ID",
     "reviewID",
     "username", 
-    "content", 
-    "review"
+    "content"
 })
 public final class Response 
 {   
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
-     * The review's id.
+     * The response's id.
      */
     @JsonProperty("ID")
     private int     id;
     
     /**
-     * The restaurant's id.
+     * The review's id.
      */
     @JsonProperty("reviewID")
-    private int     reviewID;
+    private int    reviewID;
     
     /**
      * The username of the response, given by a customer's username or the owner of the restaurant.
@@ -49,11 +48,6 @@ public final class Response
     @JsonProperty("content")
     private String  content;
     
-    /**
-     * The {@link Review} object that this response is related to.
-     */
-    @JsonProperty("review")
-    private Review  review;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
@@ -71,15 +65,13 @@ public final class Response
      * @param reviewID the id of the review where the response is added
      * @param username the username of the response
      * @param content the content of the response
-     * @param review the review that this response is related to
      */
-    public Response(int id, int reviewID, String username, String content, Review review) 
+    public Response(int id, int reviewID, String username, String content) 
     {
       setId         (id);
       setReviewID   (reviewID);
       setUsername   (username);
       setContent    (content);
-      setReview     (review);
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
@@ -112,13 +104,6 @@ public final class Response
     public final String getContent  ()                  {return content;}
     
     /**
-     * Returns the review that this response is associated with.
-     *
-     * @return the review that this response is related to
-     */
-    public final Review getReview   ()                  {return review;}
-    
-    /**
      * Sets the response's id.
      *
      * @param id the new id to set
@@ -145,12 +130,5 @@ public final class Response
      * @param content the content to set for the response
      */
     public final void   setContent  (String content)    {this.content   = content;}
-    
-    /**
-     * Sets the review that this response is associated with.
-     *
-     * @param review the review to associate with the response
-     */
-    public final void   setReview   (Review review)     {this.review    = review;}
     //</editor-fold>
 }

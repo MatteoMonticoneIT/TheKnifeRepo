@@ -15,6 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import theknife.Controller;
+import theknife.obj.lists.ListResponse;
+import theknife.obj.review.Response;
 import theknife.obj.review.Review;
 
 /**
@@ -228,7 +230,17 @@ public final class AddResponse extends javax.swing.JPanel
      */
     private void btn_add_MouseClicked           (java.awt.event.MouseEvent e) 
     {
-        
+      if(!txt_content.getText().trim().isEmpty())
+      {
+        if(review.getResponses()==null)
+          review.setResponses(new ListResponse());
+        review.getResponses().getList().add(new Response(review     .getResponses().getList().size()+1,
+                                                         review     .getId(),
+                                                         controller .getLoggedUser().getUsername(),
+                                                         txt_content.getText()));
+        controller.getPanelMain().showCard            (Page.REVIEW);
+        controller.getPanelMain().getPanel().remove   (this);
+      }
     }
     
     /**
