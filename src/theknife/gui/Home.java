@@ -18,7 +18,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
@@ -118,7 +117,6 @@ public final class Home extends javax.swing.JPanel
     {
       this.setLayout(new BorderLayout());
       
-      //pnl_restaurants.setBackground(this.getBackground().darker());
       pnl_home        .setBackground(this.getBackground());           
       
       pnl_sideBar     .setBackground(new Color(153, 255, 153));
@@ -171,12 +169,7 @@ public final class Home extends javax.swing.JPanel
      * Sets up event listeners for user interaction.
      */
     private void initEvents() 
-    {
-//      scrlPnl_restaurants.addMouseWheelListener((java.awt.event.MouseWheelEvent e) -> 
-//      {
-//        scrlPnl_restaurants_MouseWheelMoved(e);
-//      });
-      
+    {      
       list_restaurants.addMouseListener(new MouseAdapter() 
       {
         @Override
@@ -270,21 +263,7 @@ public final class Home extends javax.swing.JPanel
       });
     }
     //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Event Listeners">
-    /**
-     * Handles the {@link JScrollPane} {@link JScrollBar}.
-     * 
-     * @param e the component event triggered by wheel-scrolling using the mouse.
-     */
-//    private void scrlPnl_restaurants_MouseWheelMoved(java.awt.event.MouseWheelEvent e) 
-//    {
-//      int notches = e.getWheelRotation();
-//      int fasterScroll = notches;
-//
-//      JScrollBar vertical = scrlPnl_restaurants.getVerticalScrollBar();
-//      vertical.setValue(vertical.getValue() + fasterScroll);
-//    }
-    
+    //<editor-fold defaultstate="collapsed" desc="Event Listeners">    
     /**
      * Handles the click event for the addRestaurant button.
      * <p>
@@ -426,7 +405,10 @@ public final class Home extends javax.swing.JPanel
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
-    
+    /**
+     * Visualizes the result of the {@link AdvancedSearch}.
+     * @param restaurants the list of results filtered
+     */
     public void visualizeAdvancedSearchResult(List<Restaurant> restaurants)
     {
       listModel.clear(); 
@@ -443,7 +425,7 @@ public final class Home extends javax.swing.JPanel
         lbl_title.setText("No results found!");
     }
     /**
-     * Method that search restaurants by name
+     * Method that search restaurants by name.
      * @param name the name of the {@link Restaurant}
      */
     public void list_restaurants_searchRestaurants(String name)
@@ -459,7 +441,7 @@ public final class Home extends javax.swing.JPanel
     }
     
     /**
-     * Let the user see his list(Favorite or Owned Restaurants)
+     * Let the user see his list(Favorite or Owned Restaurants).
      * @param restaurants gets user list
      * @param role gets user role
      */
@@ -481,7 +463,7 @@ public final class Home extends javax.swing.JPanel
      */
     public void UILoggedUser(String role)
     {
-      upperbar.changeUI(role);
+      upperbar.changeUI();
       pnl_sideBar.setPreferredSize(new Dimension(SIDEBAR_WIDTH, 0));
       pnl_sideBar.removeAll();
       switch (role) 
@@ -497,6 +479,9 @@ public final class Home extends javax.swing.JPanel
       }
     }
     
+    /**
+     * Removes the sidebar from the {@link Home} page.
+     */
     public void removeSideBar() 
     {
       pnl_sideBar.removeAll();

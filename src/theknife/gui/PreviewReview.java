@@ -129,21 +129,21 @@ public final class PreviewReview extends javax.swing.JPanel {
         this.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                previewReviewGUI_MouseClicked(e);
+                previewReview_MouseClicked(e);
             }
         });
         
         pnl_usernameRating.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                previewReviewGUI_MouseClicked(e);
+                previewReview_MouseClicked(e);
             }
         });
         
         txt_content.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                previewReviewGUI_MouseClicked(e);
+                previewReview_MouseClicked(e);
             }
         });
     }
@@ -158,7 +158,7 @@ public final class PreviewReview extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the button
      */
-    private void previewReviewGUI_MouseClicked(java.awt.event.MouseEvent e) {
+    private void previewReview_MouseClicked(java.awt.event.MouseEvent e) {
         reviewGUI = new ReviewGUI(restaurant, controller, review, bg);
         controller.getPanelMain().getPanel().add(reviewGUI, Page.REVIEW);
         controller.getPanelMain().showCard(Page.REVIEW);

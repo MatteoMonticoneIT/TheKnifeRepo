@@ -211,7 +211,7 @@ public final class CustomerReviews extends javax.swing.JPanel {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
     /**
-     * Handles the resize event for the {@code AdvancedSearch} {@link JPanel}.
+     * Handles the resize event for the {@code CustomerReviews} {@link JPanel}.
      * <p>
      * When resized, resizes the padding of the components.
      * </p>
@@ -242,9 +242,9 @@ public final class CustomerReviews extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the click event on the cancel button {@link JLabel}.
+     * Handles the click event on the back button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@code Home} screen canceling the login procedure.
+     * When the button is clicked, the view switches to the {@code Home} screen..
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
@@ -316,9 +316,9 @@ public final class CustomerReviews extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the click event on the apply button {@link JLabel}.
+     * Handles the click event on the edit button {@link JLabel}.
      * <p>
-     * When the button is clicked, the filters will be applied and the view switches to the {@code Home} screen.
+     * When the button is clicked, the view switches to the {@link EditReview} page.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
@@ -340,7 +340,7 @@ public final class CustomerReviews extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the hover event on the apply button {@link JLabel}.
+     * Handles the hover event on the edit button {@link JLabel}.
      * 
      * @param e the mouse event triggered by hovering to the button
      */
@@ -350,7 +350,7 @@ public final class CustomerReviews extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the exit hover event on the apply button {@link JLabel}.
+     * Handles the exit hover event on the edit button {@link JLabel}.
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */

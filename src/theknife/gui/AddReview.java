@@ -20,7 +20,7 @@ import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 
 /**
- * {@code AddReview} is the GUI page used for adding a {@link Review} to a {@Restaurant}.
+ * {@code AddReview} is the GUI page used for adding a {@link Review} to a {@link Restaurant}.
  * <p>
  * This class also sets all the fields needed for adding a {@code Review}.
  * </p>
@@ -51,7 +51,7 @@ public final class AddReview extends javax.swing.JPanel
     }
     //</editor-fold>
     /**
-     * Initializes the graphical user interface (GUI) for the {@code AddResponse} page.
+     * Initializes the graphical user interface (GUI) for the {@code AddReview} page.
      */
     private void initGUI()
     {
@@ -61,7 +61,7 @@ public final class AddReview extends javax.swing.JPanel
     }
     
     /**
-     * Initializes the basic fields of the {@code AddResponse} panel.
+     * Initializes the basic fields of the {@code AddReview} panel.
      */
     private void initFields() {
         pnl_btns           = new JPanel(new GridLayout(1, 2, 10, 10));
@@ -177,7 +177,7 @@ public final class AddReview extends javax.swing.JPanel
         this.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {
-                addResponse_ComponentResized(e);
+                addReview_ComponentResized(e);
             }
         });
         
@@ -240,14 +240,14 @@ public final class AddReview extends javax.swing.JPanel
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
     /**
-     * Handles the resize event for the {@code RestaurantGUI} {@link JPanel}.
+     * Handles the resize event for the {@code AddReview} {@link JPanel}.
      * <p>
      * When resized, resizes the padding of the components.
      * </p>
      * 
      * @param e the component event triggered by resizing the GUI application
      */
-    private void addResponse_ComponentResized(java.awt.event.ComponentEvent e) 
+    private void addReview_ComponentResized(java.awt.event.ComponentEvent e) 
     {
         final int PADDING_BTN = (int) (this.getWidth() * 0.01);
         pnl_btn_add .setBorder(BorderFactory.createEmptyBorder(PADDING_BTN, PADDING_BTN, PADDING_BTN, PADDING_BTN));
@@ -257,7 +257,7 @@ public final class AddReview extends javax.swing.JPanel
     /**
      * Handles the click event on the cancel button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@code Home} screen canceling the login procedure.
+     * When the button is clicked, the view switches to the {@code ReviewGUI} screen canceling the adding procedure.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
@@ -290,9 +290,9 @@ public final class AddReview extends javax.swing.JPanel
     }
     
     /**
-     * Handles the click event on the add response button {@link JLabel}.
+     * Handles the click event on the add button {@link JLabel}.
      * <p>
-     * When the button is clicked, the filters will be applied and the view switches to the {@code Home} screen.
+     * When the button is clicked, the {@link Review} will be added and the view switches to the {@link ReviewGUI} screen.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
@@ -321,7 +321,7 @@ public final class AddReview extends javax.swing.JPanel
     }
     
     /**
-     * Handles the hover event on the add response button {@link JLabel}.
+     * Handles the hover event on the add button {@link JLabel}.
      * 
      * @param e the mouse event triggered by hovering to the button
      */
@@ -332,7 +332,7 @@ public final class AddReview extends javax.swing.JPanel
     }
     
     /**
-     * Handles the exit hover event on the add response button {@link JLabel}.
+     * Handles the exit hover event on the add button {@link JLabel}.
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */

@@ -47,7 +47,7 @@ public final class CustomerReview extends javax.swing.JPanel {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
-     * Initializes the graphical user interface (GUI) for the {@code CustomerReviews} page.
+     * Initializes the graphical user interface (GUI) for the {@code CustomerReview} {@link JPanel}.
      */
     private void initGUI() {
         initFields();
@@ -56,7 +56,7 @@ public final class CustomerReview extends javax.swing.JPanel {
     }
 
     /**
-     * Initializes the basic fields of the {@code Home} panel.
+     * Initializes the basic fields of the {@code CustomerReview} {@link JPanel}.
      */
     private void initFields() {
         numResponses       = review.getResponses() == null ? 0 : review.getResponses().getList().isEmpty() ? 0 : review.getResponses().getList().size();
@@ -73,7 +73,7 @@ public final class CustomerReview extends javax.swing.JPanel {
     }
     
     /**
-     * Initializes the layout and appearance of the {@code CustomerReviews} page.
+     * Initializes the layout and appearance of the {@code CustomerReview} {@link JPanel}.
      */
     private void initCustomerReviews() {
         this.setBackground(bg);
@@ -123,51 +123,51 @@ public final class CustomerReview extends javax.swing.JPanel {
         this.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                customerReviewGUI_MouseClicked(e);
+                customerReview_MouseClicked(e);
             }
             
             @Override
             public void mouseEntered(java.awt.event.MouseEvent e) {
-                customerReviewGUI_MouseEntered(e);
+                customerReview_MouseEntered(e);
             }
             
             @Override
             public void mouseExited(java.awt.event.MouseEvent e) {
-                customerReviewGUI_MouseExited(e);
+                customerReview_MouseExited(e);
             }
         });
         
         pnl_usernameRating.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                customerReviewGUI_MouseClicked(e);
+                customerReview_MouseClicked(e);
             }
             
             @Override
             public void mouseEntered(java.awt.event.MouseEvent e) {
-                customerReviewGUI_MouseEntered(e);
+                customerReview_MouseEntered(e);
             }
             
             @Override
             public void mouseExited(java.awt.event.MouseEvent e) {
-                customerReviewGUI_MouseExited(e);
+                customerReview_MouseExited(e);
             }
         });
         
         txt_content.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                customerReviewGUI_MouseClicked(e);
+                customerReview_MouseClicked(e);
             }
             
             @Override
             public void mouseEntered(java.awt.event.MouseEvent e) {
-                customerReviewGUI_MouseEntered(e);
+                customerReview_MouseEntered(e);
             }
             
             @Override
             public void mouseExited(java.awt.event.MouseEvent e) {
-                customerReviewGUI_MouseExited(e);
+                customerReview_MouseExited(e);
             }
         });
     }
@@ -182,7 +182,7 @@ public final class CustomerReview extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the button
      */
-    private void customerReviewGUI_MouseClicked(java.awt.event.MouseEvent e) {
+    private void customerReview_MouseClicked(java.awt.event.MouseEvent e) {
         controller.setSelectedReview(review);
         JOptionPane.showMessageDialog(
                 null, 
@@ -199,7 +199,7 @@ public final class CustomerReview extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the button
      */
-    private void customerReviewGUI_MouseEntered(java.awt.event.MouseEvent e) {
+    private void customerReview_MouseEntered(java.awt.event.MouseEvent e) {
         this.setBackground(BG_HOVER_REVIEW);
         for (JLabel lbl : lbls)
             lbl.setBackground(BG_HOVER_REVIEW);
@@ -211,7 +211,7 @@ public final class CustomerReview extends javax.swing.JPanel {
      * 
      * @param e the mouse event triggered by clicking the button
      */
-    private void customerReviewGUI_MouseExited(java.awt.event.MouseEvent e) {
+    private void customerReview_MouseExited(java.awt.event.MouseEvent e) {
         this.setBackground(bg);
         for (JLabel lbl : lbls)
             lbl.setBackground(bg);

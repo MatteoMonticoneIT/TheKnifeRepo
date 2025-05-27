@@ -35,7 +35,7 @@ import theknife.obj.InputPattern;
 import theknife.obj.restaurant.Restaurant;
 
 /**
- *
+ * {@code AddRestaurant} is a page where you can add a {@link Restaurant} to the dataset and your {@link ListOwned}.
  * 
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
@@ -73,7 +73,7 @@ public class AddRestaurant extends javax.swing.JPanel
     }
     
     /**
-     * Initializes the basic fields of the {@code AddRestaurant} panel.
+     * Initializes the basic fields of the {@code AddRestaurant} {@link JPanel}.
      */
     private void initFields() 
     {
@@ -514,9 +514,9 @@ public class AddRestaurant extends javax.swing.JPanel
     }
     
     /**
-     * Handles the click event on the register button {@link JLabel}.
+     * Handles the click event on the add button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@code Login} screen canceling the login procedure.
+     * When the button is clicked, the restaurant will be added to the {@link ListOwned} of the {@code Restaurateur} and to the dataset.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
@@ -533,79 +533,66 @@ public class AddRestaurant extends javax.swing.JPanel
 
       if(txt_name       .getText().equals(PLACEHOLDER[0])   || !InputPattern.match(InputPattern.RESTAURANT_NAME,                    txt_name        .getText()))
       {
-        System.out.println("1");
         error = true;
         txt_name        .setBackground   (Color.RED);
       }
       if(txt_address    .getText().equals(PLACEHOLDER[1])   || !InputPattern.match(InputPattern.RESTAURANT_ADDRESS,                 txt_address     .getText()))
       {
-        System.out.println("2");
         error = true;
         txt_address     .setBackground   (Color.RED);
       }
       if(txt_country    .getText().equals(PLACEHOLDER[2])   || !InputPattern.match(InputPattern.RESTAURANT_COUNTRY,                 txt_country     .getText()))
       {
-        System.out.println("3");
         error = true;
         txt_country     .setBackground   (Color.RED);
       }
       if(txt_city       .getText().equals(PLACEHOLDER[3])   || !InputPattern.match(InputPattern.RESTAURANT_CITY,                    txt_city        .getText()))
       {
-        System.out.println("4");
         error = true;
         txt_city        .setBackground   (Color.RED);
       }
       if(txt_latitude   .getText().equals(PLACEHOLDER[4])   || !InputPattern.match(InputPattern.RESTAURANT_LATITUDE_AND_LONGITUDE,  txt_latitude    .getText()))
       {
-        System.out.println("5");
         error = true;
         txt_latitude    .setBackground   (Color.RED);
       }     
       if(txt_longitude  .getText().equals(PLACEHOLDER[5])   || !InputPattern.match(InputPattern.RESTAURANT_LATITUDE_AND_LONGITUDE,  txt_longitude   .getText()))
       {
-        System.out.println("6");
         error = true;
         txt_longitude   .setBackground   (Color.RED);
       }
       if(txt_currency   .getText().equals(PLACEHOLDER[6])   || !InputPattern.match(InputPattern.RESTAURANT_CURRENCY,                txt_currency    .getText()))
       {
-        System.out.println("7");
         error = true;
         txt_currency    .setBackground   (Color.RED);
       }   
       if(txt_phoneNo    .getText().equals(PLACEHOLDER[7])   || !InputPattern.match(InputPattern.RESTAURANT_PHONE_NUMBER,            txt_phoneNo     .getText()))
       {
-        System.out.println("8");
         error = true;
         txt_phoneNo     .setBackground   (Color.RED);
       } 
       if(txt_url        .getText().equals(PLACEHOLDER[8])   || !InputPattern.match(InputPattern.RESTAURANT_URL,                     txt_url          .getText()))
       {
-        System.out.println("9");
         error = true;
         txt_url         .setBackground   (Color.RED);
       }
       if(txt_webUrl     .getText().equals(PLACEHOLDER[9])   || !InputPattern.match(InputPattern.RESTAURANT_WEBURL,                  txt_webUrl       .getText()))
       {
-        System.out.println("10");
         error = true;
         txt_webUrl      .setBackground   (Color.RED);
       } 
       if(txt_award      .getText().equals(PLACEHOLDER[10]) || txt_award.getText().trim().isEmpty())
       {
-        System.out.println("11");
         error = true;
         txt_award       .setBackground   (Color.RED);
       }
       if(txt_description.getText().trim().isEmpty())
       {
-        System.out.println("12");
         error = true;
         txt_description .setBackground   (Color.RED);
       }  
       if(booleanCuisines == null)
       {
-        System.out.println("13");
         error = true;          
       }
       else
@@ -613,7 +600,6 @@ public class AddRestaurant extends javax.swing.JPanel
       
       if(booleanServices == null)
       {
-        System.out.println("14");
         error = true;         
       }
       else
@@ -621,11 +607,9 @@ public class AddRestaurant extends javax.swing.JPanel
       
       if(indexPrice==0)
       {
-        System.out.println("15");
         error = true;
       }
       
-        System.out.println(error);
       if(!error)
       {
         Restaurant restaurant = new Restaurant(                       txt_name          .getText(),
@@ -654,7 +638,7 @@ public class AddRestaurant extends javax.swing.JPanel
     }
     
     /**
-     * Handles the hover event on the register button {@link JLabel}.
+     * Handles the hover event on the add button {@link JLabel}.
      * 
      * @param e the mouse event triggered by hovering to the button
      */
@@ -665,7 +649,7 @@ public class AddRestaurant extends javax.swing.JPanel
     }
     
     /**
-     * Handles the exit hover event on the register button {@link JLabel}.
+     * Handles the exit hover event on the add button {@link JLabel}.
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */
@@ -677,7 +661,7 @@ public class AddRestaurant extends javax.swing.JPanel
     /**
      * Handles the click event on the cancel button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@code Login} screen canceling the login procedure.
+     * When the button is clicked, the view switches to the {@code Home} screen canceling the adding procedure.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
@@ -770,7 +754,7 @@ public class AddRestaurant extends javax.swing.JPanel
     //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Methods">
     /**
-     * Clears textfields of any previous data or state
+     * Clears textfields of any previous data or state.
      */
     private void resetPage()
     {

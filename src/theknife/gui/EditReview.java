@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package theknife.gui;
 
 import java.awt.BorderLayout;
@@ -20,7 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import theknife.Controller;
-import theknife.obj.lists.ListReview;
 import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 
@@ -58,7 +52,7 @@ public final class EditReview extends javax.swing.JPanel {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
-     * Initializes the graphical user interface (GUI) for the {@code PreviewReviewGUI} page.
+     * Initializes the graphical user interface (GUI) for the {@code EditReview} page.
      */
     private void initGUI() 
     {
@@ -68,7 +62,7 @@ public final class EditReview extends javax.swing.JPanel {
     }
     
     /**
-     * Initializes the basic fields of the {@code PreviewReviewGUI} panel.
+     * Initializes the basic fields of the {@code EditReview} panel.
      */
     private void initFields() 
     {
@@ -258,7 +252,7 @@ public final class EditReview extends javax.swing.JPanel {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
     /**
-     * Handles the resize event for the {@code RestaurantGUI} {@link JPanel}.
+     * Handles the resize event for the {@code EditReview} {@link JPanel}.
      * <p>
      * When resized, resizes the padding of the components.
      * </p>
@@ -275,7 +269,7 @@ public final class EditReview extends javax.swing.JPanel {
     /**
      * Handles the click event on the cancel button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@code Home} screen canceling the login procedure.
+     * When the button is clicked, the view switches to the {@code Home} screen canceling the edit procedure.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
@@ -310,9 +304,9 @@ public final class EditReview extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the click event on the add response button {@link JLabel}.
+     * Handles the click event on the edit button {@link JLabel}.
      * <p>
-     * When the button is clicked, the filters will be applied and the view switches to the {@code Home} screen.
+     * When the button is clicked, the {@link Review} will be edited and the view switches to the {@code CustoerReviews} screen.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
@@ -341,7 +335,7 @@ public final class EditReview extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the hover event on the add response button {@link JLabel}.
+     * Handles the hover event on the edit button {@link JLabel}.
      * 
      * @param e the mouse event triggered by hovering to the button
      */
@@ -352,7 +346,7 @@ public final class EditReview extends javax.swing.JPanel {
     }
     
     /**
-     * Handles the exit hover event on the add response button {@link JLabel}.
+     * Handles the exit hover event on the edit button {@link JLabel}.
      * 
      * @param e the mouse event triggered by leaving the cursor from the button
      */

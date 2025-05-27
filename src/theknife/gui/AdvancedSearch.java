@@ -448,7 +448,7 @@ public final class AdvancedSearch extends javax.swing.JPanel
     /**
      * Handles the click event on the cancel button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@code Home} screen canceling the login procedure.
+     * When the button is clicked, the view switches to the {@code Home} screen.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 

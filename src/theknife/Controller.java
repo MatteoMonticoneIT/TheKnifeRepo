@@ -42,6 +42,8 @@ import theknife.obj.user.Restaurateur;
 import theknife.obj.user.User;
 
 /**
+ * This class manages all datasets and data handling in {@code TheKnife} project.
+ * 
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
@@ -126,19 +128,7 @@ public final class Controller
      */
     @JsonProperty("restaurateurs")
     private ListRestaurateur restaurateurs;
-/*    
-    **
-     * The list of {@link Review}.
-     *
-    @JsonProperty("reviews")
-    private ListReview reviews;
     
-    **
-     * The list of {@link Restaurateur}.
-     *
-    @JsonProperty("responses")
-    private ListResponse responses;
-*/    
     /**
      * A {@link HashMap} mapping city names to lists of {@link Restaurant} objects.
      */  
@@ -172,12 +162,9 @@ public final class Controller
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     /**
-     * The main panel for changing pages
-     */
-    @JsonIgnore
-    /**
      * The {@link PanelMain} container using {@link CardLayout} to display different pages.
      */
+    @JsonIgnore
     private PanelMain            pnl_main;
     
     /**
@@ -245,6 +232,9 @@ public final class Controller
         initTheKnife();
     }
     
+    /**
+     * Initializes all lists.
+     */
     private void        initLists           () 
     {
       aes = new AES(KEYSTORE_FILE);
@@ -372,21 +362,7 @@ public final class Controller
      * @return the {@code ListRestaurateur} object.
      */
     public final ListRestaurateur   getRestaurateurs    ()                                  {return restaurateurs;}
-/*    
-    **
-     * Returns the {@code ListReview} object.
-     * 
-     * @return the {@code ListReview} object.
-     *
-    public       ListReview         getReviews          ()                                  {return reviews;}
     
-    **
-     * Returns the {@code ListResponse} object.
-     * 
-     * @return the {@code ListResponse} object.
-     *
-    public       ListResponse       getResponses        ()                                  {return responses;}
-*/    
     /**
      * Returns the {@code User} object.
      * 
@@ -415,21 +391,7 @@ public final class Controller
      * @param restaurateurs the {@code ListRestaurateur} object to set.
      */
     public final void               setRestaurateurs    (ListRestaurateur restaurateurs)    {this.restaurateurs = restaurateurs;}
-/*
-    **
-     * Sets the {@code ListReview} object for the controller.
-     * 
-     * @param reviews the {@code ListReview} object to set.
-     *
-    public       void               setReviews          (ListReview reviews)                {this.reviews       = reviews; }
-
-    **
-     * Sets the {@code ListResponse} object for the controller.
-     * 
-     * @param responses the {@code ListResponse} object to set.
-     *
-    public       void               setResponses        (ListResponse responses)            {this.responses     = responses; }
-*/    
+    
     /**
      * Sets the {@code Review} selected from the {@link CustomerReviews} page.
      * @param review 
@@ -444,7 +406,7 @@ public final class Controller
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
     /**
-     * Generate all {@link HashMap} needed
+     * Generate all {@link HashMap} needed.
      */
     private       void          createHashMaps          ()
     {
@@ -503,7 +465,7 @@ public final class Controller
     }
     
     /**
-     * Save Restaurants, Customers and Restaurateurs lists to their jsons
+     * Save Restaurants, Customers and Restaurateurs lists to their jsons.
      */
     public  final void          saveData                () 
     {
@@ -513,7 +475,7 @@ public final class Controller
     }
     
     /**
-     * Method to log in a client 
+     * Method to log in a client.
      * @param user username or email given
      * @param password password given
      * @return true if loggedUser exist
@@ -537,7 +499,7 @@ public final class Controller
     }
     
     /**
-     * Method to log in a restaurateurs
+     * Method to log in a restaurateurs.
      * @param user username or email given
      * @param password password given
      * @return true if loggedUser exist
@@ -561,10 +523,10 @@ public final class Controller
     }
     
     /**
-     * Method to register a client
+     * Method to register a client.
      * @param customer all information given in the register page
      * @return true if there's any other user (either Customer or Restaurateur) with the same username exist
-     *         false if it there isnt't
+     *         false if it there isn't
      */
     public  final boolean       RegisterClient          (Customer customer)
     {
@@ -590,7 +552,7 @@ public final class Controller
      * Method to register a client
      * @param restaurateur all information given in the register page
      * @return true if there's any other user (either Customer or Restaurateur) with the same username exist
-     *         false if it there isnt't
+     *         false if it there isn't
      */
     public  final boolean       RegisterRestaurateur    (Restaurateur restaurateur)
     {
@@ -613,7 +575,7 @@ public final class Controller
     }
     
     /**
-     * Method to log out user from application
+     * Method to log out user from application.
      */
     public  final void          logout                  ()
     {
@@ -622,7 +584,7 @@ public final class Controller
     }
     
     /**
-     * Method to add a new Restaurant as a restaurateur
+     * Method to add a new Restaurant as a restaurateur.
      * @param restaurant new restaurant given by {@link AddRestaurant}
      */
     public  final void          addRestaurant           (Restaurant restaurant)
@@ -636,7 +598,7 @@ public final class Controller
     }
     
     /**
-     * Method to search a restaurant by name
+     * Method to search a restaurant by name.
      * @param restaurant partial name of the restaurant
      */
     public  final void          searchRestaurant        (String restaurant)
@@ -645,7 +607,7 @@ public final class Controller
     }
     
     /**
-     * Method to view user list (either favourite list of Customer or owned list of Restaurateur)
+     * Method to view user list (either favourite list of Customer or owned list of Restaurateur).
      */
     public  final void          viewUserList            ()
     {
@@ -685,7 +647,7 @@ public final class Controller
      * @param booleanServices Array of boolean values for included services (null for no filter).
      * 
      * @see Restaurant
-     * @see home.visualizeAdvancedSearchResult
+     * @see Home#visualizeAdvancedSearchResult
      */
     public  final void          advancedSearch          (String city, Double rating, Integer price, boolean[] booleanCuisines, boolean[] booleanServices)
     { 
@@ -729,7 +691,7 @@ public final class Controller
     }
     
     /**
-     * Method to calculate a restaurant rating average after inserting a new review
+     * Method to calculate a restaurant rating average after inserting a new review.
      * @param restaurant the restaurant which needs to recalculate rating average
      */
     public        void          restaurantRatingAverage (Restaurant restaurant)
@@ -741,7 +703,7 @@ public final class Controller
     }
     
     /**
-     * Converts selected cuisine from booleans to string list
+     * Converts selected cuisine from booleans to string list.
      * @param booleanCuisines selected cuisines
      * @return string list of selected cuisines
      */   
@@ -757,7 +719,7 @@ public final class Controller
     }
     
     /**
-     * Converts selected services from booleans to string list
+     * Converts selected services from booleans to string list.
      * @param booleanServices selected services
      * @return string list of selected services
      */   
@@ -774,7 +736,7 @@ public final class Controller
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Exclusive Programmer Methods">
     /**
-     * Method to calculate all password of both Customers and Restaurateurs
+     * Method to calculate all password of both Customers and Restaurateurs.
      */
     private void encryptAllPassword     ()
     {
@@ -800,7 +762,7 @@ public final class Controller
     }
  
     /**
-     * Method to calculate all restaurant rating average 
+     * Method to calculate all restaurant rating average.
      */
     private void calculateRatingAverage ()
     {
