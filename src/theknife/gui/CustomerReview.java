@@ -188,7 +188,7 @@ public final class CustomerReview extends javax.swing.JPanel {
                 null, 
                 "The review: " + controller.getSelectedReview().getUsername() + 
                 " - " + 
-                controller.getRestaurants().getList().get(controller.getSelectedReview().getRestaurantID()).getName() +
+                controller.getRestaurants().getList().get(controller.getSelectedReview().getRestaurantID() - 1).getName() +
                 " is now selected!",
                 "Review selected!",
                 JOptionPane.INFORMATION_MESSAGE);

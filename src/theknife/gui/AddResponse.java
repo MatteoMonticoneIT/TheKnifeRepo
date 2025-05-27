@@ -42,12 +42,14 @@ public final class AddResponse extends javax.swing.JPanel
      *
      * @param controller the {@link Controller} class that manages the screen layout
      * @param review the {@link Review} class that represents the review
+     * @param reviewGUI the {@link ReviewGUI} review panel
      */
-    public       AddResponse    (Controller controller, Review review) 
+    public       AddResponse    (Controller controller, Review review, ReviewGUI reviewGUI) 
     {
       initComponents();
       this.controller = controller;
       this.review     = review;
+      this.reviewGUI  = reviewGUI;
       initGUI       ();
     }
     //</editor-fold>
@@ -251,6 +253,7 @@ public final class AddResponse extends javax.swing.JPanel
                                                          review     .getID(),
                                                          controller .getLoggedUser().getUsername(),
                                                          txt_content.getText()));
+        reviewGUI.reloadResponses();
         controller.getPanelMain().showCard            (Page.REVIEW);
         controller.getPanelMain().getPanel().remove   (this);
       }
@@ -308,6 +311,7 @@ public final class AddResponse extends javax.swing.JPanel
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     private final Controller controller;
+    private final ReviewGUI  reviewGUI;
     private final Review     review;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Java Swing Auto Generated Code">

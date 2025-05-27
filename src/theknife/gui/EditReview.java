@@ -418,10 +418,9 @@ public final class EditReview extends javax.swing.JPanel {
         
       if (starClicked) 
       {
-        for (int i = 0; i < indexStar + 1; i++) 
+        for (int i = 0; i < indexStar; i++) 
           lbl_stars[i].setCharacter(FULL_STAR);
-        if (starRating - indexStar == 0.5)
-          lbl_stars[indexStar].setCharacter(HALF_STAR);
+        lbl_stars[indexStar].setCharacter(starRating - indexStar == 0.5 ? HALF_STAR : FULL_STAR);
       }
     }
     //</editor-fold>

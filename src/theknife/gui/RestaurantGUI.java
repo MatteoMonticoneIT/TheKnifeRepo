@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayer;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -84,10 +85,13 @@ public class RestaurantGUI extends javax.swing.JPanel
     {
       char star = EMPTY_STAR;
       
-      if(customer!= null && customer.getListFavorite().getList()!=null)
+      if(customer!= null && customer.getListFavorite() !=null)
         for(Integer integer: customer.getListFavorite().getList())
-          if(integer==restaurant.getId())
+          if(integer==restaurant.getId()) 
+          {
             star = FULL_STAR;
+            favoriteClicked = true;
+          }
           
       pnl_content           = new JPanel(new GridBagLayout());
       pnl_leftContent       = new JPanel(new GridBagLayout());
@@ -460,6 +464,7 @@ public class RestaurantGUI extends javax.swing.JPanel
      * @param e the mouse event triggered by clicking the button 
      */
     private void btn_back_MouseClicked(java.awt.event.MouseEvent e) {
+        customer = null;
         controller.getPanelMain().showCard(Page.HOME);
         controller.getPanelMain().getPanel().remove(this);
     }
@@ -495,6 +500,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     {
       if(controller.getLoggedUser() != null)
       {
+        favoriteClicked = !favoriteClicked;
         if(controller.getLoggedUser().getRole().equals("customer"))
         {
           addReview = new AddReview(controller, restaurant);
@@ -540,17 +546,18 @@ public class RestaurantGUI extends javax.swing.JPanel
     {
       if(customer != null)
       {
-        if(btn_addFavourite.getCharacter() == EMPTY_STAR)
+        favoriteClicked = !favoriteClicked;
+        if(customer.getListFavorite()==null)
+          customer.setListFavorite(new ListFavorite());
+        if(favoriteClicked)
         {          
-          if(customer.getListFavorite()==null)
-            customer.setListFavorite(new ListFavorite());
           customer.getListFavorite().add(restaurant.getId());
-          btn_addFavourite.setCharacter(FULL_STAR);
+          btn_addFavourite.setCharacter(EMPTY_STAR);    
         }
         else
-        {
+        {          
           customer.getListFavorite().remove(restaurant.getId());
-          btn_addFavourite.setCharacter(EMPTY_STAR);
+          btn_addFavourite.setCharacter(FULL_STAR);
         }
       }
       else
@@ -682,7 +689,8 @@ public class RestaurantGUI extends javax.swing.JPanel
     private final  Controller controller;
     private final  Restaurant restaurant;
     private        AddReview  addReview;
-    private        Customer   customer;
+    private        Customer   customer = null;
+    private        boolean    favoriteClicked = false;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -302,7 +302,7 @@ public final class AddReview extends javax.swing.JPanel
       if(starRating!=0 && !txt_content.getText().trim().isEmpty())
       {
 
-        Review review = new Review(restaurant.getListReview().getList().size(),
+        Review review = new Review(restaurant.getListReview().getList().size() + 1,
                                    restaurant.getId(),
                                    controller.getLoggedUser().getUsername(),
                                    txt_content.getText(),

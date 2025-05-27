@@ -288,7 +288,7 @@ public final class ReviewGUI extends javax.swing.JPanel
       {
         if(controller.getLoggedUser().getRole().equals("restaurateur") && controller.getLoggedUser().getId() == restaurant.getOwnerId())
         {
-          addResponse = new AddResponse(controller, review);
+          addResponse = new AddResponse(controller, review, this);
           controller.getPanelMain().getPanel().add(addResponse, Page.ADD_RESPONSE);
           controller.getPanelMain().showCard(Page.ADD_RESPONSE);
         }

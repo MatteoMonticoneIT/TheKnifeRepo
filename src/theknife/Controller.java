@@ -32,6 +32,7 @@ import theknife.gui.RegisterRestaurateur;
 import theknife.obj.AppPaths;
 import theknife.obj.InputPattern;
 import theknife.obj.lists.ListCustomer;
+import theknife.obj.lists.ListOwned;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.lists.ListRestaurateur;
 import theknife.obj.restaurant.Restaurant;
@@ -629,6 +630,9 @@ public final class Controller
       restaurant    .setId      (restaurants.getList().size()+1);
       restaurant    .setOwnerId (loggedUser .getId());
       restaurants   .add        (restaurant);
+      if (restaurateurs.getList().get(restaurant.getOwnerId() - 1).getListOwned() == null)
+        restaurateurs.getList().get(restaurant.getOwnerId() - 1).setListOwned(new ListOwned());
+      restaurateurs.getList().get(restaurant.getOwnerId() - 1).getListOwned().add(restaurant.getId());
     }
     
     /**
