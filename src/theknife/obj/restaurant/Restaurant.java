@@ -193,7 +193,7 @@ public final class Restaurant extends Location
         this.setListReview          (new ListReview());
     }
     
-    public Restaurant(String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, /*String award, boolean greenStar, */String cuisine, String servicesAvailable, /*String description, double rating,*/
+    public Restaurant(String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String cuisine, String servicesAvailable, String description,
             String country, String city, String address, double latitude, double longitude) 
     {
         super                       (country, city, address, latitude, longitude);
@@ -204,12 +204,11 @@ public final class Restaurant extends Location
         this.setPhoneNumber         (phoneNumber);
         this.setUrl                 (url);
         this.setWebsiteUrl          (websiteUrl);
-        //this.setAward               (award);
-        //this.setGreenStar           (greenStar);
+        this.setAward               (award);
+        this.setGreenStar           (greenStar);
         this.setCuisine             (cuisine);
         this.setServicesAvailable   (servicesAvailable);
-        //this.setDescription       (description);
-        //this.setRating              (rating);
+        this.setDescription         (description);
         this.setListReview          (new ListReview());
     }
     

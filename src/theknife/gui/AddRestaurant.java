@@ -580,6 +580,16 @@ public class AddRestaurant extends javax.swing.JPanel
       {
         error = true;
         txt_webUrl      .setBackground   (Color.RED);
+      } 
+      if(txt_award      .getText().equals(PLACEHOLDER[10])  || !InputPattern.match(InputPattern.RESTAURANT_WEBURL,                  txt_award        .getText()))
+      {
+        error = true;
+        txt_award       .setBackground   (Color.RED);
+      }
+      if(txt_description.getText().trim().isEmpty())
+      {
+        error = true;
+        txt_description .setBackground   (Color.RED);
       }  
       if(booleanCuisines == null)
       {
@@ -604,20 +614,23 @@ public class AddRestaurant extends javax.swing.JPanel
       
       if(!error)
       {
-        Restaurant restaurant = new Restaurant(                       txt_name      .getText(),
-                                                StringUtils.normalize(txt_name      .getText()),
+        Restaurant restaurant = new Restaurant(                       txt_name          .getText(),
+                                                StringUtils.normalize(txt_name          .getText()),
                                                                       indexPrice,
-                                                                      txt_currency  .getText(),
-                                                                      txt_phoneNo   .getText(),
-                                                                      txt_url       .getText(),
-                                                                      txt_webUrl    .getText(),
+                                                                      txt_currency      .getText(),
+                                                                      txt_phoneNo       .getText(),
+                                                                      txt_url           .getText(),
+                                                                      txt_webUrl        .getText(),
+                                                                      txt_award         .getText(),
+                                                                      chkbx_greenStar   .isSelected(),
                                                                       cuisines,
                                                                       services,
-                                                                      txt_country   .getText(),
-                                                                      txt_city      .getText(),
-                                                                      txt_address   .getText(),
-                                                Double      .valueOf (txt_latitude  .getText()),
-                                                Double      .valueOf (txt_latitude  .getText())
+                                                                      txt_description   .getText(),
+                                                                      txt_country       .getText(),
+                                                                      txt_city          .getText(),
+                                                                      txt_address       .getText(),
+                                                Double      .valueOf (txt_latitude      .getText()),
+                                                Double      .valueOf (txt_latitude      .getText())
                                               );
         
         controller.addRestaurant            (restaurant);     

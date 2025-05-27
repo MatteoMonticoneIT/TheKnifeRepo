@@ -7,9 +7,13 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import simple.logging.LoggerUtils;
 import theknife.gui.Page;
 import theknife.gui.PanelMain;
+import theknife.obj.AppPaths;
 
 /**
  * The main frame of the application "The Knife".<br>
@@ -46,6 +50,14 @@ public final class TheKnife extends JFrame
     {
       pnl_main   = new PanelMain ();
       controller = new Controller(pnl_main);
+      try 
+      {
+        this.setIconImage(ImageIO.read(AppPaths.getRequiredFile("img", "icon.png")));
+      } 
+      catch (IOException e) 
+      {
+        LoggerUtils.logSevereAndThrow("Unable to get the logo image", e);
+      }
       addFullscreenEvent    ();
       initTheKnife          ();
       initEvents            ();
