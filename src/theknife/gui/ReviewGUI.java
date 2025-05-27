@@ -21,7 +21,7 @@ import theknife.obj.review.Review;
 /**
  * The {@code ReviewGUI} class represents a graphical panel component for displaying the {@link Review} object.
  * <p>
- * This class is part of the GUI layer of the {@link PreviewRestaurantGUI} and is typically used to have a graphical interface of the review itself.
+ * This class is part of the GUI layer of the PreviewRestaurant and is typically used to have a graphical interface of the review itself.
  * </p>
  * 
  * @author Damiano De Mutiis    761348 (CO)
@@ -38,7 +38,7 @@ public final class ReviewGUI extends javax.swing.JPanel
      * This constructor also sets the review to insert the data needed to have a graphical interface of the review itself.
      * </p>
      *
-     * @param restaurant
+     * @param restaurant the {@link Restaurant} class that represents the restaurant
      * @param controller the {@link Controller} class that manages the screen layout
      * @param review the {@link Review} class that represents the review
      * @param bg the {@code Color} of the background for the {@code ReviewGUI}

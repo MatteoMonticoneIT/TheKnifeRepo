@@ -19,6 +19,7 @@ import theknife.Controller;
 import theknife.obj.lists.ListReview;
 import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
+import theknife.obj.user.Customer;
 
 /**
  * {@code CustomerReviews} is a panel used to display all reviews made by a {@link Customer}.

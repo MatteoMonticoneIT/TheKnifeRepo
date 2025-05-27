@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import theknife.Controller;
 import theknife.obj.review.Review;
+import theknife.obj.user.Customer;
 
 /**
  * {@code CustomerReview} is a panel used to display a review made by a {@link Customer}.

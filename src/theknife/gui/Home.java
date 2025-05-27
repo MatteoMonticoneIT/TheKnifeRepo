@@ -21,8 +21,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
+import javax.swing.JTextField;
 import theknife.Controller;
 import theknife.obj.restaurant.Restaurant;
+import theknife.obj.user.User;
 
 /**
  * The Home class represents the home screen of the application.

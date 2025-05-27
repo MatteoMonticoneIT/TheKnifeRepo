@@ -29,6 +29,7 @@ import theknife.gui.Page;
 import theknife.gui.PanelMain;
 import theknife.gui.Register;
 import theknife.gui.RegisterRestaurateur;
+import theknife.gui.CustomerReviews;
 import theknife.obj.AppPaths;
 import theknife.obj.InputPattern;
 import theknife.obj.lists.ListCustomer;
@@ -211,7 +212,7 @@ public final class Controller
      * <p>
      * This constructor initializes the {@code Controller} object's {@link PanelMain}.
      * </p>
-     * @param pnl_main
+     * @param pnl_main the panel main
      */
     public              Controller          (PanelMain pnl_main)
     {
@@ -394,12 +395,12 @@ public final class Controller
     
     /**
      * Sets the {@code Review} selected from the {@link CustomerReviews} page.
-     * @param review 
+     * @param review the review selected
      */
     public final void               setSelectedReview   (Review review)                     {this.selectedReview = review; }
     
     /**
-     * Returns the {@link Review} selected from the {@link CustomerReviews} page.
+     * Returns the {@link Review} selected from the CustomerReviews page.
      * @return the {@link Review} selected
      */
     public final Review             getSelectedReview   ()                                  {return this.selectedReview;}
@@ -585,7 +586,7 @@ public final class Controller
     
     /**
      * Method to add a new Restaurant as a restaurateur.
-     * @param restaurant new restaurant given by {@link AddRestaurant}
+     * @param restaurant new restaurant given by AddRestaurant
      */
     public  final void          addRestaurant           (Restaurant restaurant)
     {

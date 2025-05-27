@@ -17,6 +17,7 @@ import javax.swing.border.Border;
 import theknife.Controller;
 import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
+import theknife.obj.user.Customer;
 
 /**
  * {@code EditReview} is a panel used to edit a review made by a {@link Customer}.

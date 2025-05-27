@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
+import java.awt.CardLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -19,6 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import theknife.Controller;
+import theknife.gui.PanelMain;
 
 /**
  * A panel that represents the login screen in the application.

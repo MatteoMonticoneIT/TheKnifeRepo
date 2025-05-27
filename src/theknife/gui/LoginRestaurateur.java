@@ -13,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.KeyboardFocusManager;
+import java.awt.CardLayout;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
@@ -25,6 +26,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import theknife.Controller;
+import theknife.gui.PanelMain;
 
 /**
  * A panel that represents the login screen for restaurateurs in the application.

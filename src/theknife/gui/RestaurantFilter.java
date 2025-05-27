@@ -1,5 +1,6 @@
 package theknife.gui;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**

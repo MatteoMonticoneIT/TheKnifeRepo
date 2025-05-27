@@ -30,6 +30,7 @@ import javax.swing.border.Border;
 import simple.file.CSV;
 import simple.util.StringUtils;
 import theknife.Controller;
+import theknife.obj.lists.ListOwned;
 import theknife.obj.AppPaths;
 import theknife.obj.InputPattern;
 import theknife.obj.restaurant.Restaurant;

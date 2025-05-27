@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.KeyboardFocusManager;
+import java.awt.CardLayout;
 import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
@@ -21,6 +22,7 @@ import javax.swing.border.Border;
 import theknife.Controller;
 import theknife.obj.InputPattern;
 import theknife.obj.user.Restaurateur;
+import theknife.gui.PanelMain;
 
 /**
  * A panel that represents the register screen in the application.

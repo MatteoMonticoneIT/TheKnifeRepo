@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -23,6 +24,7 @@ import javax.swing.border.Border;
 import simple.file.CSV;
 import theknife.Controller;
 import theknife.obj.AppPaths;
+import theknife.gui.PanelMain;
 
 /**
  * A panel that represents the advanced search screen in the application.
