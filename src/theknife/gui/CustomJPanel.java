@@ -77,7 +77,11 @@ public class CustomJPanel extends JPanel
       case "Add Response":   
     }
   }
-  
+  /**
+    * Paints the component by drawing the background with a custom gradient.
+    *
+    * @param g - the {@link Graphics} context to use for painting
+    */
   @Override
   protected void paintComponent(Graphics g) 
   {

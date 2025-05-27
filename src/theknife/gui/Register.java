@@ -421,7 +421,7 @@ public final class Register extends CustomJPanel
     /**
      * Handles the losing focus event on the first name {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_firstName_FocusLost(java.awt.event.FocusEvent e) 
     {
@@ -452,7 +452,7 @@ public final class Register extends CustomJPanel
     /**
      * Handles the losing focus event on the last name {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_lastName_FocusLost(java.awt.event.FocusEvent e) 
     {
@@ -483,7 +483,7 @@ public final class Register extends CustomJPanel
     /**
      * Handles the losing focus event on the birthDate {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_birthDate_FocusLost(java.awt.event.FocusEvent e)
     {
@@ -514,7 +514,7 @@ public final class Register extends CustomJPanel
     /**
      * Handles the losing focus event on the location {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_location_FocusLost(java.awt.event.FocusEvent e) 
     {
@@ -545,7 +545,7 @@ public final class Register extends CustomJPanel
     /**
      * Handles the losing focus event on the email {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_email_FocusLost(java.awt.event.FocusEvent e) 
     {
@@ -576,7 +576,7 @@ public final class Register extends CustomJPanel
     /**
      * Handles the losing focus event on the username {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_username_FocusLost(java.awt.event.FocusEvent e)
     {
@@ -608,7 +608,7 @@ public final class Register extends CustomJPanel
     /**
      * Handles the losing focus event on the password {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_password_FocusLost(java.awt.event.FocusEvent e) 
     {
@@ -671,7 +671,8 @@ public final class Register extends CustomJPanel
     /**
      * Handles the click event on the register button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@code Login} screen canceling the login procedure.
+     * When the button is clicked, it checks data inserted and if it is correct 
+     * it will save the customer in the list.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
@@ -762,7 +763,7 @@ public final class Register extends CustomJPanel
     /**
      * Handles the click event on the cancel button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@code Login} screen canceling the login procedure.
+     * When the button is clicked, the view switches to the {@code Login} page.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 

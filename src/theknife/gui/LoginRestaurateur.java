@@ -548,7 +548,7 @@ public class LoginRestaurateur extends CustomJPanel
     /**
      * Handles the click event on the register button {@link JLabel}.
      * <p>
-     * When the button is clicked the view switches to the {@code Register} screen canceling the login procedure.
+     * When the button is clicked the view switches to the {@code Register} page.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button
@@ -583,7 +583,7 @@ public class LoginRestaurateur extends CustomJPanel
     /**
      * Handles the click event on the login as restaurateur button {@link JLabel}.
      * <p>
-     * When the button is clicked the view switches to the {@code LoginAsRestaurateur} screen canceling the login procedure.
+     * When the button is clicked the view switches to the {@code LoginAsRestaurateur} page.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button

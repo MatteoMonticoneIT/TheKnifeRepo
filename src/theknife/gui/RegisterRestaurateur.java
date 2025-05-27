@@ -57,7 +57,7 @@ public class RegisterRestaurateur extends CustomJPanel
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
-     * Initializes the graphical user interface (GUI) for the {@code Register} page.
+     * Initializes the graphical user interface (GUI) for the {@code RegisterRestaurateur} page.
      */
     private void initGUI() 
     {
@@ -67,7 +67,7 @@ public class RegisterRestaurateur extends CustomJPanel
     }
     
     /**
-     * Initializes the basic fields of the {@code Register} panel.
+     * Initializes the basic fields of the {@code RegisterRestaurateur} panel.
      */
     private void initFields() 
     {
@@ -99,7 +99,7 @@ public class RegisterRestaurateur extends CustomJPanel
     }
     
     /**
-     * Initializes the layout and appearance of the {@code Register} page.
+     * Initializes the layout and appearance of the {@code RegisterRestaurateur} page.
      */
     private void initRegister() 
     {
@@ -420,7 +420,7 @@ public class RegisterRestaurateur extends CustomJPanel
     /**
      * Handles the losing focus event on the first name {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_firstName_FocusLost(java.awt.event.FocusEvent e) 
     {
@@ -451,7 +451,7 @@ public class RegisterRestaurateur extends CustomJPanel
     /**
      * Handles the losing focus event on the last name {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_lastName_FocusLost(java.awt.event.FocusEvent e) 
     {
@@ -482,7 +482,7 @@ public class RegisterRestaurateur extends CustomJPanel
     /**
      * Handles the losing focus event on the birthDate {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_birthDate_FocusLost(java.awt.event.FocusEvent e)
     {
@@ -513,7 +513,7 @@ public class RegisterRestaurateur extends CustomJPanel
     /**
      * Handles the losing focus event on the location {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_location_FocusLost(java.awt.event.FocusEvent e) 
     {
@@ -544,7 +544,7 @@ public class RegisterRestaurateur extends CustomJPanel
     /**
      * Handles the losing focus event on the email {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_email_FocusLost(java.awt.event.FocusEvent e) 
     {
@@ -575,7 +575,7 @@ public class RegisterRestaurateur extends CustomJPanel
     /**
      * Handles the losing focus event on the username {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_username_FocusLost(java.awt.event.FocusEvent e)
     {
@@ -607,7 +607,7 @@ public class RegisterRestaurateur extends CustomJPanel
     /**
      * Handles the losing focus event on the password {@link JTextField}.
      * 
-     * @param e the mouse event triggered by gaining focus
+     * @param e the mouse event triggered by loosing focus
      */
     private void txt_password_FocusLost(java.awt.event.FocusEvent e) 
     {
@@ -670,7 +670,8 @@ public class RegisterRestaurateur extends CustomJPanel
     /**
      * Handles the click event on the register button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@code Login} screen canceling the login procedure.
+     * When the button is clicked, it checks data inserted and if it is correct 
+     * it will save the restaurateur in the list.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 

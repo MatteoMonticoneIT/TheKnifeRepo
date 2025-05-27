@@ -352,16 +352,25 @@ public final class Upperbar extends javax.swing.JPanel
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
-    public void changeUI(String role)
+    /**
+     * Changes the login button text to work as a logout button
+     */   
+    public void changeUI()
     {
       btn_login.setText("Logout");
     }
     
+    /**
+     * Reverts the logout button text to work as a login button
+     */  
     private void revertUI()
     {
       btn_login     .setText            ("Login");
     }
     
+    /**
+     * Resets search bar 
+     */ 
     private void resetSearch()
     {
       txt_searchbar .setText            ("");

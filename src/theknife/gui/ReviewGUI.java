@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -32,7 +31,6 @@ import theknife.obj.review.Review;
  */
 public final class ReviewGUI extends javax.swing.JPanel 
 {
-
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Creates a new {@code ReviewGUI} panel and initializes its components.
@@ -226,7 +224,7 @@ public final class ReviewGUI extends javax.swing.JPanel
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
     /**
-     * Handles the resize event for the {@code RestaurantGUI} {@link JPanel}.
+     * Handles the resize event for the {@code ReviewGUI} {@link JPanel}.
      * <p>
      * When resized, resizes the padding of the components.
      * </p>
@@ -245,7 +243,7 @@ public final class ReviewGUI extends javax.swing.JPanel
     /**
      * Handles the click event on the back button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@code Home} screen canceling the login procedure.
+     * When the button is clicked, the view switches to the {@code Restaurant} page.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 

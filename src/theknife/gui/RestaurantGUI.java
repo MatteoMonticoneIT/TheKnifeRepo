@@ -458,7 +458,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     /**
      * Handles the click event on the back button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@code Home} screen canceling the login procedure.
+     * When the button is clicked, the view switches to the {@code Home} page.
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
@@ -537,7 +537,7 @@ public class RestaurantGUI extends javax.swing.JPanel
         /**
      * Handles the click event on the add review button {@link JLabel}.
      * <p>
-     * When the button is clicked, the view switches to the {@link AddReview} screen.
+     * When the button is clicked, it add or remove the restaurant in the {@kink ListFavorite} of the customer
      * </p>
      * 
      * @param e the mouse event triggered by clicking the button 
