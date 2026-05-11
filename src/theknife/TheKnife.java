@@ -20,7 +20,6 @@ import theknife.obj.AppPaths;
  * This class represents the main window of the application, containing the layout and navigation structure.<br>
  * It handles the initialization and switching between different panels.
  * 
- * 
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
