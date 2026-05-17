@@ -1,5 +1,8 @@
 package theknife.server;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -51,6 +54,30 @@ public class serverTK
     finally 
     {
       scanner.close();
+    }
+  }
+  
+  public static void startServerServices(Connection dbConnection) 
+  {
+    int port = 8080;
+
+    try (ServerSocket serverSocket = new ServerSocket(port)) 
+    {
+      System.out.println("\n[SERVER] ServerTK in ascolto sulla porta " + port + "...");
+
+      while (true) 
+      {
+        Socket clientSocket = serverSocket.accept();
+        System.out.println("[SERVER] Nuovo client connesso da: " + clientSocket.getInetAddress());
+
+        ClientHandler handler = new ClientHandler(clientSocket, dbConnection);
+        new Thread(handler).start();
+      }
+
+    } 
+    catch(IOException e) 
+    {
+      System.err.println("[ERRORE SERVER] Eccezione nell'avvio del server: " + e.getMessage());
     }
   }
 }
