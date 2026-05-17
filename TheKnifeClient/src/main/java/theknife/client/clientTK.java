@@ -1,0 +1,212 @@
+package theknife.client;
+
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.KeyboardFocusManager;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import simple.logging.LoggerUtils;
+import theknife.gui.Page;
+import theknife.gui.PanelMain;
+import theknife.obj.AppPaths;
+
+/**
+ * The main frame of the application "The Knife".<br>
+ * This class represents the main window of the application, containing the layout and navigation structure.<br>
+ * It handles the initialization and switching between different panels.
+ * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
+ * @author Matteo Monticone     761701 (CO)
+ * @author Mattia Tamburo       761743 (CO)
+ */
+
+public final class clientTK extends JFrame 
+{   
+    //<editor-fold defaultstate="collapsed" desc="Constructor">
+    /**
+     * Creates a new instance of {@code TheKnife} {@link JFrame} and initializes its components.<br>
+     * The constructor sets up the GUI, including the main panel and the home and login pages.
+     */
+    public       clientTK           ()
+    {
+      initComponents();
+      initGUI       ();
+    }
+    
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Initialization">
+    /**
+     * Initializes the Graphic User Interface (GUI) of TheKnife application.<br>
+     * This method creates the main panel, home page, and login page, and adds them to the main panel.<br>
+     * It also sets up the content pane and displays the home page initially.
+     */
+    private void initGUI            () 
+    {
+      pnl_main   = new PanelMain ();
+      controller = new Controller(pnl_main);
+      try 
+      {
+        this.setIconImage(ImageIO.read(AppPaths.getRequiredFile("img", "icon.png")));
+      } 
+      catch (IOException e) 
+      {
+        LoggerUtils.logSevereAndThrow("Unable to get the logo image", e);
+      }
+      addFullscreenEvent    ();
+      initTheKnife          ();
+      initEvents            ();
+    }
+    
+    /**
+     * Initializes the main page.
+     */
+    private void initTheKnife       () 
+    {     
+      this.setContentPane               (controller.getPanelMain().getPanel());
+      controller.getPanelMain().showCard(Page.HOME);
+    }
+
+    /**
+     * Sets up event listeners for user interaction.
+     */
+    private void initEvents         ()
+    {         
+      this.addWindowListener(new WindowAdapter() 
+      {
+        @Override
+        public void windowClosing(WindowEvent e) {WindowClosing();}
+      });  
+    }
+    
+    /**
+     * Registers a keyboard event dispatcher that listens for the F11 key press
+     * to toggle the fullscreen mode of the main application window.
+     * <p>
+     * When F11 is pressed, the {@link #toggleFullscreen()} method is called.
+     * </p>
+     *
+     * @see #toggleFullscreen()
+     */
+    private void addFullscreenEvent ()
+    {
+      KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(e ->
+      {
+        if(e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_F11)
+          toggleFullscreen();
+        return false;
+      });
+    }
+    
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Event Listeners">
+    /**
+     * When closing {@code TheKnife} application (from the "X"), all data will be saved.
+     */
+    public  void WindowClosing      () 
+    {
+      controller.saveData();    
+    }
+
+    /**
+     * Toggles the fullscreen mode of the main application window.
+     * <p>
+     * If the application is currently in fullscreen mode, it will restore the window to its previous size and decorations. <br>
+     * Otherwise, it will enter fullscreen mode.
+     * </p>
+     */
+    private void toggleFullscreen   ()
+    {
+      GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        
+      if(isFullscreen)
+      {
+        this.dispose                ();
+        this.setUndecorated         (false);
+        this.setBounds              (windowResolution);
+        this.setVisible             (true);
+        isFullscreen                = false;
+      }
+      else
+      {
+        windowResolution            = this.getBounds();
+        this.dispose                ();
+        this.setUndecorated         (true);
+        this.setVisible             (true);
+        device.setFullScreenWindow  (this);
+        isFullscreen                = true;
+      }
+    }    
+    //</editor-fold>  
+    //<editor-fold defaultstate="collapsed" desc="Components">
+    private PanelMain   pnl_main;
+    private Controller  controller;
+    private boolean     isFullscreen;
+    private Rectangle   windowResolution;
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Java Swing Auto Generated Code">
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("The Knife");
+        setMinimumSize(new java.awt.Dimension(872, 527));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 854, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 480, Short.MAX_VALUE)
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) 
+    {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | javax.swing.UnsupportedLookAndFeelException e) {
+            java.util.logging.Logger.getLogger(clientTK.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new clientTK().setVisible(true);
+        });
+    }  
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration//GEN-END:variables
+    //</editor-fold>
+}

@@ -6,3 +6,4 @@ nbproject/private/
 
 #Ignore all temp data used in The Knife
 tempdata/
+target/
