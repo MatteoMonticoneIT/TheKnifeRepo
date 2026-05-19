@@ -3,6 +3,7 @@ package theknife.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import simple.socket.*;
 
 /**
  * 
@@ -63,8 +65,46 @@ public class serverTK
   public static void startServerServices(Connection dbConnection) 
   {
     int port = 8080;
+    ServerConfig config = new ServerConfig.Builder()
+      .port(8080)
+      .maxThreads(16)
+      .backlog(16)
+      .build();
+    
+    SimpleServer server = new SimpleServer(config);
+      
+    /*server.setHandler(socket -> {
+      try {
+        while(socket.isConnected()) {
+          try {
+            String msg = SocketUtils.receive(socket);
+            if (msg == null) 
+              break;
+            server.broadcast(msg);
 
-    try (ServerSocket serverSocket = new ServerSocket(port)) 
+          } catch (SocketTimeoutException e) {
+            if (!server.isRunning()) break;
+          }
+        }
+      } catch (IOException e) {
+        System.out.println("Client disconnected: " + socket.getInetAddress());
+      } finally {
+        try { 
+          socket.close(); 
+        } catch (IOException ignore) {}
+     }
+    });*/
+    try {
+        server.start();
+        System.out.println("\n[SERVER] ServerTK in ascolto sulla porta " + port + "...");
+        
+        ClientHandler handler = new ClientHandler(dbConnection);
+        new Thread(handler).start();
+    } catch (IOException e) {
+      System.err.println("[ERRORE SERVER] Eccezione nell'avvio del server: " + e.getMessage());
+    }
+    
+    /*try (ServerSocket serverSocket = new ServerSocket(port)) 
     {
       System.out.println("\n[SERVER] ServerTK in ascolto sulla porta " + port + "...");
 
@@ -81,7 +121,7 @@ public class serverTK
     catch(IOException e) 
     {
       System.err.println("[ERRORE SERVER] Eccezione nell'avvio del server: " + e.getMessage());
-    }
+    }*/
   }
   
   //<editor-fold defaultstate="collapsed" desc="Exclusive Programmer Methods">   

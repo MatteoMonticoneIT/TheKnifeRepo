@@ -23,6 +23,11 @@ public class ClientHandler implements Runnable
       this.clientSocket = socket;
       this.dbConnection = dbConnection;
     }
+    
+    public ClientHandler(Connection dbConnection) 
+    {
+      this.dbConnection = dbConnection;
+    }
 
     @Override
     public void run() 
