@@ -49,6 +49,8 @@ public class serverTK
       Connection dbConnection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
             
       System.out.println("[OK] Connessione al database the_knife_db stabilita con successo!");
+      
+      startServerServices(dbConnection);
     } 
     catch (SQLException e) 
     {
@@ -73,7 +75,7 @@ public class serverTK
     
     SimpleServer server = new SimpleServer(config);
       
-    /*server.setHandler(socket -> {
+    server.setHandler(socket -> {
       try {
         while(socket.isConnected()) {
           try {
@@ -93,13 +95,20 @@ public class serverTK
           socket.close(); 
         } catch (IOException ignore) {}
      }
-    });*/
+    });
     try {
-        server.start();
-        System.out.println("\n[SERVER] ServerTK in ascolto sulla porta " + port + "...");
+        //while (true) {            
+            server.start();
+            System.out.println("\n[SERVER] ServerTK in ascolto sulla porta " + port + "...");
+            
+            ClientHandler handler = new ClientHandler(new Socket("127.0.0.1", port), dbConnection);
+            new Thread(handler, "").start();
+            
+            System.out.println("Premi ENTER per terminare il server");
+            System.in.read();
         
-        ClientHandler handler = new ClientHandler(dbConnection);
-        new Thread(handler).start();
+            server.stop();
+        //}
     } catch (IOException e) {
       System.err.println("[ERRORE SERVER] Eccezione nell'avvio del server: " + e.getMessage());
     }
