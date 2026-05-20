@@ -65,6 +65,7 @@ public class serverTK
   public static void startServerServices(Connection dbConnection) 
   {
     int port = 7070;
+    QueryServer queryServer = new QueryServer();
     ServerConfig config = new ServerConfig.Builder()
       .port(7070)
       .maxThreads(16)
@@ -98,7 +99,7 @@ public class serverTK
         server.start();
         System.out.println("\n[SERVER] ServerTK in ascolto sulla porta " + port + "...");
         
-        ClientHandler handler = new ClientHandler(dbConnection);
+        ClientHandler handler = new ClientHandler(dbConnection, queryServer);
         new Thread(handler).start();
     } catch (IOException e) {
       System.err.println("[ERRORE SERVER] Eccezione nell'avvio del server: " + e.getMessage());

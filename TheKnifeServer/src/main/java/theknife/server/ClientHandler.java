@@ -5,7 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import theknife.obj.lists.ListFavorite;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.restaurant.Restaurant;
 
@@ -42,7 +45,7 @@ public class ClientHandler implements Runnable {
         String sql = queryServer.getAllRestaurant();
         ListRestaurant temp = new ListRestaurant();
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
-            try (rs = pstmt.executeQuery()) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     //TODO salvare i ristoranti nella lista locale (in teoria fatto)
                     temp.add(new Restaurant(rs.getInt("id"),
@@ -73,10 +76,58 @@ public class ClientHandler implements Runnable {
             System.err.println("Motivo: " + e.getMessage());
             System.exit(1);
         }
-
         return temp;
     }
 
-    //TODO funzione getFavorites: ritorna i preferiti dato l'id utente
-    //TODO creare getReview, getCuisine, getServices
+    private ListFavorite getFavorite(int id){
+        String sql = queryServer.getFavorites(id);
+        ArrayList<Integer> list = new ArrayList();
+        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(rs.getInt("ID"));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("[ERRORE] Impossibile connettersi al database.");
+            System.err.println("Motivo: " + e.getMessage());
+            System.exit(1);
+        }
+        ListFavorite temp = new ListFavorite(list);
+        return temp;
+    }
+
+    private ArrayList<String> getCuisine(){
+        String sql = queryServer.getAllCuisine();
+        ArrayList<String> list = new ArrayList();
+        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(rs.getString("description"));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("[ERRORE] Impossibile connettersi al database.");
+            System.err.println("Motivo: " + e.getMessage());
+            System.exit(1);
+        }
+        return list;
+    }
+
+    private ArrayList<String> getService(){
+        String sql = queryServer.getAllServices();
+        ArrayList<String> list = new ArrayList();
+        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(rs.getString("description"));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("[ERRORE] Impossibile connettersi al database.");
+            System.err.println("Motivo: " + e.getMessage());
+            System.exit(1);
+        }
+        return list;
+    }
 }

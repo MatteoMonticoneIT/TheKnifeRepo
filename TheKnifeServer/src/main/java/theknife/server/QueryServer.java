@@ -2,11 +2,10 @@ package theknife.server;
 
 public class QueryServer {
     //TODO mettere tutte le query con le funzioni
-    public QueryServer(){
-
+    public QueryServer() {
     }
 
-    public String getAllRestaurant(){
+    public String getAllRestaurant() {
         return "SELECT" +
                 "    r.*," +
                 "    CASE" +
@@ -29,8 +28,24 @@ public class QueryServer {
                 "GROUP BY r.id;";
     }
 
-    public String getAllReviews(){
+    public String getAllReviews() {
         return "SELECT * FROM reviews";
+    }
+
+    public String getFavorites(int id) {
+        return "SELECT ID FROM review r WHERE r.IDCustomer = " + id;
+    }
+
+    public String getAllReview() {
+        return "SELECT * FROM review";
+    }
+
+    public String getAllCuisine() {
+        return "SELECT * FROM cuisine";
+    }
+
+    public String getAllServices() {
+        return "SELECT * FROM service";
     }
 
 
