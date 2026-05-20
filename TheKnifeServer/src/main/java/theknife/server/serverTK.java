@@ -67,6 +67,7 @@ public class serverTK
   public static void startServerServices(Connection dbConnection) 
   {
     int port = 7070;
+    QueryServer queryServer = new QueryServer();
     ServerConfig config = new ServerConfig.Builder()
       .port(7070)
       .maxThreads(16)
@@ -107,8 +108,6 @@ public class serverTK
             System.out.println("Premi ENTER per terminare il server");
             System.in.read();
         
-            server.stop();
-        //}
     } catch (IOException e) {
       System.err.println("[ERRORE SERVER] Eccezione nell'avvio del server: " + e.getMessage());
     }

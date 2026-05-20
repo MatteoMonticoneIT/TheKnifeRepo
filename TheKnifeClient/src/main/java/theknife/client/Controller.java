@@ -135,8 +135,7 @@ public final class Controller
     /**
      * connection at {@Link ServerHandler}
      */
-
-    private ServerHandler serverHandler = new ServerHandler();
+    //private ServerHandler serverHandler = new ServerHandler();
 
     /**
      * A {@link HashMap} mapping city names to lists of {@link Restaurant} objects.
