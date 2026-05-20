@@ -10,5 +10,5 @@ package theknife.client;
 
 public class ServerHandler 
 {
-    
+    //TODO creare connessione con db, scrivere query, login
 }

@@ -26,8 +26,8 @@ import theknife.obj.AppPaths;
  * @author Mattia Tamburo       761743 (CO)
  */
 
-public final class clientTK extends JFrame 
-{   
+public final class clientTK extends JFrame
+{
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
      * Creates a new instance of {@code TheKnife} {@link JFrame} and initializes its components.<br>
@@ -38,7 +38,7 @@ public final class clientTK extends JFrame
       initComponents();
       initGUI       ();
     }
-    
+
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Initialization">
     /**
@@ -46,15 +46,15 @@ public final class clientTK extends JFrame
      * This method creates the main panel, home page, and login page, and adds them to the main panel.<br>
      * It also sets up the content pane and displays the home page initially.
      */
-    private void initGUI            () 
+    private void initGUI            ()
     {
       pnl_main   = new PanelMain ();
       controller = new Controller(pnl_main);
-      try 
+      try
       {
         this.setIconImage(ImageIO.read(AppPaths.getRequiredFile("img", "icon.png")));
-      } 
-      catch (IOException e) 
+      }
+      catch (IOException e)
       {
         LoggerUtils.logSevereAndThrow("Unable to get the logo image", e);
       }
@@ -62,12 +62,12 @@ public final class clientTK extends JFrame
       initTheKnife          ();
       initEvents            ();
     }
-    
+
     /**
      * Initializes the main page.
      */
-    private void initTheKnife       () 
-    {     
+    private void initTheKnife       ()
+    {
       this.setContentPane               (controller.getPanelMain().getPanel());
       controller.getPanelMain().showCard(Page.HOME);
     }
@@ -76,14 +76,14 @@ public final class clientTK extends JFrame
      * Sets up event listeners for user interaction.
      */
     private void initEvents         ()
-    {         
-      this.addWindowListener(new WindowAdapter() 
+    {
+      this.addWindowListener(new WindowAdapter()
       {
         @Override
         public void windowClosing(WindowEvent e) {WindowClosing();}
-      });  
+      });
     }
-    
+
     /**
      * Registers a keyboard event dispatcher that listens for the F11 key press
      * to toggle the fullscreen mode of the main application window.
@@ -102,15 +102,15 @@ public final class clientTK extends JFrame
         return false;
       });
     }
-    
+
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
     /**
      * When closing {@code TheKnife} application (from the "X"), all data will be saved.
      */
-    public  void WindowClosing      () 
+    public  void WindowClosing      ()
     {
-      controller.saveData();    
+      controller.saveData();
     }
 
     /**
@@ -123,7 +123,7 @@ public final class clientTK extends JFrame
     private void toggleFullscreen   ()
     {
       GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        
+
       if(isFullscreen)
       {
         this.dispose                ();
@@ -141,8 +141,8 @@ public final class clientTK extends JFrame
         device.setFullScreenWindow  (this);
         isFullscreen                = true;
       }
-    }    
-    //</editor-fold>  
+    }
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private PanelMain   pnl_main;
     private Controller  controller;
@@ -181,12 +181,12 @@ public final class clientTK extends JFrame
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) 
+    public static void main(String args[])
     {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -200,12 +200,12 @@ public final class clientTK extends JFrame
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new clientTK().setVisible(true);
         });
-    }  
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
     //</editor-fold>

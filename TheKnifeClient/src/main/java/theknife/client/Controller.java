@@ -3,6 +3,8 @@ package theknife.client;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -129,7 +131,13 @@ public final class Controller
      */
     @JsonProperty("restaurateurs")
     private ListRestaurateur restaurateurs;
-    
+
+    /**
+     * connection at {@Link ServerHandler}
+     */
+
+    private ServerHandler serverHandler = new ServerHandler();
+
     /**
      * A {@link HashMap} mapping city names to lists of {@link Restaurant} objects.
      */  
@@ -508,6 +516,7 @@ public final class Controller
      */
     public  final boolean       LoginRestaurateur       (String user, String password)
     {
+        //TODO modificare con query db
       if(     InputPattern   .match       (InputPattern.USERNAME, user)     &&
               InputPattern   .match       (InputPattern.PASSWORD, password))
         loggedUser = this.getRestaurateurs().checkUser       (user, password, aes); 

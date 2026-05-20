@@ -64,9 +64,9 @@ public class serverTK
   
   public static void startServerServices(Connection dbConnection) 
   {
-    int port = 8080;
+    int port = 7070;
     ServerConfig config = new ServerConfig.Builder()
-      .port(8080)
+      .port(7070)
       .maxThreads(16)
       .backlog(16)
       .build();
