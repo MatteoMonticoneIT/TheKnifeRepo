@@ -6,8 +6,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import simple.crypto.AES;
 import theknife.obj.AppPaths;
+import theknife.obj.lists.ListFavorite;
+import theknife.obj.lists.ListOwned;
+import theknife.obj.user.Customer;
+import theknife.obj.user.Restaurateur;
+import theknife.obj.user.User;
 
 /**
  * Manages database encryption and decryption
@@ -199,18 +206,35 @@ public class CypherHandler
    * @throws Exception 
    * Method to decrypt specified customer password
    */
-  public boolean   decryptCustomer         (Connection dbConnection, String username, String password) throws Exception
+  public Customer   decryptCustomer         (Connection dbConnection, String username, String password) throws Exception
   {  
-    String sql = "SELECT username, password FROM customer WHERE username = ?";
+    String sql = "SELECT c.*, CASE WHEN COUNT(lf.id) = 0 THEN '' ELSE STRING_AGG(DISTINCT lf.restaurantid, ', ') END AS listfavourite, FROM customer c LEFT JOIN listfavourite lf ON lf.customerid = c.id WHERE username = ? OR email = ? GROUP BY c.id;";
        
     try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) 
     {  
       pstmt.setString(1, username);
+      pstmt.setString(2, username);
       
       try (ResultSet rs = pstmt.executeQuery()) 
       {
-        if(rs.next() && password.equals(aes.decrypt(rs.getString ("password")))) 
-          return true;
+        if(rs.next() && password.equals(aes.decrypt(rs.getString ("password")))) {
+          ArrayList<Integer> temp = new ArrayList<>();
+          for(String s:(rs.getString("listfavourite").split("\\,")))
+            temp.add(Integer.parseInt(s));
+          ListFavorite ls = new ListFavorite(temp);
+
+          return new Customer(
+                  rs.getInt("id"),
+                  ls,
+                  rs.getString("firstName"),
+                  rs.getString("lastName"),
+                  rs.getString("birthDate"),
+                  rs.getString("address"),
+                  rs.getString("username"),
+                  rs.getString("email"),
+                  rs.getString("password")
+          );
+        };
       }
     }
     catch (SQLException e) 
@@ -219,7 +243,7 @@ public class CypherHandler
       System.err.println("Motivo: " + e.getMessage());
       System.exit       (1);
     } 
-    return false;
+    return null;
   }
   
   /**
@@ -229,18 +253,34 @@ public class CypherHandler
    * @throws Exception 
    * Method to decrypt specified restaurateur password
    */
-  public boolean   decryptRestaurateur     (Connection dbConnection, String username, String password) throws Exception
+  public Restaurateur decryptRestaurateur     (Connection dbConnection, String username, String password) throws Exception
   {
-    String sql = "SELECT username, password FROM restaurateur WHERE username = ?";
+    String sql = "SELECT r.*, CASE WHEN COUNT(res.id) = 0 THEN '' ELSE STRING_AGG(DISTINCT res.id, ', ') END AS listowned, FROM restaurateur r LEFT JOIN restaurant res ON res.ownerid = r.id WHERE username = ? OR email = ? GROUP BY r.id;";
        
     try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) 
     {  
       pstmt.setString(1, username);
-      
+      pstmt.setString(2, username);
+
       try (ResultSet rs = pstmt.executeQuery()) 
       {
-        if(rs.next() && password.equals(aes.decrypt(rs.getString ("password")))) 
-          return true;
+        if(rs.next() && password.equals(aes.decrypt(rs.getString ("password")))) {
+          ArrayList<Integer> temp = new ArrayList<>();
+          for (String s : (rs.getString("listowned").split("\\,")))
+            temp.add(Integer.parseInt(s));
+          ListOwned lo = new ListOwned(temp);
+          return new Restaurateur(
+                  rs.getInt("id"),
+                  rs.getString("firstName"),
+                  rs.getString("lastName"),
+                  rs.getString("birthDate"),
+                  rs.getString("address"),
+                  rs.getString("username"),
+                  rs.getString("email"),
+                  rs.getString("password"),
+                  lo
+                  );
+        }
       }
     }
     catch (SQLException e) 
@@ -249,6 +289,6 @@ public class CypherHandler
       System.err.println("Motivo: " + e.getMessage());
       System.exit       (1);
     } 
-    return false;
+    return null;
   }
 }

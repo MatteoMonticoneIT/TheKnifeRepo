@@ -16,6 +16,7 @@ import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 import theknife.obj.user.Customer;
 import theknife.obj.user.Restaurateur;
+import theknife.obj.user.User;
 
 /**
  * 
@@ -36,18 +37,31 @@ public class ServerHandler
       this.socket = new Socket(serverAddress, serverPort);
     }
 
-    public boolean loginCustomer (Customer customer) throws IOException, ClassNotFoundException
+    public Customer loginCustomer (Customer customer) throws IOException, ClassNotFoundException
     {
       sendCmd("LOGIN_CUSTOMER");
       sendData(customer);
-      return SocketUtils.receive(socket, boolean.class);
+      return SocketUtils.receive(socket, Customer.class);
     }
-    
-    public boolean loginRestaurateur (Restaurateur restaurateur) throws IOException, ClassNotFoundException
+
+    public Customer loginCustomerEmail (Customer customer) throws IOException, ClassNotFoundException
+    {
+        sendCmd("LOGIN_CUSTOMER_EMAIL");
+        sendData(customer);
+        return SocketUtils.receive(socket, Customer.class);
+    }
+    public Restaurateur loginRestaurateur (Restaurateur restaurateur) throws IOException, ClassNotFoundException
     {
       sendCmd("LOGIN_RESTAURATEUR");
       sendData(restaurateur);
-      return SocketUtils.receive(socket, boolean.class);
+      return SocketUtils.receive(socket, Restaurateur.class);
+    }
+
+    public Restaurateur loginRestaurateurEmail (Restaurateur restaurateur) throws IOException, ClassNotFoundException
+    {
+        sendCmd("LOGIN_RESTAURATEUR_EMAIL");
+        sendData(restaurateur);
+        return SocketUtils.receive(socket, Restaurateur.class);
     }
     
     public boolean registerCustomer (Customer customer) throws IOException, ClassNotFoundException

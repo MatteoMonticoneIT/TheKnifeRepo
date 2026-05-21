@@ -13,8 +13,8 @@ public class QueryServer {
     }
 
     public String getAllRestaurant() {
-        return "SELECT" +
-                "    r.*," +
+        String r = "SELECT" +
+        "    r.*," +
                 "    CASE" +
                 "        WHEN COUNT(c.id) = 0 THEN ''" +
                 "        ELSE STRING_AGG(DISTINCT c.description, ', ')" +
@@ -33,6 +33,19 @@ public class QueryServer {
                 "LEFT JOIN service s" +
                 "ON ls.serviceId = s.id" +
                 "GROUP BY r.id;";
+
+        return "SELECT" +
+                "    r.*," +
+                "    CASE" +
+                "        WHEN COUNT(res.id) = 0 THEN ''" +
+                "        ELSE STRING_AGG(DISTINCT res.id, ', ')" +
+                "    END AS listowned," +
+                "FROM restaurateur r" +
+                "LEFT JOIN restaurant res" +
+                "    ON res.ownerid = r.id" +
+                "WHERE username = ?" +
+                "GROUP BY r.id;";
+
     }
 
     public String getAllReviews() {

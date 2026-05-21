@@ -412,16 +412,7 @@ public final class Controller
             byServiceSingle.computeIfAbsent(service, k -> new ArrayList<>()).add(r);
        }        
     }
-    
-    /**
-     * Save Restaurants, Customers and Restaurateurs lists to their jsons.
-     */
-    public  final void          saveData                () 
-    {
-      JSON.writeToFile(JSON_RESTAURANTS,   this.getRestaurants());
-      JSON.writeToFile(JSON_CUSTOMERS,     this.getCustomers());
-      JSON.writeToFile(JSON_RESTAURATEURS, this.getRestaurateurs());
-    }
+
     
     /**
      * Method to log in a client.
@@ -430,14 +421,13 @@ public final class Controller
      * @return true if loggedUser exist
      *         false if it doesn't
      */
-    public  final boolean       LoginClient             (String user, String password)
-    {
+    public  final boolean       LoginClient             (String user, String password) throws IOException, ClassNotFoundException {
       if(     InputPattern   .match   (InputPattern.USERNAME, user) && 
               InputPattern   .match   (InputPattern.PASSWORD, password))         
-        loggedUser = this.getCustomers().checkUser       (user, password, aes);
+        loggedUser = serverHandler.loginCustomer       (new Customer(user, password));
       else if(InputPattern   .match   (InputPattern.EMAIL, user)    && 
               InputPattern   .match   (InputPattern.PASSWORD, password)) 
-        loggedUser = this.getCustomers().checkUserByEmail(user, password, aes);
+        loggedUser = serverHandler.loginCustomerEmail  (new Customer(user, password));
       
       if(loggedUser!=null)
       {
@@ -454,15 +444,13 @@ public final class Controller
      * @return true if loggedUser exist
      *         false if it doesn't
      */
-    public  final boolean       LoginRestaurateur       (String user, String password)
-    {
-        //TODO modificare con query db
+    public  final boolean       LoginRestaurateur       (String user, String password) throws IOException, ClassNotFoundException {
       if(     InputPattern   .match       (InputPattern.USERNAME, user)     &&
               InputPattern   .match       (InputPattern.PASSWORD, password))
-        loggedUser = this.getRestaurateurs().checkUser       (user, password, aes); 
+        loggedUser = serverHandler.loginRestaurateur       (new Restaurateur(user, password));
       else if(InputPattern   .match       (InputPattern.EMAIL, user)        && 
               InputPattern   .match       (InputPattern.PASSWORD, password)) 
-        loggedUser = this.getRestaurateurs().checkUserByEmail(user, password, aes); 
+        loggedUser = serverHandler.loginRestaurateurEmail  (new Restaurateur(user, password));
       
       if(loggedUser!=null)
       {
