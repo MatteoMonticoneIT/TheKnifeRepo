@@ -43,7 +43,7 @@ public class CypherHandler
    * @throws Exception 
    * Method to encrypt all Customers passwords
    */
-  private void      encryptAllCustomer      (Connection dbConnection) throws Exception
+  public void      encryptAllCustomer      (Connection dbConnection) throws Exception
   {
     ArrayList<Integer>    IDs         = new ArrayList<>();
     ArrayList<String>     passwords   = new ArrayList<>();
@@ -115,7 +115,7 @@ public class CypherHandler
    * @throws Exception 
    * Method to encrypt all restaurateurs passwords
    */
-  private void      encryptAllRestaurateur  (Connection dbConnection) throws Exception
+  public void      encryptAllRestaurateur  (Connection dbConnection) throws Exception
   {
     ArrayList<Integer>    IDs         = new ArrayList<>();
     ArrayList<String>     passwords   = new ArrayList<>();
@@ -187,7 +187,7 @@ public class CypherHandler
    * @throws Exception 
    * Method to encrypt a given password
    */
-  private String    encryptUser             (String password) throws Exception
+  public String    encryptUser             (String password) throws Exception
   {
     return aes.encrypt(password);
   }
@@ -199,7 +199,7 @@ public class CypherHandler
    * @throws Exception 
    * Method to decrypt specified customer password
    */
-  private boolean   decryptCustomer         (Connection dbConnection, String username, String password) throws Exception
+  public boolean   decryptCustomer         (Connection dbConnection, String username, String password) throws Exception
   {  
     String sql = "SELECT username, password FROM customer WHERE username = ?";
        
@@ -229,7 +229,7 @@ public class CypherHandler
    * @throws Exception 
    * Method to decrypt specified restaurateur password
    */
-  private boolean   decryptRestaurateur     (Connection dbConnection, String username, String password) throws Exception
+  public boolean   decryptRestaurateur     (Connection dbConnection, String username, String password) throws Exception
   {
     String sql = "SELECT username, password FROM restaurateur WHERE username = ?";
        

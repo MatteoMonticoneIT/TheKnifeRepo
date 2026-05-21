@@ -1,5 +1,12 @@
 package theknife.server;
 
+/*
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
+ * @author Matteo Monticone     761701 (CO)
+ * @author Mattia Tamburo       760743 (CO)
+ */
+
 public class QueryServer {
     //TODO mettere tutte le query con le funzioni
     public QueryServer() {
@@ -34,6 +41,10 @@ public class QueryServer {
 
     public String getFavorites(int id) {
         return "SELECT ID FROM review r WHERE r.IDCustomer = " + id;
+    }
+    
+    public String getOwned(int id) {
+        return "SELECT ID FROM restaurant WHERE ownerID = " + id;
     }
 
     public String getAllReview() {

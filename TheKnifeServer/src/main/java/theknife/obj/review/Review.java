@@ -2,7 +2,7 @@ package theknife.obj.review;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import theknife.obj.lists.ListResponse;
+import java.io.Serializable;
 
 /**
  * A class representing a review with content, rating, and an associated response.
@@ -14,7 +14,7 @@ import theknife.obj.lists.ListResponse;
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Mattia Tamburo       761743 (CO)
+ * @author Mattia Tamburo       760743 (CO)
  */
 @JsonPropertyOrder(
 {
@@ -25,7 +25,7 @@ import theknife.obj.lists.ListResponse;
     "content", 
     "responses"
 })
-public final class Review 
+public final class Review implements Serializable
 {    
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
@@ -58,11 +58,6 @@ public final class Review
     @JsonProperty("rating")
     private double          rating;
     
-    /**
-     * The responses to the review, typically an instance of {@link ListResponse}.
-     */
-    @JsonProperty("responses")
-    private ListResponse    responses;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
@@ -128,13 +123,6 @@ public final class Review
     public final double         getRating       ()                          {return rating;}
     
     /**
-     * Returns the response to the review.
-     *
-     * @return the response to the review
-     */
-    public final ListResponse   getResponses    ()                          {return responses;}
-    
-    /**
      * Sets the review's id.
      *
      * @param id the new id to set
@@ -168,12 +156,5 @@ public final class Review
      * @param rating the rating to assign to the review
      */
     public final void           setRating       (double rating)             {this.rating        = rating;}
-    
-    /**
-     * Sets the response to the review.
-     *
-     * @param responses the {@code ListResponse} to assign to the review
-     */
-    public final void           setResponses    (ListResponse responses)    {this.responses     = responses;}
     //</editor-fold>
 }

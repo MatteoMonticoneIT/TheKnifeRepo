@@ -9,12 +9,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import simple.socket.SocketUtils;
+import theknife.cypher.CypherHandler;
+import theknife.obj.lists.ListCuisines;
 import theknife.obj.lists.ListFavorite;
 import theknife.obj.lists.ListOwned;
 
 import theknife.obj.lists.ListFavorite;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.lists.ListReview;
+import theknife.obj.lists.ListServices;
 import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 import theknife.obj.user.Customer;
@@ -25,11 +28,13 @@ import theknife.obj.user.Restaurateur;
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Mattia Tamburo       761743 (CO)
+ * @author Mattia Tamburo       760743 (CO)
  */
 
-public class ClientHandler implements Runnable {
-    public enum COMMANDS {
+public class ClientHandler implements Runnable 
+{
+    public enum COMMANDS 
+    {
         LOGIN_CUSTOMER,
         LOGIN_RESTAURATEUR,
         REGISTER_CUSTOMER,
@@ -49,6 +54,8 @@ public class ClientHandler implements Runnable {
     private Connection dbConnection;
     private QueryServer queryServer;
     private ResultSet rs;
+    
+    private CypherHandler cypherHandler = new CypherHandler();
 
     public ClientHandler(Socket socket, Connection dbConnection) {
         this.clientSocket = socket;
@@ -61,18 +68,24 @@ public class ClientHandler implements Runnable {
     }
 
     @Override
-    public void run() {
+    public void run() 
+    {
         //TODO mettersi in ascolto sulla porta 7070
-        try {
+        try 
+        {
+            while (clientSocket.isClosed()) 
+            {            
             String cmd = SocketUtils.receive(clientSocket);        
             COMMANDS cmdc = COMMANDS.valueOf(cmd);
-            while (true) {            
+            
                 switch (cmdc) {
                     case LOGIN_CUSTOMER:
                         Customer loginCustomer = SocketUtils.receive(clientSocket, Customer.class);
+                        SocketUtils.send(clientSocket, checkLoginCustomer(loginCustomer));
                         break;
                     case LOGIN_RESTAURATEUR:
                         Restaurateur loginRestaurateur = SocketUtils.receive(clientSocket, Restaurateur.class);
+                        SocketUtils.send(clientSocket, checkLoginRestaurateur(loginRestaurateur));
                         break;
                     case REGISTER_CUSTOMER:
                         Customer registerCustomer = SocketUtils.receive(clientSocket, Customer.class);
@@ -81,20 +94,29 @@ public class ClientHandler implements Runnable {
                         Restaurateur registerRestaurateur = SocketUtils.receive(clientSocket, Restaurateur.class);
                         break;
                     case GET_RESTAURANTS:
-                        ListRestaurant listRestaurant = SocketUtils.receive(clientSocket, ListRestaurant.class);
+                        ListRestaurant listRestaurant = getRestaurants();
+                        SocketUtils.send(clientSocket, listRestaurant);
                         break;
                     case GET_CUISINES:
+                        ListCuisines listCuisines = getCuisines();
+                        SocketUtils.send(clientSocket, listCuisines);
                         break;
                     case GET_SERVICES:
+                        ListServices listServices = getServices();
+                        SocketUtils.send(clientSocket, listServices);
                         break;
                     case GET_REVIEWS:
                         ListReview listReview = SocketUtils.receive(clientSocket, ListReview.class);
                         break;
                     case GET_LIST_FAVOURITE:
-                        ListFavorite listFavorite = SocketUtils.receive(clientSocket, ListFavorite.class);
+                        int customerID = SocketUtils.receive(clientSocket, Integer.class);
+                        ListFavorite listFavorite = getFavorite(customerID);
+                        SocketUtils.send(clientSocket, listFavorite);
                         break;
                     case GET_OWNED_RESTAURANTS:
-                        ListOwned listOwnedRestaurants = SocketUtils.receive(clientSocket, ListOwned.class);
+                        int restaurateurID = SocketUtils.receive(clientSocket, Integer.class);
+                        ListOwned listOwned = getOwned(restaurateurID);
+                        SocketUtils.send(clientSocket, listOwned);
                         break;
                     case ADD_RESTAURANT:
                         Restaurant restaurant = SocketUtils.receive(clientSocket, Restaurant.class);
@@ -115,9 +137,21 @@ public class ClientHandler implements Runnable {
             System.err.println("Exception IOException: " + e.getMessage());
         } catch (ClassNotFoundException ex) {
             System.err.println("Exception ClassNotFoundException: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.getLogger(ClientHandler.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 
+    private boolean checkLoginCustomer(Customer customer) throws Exception
+    {
+      return cypherHandler.decryptCustomer(dbConnection, customer.getUsername(), customer.getPassword());
+    }
+    
+    private boolean checkLoginRestaurateur(Restaurateur restaurateur) throws Exception
+    {
+      return cypherHandler.decryptCustomer(dbConnection, restaurateur.getUsername(), restaurateur.getPassword());
+    }
+            
     private ListRestaurant getRestaurants() {
         String sql = queryServer.getAllRestaurant();
         ListRestaurant temp = new ListRestaurant();
@@ -156,6 +190,24 @@ public class ClientHandler implements Runnable {
         return temp;
     }
 
+    private ListOwned getOwned(int id){
+        String sql = queryServer.getOwned(id);
+        ArrayList<Integer> list = new ArrayList();
+        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(rs.getInt("ID"));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("[ERRORE] Impossibile connettersi al database.");
+            System.err.println("Motivo: " + e.getMessage());
+            System.exit(1);
+        }
+        ListOwned temp = new ListOwned(list);
+        return temp;
+    }
+    
     private ListFavorite getFavorite(int id){
         String sql = queryServer.getFavorites(id);
         ArrayList<Integer> list = new ArrayList();
@@ -174,7 +226,7 @@ public class ClientHandler implements Runnable {
         return temp;
     }
 
-    private ArrayList<String> getCuisine(){
+    private ListCuisines getCuisines(){
         String sql = queryServer.getAllCuisine();
         ArrayList<String> list = new ArrayList();
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
@@ -188,10 +240,11 @@ public class ClientHandler implements Runnable {
             System.err.println("Motivo: " + e.getMessage());
             System.exit(1);
         }
-        return list;
+        ListCuisines temp = new ListCuisines(list);
+        return temp;
     }
 
-    private ArrayList<String> getService(){
+    private ListServices getServices(){
         String sql = queryServer.getAllServices();
         ArrayList<String> list = new ArrayList();
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
@@ -205,6 +258,7 @@ public class ClientHandler implements Runnable {
             System.err.println("Motivo: " + e.getMessage());
             System.exit(1);
         }
-        return list;
+        ListServices temp = new ListServices(list);
+        return temp;
     }
 }

@@ -2,6 +2,7 @@ package theknife.obj.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import simple.util.StringUtils;
 
 /**
@@ -14,9 +15,9 @@ import simple.util.StringUtils;
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Mattia Tamburo       761743 (CO)
+ * @author Mattia Tamburo       760743 (CO)
  */
-public class User 
+public class User implements Serializable
 {   
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
@@ -93,6 +94,21 @@ public class User
      * </p>
      */
     public User() {}
+    
+    /**
+     * Constructor that initializes a {@code User} object with the specified attributes.
+     * <p>
+     * This constructor initializes the {@code User} object's username and password.
+     * </p>
+     *
+     * @param username the user's username
+     * @param password the user's password
+     */
+    public User(String username, String password) 
+    {
+      this.setUsername(username);
+      this.setPassword(password);
+    }
     
     /**
      * Constructor that initializes a {@code User} object with the specified attributes.

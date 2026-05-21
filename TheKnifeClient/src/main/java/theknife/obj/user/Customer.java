@@ -13,7 +13,7 @@ import theknife.obj.lists.ListFavorite;
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Mattia Tamburo       761743 (CO)
+ * @author Mattia Tamburo       760743 (CO)
  */
 @JsonPropertyOrder(
 {
@@ -46,6 +46,20 @@ public final class Customer extends User
      * </p>
      */
     public Customer() {}
+    
+    /**
+     * Constructor that initializes a {@code Customer} object with the specified attributes.
+     * <p>
+     * This constructor initializes the {@code Customer} object's username and password.
+     * </p>
+     *
+     * @param username the customer's username
+     * @param password the customer's password
+     */
+    public Customer(String username, String password) 
+    {
+      super(username, password);
+    }
     
     /**
      * Constructor that initializes a {@code Client} object with the specified attributes.

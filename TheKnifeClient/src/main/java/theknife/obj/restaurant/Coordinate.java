@@ -1,6 +1,7 @@
 package theknife.obj.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 
 /**
  * A class that represents geographic coordinates using latitude and longitude.
@@ -12,10 +13,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Mattia Tamburo       761743 (CO)
+ * @author Mattia Tamburo       760743 (CO)
  */
 
-public class Coordinate 
+public class Coordinate implements Serializable
 {  
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**

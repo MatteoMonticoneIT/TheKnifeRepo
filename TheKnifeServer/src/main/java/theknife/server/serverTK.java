@@ -1,6 +1,9 @@
 package theknife.server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -66,6 +69,42 @@ public class serverTK
   
   public static void startServerServices(Connection dbConnection) 
   {
+    try {
+
+            ServerConfig config = new ServerConfig.Builder()
+            .port(7070)
+            .maxThreads(16)
+            .backlog(16)
+      .build();
+                
+
+
+            ConnectionHandler handler = (Socket client) -> {
+                System.out.println("Nuovo client connesso: " + client.getInetAddress());
+                
+                try {
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                    String messaggioRicevuto = in.readLine();
+                    System.out.println("Il client dice: " + messaggioRicevuto);
+
+                    PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+                    out.println("Messaggio ricevuto forte e chiaro!");
+                    
+                } catch (Exception e) {
+                    System.err.println("Errore di comunicazione con il client");
+                }
+            };
+
+            SimpleServer server = new SimpleServer(config, handler);
+            server.start();
+            System.out.println("Server in esecuzione. Premi CTRL+C per fermarlo.");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /*  
     int port = 7070;
     QueryServer queryServer = new QueryServer();
     ServerConfig config = new ServerConfig.Builder()
@@ -112,7 +151,7 @@ public class serverTK
       System.err.println("[ERRORE SERVER] Eccezione nell'avvio del server: " + e.getMessage());
     }
     
-    /*try (ServerSocket serverSocket = new ServerSocket(port)) 
+    try (ServerSocket serverSocket = new ServerSocket(port)) 
     {
       System.out.println("\n[SERVER] ServerTK in ascolto sulla porta " + port + "...");
 
@@ -129,8 +168,8 @@ public class serverTK
     catch(IOException e) 
     {
       System.err.println("[ERRORE SERVER] Eccezione nell'avvio del server: " + e.getMessage());
-    }*/
-  }
+    }
+  }*/
   
   //<editor-fold defaultstate="collapsed" desc="Exclusive Programmer Methods">   
     /**

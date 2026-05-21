@@ -13,7 +13,7 @@ import theknife.obj.lists.ListOwned;
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Mattia Tamburo       761743 (CO)
+ * @author Mattia Tamburo       760743 (CO)
  */
 @JsonPropertyOrder(
 {
@@ -47,6 +47,20 @@ public final class Restaurateur extends User
      * </p>
      */
     public Restaurateur() {}
+    
+    /**
+     * Constructor that initializes a {@code Restaurateur} object with the specified attributes.
+     * <p>
+     * This constructor initializes the {@code Restaurateur} object's username and password.
+     * </p>
+     *
+     * @param username the restaurateur's username
+     * @param password the restaurateur's password
+     */
+    public Restaurateur(String username, String password) 
+    {
+      super(username, password);
+    }
     
     /**
      * Constructor that initializes a {@code Restaurateur} object with the specified attributes.

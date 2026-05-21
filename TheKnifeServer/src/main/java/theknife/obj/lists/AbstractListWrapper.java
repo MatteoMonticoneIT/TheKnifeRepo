@@ -1,5 +1,6 @@
 package theknife.obj.lists;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,9 +18,9 @@ import java.util.List;
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Mattia Tamburo       761743 (CO)
+ * @author Mattia Tamburo       760743 (CO)
  */
-public abstract class AbstractListWrapper<T> 
+public abstract class AbstractListWrapper<T> implements Serializable
 {  
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**

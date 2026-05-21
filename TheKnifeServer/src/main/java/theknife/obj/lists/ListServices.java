@@ -1,0 +1,40 @@
+package theknife.obj.lists;
+
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * A final class that represents a collection of services.
+ * <p>
+ * Provides methods to access and modify the list of services.<br>
+ * The list can be initialized either as empty or with an existing list.
+ * </p>
+ * <p>
+ * This class extends {@link AbstractListWrapper}, inheriting its methods to manage the list of services.
+ * </p>
+ * 
+ * @author Damiano De Mutiis    761348 (CO)
+ * @author Matteo Porto Bonacci 761396 (CO)
+ * @author Matteo Monticone     761701 (CO)
+ * @author Mattia Tamburo       760743 (CO)
+ */
+
+public class ListServices extends AbstractListWrapper<String> 
+{
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+    /**
+     * Default constructor.
+     * <p>
+     * Initializes the list as a new empty {@link LinkedList}.
+     * </p>
+     */
+    public ListServices ()                      {super(new LinkedList<String>());}
+    
+    /**
+     * Constructor that initializes the list with an existing list of services.
+     *
+     * @param list the list of services stored
+     */
+    public ListServices (List<String> list)    {super(list);}
+    //</editor-fold>
+}
