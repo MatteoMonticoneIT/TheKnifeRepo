@@ -60,7 +60,6 @@ public final class CustomerReview extends javax.swing.JPanel {
      * Initializes the basic fields of the {@code CustomerReview} {@link JPanel}.
      */
     private void initFields() {
-        numResponses       = review.getResponses() == null ? 0 : review.getResponses().getList().isEmpty() ? 0 : review.getResponses().getList().size();
         pnl_usernameRating = new JPanel(new BorderLayout());
         lbl_username       = new JLabel(review.getUsername() + " - " + controller.getRestaurants().getList().get(review.getRestaurantID() - 1).getName());
         lbl_rating         = new CustomJLabel(String.valueOf(review.getRating()), FULL_STAR);

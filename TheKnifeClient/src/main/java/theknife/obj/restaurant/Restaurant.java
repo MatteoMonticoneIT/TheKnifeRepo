@@ -42,6 +42,7 @@ import theknife.obj.lists.ListReview;
 public final class Restaurant extends Location 
 {    
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    private static final long serialVersionUID = 1L;
     /**
      * The restaurant id.
      */

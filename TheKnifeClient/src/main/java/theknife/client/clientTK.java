@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import simple.logging.LoggerUtils;
@@ -33,7 +35,7 @@ public final class clientTK extends JFrame
      * Creates a new instance of {@code TheKnife} {@link JFrame} and initializes its components.<br>
      * The constructor sets up the GUI, including the main panel and the home and login pages.
      */
-    public       clientTK           ()
+    public       clientTK           () throws IOException, ClassNotFoundException
     {
       initComponents();
       initGUI       ();
@@ -46,7 +48,7 @@ public final class clientTK extends JFrame
      * This method creates the main panel, home page, and login page, and adds them to the main panel.<br>
      * It also sets up the content pane and displays the home page initially.
      */
-    private void initGUI            ()
+    private void initGUI            () throws IOException, ClassNotFoundException
     {
       pnl_main   = new PanelMain ();
       controller = new Controller(pnl_main);
@@ -203,7 +205,13 @@ public final class clientTK extends JFrame
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new clientTK().setVisible(true);
+            try {
+                new clientTK().setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(clientTK.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(clientTK.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -104,6 +105,10 @@ public final class Controller
     private final String[] services = CSV.read(PROGRAM_DATASET, "SERVICES").toArray(new String[0]);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    /**
+     * 
+     */
+    private ServerHandler    serverHandler;
     /**
      * The {@link AES} which encrypt/decrypt data.
      */
@@ -207,7 +212,7 @@ public final class Controller
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     /**
-     * Default constructior.
+     * Default constructor.
      * <p>
      * Initializes the {@code Controller} without any attributes set.
      * </p>
@@ -221,8 +226,9 @@ public final class Controller
      * </p>
      * @param pnl_main the panel main
      */
-    public              Controller          (PanelMain pnl_main)
+    public              Controller          (PanelMain pnl_main) throws IOException, ClassNotFoundException
     {
+        serverHandler = new ServerHandler();
         initLists();
         initGUI  (pnl_main);
     }
@@ -243,75 +249,10 @@ public final class Controller
     /**
      * Initializes all lists.
      */
-    private void        initLists           () 
+    private void        initLists           () throws IOException, ClassNotFoundException 
     {
       aes = new AES(KEYSTORE_FILE);
-
-      if (JSON_RESTAURANTS.exists())
-        this.setRestaurants    (JSON.read(JSON_RESTAURANTS, ListRestaurant.class));
-      else if (CSV_RESTAURANTS.exists()) 
-      {
-        this.setRestaurants(new ListRestaurant());
-        List<CSVRow> csvContent = CSV.read(CSV_RESTAURANTS);
-        Restaurant restaurant;
-        int id = 0;
-        for (CSVRow row : csvContent) 
-        {
-          id++;
-          restaurant = new Restaurant
-          (
-            id,
-            -1,
-            row.get                      ("Name",                   String  .class),
-            StringUtils.normalize(row.get("Name",                   String  .class)),
-            row.get                      ("Price",                  String  .class).length(),
-            row.get                      ("Price",                  String  .class),
-            row.get                      ("PhoneNumber",            String  .class),
-            row.get                      ("Url",                    String  .class),
-            row.get                      ("WebsiteUrl",             String  .class),
-                  
-            row.get                      ("Award",                  String  .class).contains("Stars")           ? row.get("Award", String.class).replace("Stars",           "Michelin") : 
-           (row.get                      ("Award",                  String  .class).contains("Star")            ? row.get("Award", String.class).replace("Star",            "Michelin") :   
-           (row.get                      ("Award",                  String  .class).contains(" Restaurants")    ? row.get("Award", String.class).replace(" Restaurants",    "")         : row.get("Award", String.class))), 
-                  
-            row.get                      ("GreenStar",              Boolean .class), 
-            row.get                      ("Cuisine",                String  .class),
-            row.get                      ("FacilitiesAndServices",  String  .class), 
-            row.get                      ("Description",            String  .class), 
-            0,
-            row.get                      ("Location",               String  .class).split(",")[row.get("Location", String.class).split(",").length - 1].trim(), 
-            row.get                      ("Location",               String  .class).split(",")[0], 
-            row.get                      ("Address",                String  .class),
-            row.get                      ("Latitude",               Double  .class), 
-            row.get                      ("Longitude",              Double  .class)
-          );
-          this.getRestaurants().getList().add(restaurant);
-        }
-        FileUtils.create(JSON_RESTAURANTS);
-        JSON.writeToFile(JSON_RESTAURANTS, this.getRestaurants());
-      } 
-      else
-        LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new CSVFileNotFoundException  ("Unable to get the restaurant file!"));
-    
-      if (JSON_CUSTOMERS    .exists())
-        this.setCustomers    (JSON.read(JSON_CUSTOMERS,     ListCustomer.class));
-      else
-        LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException ("Unable to get the customers file!"));
-           
-      if(JSON_RESTAURATEURS .exists())
-        this.setRestaurateurs(JSON.read(JSON_RESTAURATEURS, ListRestaurateur.class));
-      else
-        LoggerUtils.logSevereAndThrow("!!!CRITICAL ERROR!!!", new JSONFileNotFoundException ("Unable to get the restaurateurs file!"));
-      
-      for(Customer c        : this.getCustomers()       .getList())
-        c.setRole("customer");
-      
-      for(Restaurateur r    : this.getRestaurateurs()   .getList())
-        r.setRole("restaurateur");
-      
-      createHashMaps            ();     
-      //encryptAllPassword      ();
-      //calculateRatingAverage  ();    
+      this.setRestaurants(serverHandler.getRestaurants());
     }
     
     /**
