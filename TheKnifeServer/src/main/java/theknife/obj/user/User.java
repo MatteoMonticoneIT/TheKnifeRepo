@@ -24,67 +24,56 @@ public class User implements Serializable
     /**
      * The user's id.
      */
-    @JsonProperty("ID")
     private int     id;
     
     /**
      * The user's first name.
      */
-    @JsonProperty("firstName")
     private String  firstName;
     
     /**
      * The user's first name normalized (No combined characters such as à, é, ò, ...).
      */
-    @JsonProperty("firstNameNormalized")
     private String  firstNameNormalized;
     
     /**
      * The user's last name.
      */
-    @JsonProperty("lastName")
     private String  lastName;
     
     /**
      * The user's last name normalized (No combined characters such as à, é, ò, ...).
      */
-    @JsonProperty("lastNameNormalized")
     private String  lastNameNormalized;
     
     /**
      * The user's username.
      */
-    @JsonProperty("username")
     private String  username;
     
     /**
      * The user's username.
      */
-    @JsonProperty("email")
     private String  email;
     
     /**
      * The user's password.
      */
-    @JsonProperty("password")
     private String  password;
     
     /**
      * The user's birthDate.
      */
-    @JsonProperty("birthDate")
     private String  birthDate;
     
     /**
      * The user's address.
      */
-    @JsonProperty("address")
     private String  address;
     
     /**
      * The role of the user (e.g., "client", "restaurateur").
      */
-    @JsonIgnore
     private String  role;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructors">
@@ -224,7 +213,6 @@ public class User implements Serializable
      *
      * @return the user's role
      */
-    @JsonIgnore
     public final String getRole                 ()                              {return role;}
     
     

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import simple.socket.SocketUtils;
 import theknife.cypher.CypherHandler;
 import theknife.obj.lists.ListCuisines;
@@ -32,10 +33,8 @@ import theknife.obj.user.User;
  * @author Mattia Tamburo       760743 (CO)
  */
 
-public class ClientHandler implements Runnable 
-{
-    public enum COMMANDS 
-    {
+public class ClientHandler implements Runnable {
+    public enum COMMANDS {
         LOGIN_CUSTOMER,
         LOGIN_RESTAURATEUR,
         REGISTER_CUSTOMER,
@@ -50,7 +49,9 @@ public class ClientHandler implements Runnable
         ADD_REVIEW,
         EDIT_REVIEW,
         REMOVE_REVIEW
-    };
+    }
+
+    ;
     private Socket clientSocket;
     private Connection dbConnection;
     
@@ -132,7 +133,8 @@ public class ClientHandler implements Runnable
                     case REMOVE_REVIEW:
                         Review removeReview = SocketUtils.receive(clientSocket, Review.class);
                         break;
-                    default: System.err.println("Unexpected command: " + cmdc);
+                    default:
+                        System.err.println("Unexpected command: " + cmdc);
                 }
             }
         } catch (IOException e) {
@@ -156,12 +158,11 @@ public class ClientHandler implements Runnable
       }
       return null;
     }
-    
-    private Restaurateur checkLoginRestaurateur(Restaurateur restaurateur) throws Exception
-    {
-      return cypherHandler.decryptRestaurateur(dbConnection, restaurateur.getUsername(), restaurateur.getPassword());
+
+    private Restaurateur checkLoginRestaurateur(Restaurateur restaurateur) throws Exception {
+        return cypherHandler.decryptRestaurateur(dbConnection, restaurateur.getUsername(), restaurateur.getPassword());
     }
-            
+
     private ListRestaurant getRestaurants() {
         System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
         String sql = "SELECT r.*, CASE WHEN COUNT(c.id) = 0 THEN '' ELSE STRING_AGG(DISTINCT c.description, ', ') END AS cuisine, CASE WHEN COUNT(s.id) = 0 THEN '' ELSE STRING_AGG(DISTINCT s.description, ', ') END AS service FROM restaurant r LEFT JOIN listcuisine lc ON lc.restaurantId = r.id LEFT JOIN cuisine c ON c.id = lc.cuisineId LEFT JOIN listservice ls ON ls.restaurantId = r.id LEFT JOIN service s ON ls.serviceId = s.id GROUP BY r.id";
@@ -170,26 +171,26 @@ public class ClientHandler implements Runnable
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     temp.add(new Restaurant(rs.getInt("id"),
-                                            rs.getInt("ownerID"),
-                                            rs.getString("name"),
-                                            rs.getString("normName"),
-                                            rs.getInt("price"),
-                                            rs.getString("currency"),
-                                            rs.getString("phoneNo"),
-                                            rs.getString("url"),
-                                            rs.getString("webUrl"),
-                                            rs.getString("award"),
-                                            rs.getBoolean("greenStar"),
-                                            rs.getString("cuisine"),
-                                            rs.getString("service"),
-                                            rs.getString("description"),
-                                            rs.getDouble("rating"),
-                                            rs.getString("country"),
-                                            rs.getString("city"),
-                                            rs.getString("address"),
-                                            rs.getDouble("latitude"),
-                                            rs.getDouble("longitude")
-                            ));
+                            rs.getInt("ownerID"),
+                            rs.getString("name"),
+                            rs.getString("normName"),
+                            rs.getInt("price"),
+                            rs.getString("currency"),
+                            rs.getString("phoneNo"),
+                            rs.getString("url"),
+                            rs.getString("webUrl"),
+                            rs.getString("award"),
+                            rs.getBoolean("greenStar"),
+                            rs.getString("cuisine"),
+                            rs.getString("service"),
+                            rs.getString("description"),
+                            rs.getDouble("rating"),
+                            rs.getString("country"),
+                            rs.getString("city"),
+                            rs.getString("address"),
+                            rs.getDouble("latitude"),
+                            rs.getDouble("longitude")
+                    ));
                 }
             }
         } catch (SQLException e) {
@@ -277,12 +278,13 @@ public class ClientHandler implements Runnable
     private ListReview getReview(int id) {
         String sql = "SELECT r.*, c.username FROM review r JOIN customer c ON c.ID = r.IDCustomer WHERE restaurantID = ?";
         ListReview list = new ListReview();
-        try(PreparedStatement pstmt = dbConnection.prepareStatement(sql)){
+        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     list.add(new Review(
                             rs.getInt("id"),
                             rs.getInt("restaurantID"),
+                            rs.getInt("IDCustomer"),
                             rs.getString("username"),
                             rs.getString("content"),
                             rs.getDouble("rating")
@@ -290,7 +292,7 @@ public class ClientHandler implements Runnable
                 }
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e);
         }
         return list;
@@ -300,7 +302,7 @@ public class ClientHandler implements Runnable
         String sql = "SELECT * FROM customer WHERE username = ?";
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
             try (ResultSet rs = pstmt.executeQuery()) {
-                if(rs.next())
+                if (rs.next())
                     return false;
             }
 
@@ -315,7 +317,7 @@ public class ClientHandler implements Runnable
         String passwordEncrypted = cypherHandler.encryptUser(customer.getPassword());
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
             try (ResultSet rs = pstmt.executeQuery()) {
-                pstmt.setInt  (1, customer.getId());
+                pstmt.setInt(1, customer.getId());
                 pstmt.setString(2, customer.getFirstName());
                 pstmt.setString(2, customer.getFirstNameNormalized());
                 pstmt.setString(2, customer.getLastName());
@@ -326,7 +328,7 @@ public class ClientHandler implements Runnable
                 pstmt.setString(2, customer.getEmail());
                 pstmt.setString(2, passwordEncrypted);
                 return true;
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 System.err.println(e);
             }
 
@@ -342,7 +344,7 @@ public class ClientHandler implements Runnable
         String sql = "SELECT * FROM restaurateur WHERE username = ?";
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
             try (ResultSet rs = pstmt.executeQuery()) {
-                if(rs.next())
+                if (rs.next())
                     return false;
             }
 
@@ -357,7 +359,7 @@ public class ClientHandler implements Runnable
         String passwordEncrypted = cypherHandler.encryptUser(restaurateur.getPassword());
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
             try (ResultSet rs = pstmt.executeQuery()) {
-                pstmt.setInt  (1, restaurateur.getId());
+                pstmt.setInt(1, restaurateur.getId());
                 pstmt.setString(2, restaurateur.getFirstName());
                 pstmt.setString(3, restaurateur.getFirstNameNormalized());
                 pstmt.setString(4, restaurateur.getLastName());
@@ -368,7 +370,7 @@ public class ClientHandler implements Runnable
                 pstmt.setString(9, restaurateur.getEmail());
                 pstmt.setString(10, passwordEncrypted);
                 return true;
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 System.err.println(e);
             }
 
@@ -382,11 +384,11 @@ public class ClientHandler implements Runnable
 
     //TODO fare addRestaurant, addReview, editReview, removeRevoiew
 
-    private boolean addRestaurant(Restaurant restaurant){
+    private boolean addRestaurant(Restaurant restaurant) {
         String sql = "INSERT INTO restaurant VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
             try (ResultSet rs = pstmt.executeQuery()) {
-                pstmt.setInt  (1, restaurant.getId());
+                pstmt.setInt(1, restaurant.getId());
                 pstmt.setInt(2, restaurant.getOwnerId());
                 pstmt.setString(3, restaurant.getName());
                 pstmt.setString(4, restaurant.getNormalizedName());
@@ -405,7 +407,7 @@ public class ClientHandler implements Runnable
                 pstmt.setString(17, restaurant.getDescription());
                 pstmt.setDouble(18, restaurant.getRating());
                 return true;
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 System.err.println(e);
             }
         } catch (SQLException e) {
@@ -416,15 +418,96 @@ public class ClientHandler implements Runnable
         return false;
     }
 
-    private boolean addReview(Review review){
+    private boolean addReview(Review review) {
+        int customerID;
+
+        String sql = "INSERT INTO review VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
+            pstmt.setInt(1, review.getID());
+            pstmt.setInt(1, review.getRestaurantID());
+            pstmt.setInt(1, review.getcustomerID());
+            pstmt.setString(1, review.getContent());
+            pstmt.setDouble(1, review.getRating());
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.err.println("[ERRORE] Impossibile connettersi al database.");
+            System.err.println("Motivo: " + e.getMessage());
+            System.exit(1);
+        }
         return false;
     }
 
-    private boolean editReview(Review review){
+    private boolean editReview(Review review) {
+
+        //controllo se esiste una review con quell'id
+        String sql = "SELECT * FROM review WHERE id = ?";
+        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
+            pstmt.setInt(1, review.getID());
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    sql = "UPDATE review SET content = ?, rating = ? WHERE id = ?";
+                    try (PreparedStatement pstmt2 = dbConnection.prepareStatement(sql)) {
+                        pstmt.setString(1, review.getContent());
+                        pstmt.setDouble(2, review.getRating());
+                        pstmt.setInt(3, review.getID());
+                        try (ResultSet rs2 = pstmt2.executeQuery()) {
+                            return true;
+                        } catch (SQLException e) {
+                            System.err.println("[ERRORE] Impossibile connettersi al database.");
+                            System.err.println("Motivo: " + e.getMessage());
+                            System.exit(1);
+                        }
+                    } catch (SQLException e) {
+                        System.err.println("[ERRORE] Impossibile connettersi al database.");
+                        System.err.println("Motivo: " + e.getMessage());
+                        System.exit(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("[ERRORE] Impossibile connettersi al database.");
+            System.err.println("Motivo: " + e.getMessage());
+            System.exit(1);
+        }
         return false;
     }
 
-    private boolean removeReview(int id){
+    private boolean removeReview(int id) {
+
+        String sql = "SELECT * FROM review WHERE id = ?";
+        try(PreparedStatement pstmt = dbConnection.prepareStatement(sql)){
+            pstmt.setInt(1, id);
+            try(ResultSet rs = pstmt.executeQuery()){
+                if(rs.next()){
+                    sql = "DELETE FROM review WHERE id = ?";
+                    try(PreparedStatement pstmt2 = dbConnection.prepareStatement(sql)){
+                        pstmt2.setInt(1, id);
+                        try(ResultSet rs2 = pstmt2.executeQuery()){
+                            return true;
+                        } catch (SQLException e) {
+                            System.err.println("[ERRORE] Impossibile connettersi al database.");
+                            System.err.println("Motivo: " + e.getMessage());
+                            System.exit(1);
+                        }
+                    }catch(SQLException e){
+                        System.err.println("[ERRORE] Impossibile connettersi al database.");
+                        System.err.println("Motivo: " + e.getMessage());
+                        System.exit(1);
+                    }
+
+                }
+            }catch(SQLException e){
+                System.err.println("[ERRORE] Impossibile connettersi al database.");
+                System.err.println("Motivo: " + e.getMessage());
+                System.exit(1);
+            }
+        }catch(SQLException e){
+            System.err.println("[ERRORE] Impossibile connettersi al database.");
+            System.err.println("Motivo: " + e.getMessage());
+            System.exit(1);
+        }
         return false;
     }
 }

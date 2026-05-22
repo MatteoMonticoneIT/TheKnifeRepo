@@ -8,7 +8,6 @@ import java.io.Serializable;
  * A class representing a review with content, rating, and an associated response.
  * <p>
  * This class allows you to store a review consisting of a textual content and a numerical rating.<br>
- * It also stores a {@link Response} to the review.
  * </p>
  * 
  * @author Damiano De Mutiis    761348 (CO)
@@ -16,46 +15,32 @@ import java.io.Serializable;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       760743 (CO)
  */
-@JsonPropertyOrder(
-{
-    "ID",
-    "restaurantID",
-    "username", 
-    "rating", 
-    "content", 
-    "responses"
-})
 public final class Review implements Serializable
 {    
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The review's id.
      */
-    @JsonProperty("ID")
     private int             id;
     
     /**
      * The restaurant's id.
      */
-    @JsonProperty("restaurantID")
     private int             restaurantID;
     
     /**
      * The username of the review, given by a customer's username or the owner of the restaurant.
      */
-    @JsonProperty("username")
     private String          username;
     
     /**
      * The content of the review, usually a textual description or feedback.
      */
-    @JsonProperty("content")
     private String          content;
     
     /**
      * The rating given in the review, typically an integer score.
      */
-    @JsonProperty("rating")
     private double          rating;
     
     //</editor-fold>
@@ -82,6 +67,7 @@ public final class Review implements Serializable
       setID             (id);
       setRestaurantID   (restaurantID);
       setUsername       (username);
+      setContent        (content);
       setContent        (content);
       setRating         (rating);
     }

@@ -22,13 +22,11 @@ public class Coordinate implements Serializable
     /**
      * The latitude of the geographic location.
      */
-    @JsonProperty("latitude")
     private double latitude;
     
     /**
      * The longitude of the geographic location.
      */
-    @JsonProperty("longitude")
     private double longitude;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructors">
