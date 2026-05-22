@@ -1,61 +1,46 @@
 package theknife.obj.review;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
 
 /**
  * A class representing a review with content, rating, and an associated response.
  * <p>
  * This class allows you to store a review consisting of a textual content and a numerical rating.<br>
- * It also stores a {@link Response} to the review.
- * </p>
+  * </p>
  * 
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       760743 (CO)
  */
-@JsonPropertyOrder(
-{
-    "ID",
-    "restaurantID",
-    "username", 
-    "rating", 
-    "content", 
-    "responses"
-})
 public final class Review implements Serializable
 {    
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The review's id.
      */
-    @JsonProperty("ID")
     private int             id;
     
     /**
      * The restaurant's id.
      */
-    @JsonProperty("restaurantID")
     private int             restaurantID;
     
     /**
      * The username of the review, given by a customer's username or the owner of the restaurant.
      */
-    @JsonProperty("username")
     private String          username;
+
+    private int customerID;
     
     /**
      * The content of the review, usually a textual description or feedback.
      */
-    @JsonProperty("content")
     private String          content;
     
     /**
      * The rating given in the review, typically an integer score.
      */
-    @JsonProperty("rating")
     private double          rating;
     
     //</editor-fold>
@@ -77,10 +62,11 @@ public final class Review implements Serializable
      * @param content the content of the review
      * @param rating the rating given in the review
      */
-    public Review(int id, int restaurantID, String username, String content, double rating) 
+    public Review(int id, int restaurantID, int customerID, String username, String content, double rating)
     {
       setID             (id);
       setRestaurantID   (restaurantID);
+      setCustomerID     (customerID);
       setUsername       (username);
       setContent        (content);
       setRating         (rating);
@@ -121,7 +107,8 @@ public final class Review implements Serializable
      * @return the rating of the review
      */
     public final double         getRating       ()                          {return rating;}
-    
+
+    public final int getcustomerID (){return customerID;};
     /**
      * Sets the review's id.
      *
@@ -135,14 +122,15 @@ public final class Review implements Serializable
      * @param restaurantID the new restaurant id to set
      */
     public       void           setRestaurantID (int restaurantID)          {this.restaurantID  = restaurantID;}
-    
+
     /**
      * Sets the username of the review.
      * 
      * @param username the username to set
      */
+
     public       void           setUsername     (String username)           {this.username      = username;}
-     
+    public void setCustomerID (int customerID) {this.customerID = customerID;}
     /**
      * Sets the content of the review.
      *
@@ -156,5 +144,9 @@ public final class Review implements Serializable
      * @param rating the rating to assign to the review
      */
     public final void           setRating       (double rating)             {this.rating        = rating;}
+
+    public int getInt() {
+        return 0;
+    }
     //</editor-fold>
 }

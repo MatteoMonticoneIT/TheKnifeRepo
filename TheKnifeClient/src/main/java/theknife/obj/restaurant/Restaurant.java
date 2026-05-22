@@ -15,30 +15,6 @@ import theknife.obj.lists.ListReview;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       760743 (CO)
  */
-@JsonPropertyOrder(
-{
-    "ID", 
-    "ownerID",
-    "name", 
-    "normName", 
-    "price", 
-    "currency",
-    "phoneNo", 
-    "country", 
-    "city", 
-    "address", 
-    "latitude", 
-    "longitude", 
-    "url", 
-    "webUrl", 
-    "award", 
-    "greenStar", 
-    "cuisine",
-    "services", 
-    "description", 
-    "rating",
-    "reviews"
-})
 public final class Restaurant extends Location 
 {    
     //<editor-fold defaultstate="collapsed" desc="Fields">
@@ -46,97 +22,81 @@ public final class Restaurant extends Location
     /**
      * The restaurant id.
      */
-    @JsonProperty("ID")
     private int         id;
     
     /**
      * The restaurant's owner id.
      */
-    @JsonProperty("ownerID")
     private int         ownerId;
     
     /**
      * The name of the restaurant.
      */
-    @JsonProperty("name")
     private String      name;
     
     /**
      * The normalized name of the restaurant (no accents and other characters that may interfere)
      */
-    @JsonProperty("normName")
     private String      normalizedName;
     
     /**
      * The price category of the restaurant.
      */
-    @JsonProperty("price")
     private int         price;
     
     /**
      * The price category of the restaurant.
      */
-    @JsonProperty("currency")
     private String      currency;
     
     /**
      * The phone number of the restaurant.
      */
-    @JsonProperty("phoneNo")
     private String      phoneNumber;
     
     /**
      * The URL for the restaurant.
      */
-    @JsonProperty("url")
     private String      url;
     
     /**
      * The website URL of the restaurant.
      */
-    @JsonProperty("webUrl")
     private String      websiteUrl;
     
     /**
      * The award received by the restaurant.
      */
-    @JsonProperty("award")
     private String      award;
     
     /**
      * Indicates if the restaurant has a green star (sustainability recognition).
      */
-    @JsonProperty("greenStar")
     private boolean     greenStar;
     
     /**
      * Indicates the type of cuisine.
      */
-    @JsonProperty("cuisine")
     private String      cuisine;
     
     /**
      * A description of the services available at the restaurant.
      */
-    @JsonProperty("services")
     private String      servicesAvailable;
     
     /**
      * A brief description of the restaurant.
      */
-    @JsonProperty("description")
     private String      description;
     
     /**
      * A brief description of the restaurant.
      */
-    @JsonProperty("rating")
     private double      rating;
     
     /**
      * The list of reviews associated with the restaurant.
      */
-    @JsonProperty("reviews")
     private ListReview  listReview;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructors">

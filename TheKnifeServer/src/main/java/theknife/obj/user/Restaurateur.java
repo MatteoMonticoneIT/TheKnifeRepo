@@ -15,20 +15,6 @@ import theknife.obj.lists.ListOwned;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       760743 (CO)
  */
-@JsonPropertyOrder(
-{
-    "ID", 
-    "firstName", 
-    "firstNameNormalized",
-    "lastName", 
-    "lastNameNormalized",
-    "birthDate", 
-    "address", 
-    "username", 
-    "email", 
-    "password", 
-    "restaurants"
-})
 public final class Restaurateur extends User 
 {
     
@@ -36,7 +22,6 @@ public final class Restaurateur extends User
     /**
      * The list of restaurants managed by the restaurateur.
      */
-    @JsonProperty("restaurants")
     private ListOwned listOwned = null;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructors">
