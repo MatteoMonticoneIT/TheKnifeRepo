@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.File;
+import java.io.IOException;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -52,11 +53,12 @@ public class RestaurantGUI extends javax.swing.JPanel
      * @param controller the {@link Controller} class that manages the screen layout
      * @param restaurant the {@link Restaurant} to set for the {@code RestaurantGUI}
      */
-    public RestaurantGUI(Controller controller, Restaurant restaurant) 
+    public RestaurantGUI(Controller controller, Restaurant restaurant) throws IOException, ClassNotFoundException 
     {
       initComponents();
       this.controller = controller;
       this.restaurant = restaurant;
+      this.restaurant.setListReview(controller.getRestaurantReviews(restaurant.getId()));
       if(controller.getLoggedUser() != null)
         if(controller.getLoggedUser().getRole().equals("customer"))
           customer = (Customer)controller.getLoggedUser();

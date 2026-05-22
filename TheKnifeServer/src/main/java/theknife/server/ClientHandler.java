@@ -53,28 +53,25 @@ public class ClientHandler implements Runnable
     };
     private Socket clientSocket;
     private Connection dbConnection;
-    private QueryServer queryServer;
-    private ResultSet rs;
     
-    private CypherHandler cypherHandler = new CypherHandler();
+    private CypherHandler cypherHandler;
 
     public ClientHandler(Socket socket, Connection dbConnection) {
-        this.clientSocket = socket;
-        this.dbConnection = dbConnection;
+        this.clientSocket   = socket;
+        this.dbConnection   = dbConnection;
+        this.cypherHandler  = new CypherHandler();
     }
 
     public ClientHandler(Connection dbConnection, QueryServer queryServer) {
         this.dbConnection = dbConnection;
-        this.queryServer = queryServer;
     }
 
     @Override
     public void run() 
     {
-        //TODO mettersi in ascolto sulla porta 7070
         try 
         {
-            while (clientSocket.isClosed()) 
+            while (clientSocket.isConnected()) 
             {            
             String cmd = SocketUtils.receive(clientSocket);        
             COMMANDS cmdc = COMMANDS.valueOf(cmd);
@@ -109,7 +106,9 @@ public class ClientHandler implements Runnable
                         SocketUtils.send(clientSocket, listServices);
                         break;
                     case GET_REVIEWS:
-                        ListReview listReview = SocketUtils.receive(clientSocket, ListReview.class);
+                        int restaurantID = SocketUtils.receive(clientSocket, Integer.class);
+                        ListReview listReview = getReview(restaurantID);
+                        SocketUtils.send(clientSocket, listReview);
                         break;
                     case GET_LIST_FAVOURITE:
                         int customerID = SocketUtils.receive(clientSocket, Integer.class);
@@ -147,7 +146,15 @@ public class ClientHandler implements Runnable
 
     private Customer checkLoginCustomer(Customer customer) throws Exception
     {
+      try
+      {
       return cypherHandler.decryptCustomer(dbConnection, customer.getUsername(), customer.getPassword());
+      }catch(Throwable t)
+      {
+        System.err.println("AEEE");
+        t.printStackTrace();
+      }
+      return null;
     }
     
     private Restaurateur checkLoginRestaurateur(Restaurateur restaurateur) throws Exception
@@ -156,7 +163,8 @@ public class ClientHandler implements Runnable
     }
             
     private ListRestaurant getRestaurants() {
-        String sql = queryServer.getAllRestaurant();
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        String sql = "SELECT r.*, CASE WHEN COUNT(c.id) = 0 THEN '' ELSE STRING_AGG(DISTINCT c.description, ', ') END AS cuisine, CASE WHEN COUNT(s.id) = 0 THEN '' ELSE STRING_AGG(DISTINCT s.description, ', ') END AS service FROM restaurant r LEFT JOIN listcuisine lc ON lc.restaurantId = r.id LEFT JOIN cuisine c ON c.id = lc.cuisineId LEFT JOIN listservice ls ON ls.restaurantId = r.id LEFT JOIN service s ON ls.serviceId = s.id GROUP BY r.id";
         ListRestaurant temp = new ListRestaurant();
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -193,9 +201,10 @@ public class ClientHandler implements Runnable
     }
 
     private ListOwned getOwned(int id){
-        String sql = queryServer.getOwned(id);
+        String sql = "SELECT ID FROM restaurant WHERE ownerID = ?";
         ArrayList<Integer> list = new ArrayList();
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     list.add(rs.getInt("ID"));
@@ -211,9 +220,10 @@ public class ClientHandler implements Runnable
     }
     
     private ListFavorite getFavorite(int id){
-        String sql = queryServer.getFavorites(id);
+        String sql = "SELECT ID FROM review r WHERE r.IDCustomer = ?";
         ArrayList<Integer> list = new ArrayList();
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     list.add(rs.getInt("ID"));
@@ -229,7 +239,7 @@ public class ClientHandler implements Runnable
     }
 
     private ListCuisines getCuisines(){
-        String sql = queryServer.getAllCuisine();
+        String sql = "SELECT description FROM cuisine";
         ArrayList<String> list = new ArrayList();
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -247,7 +257,7 @@ public class ClientHandler implements Runnable
     }
 
     private ListServices getServices(){
-        String sql = queryServer.getAllServices();
+        String sql = "SELECT description FROM service";
         ArrayList<String> list = new ArrayList();
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
             try (ResultSet rs = pstmt.executeQuery()) {

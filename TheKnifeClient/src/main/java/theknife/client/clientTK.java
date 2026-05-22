@@ -25,7 +25,7 @@ import theknife.obj.AppPaths;
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Mattia Tamburo       761743 (CO)
+ * @author Mattia Tamburo       760743 (CO)
  */
 
 public final class clientTK extends JFrame
@@ -34,6 +34,8 @@ public final class clientTK extends JFrame
     /**
      * Creates a new instance of {@code TheKnife} {@link JFrame} and initializes its components.<br>
      * The constructor sets up the GUI, including the main panel and the home and login pages.
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
      */
     public       clientTK           () throws IOException, ClassNotFoundException
     {
@@ -62,7 +64,6 @@ public final class clientTK extends JFrame
       }
       addFullscreenEvent    ();
       initTheKnife          ();
-      initEvents            ();
     }
 
     /**
@@ -72,18 +73,6 @@ public final class clientTK extends JFrame
     {
       this.setContentPane               (controller.getPanelMain().getPanel());
       controller.getPanelMain().showCard(Page.HOME);
-    }
-
-    /**
-     * Sets up event listeners for user interaction.
-     */
-    private void initEvents         ()
-    {
-      this.addWindowListener(new WindowAdapter()
-      {
-        @Override
-        public void windowClosing(WindowEvent e) {WindowClosing();}
-      });
     }
 
     /**
@@ -107,13 +96,6 @@ public final class clientTK extends JFrame
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Event Listeners">
-    /**
-     * When closing {@code TheKnife} application (from the "X"), all data will be saved.
-     */
-    public  void WindowClosing      ()
-    {
-      controller.saveData();
-    }
 
     /**
      * Toggles the fullscreen mode of the main application window.

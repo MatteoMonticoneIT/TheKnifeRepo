@@ -208,8 +208,8 @@ public class CypherHandler
    */
   public Customer   decryptCustomer         (Connection dbConnection, String username, String password) throws Exception
   {  
-    String sql = "SELECT c.*, CASE WHEN COUNT(lf.id) = 0 THEN '' ELSE STRING_AGG(DISTINCT lf.restaurantid, ', ') END AS listfavourite, FROM customer c LEFT JOIN listfavourite lf ON lf.customerid = c.id WHERE username = ? OR email = ? GROUP BY c.id;";
-       
+    String sql = "SELECT c.*, CASE WHEN COUNT(lf.restaurantid) = 0 THEN '' ELSE STRING_AGG(DISTINCT lf.restaurantid::text, ', ') END AS listfavourite FROM customer c LEFT JOIN listfavourite lf ON lf.customerid = c.id WHERE username = ? OR email = ? GROUP BY c.id;";
+      System.out.println(username);
     try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) 
     {  
       pstmt.setString(1, username);
@@ -219,8 +219,10 @@ public class CypherHandler
       {
         if(rs.next() && password.equals(aes.decrypt(rs.getString ("password")))) {
           ArrayList<Integer> temp = new ArrayList<>();
-          for(String s:(rs.getString("listfavourite").split("\\,")))
-            temp.add(Integer.parseInt(s));
+          String[] list = rs.getString("listfavourite").split("\\,");
+          if(!list[0].isBlank())
+            for(String s: list)
+              temp.add(Integer.parseInt(s));
           ListFavorite ls = new ListFavorite(temp);
 
           return new Customer(
@@ -255,7 +257,7 @@ public class CypherHandler
    */
   public Restaurateur decryptRestaurateur     (Connection dbConnection, String username, String password) throws Exception
   {
-    String sql = "SELECT r.*, CASE WHEN COUNT(res.id) = 0 THEN '' ELSE STRING_AGG(DISTINCT res.id, ', ') END AS listowned, FROM restaurateur r LEFT JOIN restaurant res ON res.ownerid = r.id WHERE username = ? OR email = ? GROUP BY r.id;";
+    String sql = "SELECT r.*, CASE WHEN COUNT(res.id) = 0 THEN '' ELSE STRING_AGG(DISTINCT res.id::text, ', ') END AS listowned FROM restaurateur r LEFT JOIN restaurant res ON res.ownerid = r.id WHERE username = ? OR email = ? GROUP BY r.id;";
        
     try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) 
     {  

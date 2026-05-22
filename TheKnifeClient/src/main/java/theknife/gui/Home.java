@@ -12,7 +12,10 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
@@ -175,15 +178,21 @@ public final class Home extends javax.swing.JPanel
       list_restaurants.addMouseListener(new MouseAdapter() 
       {
         @Override
-        public void mouseClicked(MouseEvent e) 
+        public void mouseClicked(MouseEvent e)
         {
           int index = list_restaurants.locationToIndex(e.getPoint());
           if (index >= 0) 
           {
-            Restaurant    selectedRestaurant    = listModel.getElementAt(index);
-            RestaurantGUI restaurantGUI         = new RestaurantGUI     (controller, selectedRestaurant);
-            controller.getPanelMain().getPanel().add(restaurantGUI, Page.RESTAURANT);
-            controller.getPanelMain().showCard(Page.RESTAURANT);
+              try {
+                  Restaurant    selectedRestaurant    = listModel.getElementAt(index);
+                  RestaurantGUI restaurantGUI         = new RestaurantGUI     (controller, selectedRestaurant);
+                  controller.getPanelMain().getPanel().add(restaurantGUI, Page.RESTAURANT);
+                  controller.getPanelMain().showCard(Page.RESTAURANT);
+              } catch (IOException ex) {
+                  Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+              } catch (ClassNotFoundException ex) {
+                  Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+              }
           }
         }
       });

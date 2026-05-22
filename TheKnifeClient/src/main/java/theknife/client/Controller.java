@@ -39,6 +39,7 @@ import theknife.obj.lists.ListCustomer;
 import theknife.obj.lists.ListOwned;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.lists.ListRestaurateur;
+import theknife.obj.lists.ListReview;
 import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 import theknife.obj.user.Customer;
@@ -229,7 +230,7 @@ public final class Controller
     public              Controller          (PanelMain pnl_main) throws IOException, ClassNotFoundException
     {
         serverHandler = new ServerHandler();
-        initLists();
+        initList();
         initGUI  (pnl_main);
     }
     //</editor-fold>
@@ -249,9 +250,8 @@ public final class Controller
     /**
      * Initializes all lists.
      */
-    private void        initLists           () throws IOException, ClassNotFoundException 
+    private void        initList           () throws IOException, ClassNotFoundException 
     {
-      aes = new AES(KEYSTORE_FILE);
       this.setRestaurants(serverHandler.getRestaurants());
     }
     
@@ -671,34 +671,14 @@ public final class Controller
       
       return selectedServices;
     }
+    
+    public        ListReview    getRestaurantReviews(int id) throws IOException, ClassNotFoundException
+    {
+      return serverHandler.getReviews(id);
+    }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Exclusive Programmer Methods">
-    /**
-     * Method to calculate all password of both Customers and Restaurateurs.
-     */
-    private void encryptAllPassword     ()
-    {
-      for(Customer customer: this.getCustomers().getList())
-        try 
-        {
-          customer      .setPassword(aes.encrypt(customer.getPassword()));
-        }
-        catch(Exception e) 
-        {
-          LoggerUtils   .logSevereAndThrow("!!!CRITICAL ERROR!!!", new Exception("Unable to encrypt password!", e));
-        }
-      
-      for(Restaurateur restaurateur: this.getRestaurateurs().getList())
-        try 
-        {
-          restaurateur  .setPassword(aes.encrypt(restaurateur.getPassword()));
-        }
-        catch(Exception e) 
-        {
-          LoggerUtils   .logSevereAndThrow("!!!CRITICAL ERROR!!!", new Exception("Unable to encrypt password!", e));
-        }
-    }
- 
+   
     /**
      * Method to calculate all restaurant rating average.
      */

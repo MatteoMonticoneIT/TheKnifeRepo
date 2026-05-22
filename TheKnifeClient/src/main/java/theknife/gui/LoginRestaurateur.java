@@ -16,6 +16,9 @@ import java.awt.KeyboardFocusManager;
 import java.awt.CardLayout;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -266,7 +269,13 @@ public class LoginRestaurateur extends CustomJPanel
         btn_login.addMouseListener(new java.awt.event.MouseAdapter(){
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                btn_login_MouseClicked(e);
+                try {
+                    btn_login_MouseClicked(e);
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginRestaurateur.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(LoginRestaurateur.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
             @Override
@@ -472,7 +481,7 @@ public class LoginRestaurateur extends CustomJPanel
      *
      * @param e the mouse event triggered by clicking the button
      */
-    private void btn_login_MouseClicked(java.awt.event.MouseEvent e)
+    private void btn_login_MouseClicked(java.awt.event.MouseEvent e) throws IOException, ClassNotFoundException
     {
       String user     =                txt_emailUsername.getText    ();
       String password = String.valueOf(txt_password     .getPassword());

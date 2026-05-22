@@ -42,6 +42,7 @@ import theknife.obj.lists.ListReview;
 public final class Restaurant extends Location 
 {    
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    private static final long serialVersionUID = 1L;
     /**
      * The restaurant id.
      */
@@ -146,6 +147,50 @@ public final class Restaurant extends Location
      * </p>
      */
     public Restaurant() {}
+    
+     /**
+     * Constructor that initializes the {@code Restaurant} object with the provided details.
+     *
+     * @param id the restaurant id
+     * @param ownerId the restaurant's owner id
+     * @param name the name of the restaurant
+     * @param normalizedName the normalizedName of the name of the restaurant
+     * @param price the price category of the restaurant
+     * @param currency the currency used by that restaurant
+     * @param phoneNumber the phone number of the restaurant
+     * @param url the URL for the restaurant
+     * @param websiteUrl the website URL of the restaurant
+     * @param award the award received by the restaurant
+     * @param greenStar whether the restaurant has a green star (sustainability recognition)
+     * @param cuisine the type of cuisine
+     * @param servicesAvailable the services available at the restaurant
+     * @param description a brief description of the restaurant
+     * @param rating the overall rating of the quality of the restaurant
+     * @param country the country where the restaurant is located
+     * @param city the city where the restaurant is located
+     * @param address the address of the restaurant
+     * @param latitude the latitude of the restaurant's location
+     * @param longitude the longitude of the restaurant's location
+     */
+    public Restaurant(int id, int ownerId, String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String description, double rating,
+            String country, String city, String address, double latitude, double longitude) 
+    {
+        super                       (country, city, address, latitude, longitude);
+        this.setId                  (id);
+        this.setOwnerId             (ownerId);
+        this.setName                (name);
+        this.setNormalizedName      (normalizedName);
+        this.setPrice               (price);
+        this.setCurrency            (currency);
+        this.setPhoneNumber         (phoneNumber);
+        this.setUrl                 (url);
+        this.setWebsiteUrl          (websiteUrl);
+        this.setAward               (award);
+        this.setGreenStar           (greenStar);
+        this.setDescription         (description);
+        this.setRating              (rating);
+        this.setListReview          (new ListReview());
+    }
     
     /**
      * Constructor that initializes the {@code Restaurant} object with the provided details.

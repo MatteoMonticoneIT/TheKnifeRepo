@@ -69,107 +69,31 @@ public class serverTK
   
   public static void startServerServices(Connection dbConnection) 
   {
-    try {
-
-            ServerConfig config = new ServerConfig.Builder()
-            .port(7070)
-            .maxThreads(16)
-            .backlog(16)
-      .build();
-                
-
-
-            ConnectionHandler handler = (Socket client) -> {
-                System.out.println("Nuovo client connesso: " + client.getInetAddress());
-                
-                try {
-
-                    BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                    String messaggioRicevuto = in.readLine();
-                    System.out.println("Il client dice: " + messaggioRicevuto);
-
-                    PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-                    out.println("Messaggio ricevuto forte e chiaro!");
-                    
-                } catch (Exception e) {
-                    System.err.println("Errore di comunicazione con il client");
-                }
-            };
-
-            SimpleServer server = new SimpleServer(config, handler);
-            server.start();
-            System.out.println("Server in esecuzione. Premi CTRL+C per fermarlo.");
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    /*  
-    int port = 7070;
-    QueryServer queryServer = new QueryServer();
-    ServerConfig config = new ServerConfig.Builder()
-      .port(7070)
-      .maxThreads(16)
-      .backlog(16)
-      .build();
-    
-    SimpleServer server = new SimpleServer(config);
-      
-    server.setHandler(socket -> {
-      try {
-        while(socket.isConnected()) {
-          try {
-            String msg = SocketUtils.receive(socket);
-            if (msg == null) 
-              break;
-            server.broadcast(msg);
-
-          } catch (SocketTimeoutException e) {
-            if (!server.isRunning()) break;
-          }
-        }
-      } catch (IOException e) {
-        System.out.println("Client disconnected: " + socket.getInetAddress());
-      } finally {
-        try { 
-          socket.close(); 
-        } catch (IOException ignore) {}
-     }
-    });
-    try {
-        //while (true) {            
-            server.start();
-            System.out.println("\n[SERVER] ServerTK in ascolto sulla porta " + port + "...");
-            
-            ClientHandler handler = new ClientHandler(new Socket("127.0.0.1", port), dbConnection);
-            new Thread(handler, "").start();
-            
-            System.out.println("Premi ENTER per terminare il server");
-            System.in.read();
-        
-    } catch (IOException e) {
-      System.err.println("[ERRORE SERVER] Eccezione nell'avvio del server: " + e.getMessage());
-    }
-    
-    try (ServerSocket serverSocket = new ServerSocket(port)) 
+    try 
     {
-      System.out.println("\n[SERVER] ServerTK in ascolto sulla porta " + port + "...");
-
-      while (true) 
+      ServerConfig config = new ServerConfig.Builder()
+        .port(7070)
+        .maxThreads(16)
+        .backlog(16)
+        .build();
+                
+      ConnectionHandler handler = (Socket client) -> 
       {
-        Socket clientSocket = serverSocket.accept();
-        System.out.println("[SERVER] Nuovo client connesso da: " + clientSocket.getInetAddress());
+        System.out.println("Nuovo client connesso: " + client.getInetAddress());
+        ClientHandler ch = new ClientHandler (client, dbConnection);
+        ch.run();
+      };
 
-        ClientHandler handler = new ClientHandler(clientSocket, dbConnection);
-        new Thread(handler).start();
-      }
-
+      SimpleServer server = new SimpleServer(config, handler);
+      server.start();
+      System.out.println("Server in esecuzione sulla porta 8080...");
+            
     } 
-    catch(IOException e) 
+    catch (Exception e) 
     {
-      System.err.println("[ERRORE SERVER] Eccezione nell'avvio del server: " + e.getMessage());
+      e.printStackTrace();
     }
-  }*/
+  }
   
   //<editor-fold defaultstate="collapsed" desc="Exclusive Programmer Methods">   
     /**

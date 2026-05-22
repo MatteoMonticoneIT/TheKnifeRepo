@@ -99,9 +99,10 @@ public class ServerHandler
       return SocketUtils.receive(socket, ListServices.class);
     }
     
-    public ListReview getReviews() throws IOException, ClassNotFoundException
+    public ListReview getReviews(int id) throws IOException, ClassNotFoundException
     {
       sendCmd("GET_REVIEWS");
+      sendData(id);
       return SocketUtils.receive(socket, ListReview.class);
     }
     

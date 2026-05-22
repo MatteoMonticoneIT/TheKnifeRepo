@@ -20,6 +20,7 @@ import simple.util.StringUtils;
 public class User implements Serializable
 {   
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    private static final long serialVersionUID = 1L;
     /**
      * The user's id.
      */
