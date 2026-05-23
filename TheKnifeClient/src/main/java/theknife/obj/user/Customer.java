@@ -1,7 +1,5 @@
 package theknife.obj.user;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import theknife.obj.lists.ListFavorite;
 
 /**
@@ -15,27 +13,13 @@ import theknife.obj.lists.ListFavorite;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       760743 (CO)
  */
-@JsonPropertyOrder(
-{
-    "ID", 
-    "firstName", 
-    "firstNameNormalized",
-    "lastName", 
-    "lastNameNormalized",
-    "birthDate", 
-    "address", 
-    "username", 
-    "email", 
-    "password", 
-    "favorites"
-})
+
 public final class Customer extends User
 {  
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
      * The list of favorite restaurants for the customer.
      */
-    @JsonProperty("favorites")
     private ListFavorite listFavorite = null;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructors">

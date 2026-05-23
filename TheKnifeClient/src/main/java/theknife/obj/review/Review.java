@@ -1,7 +1,5 @@
 package theknife.obj.review;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
 
 /**
@@ -18,6 +16,7 @@ import java.io.Serializable;
 public final class Review implements Serializable
 {    
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    private static final long serialVersionUID = 1L;
     /**
      * The review's id.
      */

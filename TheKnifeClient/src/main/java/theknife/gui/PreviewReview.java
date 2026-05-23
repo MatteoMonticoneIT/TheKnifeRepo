@@ -66,12 +66,10 @@ public final class PreviewReview extends javax.swing.JPanel {
         pnl_usernameRating = new JPanel(new BorderLayout());
         lbl_username       = new JLabel(review.getUsername());
         lbl_rating         = new CustomJLabel(String.valueOf(review.getRating()), FULL_STAR);
-        lbl_responses      = new JLabel((numResponses == 0 ? "No" : numResponses) + RESPONSES);
         txt_content        = new JTextArea((review.getContent().length() > MAX_CONTENT_LENGTH ? review.getContent().substring(0, MAX_CONTENT_LENGTH) + "..." : review.getContent()).trim());
         lbls               = new JLabel[] {
             lbl_username,
             lbl_rating,
-            lbl_responses
         };
     }
     
@@ -101,10 +99,6 @@ public final class PreviewReview extends javax.swing.JPanel {
         lbl_rating.setCharacterColor(STAR_BG_DEFAULT);
         lbl_rating.setCharacterSpacing(10);
         
-        lbl_responses.setPreferredSize(new Dimension(0, RESPONSES_HEIGHT));
-        lbl_responses.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 12));
-        lbl_responses.setHorizontalAlignment(JLabel.RIGHT);
-        
         txt_content.setBackground   (bg);
         txt_content.setBorder       (PADDING_TXT);
         txt_content.setLineWrap     (true);
@@ -117,7 +111,6 @@ public final class PreviewReview extends javax.swing.JPanel {
         
         this.add(pnl_usernameRating, BorderLayout.NORTH);
         this.add(txt_content,        BorderLayout.CENTER);
-        this.add(lbl_responses,      BorderLayout.SOUTH);
     }
     
     /**
@@ -192,19 +185,16 @@ public final class PreviewReview extends javax.swing.JPanel {
     private final Border             PADDING_TXT          = BorderFactory.createEmptyBorder(3, 3, 3, 3);
     private final Border             BORDER_NORTH_PNL     = BorderFactory.createMatteBorder(1, 0, 1, 0, Color.BLACK);
     private final Color              STAR_BG_DEFAULT      = new Color(255, 215, 0);
-    private final String             RESPONSES            = " responses to this review";
     private final char               FULL_STAR            = 'C';
     private final int                NORTH_CONTENT_HEIGHT = 30;
     private final int                MAX_CONTENT_LENGTH   = 140;
     private final int                PREVIEWREVIEW_HEIGHT = 100;
     private final int                RATING_HEIGHT        = 70;
-    private final int                RESPONSES_HEIGHT     = 20;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     private ReviewGUI   reviewGUI;
     private JPanel      pnl_usernameRating;
     private JLabel      lbl_username;
-    private JLabel      lbl_responses;
     private CustomJLabel lbl_rating;
     private JTextArea   txt_content;
     private JLabel[]    lbls;
@@ -214,7 +204,6 @@ public final class PreviewReview extends javax.swing.JPanel {
     private final Color      bg;
     private final Review     review;
     private final Restaurant restaurant;
-    private       int        numResponses;
     //</editor-fold>
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

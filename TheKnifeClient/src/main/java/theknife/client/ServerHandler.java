@@ -23,7 +23,7 @@ import theknife.obj.user.User;
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Mattia Tamburo       761743 (CO)
+ * @author Mattia Tamburo       760743 (CO)
  */
 
 public class ServerHandler
@@ -39,48 +39,48 @@ public class ServerHandler
 
     public Customer loginCustomer (Customer customer) throws IOException, ClassNotFoundException
     {
-      sendCmd("LOGIN_CUSTOMER");
-      sendData(customer);
+      ServerHandler.this.sendData("LOGIN_CUSTOMER");
+      ServerHandler.this.sendData(customer);
       return SocketUtils.receive(socket, Customer.class);
     }
 
     public Customer loginCustomerEmail (Customer customer) throws IOException, ClassNotFoundException
     {
-        sendCmd("LOGIN_CUSTOMER_EMAIL");
-        sendData(customer);
+        sendData("LOGIN_CUSTOMER_EMAIL");
+        ServerHandler.this.sendData(customer);
         return SocketUtils.receive(socket, Customer.class);
     }
     public Restaurateur loginRestaurateur (Restaurateur restaurateur) throws IOException, ClassNotFoundException
     {
-      sendCmd("LOGIN_RESTAURATEUR");
-      sendData(restaurateur);
+      sendData("LOGIN_RESTAURATEUR");
+      ServerHandler.this.sendData(restaurateur);
       return SocketUtils.receive(socket, Restaurateur.class);
     }
 
     public Restaurateur loginRestaurateurEmail (Restaurateur restaurateur) throws IOException, ClassNotFoundException
     {
-        sendCmd("LOGIN_RESTAURATEUR_EMAIL");
-        sendData(restaurateur);
+        sendData("LOGIN_RESTAURATEUR_EMAIL");
+        ServerHandler.this.sendData(restaurateur);
         return SocketUtils.receive(socket, Restaurateur.class);
     }
     
     public boolean registerCustomer (Customer customer) throws IOException, ClassNotFoundException
     {
-      sendCmd("REGISTER_CUSTOMER");
-      sendData(customer);
+      sendData("REGISTER_CUSTOMER");
+      ServerHandler.this.sendData(customer);
       return SocketUtils.receive(socket, boolean.class);
     }
     
     public boolean registerRestaurateur (Restaurateur restaurateur) throws IOException, ClassNotFoundException
     {
-      sendCmd("REGISTER_RESTAURATEUR");
-      sendData(restaurateur);
+      sendData("REGISTER_RESTAURATEUR");
+      ServerHandler.this.sendData(restaurateur);
       return SocketUtils.receive(socket, boolean.class);
     }
     
     public ListRestaurant getRestaurants() throws IOException, ClassNotFoundException
     {
-      sendCmd("GET_RESTAURANTS");
+      sendData("GET_RESTAURANTS");
       ListRestaurant l = SocketUtils.receive(socket, ListRestaurant.class);
       for(int i=0; i<5; i++)
         System.out.println(l.getList().get(i).getName());
@@ -89,57 +89,57 @@ public class ServerHandler
     
     public ListCuisines getCuisines() throws IOException, ClassNotFoundException
     {
-      sendCmd("GET_CUISINES");
+      sendData("GET_CUISINES");
       return SocketUtils.receive(socket, ListCuisines.class);
     }
     
     public ListServices getServices() throws IOException, ClassNotFoundException
     {
-      sendCmd("GET_CUISINES");
+      sendData("GET_SERVICES");
       return SocketUtils.receive(socket, ListServices.class);
     }
     
     public ListReview getReviews(int id) throws IOException, ClassNotFoundException
     {
-      sendCmd("GET_REVIEWS");
-      sendData(id);
+      sendData("GET_REVIEWS");
+      ServerHandler.this.sendData(id);
       return SocketUtils.receive(socket, ListReview.class);
     }
     
     public ListFavorite getFavorite() throws IOException, ClassNotFoundException
     {
-      sendCmd("GET_REVIEWS");
+      sendData("GET_REVIEWS");
       return SocketUtils.receive(socket, ListFavorite.class);
     }
     
     public ListOwned getOwned() throws IOException, ClassNotFoundException
     {
-      sendCmd("GET_REVIEWS");
+      sendData("GET_REVIEWS");
       return SocketUtils.receive(socket, ListOwned.class);
     }
     
     public void addRestaurant(Restaurant restaurant) throws IOException, ClassNotFoundException
     {
-      sendCmd("ADD_RESTAURANT");
-      sendData(restaurant);
+      sendData("ADD_RESTAURANT");
+      ServerHandler.this.sendData(restaurant);
     }
     
     public void addReview(Review review) throws IOException, ClassNotFoundException
     {
-      sendCmd("ADD_REVIEW");
-      sendData(review);
+      sendData("ADD_REVIEW");
+      ServerHandler.this.sendData(review);
     }
     
     public void editReview(Review review) throws IOException, ClassNotFoundException
     {
-      sendCmd("EDIT_REVIEW");
-      sendData(review);
+      sendData("EDIT_REVIEW");
+      ServerHandler.this.sendData(review);
     }
     
     public void removeReview(Review review) throws IOException, ClassNotFoundException
     {
-      sendCmd("REMOVE_REVIEW");
-      sendData(review);
+      sendData("REMOVE_REVIEW");
+      ServerHandler.this.sendData(review);
     }
     
     public Socket getSocket() 
@@ -155,15 +155,6 @@ public class ServerHandler
             System.err.println("Errore nella chiusura del socket: " + ex.getMessage());
         }
         System.out.println("Client closed.");
-    }
-    
-    public void sendCmd(String cmd) 
-    {
-        try {
-            SocketUtils.send(socket, cmd);
-        } catch (IOException ex) {
-            System.err.println("Errore nell'invio del comando: " + ex.getMessage());
-        }
     }
     
     public <T extends Serializable> void sendData(T thing) 

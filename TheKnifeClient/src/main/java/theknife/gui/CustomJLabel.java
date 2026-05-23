@@ -39,6 +39,7 @@ public final class CustomJLabel extends JLabel {
     private char  character;
     private Color characterColor;
     private int   charSpacing;
+    private boolean icon;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
@@ -49,6 +50,15 @@ public final class CustomJLabel extends JLabel {
     public CustomJLabel(String text, char character) 
     {
       super(text);
+      icon = false;
+      this.setCharacter(character);
+      setCustomFont();
+    }
+    
+    public CustomJLabel(String text, char character, boolean icon) 
+    {
+      super(text);
+      this.icon = icon;
       this.setCharacter(character);
       setCustomFont();
     }
@@ -154,7 +164,7 @@ public final class CustomJLabel extends JLabel {
       this.setCharacterSpacing(DEFAULT_SPACING);
       try 
       {
-        File fontFile = AppPaths.getRequiredFile("img", "Stars.ttf");
+        File fontFile = (icon) ? AppPaths.getRequiredFile("img", "icons.ttf"):AppPaths.getRequiredFile("img", "Stars.ttf");
         this.setCustomFont(Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(24f));
       } 
       catch (FontFormatException | IOException e) 

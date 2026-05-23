@@ -1,7 +1,5 @@
 package theknife.obj.restaurant;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import theknife.obj.lists.ListReview;
 
 /**
@@ -18,6 +16,9 @@ import theknife.obj.lists.ListReview;
 public final class Restaurant extends Location 
 {    
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    /**
+     * The class serial version UID
+     */
     private static final long serialVersionUID = 1L;
     /**
      * The restaurant id.

@@ -1,7 +1,5 @@
 package theknife.obj.restaurant;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import theknife.obj.lists.ListReview;
 
 /**
@@ -15,128 +13,91 @@ import theknife.obj.lists.ListReview;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       760743 (CO)
  */
-@JsonPropertyOrder(
-{
-    "ID", 
-    "ownerID",
-    "name", 
-    "normName", 
-    "price", 
-    "currency",
-    "phoneNo", 
-    "country", 
-    "city", 
-    "address", 
-    "latitude", 
-    "longitude", 
-    "url", 
-    "webUrl", 
-    "award", 
-    "greenStar", 
-    "cuisine",
-    "services", 
-    "description", 
-    "rating",
-    "reviews"
-})
 public final class Restaurant extends Location 
 {    
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    /**
+     * The class serial version UID
+     */
     private static final long serialVersionUID = 1L;
     /**
      * The restaurant id.
      */
-    @JsonProperty("ID")
     private int         id;
     
     /**
      * The restaurant's owner id.
      */
-    @JsonProperty("ownerID")
     private int         ownerId;
     
     /**
      * The name of the restaurant.
      */
-    @JsonProperty("name")
     private String      name;
     
     /**
      * The normalized name of the restaurant (no accents and other characters that may interfere)
      */
-    @JsonProperty("normName")
     private String      normalizedName;
     
     /**
      * The price category of the restaurant.
      */
-    @JsonProperty("price")
     private int         price;
     
     /**
      * The price category of the restaurant.
      */
-    @JsonProperty("currency")
     private String      currency;
     
     /**
      * The phone number of the restaurant.
      */
-    @JsonProperty("phoneNo")
     private String      phoneNumber;
     
     /**
      * The URL for the restaurant.
      */
-    @JsonProperty("url")
     private String      url;
     
     /**
      * The website URL of the restaurant.
      */
-    @JsonProperty("webUrl")
     private String      websiteUrl;
     
     /**
      * The award received by the restaurant.
      */
-    @JsonProperty("award")
     private String      award;
     
     /**
      * Indicates if the restaurant has a green star (sustainability recognition).
      */
-    @JsonProperty("greenStar")
     private boolean     greenStar;
     
     /**
      * Indicates the type of cuisine.
      */
-    @JsonProperty("cuisine")
     private String      cuisine;
     
     /**
      * A description of the services available at the restaurant.
      */
-    @JsonProperty("services")
     private String      servicesAvailable;
     
     /**
      * A brief description of the restaurant.
      */
-    @JsonProperty("description")
     private String      description;
     
     /**
      * A brief description of the restaurant.
      */
-    @JsonProperty("rating")
     private double      rating;
     
     /**
      * The list of reviews associated with the restaurant.
      */
-    @JsonProperty("reviews")
     private ListReview  listReview;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Constructors">
@@ -147,50 +108,6 @@ public final class Restaurant extends Location
      * </p>
      */
     public Restaurant() {}
-    
-     /**
-     * Constructor that initializes the {@code Restaurant} object with the provided details.
-     *
-     * @param id the restaurant id
-     * @param ownerId the restaurant's owner id
-     * @param name the name of the restaurant
-     * @param normalizedName the normalizedName of the name of the restaurant
-     * @param price the price category of the restaurant
-     * @param currency the currency used by that restaurant
-     * @param phoneNumber the phone number of the restaurant
-     * @param url the URL for the restaurant
-     * @param websiteUrl the website URL of the restaurant
-     * @param award the award received by the restaurant
-     * @param greenStar whether the restaurant has a green star (sustainability recognition)
-     * @param cuisine the type of cuisine
-     * @param servicesAvailable the services available at the restaurant
-     * @param description a brief description of the restaurant
-     * @param rating the overall rating of the quality of the restaurant
-     * @param country the country where the restaurant is located
-     * @param city the city where the restaurant is located
-     * @param address the address of the restaurant
-     * @param latitude the latitude of the restaurant's location
-     * @param longitude the longitude of the restaurant's location
-     */
-    public Restaurant(int id, int ownerId, String name, String normalizedName, int price, String currency, String phoneNumber, String url, String websiteUrl, String award, boolean greenStar, String description, double rating,
-            String country, String city, String address, double latitude, double longitude) 
-    {
-        super                       (country, city, address, latitude, longitude);
-        this.setId                  (id);
-        this.setOwnerId             (ownerId);
-        this.setName                (name);
-        this.setNormalizedName      (normalizedName);
-        this.setPrice               (price);
-        this.setCurrency            (currency);
-        this.setPhoneNumber         (phoneNumber);
-        this.setUrl                 (url);
-        this.setWebsiteUrl          (websiteUrl);
-        this.setAward               (award);
-        this.setGreenStar           (greenStar);
-        this.setDescription         (description);
-        this.setRating              (rating);
-        this.setListReview          (new ListReview());
-    }
     
     /**
      * Constructor that initializes the {@code Restaurant} object with the provided details.

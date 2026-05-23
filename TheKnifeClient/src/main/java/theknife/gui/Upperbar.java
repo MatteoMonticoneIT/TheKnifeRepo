@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import simple.logging.LoggerUtils;
 import theknife.client.Controller;
 import theknife.obj.AppPaths;
@@ -73,8 +74,8 @@ public final class Upperbar extends javax.swing.JPanel
       pnl_searchbar             = new JPanel(new BorderLayout());
       txt_searchbar             = new JTextField();
       lbl_logo                  = new JLabel();
-      btn_advancedSearch        = new JLabel();
-      btn_login                 = new JLabel(Page.LOGIN);
+      btn_advancedSearch        = new CustomJLabel("", 'A', true);
+      btn_login                 = new CustomJLabel("", 'B', true);
       txt_searchbarRounded      = new JLayer<>(txt_searchbar,      LAYER_UI);
       btn_advancedSearchRounded = new JLayer<>(btn_advancedSearch, LAYER_UI);
       pnl_searchbarRounded      = new JLayer<>(pnl_searchbar,      LAYER_UI);
@@ -101,12 +102,15 @@ public final class Upperbar extends javax.swing.JPanel
       btn_advancedSearch.setPreferredSize(new Dimension(WIDTH_ADVANCED_SEARCH, pnl_searchbar.getPreferredSize().height));
       btn_advancedSearch.setBorder(null);
       btn_advancedSearch.setOpaque(true);
+      btn_advancedSearch.setCustomFontSize(40);
+      btn_advancedSearch.setHorizontalAlignment(SwingConstants.CENTER);
         
       btn_login.setBackground           (this.getBackground());
       btn_login.setHorizontalAlignment  (JLabel.CENTER);
       btn_login.setVerticalAlignment    (JLabel.CENTER);
       btn_login.setBorder               (null);
       btn_login.setOpaque               (true);
+      btn_login.setCustomFontSize       (50);
         
       for (int i = 0; i < pnls_upperbar.length; i++) 
       {
@@ -266,7 +270,7 @@ public final class Upperbar extends javax.swing.JPanel
       if(!lbl_title.getText().equals("All restaurants") || !txt_searchbar .getText().trim().isEmpty())
         resetSearch();
       
-      if(btn_login.getText().equals("Login"))
+      if(btn_login.getCharacter() == LOGIN_ICON)
         controller.getPanelMain().showCard(Page.LOGIN);
       else
       {
@@ -357,7 +361,8 @@ public final class Upperbar extends javax.swing.JPanel
      */   
     public void changeUI()
     {
-      btn_login.setText("Logout");
+      btn_login     .setCustomFontSize(75);
+      btn_login     .setCharacter   (LOGOUT_ICON);
     }
     
     /**
@@ -365,7 +370,9 @@ public final class Upperbar extends javax.swing.JPanel
      */  
     private void revertUI()
     {
-      btn_login     .setText            ("Login");
+      btn_login     .setCustomFontSize(50);
+      btn_login     .setCharacter   (LOGIN_ICON);
+
     }
     
     /**
@@ -412,6 +419,8 @@ public final class Upperbar extends javax.swing.JPanel
     private final int                PADDING_SEARCHBAR      = 14;
     private final int                ARC                    = 50;
     private final int                MAX_SEARCHBAR_LENGTH   = 64;
+    private final char               LOGIN_ICON             = 'B';
+    private final char               LOGOUT_ICON            = 'C';
     private final RoundedComponentUI LAYER_UI   = new RoundedComponentUI(ARC);
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
@@ -420,8 +429,8 @@ public final class Upperbar extends javax.swing.JPanel
     private       JTextField         txt_searchbar;
     private final JLabel             lbl_title;
     private       JLabel             lbl_logo;
-    private       JLabel             btn_advancedSearch;
-    private       JLabel             btn_login;
+    private       CustomJLabel       btn_advancedSearch;
+    private       CustomJLabel       btn_login;
     private       JLayer<JComponent> txt_searchbarRounded;
     private       JLayer<JComponent> btn_advancedSearchRounded;
     private       JLayer<JComponent> pnl_searchbarRounded;

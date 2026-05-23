@@ -16,6 +16,7 @@ import java.io.Serializable;
 public final class Review implements Serializable
 {    
     //<editor-fold defaultstate="collapsed" desc="Fields">
+    private static final long serialVersionUID = 1L;
     /**
      * The review's id.
      */

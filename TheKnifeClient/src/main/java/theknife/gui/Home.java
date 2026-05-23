@@ -497,6 +497,8 @@ public final class Home extends javax.swing.JPanel
     {
       pnl_sideBar.removeAll();
       pnl_sideBar.setPreferredSize(null);
+      revalidate();
+      repaint();
     }
     
     /**

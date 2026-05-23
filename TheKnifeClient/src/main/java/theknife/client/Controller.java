@@ -1,11 +1,6 @@
 package theknife.client;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,15 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.JOptionPane;
-import simple.crypto.AES;
-import simple.file.CSV;
-import simple.file.CSVFileNotFoundException;
-import simple.file.CSVRow;
-import simple.file.FileUtils;
-import simple.file.JSON;
-import simple.file.JSONFileNotFoundException;
 import simple.logging.LoggerUtils;
-import simple.util.StringUtils;
 import theknife.gui.AdvancedSearch;
 import theknife.gui.Home;
 import theknife.gui.Login;
@@ -33,13 +20,14 @@ import theknife.gui.PanelMain;
 import theknife.gui.Register;
 import theknife.gui.RegisterRestaurateur;
 import theknife.gui.CustomerReviews;
-import theknife.obj.AppPaths;
 import theknife.obj.InputPattern;
+import theknife.obj.lists.ListCuisines;
 import theknife.obj.lists.ListCustomer;
 import theknife.obj.lists.ListOwned;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.lists.ListRestaurateur;
 import theknife.obj.lists.ListReview;
+import theknife.obj.lists.ListServices;
 import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 import theknife.obj.user.Customer;
@@ -54,66 +42,14 @@ import theknife.obj.user.User;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       761743 (CO)
  */
-@JsonPropertyOrder(
-{
-  "restaurants",
-  "customers",
-  "restaurateurs",
-  "reviews",
-  "responses"
-})
+
 public final class Controller 
 {   
-    //<editor-fold defaultstate="collapsed" desc="Consts">
-    /**
-     * JSON file restaurants.
-     */
-    private static final File JSON_RESTAURANTS      = AppPaths.getOptionalFile("data", "restaurants.json");
-    
-    /**
-     * JSON file customers.
-     */
-    private static final File JSON_CUSTOMERS        = AppPaths.getRequiredFile("data", "customers.json");
-    
-    /**
-     * JSON file restaurateurs.
-     */
-    private static final File JSON_RESTAURATEURS    = AppPaths.getRequiredFile("data", "restaurateurs.json");
-    
-    /**
-     * CSV file dataset.
-     */
-    private static final File CSV_RESTAURANTS       = AppPaths.getRequiredFile("data", "restaurants.csv");
-    
-    /**
-     * CSV file program dataset.
-     */
-    private static final File PROGRAM_DATASET       = AppPaths.getRequiredFile("data", "program_dataset.csv");
-    
-    /**
-     * KeyStore file for encryption.
-     */
-    private static final File KEYSTORE_FILE         = AppPaths.getRequiredFile("data", "keystore.jks");
-    
-    /**
-     * Cuisines list.
-     */
-    private final String[] cuisines = CSV.read(PROGRAM_DATASET, "CUISINES").toArray(new String[0]);
-    
-    /**
-     * Service list.
-     */
-    private final String[] services = CSV.read(PROGRAM_DATASET, "SERVICES").toArray(new String[0]);
-    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Fields">
     /**
-     * 
+     * The {@link ServerHandler} which handles the communication with Server
      */
     private ServerHandler    serverHandler;
-    /**
-     * The {@link AES} which encrypt/decrypt data.
-     */
-    private AES              aes;
     
     /**
      * The {@link User} who log in (either Restaurateur or Customer).
@@ -123,21 +59,29 @@ public final class Controller
     /**
      * The list of {@link Restaurant}.
      */
-    @JsonProperty("restaurants")
     private ListRestaurant   restaurants;
+    
+    /**
+     * Cuisines list.
+     */
+    private ListCuisines cuisines;
+    
+    /**
+     * Service list.
+     */
+    private ListServices services;
     
     /**
      * The list of {@link Customer}.
      */
-    @JsonProperty("customers")
     private ListCustomer     customers;
     
     /**
      * The list of {@link Restaurateur}.
      */
-    @JsonProperty("restaurateurs")
     private ListRestaurateur restaurateurs;
 
+    private boolean clicked;
     /**
      * connection at {@Link ServerHandler}
      */
@@ -171,14 +115,12 @@ public final class Controller
     /**
      * Review selected from the {@link CustomerReviews} page.
      */
-    @JsonIgnore
     private Review selectedReview;
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Components">
     /**
      * The {@link PanelMain} container using {@link CardLayout} to display different pages.
      */
-    @JsonIgnore
     private PanelMain            pnl_main;
     
     /**
@@ -230,7 +172,7 @@ public final class Controller
     public              Controller          (PanelMain pnl_main) throws IOException, ClassNotFoundException
     {
         serverHandler = new ServerHandler();
-        initList();
+        initLists();
         initGUI  (pnl_main);
     }
     //</editor-fold>
@@ -250,9 +192,11 @@ public final class Controller
     /**
      * Initializes all lists.
      */
-    private void        initList           () throws IOException, ClassNotFoundException 
+    private void        initLists           () throws IOException, ClassNotFoundException 
     {
-      this.setRestaurants(serverHandler.getRestaurants());
+      setRestaurants(serverHandler.getRestaurants());
+      cuisines = serverHandler.getCuisines();
+      services = serverHandler.getServices();
     }
     
     /**
@@ -288,7 +232,6 @@ public final class Controller
      * 
      * @return the main panel
      */
-    @JsonIgnore
     public final PanelMain          getPanelMain        ()                                  {return pnl_main;}
 
     /**
@@ -472,7 +415,7 @@ public final class Controller
       {
         try 
         {
-          customer              .setPassword        (aes.encrypt(customer.getPassword()));
+          //customer              .setPassword        (aes.encrypt(customer.getPassword()));
         }
         catch(Exception e) 
         {
@@ -498,7 +441,7 @@ public final class Controller
       {
         try 
         {
-          restaurateur          .setPassword        (aes.encrypt(restaurateur.getPassword()));
+          //restaurateur          .setPassword        (aes.encrypt(restaurateur.getPassword()));
         }
         catch(Exception e) 
         {
@@ -556,7 +499,7 @@ public final class Controller
       if(loggedUser instanceof Customer)
       {
         customer            = (Customer)    loggedUser;
-        if (customer.getListFavorite() == null) {
+        if (customer.getListFavorite().size() == 0) {
             JOptionPane.showMessageDialog(null, "You must have a favourite restaurant first! (You can remove it later!)", "No favorite restaurants yet!", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -565,7 +508,7 @@ public final class Controller
       else
       {
         restaurateur        = (Restaurateur)loggedUser;
-        if (restaurateur.getListOwned() == null) {
+        if (restaurateur.getListOwned().size() == 0) {
             JOptionPane.showMessageDialog(null, "You must have an owned restaurant first! (You can remove it later!)", "No owned restaurants yet!", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -651,7 +594,7 @@ public final class Controller
       
       for(int i=0; i<booleanCuisines.length; i++)
         if(booleanCuisines[i])
-          selectedCuisines.add(cuisines[i]);
+          selectedCuisines.add(cuisines.getList().get(i));
       
       return selectedCuisines;
     }
@@ -667,7 +610,7 @@ public final class Controller
       
       for(int i=0; i<booleanServices.length; i++)
         if(booleanServices[i])
-          selectedServices.add(services[i]);
+          selectedServices.add(services.getList().get(i));
       
       return selectedServices;
     }

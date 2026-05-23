@@ -117,6 +117,7 @@ public class RestaurantGUI extends javax.swing.JPanel
       lbl_award             = new CustomJLabel(restaurant.getAward(), FULL_STAR);
       lbl_greenStar         = new CustomJLabel("", restaurant.isGreenStar() ? FULL_STAR : EMPTY_STAR);
       lbl_services          = new JLabel(wrapTextHTML(restaurant.getServicesAvailable()));
+      lbl_cuisines          = new JLabel(wrapTextHTML(restaurant.getCuisine()));
       lbl_rating            = new CustomJLabel("Overall rating: " + String.format("%.2f", restaurant.getRating()), FULL_STAR);
       lbls                  = new JLabel[] 
       {
@@ -133,6 +134,7 @@ public class RestaurantGUI extends javax.swing.JPanel
         lbl_award,
         lbl_greenStar,
         lbl_services,
+        lbl_cuisines,
         lbl_rating
       };
       lbls_leftSection      = new JLabel[] 
@@ -148,7 +150,8 @@ public class RestaurantGUI extends javax.swing.JPanel
             lbl_address,
             lbl_url,
             lbl_webUrl,
-            lbl_services
+            lbl_services,
+            lbl_cuisines
         };
         btn_addReview         = new JLabel     (ADD_REVIEW);
         btn_back              = new JLabel     (BACK);
@@ -193,8 +196,8 @@ public class RestaurantGUI extends javax.swing.JPanel
         
         lbl_name.setHorizontalAlignment (JLabel.CENTER);
         lbl_name.setPreferredSize       (new Dimension(this.getWidth(), LBL_NAME_HEIGHT));
-        lbl_name.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 40));
-        lbl_name.setOpaque(false);
+        lbl_name.setFont                (new Font(this.getFont().getFontName(), this.getFont().getStyle(), 40));
+        lbl_name.setOpaque              (false);
         
         btn_addFavourite.setOpaque(true);
         btn_addFavourite.setFont(new Font(this.getFont().getFontName(), this.getFont().getStyle(), 40));
@@ -677,6 +680,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     private CustomJLabel       lbl_award;
     private CustomJLabel       lbl_greenStar;
     private JLabel             lbl_services;
+    private JLabel             lbl_cuisines;
     private CustomJLabel       lbl_rating;
     private JLabel[]           lbls;
     private JLabel[]           lbls_leftSection;

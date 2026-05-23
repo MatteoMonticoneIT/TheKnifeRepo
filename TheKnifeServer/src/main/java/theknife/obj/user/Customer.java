@@ -1,7 +1,5 @@
 package theknife.obj.user;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import theknife.obj.lists.ListFavorite;
 
 /**
@@ -15,6 +13,7 @@ import theknife.obj.lists.ListFavorite;
  * @author Matteo Monticone     761701 (CO)
  * @author Mattia Tamburo       760743 (CO)
  */
+
 public final class Customer extends User
 {  
     //<editor-fold defaultstate="collapsed" desc="Fields">

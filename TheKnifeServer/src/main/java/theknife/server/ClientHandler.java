@@ -7,15 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import simple.socket.SocketUtils;
 import theknife.cypher.CypherHandler;
 import theknife.obj.lists.ListCuisines;
-import theknife.obj.lists.ListFavorite;
-import theknife.obj.lists.ListOwned;
 
-import theknife.obj.lists.ListFavorite;
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.lists.ListReview;
 import theknife.obj.lists.ListServices;
@@ -23,7 +19,6 @@ import theknife.obj.restaurant.Restaurant;
 import theknife.obj.review.Review;
 import theknife.obj.user.Customer;
 import theknife.obj.user.Restaurateur;
-import theknife.obj.user.User;
 
 /**
  *
@@ -33,8 +28,10 @@ import theknife.obj.user.User;
  * @author Mattia Tamburo       760743 (CO)
  */
 
-public class ClientHandler implements Runnable {
-    public enum COMMANDS {
+public class ClientHandler implements Runnable 
+{
+    public enum COMMANDS 
+    {
         LOGIN_CUSTOMER,
         LOGIN_RESTAURATEUR,
         REGISTER_CUSTOMER,
@@ -43,8 +40,8 @@ public class ClientHandler implements Runnable {
         GET_CUISINES,
         GET_SERVICES,
         GET_REVIEWS,
-        GET_LIST_FAVOURITE,
-        GET_OWNED_RESTAURANTS,
+        ADD_FAVOURITE,
+        REMOVE_FAVOURITE,
         ADD_RESTAURANT,
         ADD_REVIEW,
         EDIT_REVIEW,
@@ -52,75 +49,68 @@ public class ClientHandler implements Runnable {
     }
 
     ;
-    private Socket clientSocket;
-    private Connection dbConnection;
-    
-    private CypherHandler cypherHandler;
+    private Socket          clientSocket;
+    private Connection      dbConnection;    
+    private CypherHandler   cypherHandler;
 
-    public ClientHandler(Socket socket, Connection dbConnection) {
+    public ClientHandler(Socket socket, Connection dbConnection) throws Exception 
+    {
         this.clientSocket   = socket;
         this.dbConnection   = dbConnection;
         this.cypherHandler  = new CypherHandler();
     }
 
-    public ClientHandler(Connection dbConnection, QueryServer queryServer) {
-        this.dbConnection = dbConnection;
-    }
+    public ClientHandler(Connection dbConnection, QueryServer queryServer) {this.dbConnection = dbConnection;}
 
     @Override
     public void run() 
     {
         try 
         {
-            while (clientSocket.isConnected()) 
-            {            
-            String cmd = SocketUtils.receive(clientSocket);        
-            COMMANDS cmdc = COMMANDS.valueOf(cmd);
+          while (!clientSocket.isClosed()) 
+          {            
+            String cmd      = SocketUtils.receive(clientSocket, String.class);    
+            if (cmd == null)
+              break;
+            COMMANDS cmdc   = COMMANDS.valueOf(cmd);
             
-                switch (cmdc) {
+                switch (cmdc) 
+                {
                     case LOGIN_CUSTOMER:
-                        Customer loginCustomer = SocketUtils.receive(clientSocket, Customer.class);
-                        SocketUtils.send(clientSocket, checkLoginCustomer(loginCustomer));
+                        Customer loginCustomer              = SocketUtils.receive   (clientSocket, Customer.class);
+                        SocketUtils.send(clientSocket, checkLoginCustomer           (loginCustomer));
                         break;
                     case LOGIN_RESTAURATEUR:
-                        Restaurateur loginRestaurateur = SocketUtils.receive(clientSocket, Restaurateur.class);
-                        SocketUtils.send(clientSocket, checkLoginRestaurateur(loginRestaurateur));
+                        Restaurateur loginRestaurateur      = SocketUtils.receive   (clientSocket, Restaurateur.class);
+                        SocketUtils.send(clientSocket, checkLoginRestaurateur       (loginRestaurateur));
                         break;
                     case REGISTER_CUSTOMER:
-                        Customer registerCustomer = SocketUtils.receive(clientSocket, Customer.class);
-                        SocketUtils.send(clientSocket, registerCustomer(registerCustomer));
+                        Customer registerCustomer           = SocketUtils.receive   (clientSocket, Customer.class);
+                        SocketUtils.send(clientSocket, registerCustomer             (registerCustomer));
                         break;
                     case REGISTER_RESTAURATEUR:
-                        Restaurateur registerRestaurateur = SocketUtils.receive(clientSocket, Restaurateur.class);
-                        SocketUtils.send(clientSocket, registerRestaurateur(registerRestaurateur));
+                        Restaurateur registerRestaurateur   = SocketUtils.receive   (clientSocket, Restaurateur.class);
+                        SocketUtils.send(clientSocket, registerRestaurateur         (registerRestaurateur));
                         break;
                     case GET_RESTAURANTS:
-                        ListRestaurant listRestaurant = getRestaurants();
+                        ListRestaurant listRestaurant       = getRestaurants();
                         SocketUtils.send(clientSocket, listRestaurant);
                         break;
                     case GET_CUISINES:
-                        ListCuisines listCuisines = getCuisines();
+                        ListCuisines listCuisines           = getCuisines();
                         SocketUtils.send(clientSocket, listCuisines);
                         break;
                     case GET_SERVICES:
-                        ListServices listServices = getServices();
+                        ListServices listServices           = getServices();
                         SocketUtils.send(clientSocket, listServices);
                         break;
                     case GET_REVIEWS:
-                        int restaurantID = SocketUtils.receive(clientSocket, Integer.class);
+                        int restaurantID                    = SocketUtils.receive(clientSocket, Integer.class);
                         ListReview listReview = getReview(restaurantID);
                         SocketUtils.send(clientSocket, listReview);
                         break;
-                    case GET_LIST_FAVOURITE:
-                        int customerID = SocketUtils.receive(clientSocket, Integer.class);
-                        ListFavorite listFavorite = getFavorite(customerID);
-                        SocketUtils.send(clientSocket, listFavorite);
-                        break;
-                    case GET_OWNED_RESTAURANTS:
-                        int restaurateurID = SocketUtils.receive(clientSocket, Integer.class);
-                        ListOwned listOwned = getOwned(restaurateurID);
-                        SocketUtils.send(clientSocket, listOwned);
-                        break;
+                    case ADD_FAVOURITE:
+
                     case ADD_RESTAURANT:
                         Restaurant restaurant = SocketUtils.receive(clientSocket, Restaurant.class);
                         break;
@@ -150,26 +140,37 @@ public class ClientHandler implements Runnable {
     {
       try
       {
-      return cypherHandler.decryptCustomer(dbConnection, customer.getUsername(), customer.getPassword());
-      }catch(Throwable t)
+        return cypherHandler.decryptCustomer(dbConnection, customer.getUsername(), customer.getPassword());
+      }
+      catch(Throwable t)
       {
-        System.err.println("AEEE");
         t.printStackTrace();
       }
       return null;
     }
 
-    private Restaurateur checkLoginRestaurateur(Restaurateur restaurateur) throws Exception {
+    private Restaurateur checkLoginRestaurateur(Restaurateur restaurateur) throws Exception 
+    {
+      try
+      {
         return cypherHandler.decryptRestaurateur(dbConnection, restaurateur.getUsername(), restaurateur.getPassword());
+      }
+      catch(Throwable t)
+      {
+        t.printStackTrace();
+      }
+      return null;
     }
 
-    private ListRestaurant getRestaurants() {
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    private ListRestaurant getRestaurants() 
+    {
         String sql = "SELECT r.*, CASE WHEN COUNT(c.id) = 0 THEN '' ELSE STRING_AGG(DISTINCT c.description, ', ') END AS cuisine, CASE WHEN COUNT(s.id) = 0 THEN '' ELSE STRING_AGG(DISTINCT s.description, ', ') END AS service FROM restaurant r LEFT JOIN listcuisine lc ON lc.restaurantId = r.id LEFT JOIN cuisine c ON c.id = lc.cuisineId LEFT JOIN listservice ls ON ls.restaurantId = r.id LEFT JOIN service s ON ls.serviceId = s.id GROUP BY r.id";
         ListRestaurant temp = new ListRestaurant();
-        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
+        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) 
+        {
+            try (ResultSet rs = pstmt.executeQuery()) 
+            {
+                while (rs.next()) 
                     temp.add(new Restaurant(rs.getInt("id"),
                             rs.getInt("ownerID"),
                             rs.getString("name"),
@@ -191,9 +192,10 @@ public class ClientHandler implements Runnable {
                             rs.getDouble("latitude"),
                             rs.getDouble("longitude")
                     ));
-                }
             }
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) 
+        {
             System.err.println("[ERRORE] Impossibile connettersi al database.");
             System.err.println("Motivo: " + e.getMessage());
             System.exit(1);
@@ -201,54 +203,20 @@ public class ClientHandler implements Runnable {
         return temp;
     }
 
-    private ListOwned getOwned(int id){
-        String sql = "SELECT ID FROM restaurant WHERE ownerID = ?";
-        ArrayList<Integer> list = new ArrayList();
-        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    list.add(rs.getInt("ID"));
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("[ERRORE] Impossibile connettersi al database.");
-            System.err.println("Motivo: " + e.getMessage());
-            System.exit(1);
-        }
-        ListOwned temp = new ListOwned(list);
-        return temp;
-    }
-    
-    private ListFavorite getFavorite(int id){
-        String sql = "SELECT ID FROM review r WHERE r.IDCustomer = ?";
-        ArrayList<Integer> list = new ArrayList();
-        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    list.add(rs.getInt("ID"));
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("[ERRORE] Impossibile connettersi al database.");
-            System.err.println("Motivo: " + e.getMessage());
-            System.exit(1);
-        }
-        ListFavorite temp = new ListFavorite(list);
-        return temp;
-    }
-
-    private ListCuisines getCuisines(){
+    private ListCuisines getCuisines()
+    {
         String sql = "SELECT description FROM cuisine";
         ArrayList<String> list = new ArrayList();
-        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
+        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) 
+        {
+            try (ResultSet rs = pstmt.executeQuery()) 
+            {
+                while (rs.next()) 
                     list.add(rs.getString("description"));
-                }
             }
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) 
+        {
             System.err.println("[ERRORE] Impossibile connettersi al database.");
             System.err.println("Motivo: " + e.getMessage());
             System.exit(1);
@@ -257,16 +225,20 @@ public class ClientHandler implements Runnable {
         return temp;
     }
 
-    private ListServices getServices(){
+    private ListServices getServices()
+    {
         String sql = "SELECT description FROM service";
         ArrayList<String> list = new ArrayList();
-        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
+        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) 
+        {
+            try (ResultSet rs = pstmt.executeQuery()) 
+            {
+                while (rs.next())
                     list.add(rs.getString("description"));
-                }
             }
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) 
+        {
             System.err.println("[ERRORE] Impossibile connettersi al database.");
             System.err.println("Motivo: " + e.getMessage());
             System.exit(1);
@@ -279,6 +251,7 @@ public class ClientHandler implements Runnable {
         String sql = "SELECT r.*, c.username FROM review r JOIN customer c ON c.ID = r.IDCustomer WHERE restaurantID = ?";
         ListReview list = new ListReview();
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     list.add(new Review(

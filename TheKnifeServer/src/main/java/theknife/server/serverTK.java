@@ -1,12 +1,6 @@
 package theknife.server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,11 +15,15 @@ import simple.socket.*;
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Mattia Tamburo       761743 (CO)
+ * @author Mattia Tamburo       760743 (CO)
  */
 
 public class serverTK 
 {
+  private final static int port        = 7070;
+  private final static int maxThreads  = 16;
+  private final static int backLog     = 16;
+  
   public static void main(String[] args) 
   {
     Scanner scanner = new Scanner(System.in);
@@ -72,10 +70,10 @@ public class serverTK
     try 
     {
       ServerConfig config = new ServerConfig.Builder()
-        .port(7070)
-        .maxThreads(16)
-        .backlog(16)
-        .build();
+        .port       (port)
+        .maxThreads (maxThreads)
+        .backlog    (backLog)
+        .build      ();
                 
       ConnectionHandler handler = (Socket client) -> 
       {
@@ -86,7 +84,7 @@ public class serverTK
 
       SimpleServer server = new SimpleServer(config, handler);
       server.start();
-      System.out.println("Server in esecuzione sulla porta 8080...");
+      System.out.println("Server in esecuzione sulla porta "+ port +"...");
             
     } 
     catch (Exception e) 

@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import simple.crypto.AES;
 import theknife.obj.AppPaths;
@@ -14,7 +13,6 @@ import theknife.obj.lists.ListFavorite;
 import theknife.obj.lists.ListOwned;
 import theknife.obj.user.Customer;
 import theknife.obj.user.Restaurateur;
-import theknife.obj.user.User;
 
 /**
  * Manages database encryption and decryption
@@ -222,7 +220,7 @@ public class CypherHandler
           String[] list = rs.getString("listfavourite").split("\\,");
           if(!list[0].isBlank())
             for(String s: list)
-              temp.add(Integer.parseInt(s));
+              temp.add(Integer.valueOf(s.strip()));
           ListFavorite ls = new ListFavorite(temp);
 
           return new Customer(
@@ -268,8 +266,10 @@ public class CypherHandler
       {
         if(rs.next() && password.equals(aes.decrypt(rs.getString ("password")))) {
           ArrayList<Integer> temp = new ArrayList<>();
-          for (String s : (rs.getString("listowned").split("\\,")))
-            temp.add(Integer.parseInt(s));
+          String[] list = rs.getString("listowned").split("\\,");
+          if(!list[0].isBlank())
+            for(String s: list)
+              temp.add(Integer.valueOf(s.strip()));
           ListOwned lo = new ListOwned(temp);
           return new Restaurateur(
                   rs.getInt("id"),
