@@ -1,0 +1,11 @@
+Customer 		(ID (PRIMARY KEY), firstName, firstNameNormalized, lastName, lastNameNormalized, birthDate, address, username, email, password) 		
+Restaurateur		(ID (PRIMARY KEY), firstName, firstNameNormalized, lastName, lastNameNormalized, birthDate, address, username, email, password)
+Restaurant 		(ID (PRIMARY KEY), ownerID (FOREIGN KEY a Restaurateur(ID)), name, normName, price, currency, phoneNo, country, city, address, latitude, longitude, url, webUrl, award, greenStar, description, rating)
+Review			(ID (PRIMARY KEY), restaurantID (FOREIGN KEY a Restaurant(ID)), IDCustomer (FOREIGN KEY a Customer (ID)), rating, content)
+Response		(ID (PRIMARY KEY), restaurateurID(FOREIGN KEY a Restaurateur(ID)), reviewID (FOREING KEY a Review(ID)), content) 	
+Cuisine			(ID (PRIMARY KEY), description)
+Service			(ID (PRIMARY KEY), description)
+ListFavourite		((restaurantID (FOREIGN KEY a Restaurant(ID)), customerID (FOREIGN KEY a Customer(ID)))	(PRIMARY KEY))
+ListCuisine		((restaurantID (FOREIGN KEY a Restaurant(ID)), cuisineID  (FOREING KEY a Cuisine (ID))) (PRIMARY KEY))
+ListService		((restaurantID (FOREIGN KEY a Restaurant(ID)), serviceID  (FOREIGN KEY a Service (ID))) (PRIMARY KEY)) 
+

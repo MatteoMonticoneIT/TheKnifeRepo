@@ -20,6 +20,21 @@
             <version>42.7.11</version>
         </dependency>
         <dependency>
+           <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.15.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.15.0</version>
+        </dependency>   
+        <dependency>
             <groupId>Simple</groupId>
             <artifactId>simple</artifactId>
             <version>2.0</version>
@@ -32,14 +47,16 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.6.0</version>
                 <configuration>
+                    <finalName>serverTK</finalName>
+                    
+                    <appendAssemblyId>false</appendAssemblyId>
+                    
                     <archive>
                         <manifest>
-                            <!-- Indica a Java da quale classe partire -->
                             <mainClass>theknife.server.serverTK</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
-                        <!-- Include tutte le dipendenze nel JAR finale -->
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                 </configuration>

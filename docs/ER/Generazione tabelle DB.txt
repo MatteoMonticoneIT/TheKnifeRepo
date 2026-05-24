@@ -1,0 +1,101 @@
+CREATE TABLE Customer
+(
+  ID 			INT 		GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  firstName 		VARCHAR(50) 	NOT NULL,
+  firstNameNormalized 	VARCHAR(50),
+  lastName 		VARCHAR(50) 	NOT NULL,
+  lastNameNormalized 	VARCHAR(50),
+  birthDate 		DATE 		CHECK (birthDate <= CURRENT_DATE - INTERVAL '13 years'),
+  address 		VARCHAR(100)	NOT NULL,
+  username 		VARCHAR(50) 	UNIQUE NOT NULL, 
+  email 		VARCHAR(100) 	UNIQUE NOT NULL,    
+  password 		VARCHAR(255) 	NOT NULL        
+);
+
+CREATE TABLE Restaurateur
+(
+  ID 			INT 		GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  firstName 		VARCHAR(50) 	NOT NULL,
+  firstNameNormalized 	VARCHAR(50),
+  lastName 		VARCHAR(50) 	NOT NULL,
+  lastNameNormalized 	VARCHAR(50),
+  birthDate 		DATE 		CHECK (birthDate <= CURRENT_DATE - INTERVAL '18 years'),
+  address 		VARCHAR(100)	NOT NULL,
+  username 		VARCHAR(50) 	UNIQUE NOT NULL,
+  email 		VARCHAR(100) 	UNIQUE NOT NULL,
+  password 		VARCHAR(255)	NOT NULL
+);
+
+CREATE TABLE Restaurant
+(
+  ID 			INT 		GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  ownerID 		INT 		REFERENCES Restaurateur(ID) ON DELETE SET NULL,
+  name 			VARCHAR(100) 	NOT NULL,
+  normName 		VARCHAR(100),
+  price 		INT 		CHECK (price BETWEEN 1 AND 4),
+  currency 		VARCHAR(1)	NOT NULL,
+  phoneNo 		VARCHAR(20),
+  country 		VARCHAR(50)	NOT NULL,
+  city 			VARCHAR(50)	NOT NULL,
+  address 		VARCHAR(100)	NOT NULL,
+  latitude 		DECIMAL(15, 10) CHECK (latitude  BETWEEN -90  AND 90),    
+  longitude 		DECIMAL(15, 10) CHECK (longitude BETWEEN -180 AND 180),
+  url 			VARCHAR(255),
+  webUrl 		VARCHAR(255),
+  award 		VARCHAR(30),
+  greenStar 		BOOLEAN      	DEFAULT FALSE,
+  description 		TEXT,
+  rating 		DECIMAL(3, 2)   CHECK (rating BETWEEN 0 AND 5)
+);
+
+CREATE TABLE Review
+(
+  ID 			INT 		GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  restaurantID 		INT 		NOT NULL REFERENCES Restaurant(ID) ON DELETE CASCADE,
+  IDCustomer 		INT		NOT NULL REFERENCES Customer  (ID) ON DELETE CASCADE,
+  rating 		DECIMAL (3,2) 	NOT NULL CHECK (rating BETWEEN 0 AND 5),
+  content 		TEXT,
+  UNIQUE (restaurantID, IDCustomer)
+);
+
+CREATE TABLE Response
+(
+  ID 		 	INT 		GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  reviewID	 	INT 		REFERENCES Review	(ID) 	ON DELETE CASCADE,	
+  restaurateurID 	INT 		REFERENCES Restaurateur	(ID) 	ON DELETE SET NULL,	
+  content 	 	TEXT
+);
+
+CREATE TABLE ListFavourite
+(
+  customerID 		INT 		NOT NULL REFERENCES Customer  (ID) ON DELETE CASCADE,
+  restaurantID 		INT 		NOT NULL REFERENCES Restaurant(ID) ON DELETE CASCADE,
+  PRIMARY KEY(customerID, restaurantID)
+);
+
+CREATE TABLE Cuisine
+(
+  ID 			INT 		GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  description 		VARCHAR(50) 	UNIQUE NOT NULL
+);
+
+CREATE TABLE Service
+(
+  ID 			INT 		GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  description 		VARCHAR(50) 	UNIQUE NOT NULL
+);
+
+CREATE TABLE ListCuisine
+(
+  restaurantID 		INT 		NOT NULL REFERENCES Restaurant(ID) ON DELETE CASCADE,
+  cuisineID 		INT 		NOT NULL REFERENCES Cuisine   (ID) ON DELETE CASCADE,
+  PRIMARY KEY(restaurantID, cuisineID)
+);
+
+CREATE TABLE ListService
+(
+  restaurantID 		INT 		NOT NULL REFERENCES Restaurant(ID) ON DELETE CASCADE,
+  serviceID 		INT 		NOT NULL REFERENCES Service   (ID) ON DELETE CASCADE,
+  PRIMARY KEY(restaurantID, serviceID) 
+);
+
