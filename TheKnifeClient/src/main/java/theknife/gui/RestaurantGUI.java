@@ -39,7 +39,7 @@ import theknife.obj.user.Customer;
  * @author Damiano De Mutiis    761348 (CO)
  * @author Matteo Porto Bonacci 761396 (CO)
  * @author Matteo Monticone     761701 (CO)
- * @author Mattia Tamburo       761743 (CO)
+ * @author Mattia Tamburo       760743 (CO)
  */
 public class RestaurantGUI extends javax.swing.JPanel
 {
@@ -88,7 +88,7 @@ public class RestaurantGUI extends javax.swing.JPanel
     {
       char star = EMPTY_STAR;
       
-      if(customer!= null && customer.getListFavorite() !=null)
+      if(customer!= null && customer.getListFavorite() != null)
         for(Integer integer: customer.getListFavorite().getList())
           if(integer==restaurant.getId()) 
           {

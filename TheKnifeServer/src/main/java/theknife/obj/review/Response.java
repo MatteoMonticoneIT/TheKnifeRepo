@@ -68,6 +68,22 @@ public final class Response implements Serializable
       setUsername   (username);
       setContent    (content);
     }
+    
+    /**
+     * Constructor that initializes the {@code Response} object with specific content and associated review.
+     *
+     * @param reviewID the id of the review where the response is added
+     * @param restaurateurID the id of the restaurateur that writes the response
+     * @param username the username of the response
+     * @param content the content of the response
+     */
+    public Response(int reviewID, int restaurateurID, String username, String content) 
+    {
+      setReviewID       (reviewID);
+      setRestaurateurID (restaurateurID);
+      setUsername       (username);
+      setContent        (content);
+    }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     /**

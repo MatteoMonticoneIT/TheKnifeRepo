@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import simple.socket.SocketUtils;
 import theknife.cypher.CypherHandler;
 import theknife.obj.lists.ListCuisines;
+import theknife.obj.lists.ListResponse;
 
 import theknife.obj.lists.ListRestaurant;
 import theknife.obj.lists.ListReview;
@@ -333,7 +334,7 @@ public class ClientHandler implements Runnable
      */
     private ListReview      getReview               (int id) 
     {
-      String sql = "SELECT r.*, c.username FROM review r JOIN customer c ON c.ID = r.IDCustomer WHERE restaurantID = ?";
+      String sql = "SELECT r.*, c.username, resp.ID AS respID, resp.restaurateurID, resp.content AS respContent, rest.username AS respUsername FROM review r JOIN customer c ON c.ID = r.IDCustomer LEFT JOIN response resp ON r.ID = resp.reviewID LEFT JOIN restaurateur rest ON resp.restaurateurID = rest.ID WHERE r.restaurantID = ? ORDER BY r.ID;";
       ListReview list = new ListReview();
       try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) 
       {
@@ -349,13 +350,26 @@ public class ClientHandler implements Runnable
                                     rs.getString("content"),
                                     rs.getDouble("rating")
                                ));
+
+            Integer respID = (Integer) rs.getObject("respID");
+            if(respID != null)
+            {
+             ListResponse response = new ListResponse();
+              response.add(new Response(respID,
+                                        rs.getInt     ("restaurateurID"),
+                                        rs.getString  ("respUsername"),
+                                        rs.getString  ("respContent")));
+             
+              list.getList().get(list.size()-1).setResponses(response);
+            }
           }
         }
-        } catch (SQLException e) 
-        {
-          System.err.println(e);
-        }
-        return list;
+      }
+      catch (SQLException e) 
+      {
+        System.err.println(e);
+      }
+      return list;
     }
     
     /**
@@ -381,13 +395,16 @@ public class ClientHandler implements Runnable
                                     rs.getString("content"),
                                     rs.getDouble("rating")
                                ));
+            
+
+            }
           }
-        }
         } catch (SQLException e) 
-        {
-          System.err.println(e);
-        }
-        return list;
+      {
+        System.err.println(e);
+      }
+      return list;
+      
     }
 
     /**

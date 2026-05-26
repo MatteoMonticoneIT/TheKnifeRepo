@@ -66,8 +66,8 @@ public class ServerHandler
      */
     public ServerHandler() throws IOException 
     {
-      this.socket = new Socket(serverAddress, serverPort);
-      aes = new AES(KEYSTORE_FILE);
+      this.socket   = new Socket(serverAddress, serverPort);
+      aes           = new AES   (KEYSTORE_FILE);
     }
 
     /**
