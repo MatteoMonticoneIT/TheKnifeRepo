@@ -337,7 +337,7 @@ public final class EditReview extends javax.swing.JPanel {
                                       txt_content.getText(),
                                       starRating);   
         
-        controller.editReview(newReview);
+        restaurant.setRating(controller.editReview(newReview));
         
         CustomerReviews customerReviews = new CustomerReviews(controller);
         controller.getPanelMain().getPanel().add(customerReviews, Page.CUSTOMER_REVIEWS);

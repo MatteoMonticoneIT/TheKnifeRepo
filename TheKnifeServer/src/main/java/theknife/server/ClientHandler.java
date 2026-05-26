@@ -164,7 +164,7 @@ public class ClientHandler implements Runnable
                         break;
                     case ADD_REVIEW:
                         Review addReview                    = SocketUtils.receive   (clientSocket, Review.class);
-                        addReview(addReview);
+                        SocketUtils.send(clientSocket, addReview(addReview));
                         break;
                     case ADD_RESPONSE:
                         Response response                   = SocketUtils.receive   (clientSocket, Response.class);
@@ -172,11 +172,11 @@ public class ClientHandler implements Runnable
                         break;
                     case EDIT_REVIEW:
                         Review editReview                   = SocketUtils.receive   (clientSocket, Review.class);
-                        editReview(editReview);
+                        SocketUtils.send(clientSocket, editReview(editReview));
                         break;
                     case REMOVE_REVIEW:
                         Review removeReview                 = SocketUtils.receive   (clientSocket, Review.class);
-                        removeReview(removeReview);
+                        SocketUtils.send(clientSocket, removeReview(removeReview));
                         break;
                     default:
                         System.err.println("Unexpected command: " + cmdc);
@@ -585,7 +585,7 @@ public class ClientHandler implements Runnable
      * @param review The new review object.
      * @return True if successful, false otherwise.
      */
-    private boolean         addReview               (Review review) 
+    private Double         addReview               (Review review) 
     {
       String sql = "INSERT INTO Review (restaurantID, IDCustomer, rating, content) VALUES (?, ?, ?, ?)";
       try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) 
@@ -596,6 +596,7 @@ public class ClientHandler implements Runnable
         pstmt.setString (4, review.getContent());
 
         pstmt.executeUpdate();
+        return restaurantRatingAverage(review.getRestaurantID());    
       } 
       catch (SQLException e) 
       {
@@ -603,9 +604,14 @@ public class ClientHandler implements Runnable
         System.err.println("Motivo: " + e.getMessage());
         System.exit(1);
       }
-      return false;
+      return 0d;
     }
 
+    /**
+     * Adds a new review and updates the restaurant's average rating.
+     * @param review The new review object.
+     * @return True if successful, false otherwise.
+     */
     private void            addResponse             (Response response)
     {
       String sql = "INSERT INTO response (reviewID, restaurateurID, content) VALUES (?, ?, ?)";
@@ -629,7 +635,7 @@ public class ClientHandler implements Runnable
      * @param review The updated review object.
      * @return True if successful, false otherwise.
      */
-    private boolean         editReview              (Review review) 
+    private Double         editReview              (Review review) 
     {
         String sql = "SELECT * FROM review WHERE id = ?";
         try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
@@ -642,8 +648,7 @@ public class ClientHandler implements Runnable
                         pstmt2.setDouble(2, review.getRating());
                         pstmt2.setInt(3, review.getID());
                         pstmt2.executeUpdate();
-                        restaurantRatingAverage(review.getRestaurantID());
-                        return true;                        
+                        return restaurantRatingAverage(review.getRestaurantID());
                     } catch (SQLException e) {
                         System.err.println("[ERRORE] Impossibile connettersi al database.");
                         System.err.println("Motivo: " + e.getMessage());
@@ -656,7 +661,7 @@ public class ClientHandler implements Runnable
             System.err.println("Motivo: " + e.getMessage());
             System.exit(1);
         }
-        return false;
+        return 0d;
     }
 
     /**
@@ -664,7 +669,7 @@ public class ClientHandler implements Runnable
      * @param review The review object to remove.
      * @return True if successful, false otherwise.
      */
-    private boolean         removeReview            (Review review) 
+    private Double         removeReview            (Review review) 
     {
         String sql = "SELECT * FROM review WHERE id = ?";
         try(PreparedStatement pstmt = dbConnection.prepareStatement(sql)){
@@ -675,8 +680,7 @@ public class ClientHandler implements Runnable
                     try(PreparedStatement pstmt2 = dbConnection.prepareStatement(sql)){
                         pstmt2.setInt(1, review.getID());
                         pstmt2.executeUpdate();
-                        restaurantRatingAverage(review.getRestaurantID());
-                        return true;                      
+                        return restaurantRatingAverage(review.getRestaurantID());         
                     }catch(SQLException e){
                         System.err.println("[ERRORE] Impossibile connettersi al database.");
                         System.err.println("Motivo: " + e.getMessage());
@@ -694,15 +698,16 @@ public class ClientHandler implements Runnable
             System.err.println("Motivo: " + e.getMessage());
             System.exit(1);
         }
-        return false;
+        return 0d;
     }
     
     /**
      * Method to calculate a restaurant rating average after inserting or editing a new review.
      * @param id the restaurant's id which needs to recalculate rating average
      */
-    public        void      restaurantRatingAverage (int id)
+    public        Double      restaurantRatingAverage (int id)
     {
+      Double rating = 0d;
       String sql = "UPDATE Restaurant SET rating = (SELECT ROUND(AVG(rating), 2) FROM Review WHERE restaurantID = ?) WHERE ID = ?;";
       try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) 
       {
@@ -716,6 +721,23 @@ public class ClientHandler implements Runnable
         System.err.println("Motivo: " + e.getMessage());
         System.exit(1);
       }
+      
+      sql = "SELECT rating FROM restaurant WHERE id = ?";
+      try (PreparedStatement pstmt2 = dbConnection.prepareStatement(sql)) 
+      {
+        pstmt2.setInt(1, id);
+        try (ResultSet rs = pstmt2.executeQuery()) 
+        {
+          rating = (rs.next()) ? rs.getDouble("rating"):0d;
+        }
+      } 
+      catch (SQLException e) 
+      {
+        System.err.println("[ERRORE] Impossibile connettersi al database.");
+        System.err.println("Motivo: " + e.getMessage());
+        System.exit(1);
+      }
+      return rating;
     }
     //</editor-fold> 
 }

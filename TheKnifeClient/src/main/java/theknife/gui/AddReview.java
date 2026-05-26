@@ -318,7 +318,7 @@ public final class AddReview extends javax.swing.JPanel
                                    txt_content.getText(),
                                    starRating);      
         
-        controller.addReview(review);
+        restaurant.setRating(controller.addReview(review));
         
         controller.getPanelMain().showCard(Page.REVIEW);
         controller.getPanelMain().getPanel().remove(this);

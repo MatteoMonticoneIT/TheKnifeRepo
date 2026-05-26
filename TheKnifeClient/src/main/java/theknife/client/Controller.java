@@ -599,34 +599,37 @@ public final class Controller
     /**
      * Edit the selected review on database
      * @param review the review modified
+     * @return updated restaurant's rating
      * @throws IOException
      * @throws ClassNotFoundException 
      */
-    public        void          editReview(Review review) throws IOException, ClassNotFoundException
+    public        double          editReview(Review review) throws IOException, ClassNotFoundException
     {
-      serverHandler.editReview(review);
+      return serverHandler.editReview(review);
     }
     
     /**
      * Add a new review on database
      * @param review the review to add
+     * @return updated restaurant's rating
      * @throws IOException
      * @throws ClassNotFoundException 
      */
-    public        void          addReview(Review review) throws IOException, ClassNotFoundException
+    public        double          addReview(Review review) throws IOException, ClassNotFoundException
     {
-      serverHandler.addReview(review);
+      return serverHandler.addReview(review);
     }
     
     /**
      * Removes the selected review from database
      * @param review the review to remove
+     * @return updated restaurant's rating
      * @throws IOException
      * @throws ClassNotFoundException 
      */
-    public        void          removeReview(Review review) throws IOException, ClassNotFoundException
+    public        double          removeReview(Review review) throws IOException, ClassNotFoundException
     {
-      serverHandler.removeReview(review);
+      return serverHandler.removeReview(review);
     }
     
     /**

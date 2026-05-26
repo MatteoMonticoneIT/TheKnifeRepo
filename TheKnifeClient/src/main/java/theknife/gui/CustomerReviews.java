@@ -296,7 +296,8 @@ public final class CustomerReviews extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "You must select a review to edit!", "No review is selected!", JOptionPane.WARNING_MESSAGE);
         else 
         {
-            controller.removeReview(review);
+            Restaurant restaurant = controller.getRestaurants().getList().get(review.getRestaurantID() - 1);
+            restaurant.setRating(controller.removeReview(review));
             reviews.remove(review);
             updatePanelReviews();
         }

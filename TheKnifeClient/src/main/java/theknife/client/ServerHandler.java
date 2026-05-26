@@ -67,6 +67,7 @@ public class ServerHandler
     public ServerHandler() throws IOException 
     {
       this.socket = new Socket(serverAddress, serverPort);
+      aes = new AES(KEYSTORE_FILE);
     }
 
     /**
@@ -231,13 +232,15 @@ public class ServerHandler
     /**
      * Add a new {@link Review} inserted by a customer in the database
      * @param review the review to add
+     * @return updated restaurant rating
      * @throws IOException
      * @throws ClassNotFoundException 
      */
-    public void             addReview               (Review review)             throws IOException, ClassNotFoundException
+    public double             addReview               (Review review)             throws IOException, ClassNotFoundException
     {
       sendData("ADD_REVIEW");
       sendData(review);
+      return SocketUtils.receive(socket, Double.class);
     }
     
    /**
@@ -255,25 +258,29 @@ public class ServerHandler
     /**
      * Edit a {@link Review} inserted by a customer in the database
      * @param review the review to edit
+     * @return updated restaurant rating
      * @throws IOException
      * @throws ClassNotFoundException 
      */
-    public void             editReview              (Review review)             throws IOException, ClassNotFoundException
+    public double             editReview              (Review review)             throws IOException, ClassNotFoundException
     {
       sendData("EDIT_REVIEW");
       sendData(review);
+      return SocketUtils.receive(socket, Double.class);
     }
     
     /**
      * Removes a {@link Review} inserted by a customer in the database
      * @param review the review to remove
+     * @return updated restaurant rating
      * @throws IOException
      * @throws ClassNotFoundException 
      */
-    public void             removeReview            (Review review)                    throws IOException, ClassNotFoundException
+    public double             removeReview            (Review review)                    throws IOException, ClassNotFoundException
     {
       sendData("REMOVE_REVIEW");
       sendData(review);
+      return SocketUtils.receive(socket, Double.class);
     }
     
     /**
